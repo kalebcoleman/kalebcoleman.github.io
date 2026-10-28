@@ -64,6 +64,18 @@ class PortfolioRouteTests(unittest.TestCase):
                 self.assertTrue((PROJECT_ROOT / "static" / name).is_file())
         self.assertTrue((PROJECT_ROOT / "static" / "nau-capstone-poster.pdf").read_bytes().startswith(b"%PDF"))
 
+    def test_nba_modeling_project_links_render(self) -> None:
+        response = self.client.get("/projects")
+        self.assertEqual(response.status_code, 200)
+        for marker in (
+            b"Leakage-Aware NBA Win Modeling",
+            b"https://kalebcoleman.github.io/nba-modeling/",
+            b"https://kalebcoleman.github.io/nba-modeling/paper/paper.pdf",
+            b"https://github.com/kalebcoleman/nba-data",
+        ):
+            with self.subTest(marker=marker):
+                self.assertIn(marker, response.data)
+
     def test_curated_content_is_exposed(self) -> None:
         self.assertGreaterEqual(len(PROJECTS), 6)
         self.assertGreaterEqual(len(SKILLS), 5)

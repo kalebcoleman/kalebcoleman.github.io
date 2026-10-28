@@ -139,6 +139,29 @@ PROJECTS: list[dict[str, Any]] = [
         "featured": True,
     },
     {
+        "name": "Leakage-Aware NBA Win Modeling",
+        "repo_name": "nba-modeling",
+        "repo_url": "https://github.com/kalebcoleman/nba-modeling",
+        "links": [
+            {"label": "Project site", "url": "https://kalebcoleman.github.io/nba-modeling/"},
+            {"label": "Paper (PDF)", "url": "https://kalebcoleman.github.io/nba-modeling/paper/paper.pdf"},
+            {"label": "Data package", "url": "https://github.com/kalebcoleman/nba-data"},
+        ],
+        "summary": (
+            "Predicts NBA home wins using only information available before tip-off, with time-ordered "
+            "validation and a companion R package, nba-data, that collects and validates ESPN game data. "
+            "A scheduled job logs predictions for the current season before each game and scores them afterward."
+        ),
+        "stack": ["R", "targets", "renv", "xgboost", "SQLite", "GitHub Actions"],
+        "highlights": [
+            "Tests check the features directly: changing one game's result changes no feature for that game or any earlier game.",
+            "On the held-out 2025-26 season the best model picked 68.6% of games correctly, against 55.4% for always picking the home team. Elo ratings alone reach 67.9%, and the interval for the gain from adding rolling features includes zero.",
+            "Corrected evaluation problems in an earlier course version, including cross-validation that mixed seasons and a threshold tuned on the test season, and documented each change.",
+            "Live 2026-27 predictions are scored on the project site; with only a few games played, early accuracy is not yet a conclusion.",
+        ],
+        "featured": True,
+    },
+    {
         "name": "NAU Course Catalog Scraper",
         "repo_name": "nau-course-scraping",
         "repo_url": "https://github.com/kalebcoleman/nau-course-scraping",
