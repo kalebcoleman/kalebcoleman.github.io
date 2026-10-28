@@ -52,6 +52,9 @@
             <li>{{ item }}</li>
             {% endfor %}
         </ul>
+        {% if project.links %}
+        <p class="project-links" style="margin-top: 1rem">{% for link in project.links %}<a class="text-link" href="{{ link.url }}" target="_blank" rel="noopener noreferrer">{{ link.label }}</a>{% if not loop.last %} · {% endif %}{% endfor %}</p>
+        {% endif %}
     </article>
     {% endfor %}
 </section>
