@@ -29,7 +29,11 @@
     </figure>
     <p><a class="text-link" href="https://raw.githubusercontent.com/kalebcoleman/nau-capstone/main/analysis/nba/figures/nba_sdi_vs_actual_2014_2024.png" target="_blank" rel="noopener noreferrer">Open full-resolution graph to zoom</a></p>
     <p><strong>My work:</strong> Developed data preparation and validation workflows, shot-quality models, a Shot Difficulty Index, and visual comparisons of player performance. The team presented the capstone at NAU UGRADS.</p>
-    <p><a class="text-link" href="https://github.com/kalebcoleman/nau-capstone" target="_blank" rel="noopener noreferrer">Explore the capstone repository</a> · <a class="text-link" href="https://github.com/kalebcoleman/nau-capstone/blob/main/docs/final-poster-guide.md" target="_blank" rel="noopener noreferrer">View poster research and figures</a></p>
+    <figure style="margin: 1.5rem 0; max-width: 960px">
+        <a href="{{ url_for('static', filename='nau-capstone-poster.pdf') }}" target="_blank" rel="noopener noreferrer" aria-label="Open the capstone research poster as a PDF"><img src="{{ url_for('static', filename='images/nau-capstone-poster-preview.jpg') }}" alt="Research poster titled Cross-Sport Shot Analysis, with generalized additive model curves and shot difficulty scatterplots for the NBA and NHL" style="display:block;width:100%;height:auto;border-radius:12px"></a>
+        <figcaption>Research poster from the Department of Mathematics and Statistics at NAU, by Kanaan Law, Kaleb Coleman, and Drianna Walker.</figcaption>
+    </figure>
+    <p><a class="text-link" href="{{ url_for('static', filename='nau-capstone-poster.pdf') }}" target="_blank" rel="noopener noreferrer">Open the research poster (PDF)</a> · <a class="text-link" href="https://github.com/kalebcoleman/nau-capstone" target="_blank" rel="noopener noreferrer">Explore the capstone repository</a> · <a class="text-link" href="https://github.com/kalebcoleman/nau-capstone/blob/main/docs/final-poster-guide.md" target="_blank" rel="noopener noreferrer">View poster research and figures</a></p>
 </section>
 <section class="project-grid">
     {% for project in projects %}

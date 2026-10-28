@@ -54,6 +54,16 @@ class PortfolioRouteTests(unittest.TestCase):
                 self.assertEqual(response.status_code, 302)
                 self.assertTrue(response.headers["Location"].endswith(target))
 
+    def test_capstone_poster_is_linked_and_present(self) -> None:
+        response = self.client.get("/projects")
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(b"static/nau-capstone-poster.pdf", response.data)
+        self.assertIn(b"static/images/nau-capstone-poster-preview.jpg", response.data)
+        for name in ("nau-capstone-poster.pdf", "images/nau-capstone-poster-preview.jpg"):
+            with self.subTest(file=name):
+                self.assertTrue((PROJECT_ROOT / "static" / name).is_file())
+        self.assertTrue((PROJECT_ROOT / "static" / "nau-capstone-poster.pdf").read_bytes().startswith(b"%PDF"))
+
     def test_curated_content_is_exposed(self) -> None:
         self.assertGreaterEqual(len(PROJECTS), 6)
         self.assertGreaterEqual(len(SKILLS), 5)
