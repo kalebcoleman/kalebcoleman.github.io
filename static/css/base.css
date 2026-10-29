@@ -148,3 +148,21 @@ figcaption { color: var(--muted); font-size: .78rem; margin-top: .6rem; }
 @media (max-width: 650px) {
     .contact-card h2 { font-size: clamp(1rem, 4vw, 1.25rem); letter-spacing: -.02em; }
 }
+
+/* Research sections read as an editorial page, with the figures given the space. */
+#research.section-block.panel, #nau-capstone.section-block.panel {
+    background: transparent;
+    border: 0;
+    border-top: 1px solid var(--border);
+    border-radius: 0;
+    padding: 2.25rem 0 0;
+    gap: 1rem;
+}
+#research figure, #nau-capstone figure { margin: .5rem 0; }
+#research img, #nau-capstone img { border-radius: 0 !important; }
+#research .text-link, #nau-capstone .text-link { margin-top: 0; }
+#research figcaption, #nau-capstone figcaption { max-width: 65ch; line-height: 1.55; }
+@media (max-width: 650px) {
+    #research.section-block.panel, #nau-capstone.section-block.panel { padding-top: 1.5rem; }
+    #research figure, #nau-capstone figure { margin: .35rem 0; }
+}
