@@ -14,7 +14,7 @@ def build(output: Path, base: str):
     shutil.copytree(ROOT / 'static', output / 'static', dirs_exist_ok=True)
     def static_url(endpoint, **values):
         if endpoint == 'static':
-            return f"{base}/static/{values['filename']}"
+            return f"{base}/static/{values['filename']}" + (f"?v={values['v']}" if 'v' in values else '')
         if endpoint == 'resume':
             return f'{base}/static/resume.pdf'
         if endpoint in PAGES:
