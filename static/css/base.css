@@ -166,3 +166,7 @@ figcaption { color: var(--muted); font-size: .78rem; margin-top: .6rem; }
     #research.section-block.panel, #nau-capstone.section-block.panel { padding-top: 1.5rem; }
     #research figure, #nau-capstone figure { margin: .35rem 0; }
 }
+
+@media (min-width: 651px) {
+    .project-grid > .project-card-detailed:last-child:nth-child(odd) { grid-column: 1 / -1; }
+}
