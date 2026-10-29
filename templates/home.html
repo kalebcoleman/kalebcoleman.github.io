@@ -3,7 +3,7 @@
 {% block content %}
 <section class="hero">
     <div class="hero-copy">
-        <p class="eyebrow">Robotics · Control · Machine Learning</p>
+        <p class="eyebrow">Research & engineering portfolio <span> / 2026</span></p>
         <h1>{{ profile.name }}</h1>
         <p class="hero-headline">{{ profile.headline }}</p>
         <p class="hero-intro">{{ profile.intro }}</p>
@@ -20,8 +20,8 @@
     <aside class="hero-panel panel">
         <h2>Current focus</h2>
         <ul class="detail-list">
-            <li>Two-arm manipulation and coordinated motion in Isaac Sim</li>
-            <li>Quadrotor control and system identification in MuJoCo</li>
+            <li>UR5e digital twin and manipulation in Isaac Sim</li>
+            <li>System identification and sim-to-real transfer</li>
             <li>Deep learning, generative modeling, and GPU/HPC experiments</li>
             <li>Reproducible data engineering and simulation evidence</li>
         </ul>
@@ -38,6 +38,7 @@
     <div class="project-grid project-grid-featured">
         {% for project in featured_projects %}
         <article class="project-card">
+            {% if loop.first %}<a class="featured-image" href="{{ url_for('projects') }}#research"><img src="{{ url_for('static', filename='images/ur5e-workstation.png') }}" alt="Single UR5e robot and workstation in Isaac Sim"></a>{% elif loop.index == 3 %}<a class="featured-image" href="{{ url_for('projects') }}"><img src="{{ url_for('static', filename='images/nba_plots/nba-sdi-vs-actual-2014-2024.jpg') }}" alt="NBA shot difficulty and scoring analysis"></a>{% else %}<div class="featured-image featured-image-type" aria-hidden="true"><span>CONTROL<br>IN MOTION<span class="featured-index">02 / RESEARCH</span></span></div>{% endif %}
             <p class="project-kicker">{{ project.repo_name }}</p>
             <h3>{{ project.name }}</h3>
             <p>{{ project.summary }}</p>

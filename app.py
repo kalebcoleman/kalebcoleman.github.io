@@ -12,10 +12,8 @@ PROFILE: dict[str, str] = {
     "phone": "480-359-8122",
     "headline": "AI Engineering (Robotics) at ASU · Simulation, Control, and Machine Learning",
     "intro": (
-        "I am an M.S. AI Engineering (Robotics) student at ASU, doing research with the RISE Lab. My work connects machine learning, deep learning, data "
-        "engineering, robotics simulation, and control. I build "
-        "reproducible technical projects that move from raw data collection through "
-        "analysis, experimentation, and communication."
+        "I am an M.S. AI Engineering (Robotics) student at ASU and a researcher in the RISE Lab. "
+        "My current focus is a UR5e digital twin: building toward a simulation that can learn from real robot data and support manipulation controllers that transfer to hardware."
     ),
     "summary": (
         "My work is centered on applied ML, statistical modeling, autonomous decision systems, "
@@ -104,13 +102,22 @@ SKILLS: list[dict[str, Any]] = [
 
 PROJECTS: list[dict[str, Any]] = [
     {
+        "name": "Self-Calibrating UR5e Digital Twin",
+        "repo_name": "ur5e-digital-twin",
+        "repo_url": "https://github.com/kalebcoleman/ur5e-digital-twin",
+        "summary": "A single-arm UR5e and RG2 digital twin in Isaac Sim, with a long-term goal of using real robot data to improve simulation and transfer manipulation controllers to hardware.",
+        "stack": ["Isaac Sim", "Robotics", "System identification", "Sim-to-real"],
+        "highlights": ["Verified the single-arm workstation scene in Isaac Sim 5.1, including the UR5e, RG2 gripper, and Vention workstation.", "Next steps include repeatable scripted manipulation and simulation characterization; physical calibration and hardware validation remain future work.", "Research direction: compare simulation predictions with real observations, recalibrate the twin, and investigate planning and learned controllers."],
+        "featured": True,
+    },
+    {
         "name": "Two-Arm Manipulation in Isaac Sim",
         "repo_name": "rise-two-arm-research",
         "repo_url": "https://github.com/kalebcoleman/rise-two-arm-research",
-        "summary": "RISE Lab research on two opposing UR5e arms with RG2 grippers manipulating a shared bar in NVIDIA Isaac Sim 5.1. Includes a reproducible motion demonstration and documented experimental evidence.",
+        "summary": "Earlier RISE Lab simulation work coordinating two UR5e arms and RG2 grippers around a shared bar. This project provided a foundation for the single-arm digital twin research.",
         "stack": ["Python", "NVIDIA Isaac Sim", "USD", "Inverse kinematics"],
-        "highlights": ["Added collision validation, joint-frame corrections, object-space goals, and per-arm inverse kinematics.", "The accepted 26-second simulation recorded four-finger contact at every measured sample, zero unexpected collisions, and maximum position tracking error of 2.02 mm.", "Documented load and speed experiments, failure cases, and reconstruction instructions. Physical calibration remains future work."],
-        "featured": True,
+        "highlights": ["Added collision validation, joint-frame corrections, object-space goals, and per-arm inverse kinematics.", "A 26-second simulation recorded four-finger contact at every measured sample, no unexpected collisions, and 0.135 mm maximum slip.", "The two-arm work remains a simulation benchmark; it has not been validated on physical hardware."],
+        "featured": False,
     },
     {
         "name": "Energy-Aware Quadrotor Control",
@@ -254,7 +261,7 @@ EXPERIENCE: list[dict[str, str]] = [
 ]
 
 RESEARCH_ITEMS = [
-    {"title": "Two-arm manipulation in NVIDIA Isaac Sim", "summary": "RISE Lab simulation research with opposing UR5e arms and RG2 grippers holding a shared bar. Work includes collision validation, joint-frame corrections, inverse kinematics, and coordinated-motion experiments. The current model is a simulation; physical digital-twin calibration is ongoing."},
+    {"title": "Self-calibrating UR5e digital twin", "summary": "Developing a single-arm UR5e simulation in Isaac Sim toward a real-to-sim-to-real research loop. The workstation scene is verified in simulation; physical calibration, controller transfer, and hardware validation are future work."},
     {"title": "Energy-aware prescribed-time quadrotor control", "summary": "Collaborating with John Lok on an S500-based MuJoCo test bench, studying tracking deadlines, motor lag, drag, wind estimation, and system identification. Results are simulation-based; hardware validation remains future work."},
 ]
 AWARDS = [{"title": "Best Visualization — NAU ASA DataFest 2026", "summary": "Built models, engineered features, and visualized early signals of high healthcare utilization with a team during the 48-hour competition. The award included a one-year American Statistical Association membership."}]

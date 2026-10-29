@@ -11,13 +11,14 @@
 </section>
 
 <section class="section-block panel" id="research">
-    <p class="eyebrow">RISE Lab · Simulation research</p>
-    <h2>Coordinating two robotic arms around a shared object</h2>
-    <figure><img src="{{ url_for('static', filename='images/two-arm-simulation.png') }}" alt="Isaac Sim replay showing two robotic arms holding a shared bar" style="width:100%;max-width:720px;height:auto;border-radius:12px"><figcaption>Two-arm coordinated-motion simulation in Isaac Sim.</figcaption></figure>
-    <p><strong>Challenge:</strong> Coordinate two opposing UR5e arms and RG2 grippers while preserving a stable shared grasp.</p>
-    <p><strong>My role:</strong> Built and refined the Isaac Sim setup, corrected joint frames, added collision checks, and implemented object-space goals with per-arm inverse kinematics.</p>
-    <p><strong>Outcome:</strong> In one 26-second simulation run, all measured samples retained four-finger contact, with no unexpected collisions and 0.135 mm maximum slip. These are simulation results; physical calibration remains in progress.</p>
-    <p><a class="text-link" href="https://github.com/kalebcoleman/rise-two-arm-research/blob/main/docs/VALIDATION.md">View experimental evidence</a> · <a class="text-link" href="https://github.com/kalebcoleman/rise-two-arm-research">Explore the research and demonstration</a></p>
+    <p class="eyebrow">RISE Lab · Current research</p>
+    <h2>A self-calibrating digital twin for UR5e manipulation</h2>
+    <p>The goal is a real-to-sim-to-real loop: use observations from a physical UR5e to improve its simulated twin, then use that twin to plan or train manipulation controllers for the real robot.</p>
+    <figure><img src="{{ url_for('static', filename='images/ur5e-workstation.png') }}" alt="Single UR5e and RG2 gripper on a simulated workstation in Isaac Sim" style="display:block;width:100%;max-width:960px;height:auto"><figcaption>The single-arm UR5e workstation scene in Isaac Sim 5.1.</figcaption></figure>
+    <p><strong>Current progress:</strong> The single-arm workstation scene has been built and verified in simulation. The next milestones are repeatable scripted manipulation and characterization of the simulated arm.</p>
+    <p><strong>Research direction:</strong> Calibrate the twin against real observations, investigate online adaptation, and explore model predictive control, imitation learning, and reinforcement learning for manipulation.</p>
+    <p><strong>Status:</strong> Physical calibration, controller transfer, and real-robot validation are future work. The earlier two-arm simulation established experience with coordinated manipulation and remains a benchmark.</p>
+    <p><a class="text-link" href="https://github.com/kalebcoleman/ur5e-digital-twin" target="_blank" rel="noopener noreferrer">Explore the digital twin repository</a> · <a class="text-link" href="https://github.com/kalebcoleman/rise-two-arm-research" target="_blank" rel="noopener noreferrer">View earlier two-arm work</a></p>
 </section>
 <section class="section-block panel" id="nau-capstone">
     <p class="eyebrow">NAU undergraduate capstone · UGRADS</p>
@@ -57,7 +58,7 @@
             {% endfor %}
         </ul>
         {% if project.links %}
-        <p class="project-links" style="margin-top: 1rem">{% for link in project.links %}<a class="text-link" href="{{ link.url }}" target="_blank" rel="noopener noreferrer">{{ link.label }}</a>{% if not loop.last %} · {% endif %}{% endfor %}</p>
+        <p class="project-links">{% for link in project.links %}<a class="text-link" href="{{ link.url }}" target="_blank" rel="noopener noreferrer">{{ link.label }}</a>{% if not loop.last %} · {% endif %}{% endfor %}</p>
         {% endif %}
     </article>
     {% endfor %}
