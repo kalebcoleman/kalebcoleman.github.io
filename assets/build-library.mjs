@@ -1,3 +1,5 @@
+import { mountCloudLibrary } from './cloud-ui.mjs';
+
 const STORAGE_KEY = 'fb_build_library_v1';
 
 function element(tag, text, className) {
@@ -71,4 +73,5 @@ export function mountBuildLibrary(root, { getCode, loadCode }) {
     finally { upload.value = ''; }
   });
   render();
+  mountCloudLibrary(root, { getCode, loadCode });
 }
