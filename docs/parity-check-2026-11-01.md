@@ -68,7 +68,7 @@ The reference's client confirms these gates: Mid unlocks Optimize, badge-token/F
 - The builder now opens with a complete 99-overall example build instead of 25-across defaults, and its overall display uses the recovered approximation rather than the unrecovered WASM slot index, so a build loaded from the finder shows the same 99 overall as the reference result.
 - Navigation now points “Find a build” at `/finder/`, “Jumpshot Lab” at `/jumpshot-lab/`, and adds “Builds” across the site.
 
-Remaining differences are mainly the partial full Fuse planner (candidate pairs are shown, not a complete slot plan), the partial Mechanics Lab detail pages for gameplay and boosts, the removed Community/Locker/League/radio surfaces. The home page now embeds the finder above the tool directory, on the same first-screen pattern as the reference.
+Remaining differences are mainly the depth of the Mechanics Lab gameplay/boost copy (detail panels now show badge tier requirements), the removed Community/Locker/League/radio surfaces, and the target-search latency of the recovered finder. The home page now embeds the finder above the tool directory, on the same first-screen pattern as the reference.
 
 ### Premium-solver follow-up
 
@@ -80,6 +80,6 @@ Remaining differences are mainly the partial full Fuse planner (candidate pairs 
 ### Finder and deployment follow-up
 
 - Finder height is now passed into the reference worker before it selects its top results. Previously it filtered the top results afterward, which could hide valid builds at the selected height.
-- A cap-breaker row now opens the current finder with its position, height, target and breaker budget filled in. Result cards distinguish base ratings from ratings after breakers and show badges after those breakers. The builder link still imports the base allocation only; the breaker plan must be applied separately.
+- A cap-breaker row now opens the current finder with its position, height, target and breaker budget filled in. Result cards distinguish base ratings from ratings after breakers and show badges after those breakers. **Build this row** rebuilds a legal row at the requested landing through `fitTargets`, stores the breaker level, and names the imported plan; **Find builds** still opens the base allocation only.
 - The finder controls render while the result-display data loads, and the cap-breaker table repeats a query when its controls change during a pending request.
 - A GitHub Actions workflow runs the Node test suite on pushes and pull requests. The existing GitHub Pages branch deployment remains separate from this test workflow.

@@ -129,6 +129,98 @@ At 390 × 844, the document had no horizontal overflow on `/builder/`, `/finder/
 `/face-scan/` and `/jumpshot-lab/`. The nav is an intentional horizontal scroller. The only
 undersized interactive controls found were in the recovered Jumpshot Lab.
 
+## Post-fix verification — 91955f4
+
+Verified by the builder thread against `main` at `91955f4` on the local static server, using
+headless Chromium 140 at 1280 px and 390 px. The historical matrix above is the earlier
+`b37abd0` audit; this section is the post-fix state.
+
+### P0 — builder Find builds
+
+- **Root cause:** the builder called the local worker `find` handler. It returned 12 rows whose
+  allocations were over the 99 wall while labelling them overall 99 (`ratingOf` up to 116.78),
+  so `filterSolverResults` correctly dropped every row.
+- **Fix:** `assets/builder-finder.mjs` maps the builder controls to the recovered reference
+  finder worker and validates every returned row through `filterSolverResults`. The builder
+  searches legal base allocations (`caps: 0`); cap-breaker plans stay in the cap-breaker planner.
+- **No targets:** 12 rows in ~4.3–4.7 s; first row C 79" / 263 lb / 79", true 98.9,
+  raw 98.9926 / 99. Status: `12 result(s) · recovered reference finder`.
+- **Three-Point 60:** 12 rows in ~25.8 s; 12/12 meet the target; 0 breakers; all raw < 99.
+- **Three-Point 78 + Pass Accuracy 90 + Ball Handle 90:** 12 rows in ~22.3 s; 12/12 meet all
+  three targets; 0 breakers; all raw < 99. The table title now prints six decimals so a value
+  such as 98.99996 is not mistaken for 99.0000.
+- **Load:** applies the validated base allocation and re-checks the wall. Target-search latency
+  is the main remaining cost (roughly 22–26 s); no-target searches are ~4.5 s.
+
+### Fuse planner
+
+The candidate list was replaced by `assets/fuse-planner.mjs`, mounted in the builder:
+
+- **Best fit / My picks** toggle. Best fit uses the recovered `tierCost`, `tokensAt`,
+  `maxTierOf`, `slotCaps` and `effectiveFuse` rules to choose tiers inside the token pools and
+  group caps, then picks the best fuse assignment. My picks exposes manual slots and tier pins.
+- **0–9 fuse slots** and **0–6 +2 slots**, per-slot badge and reaction selectors, resulting tier
+  (`Silver → HOF` etc.), gain, and `0` token cost for fused badges.
+- **Tier pins** for every badge that can earn a tier, **flex tokens per group**, and editable
+  **group caps**.
+- Summary: `30 badge tiers · 8 fuse slots · 21 / 50 tokens` on the default build; the group table
+  shows pool, flex, budget, spent and over/full/ok status.
+- Honesty note kept: the in-game Fuse result table is the final authority.
+- Desktop and 390 px: no console errors, no horizontal overflow; slots, +2 slots, pins and flex
+  changes were exercised in the browser test.
+
+### Tokens tab
+
+`/badges/` now has a fourth **Tokens** tab with 212 badge-tier rows (53 badges × 4 tiers) and a
+**Tokens** column in the **Badge plan** table. It loads `lab-engine.js` on demand for
+`GBLE.tierCost`; the builder's **Next badges** list also populates on first render.
+
+### Direct cap-breaker row build
+
+`/cap-breakers/` rows now offer **Build this row** alongside **Find builds**. The row handoff
+(`assets/cap-breaker-row.mjs`) rebuilds the row through `fitTargets` and the validated builder
+path. The known row was exercised end to end:
+
+- PG 5'9", Driving Dunk 28 → 77, 5 cap breakers.
+- Result: Driving Dunk 77, Overall 92 · true 92.2 · raw 92.2982 / 99 (legal, under the wall).
+- The attributes panel note names the row and the breaker plan; `fb.lbrk` stores `5`.
+- Desktop and 390 px: no errors, no overflow.
+
+### Visual workspace
+
+The builder now uses a two-column workspace: sticky compact sidebar (Body, Import, Build actions,
+Build name, Badges) and a dense attributes panel. It adds:
+
+- Dark navy header and cream builder surface in light mode; theme-aware dark surface.
+- Segmented PG/SG/SF/PF/C control and body sliders with exact values.
+- 34 px control height, 6 px range tracks with ticks, 16 px thumbs, and per-row `max` hints.
+- Per-row `−`/`+` steppers, grouped category colors and a compact group legend.
+- Compact screenshot import below Body with one privacy sentence; tier legend moved to the
+  builder badge panel.
+- The primary action is Fill to 99; solver actions are secondary.
+
+Screenshots: `/tmp/desktop-light-builder-v2.png`, `/tmp/desktop-dark-builder-v2.png`,
+`/tmp/mobile-builder-top-v3.png`.
+
+### Mechanics Lab and other P2
+
+- Mechanics Lab cards now open a detail panel with kind/category, height range, requirements,
+  summary and all four badge tier requirements (e.g. Aerial Wizard). Back to results closes it.
+- Screenshot review prints `6'3"` / `6'9"` instead of raw inches. A rejected Apply highlights the
+  offending attribute and names it (e.g. `Standing Dunk is the likely blocker`).
+- Animation and shade empty states no longer say "press Load to use the first one" when there is
+  no result.
+- Jumpshot Lab cue buttons and the Calibrate button are 44 px tall at 390 px; timing math is
+  unchanged.
+- GOAT/GOATED cards explain that a fitted build's overall can be one point below the card header.
+
+### Verification
+
+- `node --test tests/*.mjs`: **98/98 pass**.
+- Browser tests pass: badges (including Tokens), screenshot import/rejection, builder controls,
+  builder finder, cap-breaker row, Fuse planner, Mechanics detail.
+- 390 px: no horizontal overflow on builder, cap-breakers, badges, mechanics, jumpshot-lab.
+
 ## Not tested
 
 - Real 2K HQ / bar-screen / Attribute Editor screenshots (the user offered to supply them).
