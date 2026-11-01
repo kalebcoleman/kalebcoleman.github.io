@@ -1,0 +1,17 @@
+{
+  "name": "fb-engine",
+  "type": "module",
+  "description": "Free Builder rebuild engine: caps/ladders, badges, cap-breakers, finder, archetypes/shades, share codec, OCR/card. 100% static, free, no backend.",
+  "version": "0.2.0",
+  "license": "UNLICENSED",
+  "files": [
+    "fb_engine_core_bg.wasm",
+    "fb_engine_core.js",
+    "fb_engine_core.d.ts"
+  ],
+  "main": "fb_engine_core.js",
+  "types": "fb_engine_core.d.ts",
+  "sideEffects": [
+    "./snippets/*"
+  ]
+}

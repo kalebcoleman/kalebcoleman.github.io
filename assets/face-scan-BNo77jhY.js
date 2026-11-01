@@ -1,0 +1,1 @@
+import"./preload-helper-CFijIu3R.js";/* empty css             */import{t as e}from"./shell-DuKJJrzf.js";e(`face-scan`);

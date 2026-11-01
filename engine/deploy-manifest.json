@@ -1,0 +1,41 @@
+{
+  "kind": "fb-engine-deploy",
+  "source": "engine/pkg+engine/seam",
+  "files": {
+    "fb_engine.js": {
+      "bytes": 6933,
+      "gzip": 2845,
+      "sha256": "0a699857846e7c6cfae8095b80193276b144460882c2b4b2ff4b069ed0d886dd"
+    },
+    "fb_engine.d.ts": {
+      "bytes": 2212,
+      "gzip": 959,
+      "sha256": "b6598fa85c4f3734de9dc1078aca01a96417cca0cf0ce023d65858b304631520"
+    },
+    "fb_engine_core.js": {
+      "bytes": 54755,
+      "gzip": 7489,
+      "sha256": "d5d686402a998e60a80962a452a8aeb22ed2eac780d6703862765bd3952c728e"
+    },
+    "fb_engine_core.d.ts": {
+      "bytes": 17445,
+      "gzip": 4450,
+      "sha256": "7b9fb8f976e905d83da9770593273500e95bc16ef0f9e3e6b04d03614c85bbb7"
+    },
+    "fb_engine_core_bg.wasm": {
+      "bytes": 1163922,
+      "gzip": 373331,
+      "sha256": "333b0baa792ad8137fe61bb5eb0662f20e8038329f7455751ef83f09d63a7bb6"
+    },
+    "fb_engine_core_bg.wasm.d.ts": {
+      "bytes": 5546,
+      "gzip": 853,
+      "sha256": "29ab3edd791a901e2c145522e67ec138a5b65cb4addbe4ffb940ee6a77e4e1ee"
+    },
+    "package.json": {
+      "bytes": 468,
+      "gzip": 286,
+      "sha256": "4a853a6d8b3851f34cbac1c90a635d8083c05b0a83ee82e80aa75e7ffa8551ce"
+    }
+  }
+}
