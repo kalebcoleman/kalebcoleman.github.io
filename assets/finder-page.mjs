@@ -79,6 +79,8 @@ async function init() {
   let searching = false;
   let activePreset = null;
   let lastResults = [];
+  let sortMode = 'overall';
+  const compareKeys = new Set();
 
   const positionButtons = POSITIONS.map((name, index) => {
     const button = el('button', { class: 'btn', type: 'button', text: name, 'aria-pressed': 'false' });
@@ -204,6 +206,73 @@ async function init() {
 
   root.replaceChildren(el('div', { class: 'finder-layout' }, [controls, el('div', { class: 'finder-results' }, [results])]));
 
+
+function rowKey(row) {
+  return `${row.pos}|${(row.body ?? []).join('.')}|${(row.alloc ?? []).join('.')}`;
+}
+
+function rowAlloc(row) {
+  return Array.isArray(row.after) && row.after.length === row.alloc?.length ? row.after : (row.alloc ?? []);
+}
+
+function rowTrue(row, kernel) {
+  const alloc = rowAlloc(row);
+  const body = row.body ?? [75, 185, 80];
+  if (window.GBLE?.trueOvr) return window.GBLE.trueOvr(alloc, body[0] - 63);
+  return kernel.overallApprox(alloc, kernel.W(body[0], body[1], body[2]));
+}
+
+function rowOverall(row, kernel) {
+  const alloc = rowAlloc(row);
+  const body = row.body ?? [75, 185, 80];
+  const ceilings = kernel.W(body[0], body[1], body[2]);
+  return window.GBLE?.overallOf ? Math.min(99, window.GBLE.overallOf(alloc, body[0] - 63, ceilings)) : Math.round(rowTrue(row, kernel));
+}
+
+function rowBadgeCount(row, kernel) {
+  const alloc = rowAlloc(row);
+  return kernel.env.badges.badges.reduce((count, badge) => count + (badgeTier(badge, alloc) ? 1 : 0), 0);
+}
+
+function sortRows(rows, kernel) {
+  return [...rows].sort((a, b) => {
+    if (sortMode === 'true') return rowTrue(b, kernel) - rowTrue(a, kernel);
+    if (sortMode === 'points') return Number(b.points ?? 0) - Number(a.points ?? 0);
+    if (sortMode === 'badges') return rowBadgeCount(b, kernel) - rowBadgeCount(a, kernel);
+    return Number(b.ovr ?? 0) - Number(a.ovr ?? 0);
+  });
+}
+
+function buildName(row, descName) {
+  try {
+    return descName?.describe?.(row.alloc ?? [], row.pos) || `Build ${row.pos + 1}`;
+  } catch {
+    return `Build ${row.pos + 1}`;
+  }
+}
+
+function comparePanel(rows, kernel, descName) {
+  const selected = rows.filter(row => compareKeys.has(rowKey(row)));
+  if (selected.length < 2) return null;
+  const names = selected.map((row, index) => `${buildName(row, descName) || `Build ${index + 1}`} · ${POSITIONS[row.pos] ?? '—'} ${feetInches(row.body?.[0])}`);
+  const head = el('tr', {}, [el('th', { text: 'Attribute' }), ...names.map(name => el('th', { text: name }))]);
+  const body = ATTRIBUTES.map((label, index) => el('tr', {}, [
+    el('td', { text: label }),
+    ...selected.map(row => el('td', { text: String(rowAlloc(row)[index] ?? '') })),
+  ]));
+  const overall = el('tr', {}, [
+    el('td', { text: 'Overall' }),
+    ...selected.map(row => el('td', { text: String(rowOverall(row, kernel)) })),
+  ]);
+  const clear = el('button', { class: 'btn', type: 'button', text: 'Clear compare' });
+  clear.addEventListener('click', () => { compareKeys.clear(); renderResults(lastResults); });
+  return el('section', { class: 'panel compare-panel' }, [
+    el('div', { class: 'compare-head' }, [el('h2', { text: `Compare ${selected.length} builds` }), clear]),
+    el('p', { class: 'compare-note', text: 'Attributes are the base allocation; cap-breaker values remain on the cards.' }),
+    el('div', { class: 'tbl-wrap' }, [el('table', { class: 'tbl' }, [el('thead', {}, [head]), el('tbody', {}, [...body, overall])])]),
+  ]);
+}
+
   async function renderResults(rows) {
     if (!rows.length) {
       results.replaceChildren(el('p', { class: 'muted', text: 'No build matched those targets. Lower a target or add cap breakers.' }));
@@ -211,8 +280,9 @@ async function init() {
     }
     const [kernel, descName] = await resultData;
     const tierNames = kernel.env.badges.tiers ?? TIER_FALLBACK;
+    const sorted = sortRows(rows, kernel);
     const cards = [];
-    for (const [index, row] of rows.entries()) {
+    for (const [index, row] of sorted.entries()) {
       const alloc = Array.isArray(row.alloc) ? row.alloc : [];
       const after = Array.isArray(row.after) && row.after.length === alloc.length ? row.after : alloc;
       const ceilings = kernel.W(row.body?.[0] ?? 75, row.body?.[1] ?? 185, row.body?.[2] ?? 80);
@@ -225,21 +295,25 @@ async function init() {
         const tier = badgeTier(badge, after);
         if (tier) badgeList.push({ name: badge[0], tier });
       }
-      let name = '';
-      try {
-        name = descName?.describe ? descName.describe(alloc, row.pos) : '';
-      } catch {
-        name = '';
-      }
-      if (!name) {
-        try {
-          const named = await bridge.name({ alloc: [...alloc], pos: row.pos, order: [] });
-          name = named?.res?.[0]?.name ?? '';
-        } catch {
-          name = '';
+      const name = buildName(row, descName);
+      const key = rowKey(row);
+      const checkbox = el('input', { type: 'checkbox', 'aria-label': `Compare ${name}` });
+      checkbox.checked = compareKeys.has(key);
+      checkbox.addEventListener('change', () => {
+        if (checkbox.checked) {
+          if (compareKeys.size >= 4) {
+            checkbox.checked = false;
+            status.textContent = 'Compare holds up to 4 builds at a time.';
+            return;
+          }
+          compareKeys.add(key);
+        } else {
+          compareKeys.delete(key);
         }
-      }
+        renderResults(lastResults);
+      });
       const card = el('article', { class: 'build-card' }, [
+        el('label', { class: 'compare-check' }, [checkbox, 'Compare']),
         el('div', { class: 'build-ovr' }, [el('span', { text: 'OVERALL' }), el('strong', { text: String(ovr) })]),
         el('div', { class: 'build-main' }, [
           el('p', { class: 'muted build-kicker', text: index === 0 ? 'BEST BUILD' : `BUILD ${index + 1}` }),
@@ -260,7 +334,20 @@ async function init() {
       ]);
       cards.push(card);
     }
-    results.replaceChildren(...cards);
+    const sort = el('select', { class: 'sel', 'aria-label': 'Sort results' }, [
+      el('option', { value: 'overall', text: 'Best overall' }),
+      el('option', { value: 'true', text: 'Highest true overall' }),
+      el('option', { value: 'points', text: 'Most free points' }),
+      el('option', { value: 'badges', text: 'Most badges' }),
+    ]);
+    sort.value = sortMode;
+    sort.addEventListener('change', () => { sortMode = sort.value; renderResults(lastResults); });
+    const compare = comparePanel(sorted, kernel, descName);
+    const bar = el('div', { class: 'panel finder-result-bar' }, [
+      el('label', { class: 'lbl' }, ['Sort', sort]),
+      el('span', { class: 'muted', text: `${compareKeys.size} selected to compare` }),
+    ]);
+    results.replaceChildren(bar, ...(compare ? [compare] : []), ...cards);
   }
 
   async function search() {
@@ -270,6 +357,7 @@ async function init() {
     status.className = 'muted';
     status.textContent = 'Searching the recovered finder…';
     results.replaceChildren();
+    compareKeys.clear();
     const targetMap = {};
     for (const { name, input } of targets) {
       const value = Math.max(0, Math.min(99, Number(input.value) || 0));

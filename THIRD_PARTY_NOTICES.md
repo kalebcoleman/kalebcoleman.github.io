@@ -9,7 +9,7 @@ The current static distribution includes or references the following materials. 
 - MediaPipe vision assets and face-landmark model in `face-scan/`.
 - Three.js-based rendering assets and 3D models in `assets/`, `face-scan/`, and `locker/`.
 - Music metadata in `radio/tracks.json`, which identifies its listed artist and CC0 source collections.
-- Recovered Goated Build Lab public client assets used for parity: `assets/lab-engine.js`, `assets/lab.js`, `assets/lab.css`, `assets/reference-finder-worker.js`, the recovered reference build data, and the `j3d/` player/ball models and animation clips. These are the reference site owner's shipped materials; the project licence does not relicense them.
+- Recovered Goated Build Lab public client assets used for parity: `assets/lab-engine.js`, `assets/lab.js`, `assets/lab.css`, `assets/reference-finder-worker.js`, the recovered reference build data, `data/highest-overalls.json`, the `face-scan/tool.html` / `face-scan/cyber_core.js` / `face-scan/find.js` photo-to-head tool, and the `j3d/` player/ball models and animation clips. These are the reference site owner's shipped materials; the project licence does not relicense them.
 - NBA and NBA 2K names, trademarks and game-related data.
 
 Do not remove applicable upstream notices when updating or redistributing these files.

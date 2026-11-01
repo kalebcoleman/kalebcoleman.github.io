@@ -1,0 +1,36 @@
+.finder-result-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: var(--gap);
+}
+.finder-result-bar .lbl { min-width: 0; }
+.finder-result-bar .sel { height: 32px; }
+.compare-check {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 8px;
+  color: var(--fg-muted);
+  font-size: 12px;
+  cursor: pointer;
+}
+.compare-check input { accent-color: var(--accent); }
+.compare-panel { overflow-x: auto; }
+.compare-panel table { min-width: 520px; }
+.compare-panel th:first-child, .compare-panel td:first-child {
+  position: sticky;
+  left: 0;
+  background: var(--panel);
+}
+.compare-panel .compare-head {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: baseline;
+  justify-content: space-between;
+}
+.compare-panel .compare-head h2 { margin: 0; }
+.compare-panel .compare-note { color: var(--fg-muted); font-size: 12px; margin: 4px 0 8px; }
