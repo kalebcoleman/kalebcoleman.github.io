@@ -230,8 +230,11 @@ at 390 it is a single horizontal scroller.
 - **Undo/Redo + history** (`assets/builder-history.mjs`) snapshots the builder's own share codes
   locally, supports Ctrl/Cmd+Z and Shift+Ctrl+Z, lists recent edits with Restore, and stores
   named versions in `fb.versions.v1`. It never uploads anything.
-- Browser test: reset → Diagnose → Apply → Undo → Plan to target → Apply plan → named version,
-  at 1280 and 390, with no console errors or overflow.
+- **Saved searches** (`assets/builder-saved-searches.mjs`) stores target sets, any-position and
+  position in `fb.searches.v1`; Load/Run reuse them, and Copy link creates a `?find=` URL that
+  pre-fills the same controls. The shared link was verified at 390.
+- Browser tests: reset → Diagnose → Apply → Undo → Plan to target → Apply plan → named version,
+  and save → load → run → shared link, at 1280 and 390, with no console errors or overflow.
 - `node --test tests/*.mjs`: **102/102 pass** (adds Build Doctor unit tests).
 
 ### Mechanics Lab and other P2
@@ -250,7 +253,7 @@ at 390 it is a single horizontal scroller.
 
 - `node --test tests/*.mjs`: **98/98 pass**.
 - Browser tests pass: badges (including Tokens), screenshot import/rejection, builder controls,
-  builder finder, cap-breaker row, Fuse planner, Mechanics detail, Build Doctor/history.
+  builder finder, cap-breaker row, Fuse planner, Mechanics detail, Build Doctor/history, saved searches.
 - 390 px: no horizontal overflow on builder, cap-breakers, badges, mechanics, jumpshot-lab.
 
 ## Not tested

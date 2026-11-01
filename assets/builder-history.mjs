@@ -202,7 +202,8 @@ export function mountBuilderHistory(root) {
 
   window.__fbUndo = undoLast;
   window.__fbRedo = redoLast;
-  window.setTimeout(() => snapshot('Initial'), 800);
+  snapshot('Initial');
+  requestAnimationFrame(() => snapshot('Initial'));
   render();
   return { render, snapshot };
 }
