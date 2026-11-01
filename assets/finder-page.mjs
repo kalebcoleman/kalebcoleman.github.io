@@ -133,7 +133,12 @@ async function init() {
   }));
 
   const status = el('p', { class: 'muted', role: 'status', 'aria-live': 'polite', text: 'Pick a preset or set exact targets, then press Find builds.' });
-  const results = el('div', { class: 'build-results' });
+  const results = el('div', { class: 'build-results' }, [
+    el('div', { class: 'panel' }, [
+      el('h2', { text: 'What you are searching for' }),
+      el('p', { class: 'muted', text: 'Pick a preset or set exact targets, then press Find builds. The recovered finder treats every number as a minimum.' }),
+    ]),
+  ]);
   const findButton = el('button', { class: 'btn primary', type: 'button', text: 'Find builds' });
   const clearButton = el('button', { class: 'btn', type: 'button', text: 'Clear targets' });
   clearButton.addEventListener('click', () => {
