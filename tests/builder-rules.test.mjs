@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
-import { editAttribute, fitBuild, prepareBuild } from '../assets/builder-rules.mjs';
+import { editAttribute, filterSolverResults, fitBuild, prepareBuild } from '../assets/builder-rules.mjs';
 import { loadRules } from './helpers/reference-rules.mjs';
 
 const { engine, kernel } = await loadRules();
@@ -96,4 +96,19 @@ test('optimizer returns an editable build within the 99 wall', { timeout: 30000 
   const checked = prepareBuild({ ...base, alloc: answer.alloc }, kernel, engine);
   assert.equal(checked.ok, true, checked.message);
   assert.ok(checked.overall < 99);
+});
+
+
+test('solver results must be legal and preserve badge tiers before they are shown', () => {
+  kernel.env.badges = { badges: [['Test badge', [[[6, 30]], [[6, 50]], [[6, 70]], [[6, 90]]], 0]] };
+  const empty = prepareBuild({ ...example, alloc: Array(21).fill(25) }, kernel, engine).build;
+  const base = editAttribute(empty, 6, 70, kernel, engine).build;
+  const gain = editAttribute(base, 6, 90, kernel, engine);
+  assert.equal(gain.ok, true);
+  assert.equal(gain.build.alloc[6], 90);
+  const row = build => ({ pos: build.p, body: [build.h, build.w, build.s], alloc: build.alloc });
+  const impossible = { ...row(base), alloc: kernel.W(base.h, base.w, base.s) };
+  const candidates = filterSolverResults([row(base), impossible, row(gain.build)], base, kernel, engine, { preserveBadges: true, sameFrame: true, requireGain: true });
+  assert.equal(candidates.length, 1);
+  assert.deepEqual(candidates[0].alloc, gain.build.alloc);
 });

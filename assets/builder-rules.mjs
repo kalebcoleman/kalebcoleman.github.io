@@ -114,3 +114,33 @@ export function loadBuildRules() {
     document.head.append(script);
   });
 }
+
+function badgeTier(badge, alloc) {
+  for (let tier = 4; tier >= 1; tier--) {
+    const requirements = badge[1]?.[tier - 1] ?? [];
+    if (!requirements.length) continue;
+    const matches = ([index, value]) => (alloc[index] ?? 0) >= value;
+    if ((badge[2] || requirements.length === 1) ? requirements.some(matches) : requirements.every(matches)) return tier;
+  }
+  return 0;
+}
+
+// Finder and solver results are untrusted until their complete build has been
+// checked. For min-max, also check the badge promise against the actual result.
+export function filterSolverResults(rows, current, kernel, engine, { preserveBadges = false, sameFrame = false, requireGain = false } = {}) {
+  const badges = kernel.env.badges?.badges ?? [];
+  const originalTiers = preserveBadges ? badges.map(badge => badgeTier(badge, current.alloc)) : [];
+  return (Array.isArray(rows) ? rows : []).filter(row => {
+    if (!Array.isArray(row?.body) || !Array.isArray(row.alloc)) return false;
+    if (sameFrame && (row.pos !== current.p || row.body[0] !== current.h || row.body[1] !== current.w || row.body[2] !== current.s)) return false;
+    const checked = prepareBuild({ p: row.pos, h: row.body[0], w: row.body[1], s: row.body[2], alloc: row.alloc }, kernel, engine);
+    if (!checked.ok || checked.adjusted) return false;
+    if (current.lock?.some((locked, i) => locked && row.alloc[i] !== current.alloc[i])) return false;
+    if (preserveBadges) {
+      const tiers = badges.map(badge => badgeTier(badge, row.alloc));
+      if (tiers.some((tier, i) => tier < originalTiers[i])) return false;
+      if (requireGain && !tiers.some((tier, i) => tier > originalTiers[i])) return false;
+    }
+    return true;
+  });
+}
