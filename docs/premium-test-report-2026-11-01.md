@@ -129,11 +129,12 @@ At 390 × 844, the document had no horizontal overflow on `/builder/`, `/finder/
 `/face-scan/` and `/jumpshot-lab/`. The nav is an intentional horizontal scroller. The only
 undersized interactive controls found were in the recovered Jumpshot Lab.
 
-## Post-fix verification — 5213404
+## Post-fix verification — 81f7bc8
 
 Feature commits `91955f4` (finder/Fuse/visual), `d372a75` (Build Doctor/Undo), `829136d`
-(saved searches), `5db21e9` (44×44/cap wording) and `5213404` (touch stability, mobile DOM
-order, batching and unreachable badge targets). Verified by the builder thread against `main` on the local static server, using
+(saved searches), `5db21e9` (44×44/cap wording), `5213404` (touch stability, mobile DOM
+order, batching and unreachable badge targets) and `81f7bc8` (vertical swipe direction lock,
+clipboard fallback). Verified by the builder thread against `main` on the local static server, using
 headless Chromium 140 at 1280 px and 390 px. The historical matrix above is the earlier
 `b37abd0` audit; this section is the post-fix state.
 
@@ -225,7 +226,10 @@ at 390 it is a single horizontal scroller.
   Build Doctor → History → Badges → Share → Tools → Fuse. This is a real DOM reorder, not CSS
   `order`/`display: contents`, so tab and screen-reader order match the screen.
 - `overflow-anchor: none` was removed. Ranges use `touch-action: pan-y pinch-zoom`; a vertical
-  swipe starting on a slider scrolls the page, while a horizontal drag changes the value.
+  swipe starting on a slider scrolls the page, while a horizontal drag changes the value. A
+  direction lock restores the starting value on vertical intent and applies a touch drag only
+  after ~8 px of horizontal movement; the body weight/wingspan/height sliders use the same guard.
+  Tested: a 120 px vertical swipe from 61 stayed 61 while scrollY moved 1214 → 1349.
 - Coarse-pointer tablets get 44×44 steppers, 44 px controls and a static (not internally
   scrolling) sidebar. The builder nav uses `touch-action: pan-x` and contained overscroll.
 - Reproduced 10 rapid `+` taps at 60 ms: row top stayed 376 px, scrollY stayed 1214, value
@@ -237,8 +241,11 @@ at 390 it is a single horizontal scroller.
   pending stepper and reverts its preview.
 - Build Doctor HOF target now says “HOF is unreachable on this frame” with the ceiling detail
   and a **Find a body** link instead of leaving a dead `Write 1 target` button.
-- Browser tests: `builder-touch.browser.cjs` and `builder-batching.browser.cjs` cover the
-  vertical/horizontal gestures, 10-tap stability, Copy/Save/Undo flush and range cancellation.
+- `Copy code` guards `navigator.clipboard?.writeText`; on denial it selects the code input and
+  shows “Copy failed — the code is selected; press Ctrl/Cmd+C.” instead of an uncaught rejection.
+- Browser tests: `builder-touch.browser.cjs`, `builder-batching.browser.cjs` and
+  `builder-clipboard.browser.cjs` cover vertical/horizontal gestures, 10-tap stability,
+  Copy/Save/Undo flush, range cancellation and the denied-clipboard fallback.
 
 ### Build Doctor and history (own features)
 
@@ -275,7 +282,7 @@ at 390 it is a single horizontal scroller.
 
 - `node --test tests/*.mjs`: **98/98 pass**.
 - Browser tests pass: badges (including Tokens), screenshot import/rejection, builder controls,
-  builder finder, cap-breaker row, Fuse planner, Mechanics detail, Build Doctor/history, saved searches, builder touch, builder batching.
+  builder finder, cap-breaker row, Fuse planner, Mechanics detail, Build Doctor/history, saved searches, builder touch, builder batching, builder clipboard.
 - 390 px: no horizontal overflow on builder, cap-breakers, badges, mechanics, jumpshot-lab.
 
 ## Not tested
