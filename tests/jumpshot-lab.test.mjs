@@ -16,9 +16,11 @@ test('the reference Jumpshot Lab page mounts its local engine and trainer', asyn
   assert.doesNotMatch(html, /https?:\/\//);
 });
 
-test('the local trainer bypasses the hostname fallback and remote shot log', async () => {
+test('the trainer bypasses the hostname fallback, origin lock and remote shot log', async () => {
   const script = await readFile(new URL('assets/lab.js', root), 'utf8');
   assert.match(script, /if\(false\)\{T\$\(\);return\}/);
+  assert.match(script, /var e=\["127\.0\.0\.1","localhost"\]/);
+  assert.doesNotMatch(script, /var e=\[a==="file"/);
   assert.doesNotMatch(script, /fetch\(DO\(\)\+"\/jumpshot\/rh"/);
   assert.doesNotMatch(script, /https:\/\/www\.goatedbuildlab\.com\//);
   assert.match(script, /GBLLAB_MOUNT=function/);
