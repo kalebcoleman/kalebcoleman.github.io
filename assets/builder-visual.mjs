@@ -492,10 +492,12 @@ function syncPanelOrder() {
   const doctor = outerPanel(side.querySelector('.build-doctor') ?? view.querySelector('.build-doctor'));
   const history = outerPanel(side.querySelector('.builder-history') ?? view.querySelector('.builder-history'));
   const badges = outerPanel(side.querySelector('.builder-badges') ?? view.querySelector('.builder-badges'));
+  const sentence = outerPanel(view.querySelector('.build-from-sentence'));
   if (!doctor || !history || !badges) return;
   if (mobileOrder.matches) {
-    if (finder.nextElementSibling === doctor && doctor.nextElementSibling === history && history.nextElementSibling === badges) return;
-    finder.after(doctor, history, badges);
+    const anchor = sentence ?? finder;
+    if (anchor.nextElementSibling === doctor && doctor.nextElementSibling === history && history.nextElementSibling === badges) return;
+    anchor.after(doctor, history, badges);
   } else {
     if (side.lastElementChild === badges && badges.previousElementSibling === history && history.previousElementSibling === doctor) return;
     side.append(doctor, history, badges);
