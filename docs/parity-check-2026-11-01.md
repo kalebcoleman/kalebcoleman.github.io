@@ -68,4 +68,4 @@ The reference's client confirms these gates: Mid unlocks Optimize, badge-token/F
 - The builder now opens with a complete 99-overall example build instead of 25-across defaults, and its overall display uses the recovered approximation rather than the unrecovered WASM slot index, so a build loaded from the finder shows the same 99 overall as the reference result.
 - Navigation now points “Find a build” at `/finder/`, “Jumpshot Lab” at `/jumpshot-lab/`, and adds “Builds” across the site.
 
-Remaining differences are mainly the home page (still a tool directory rather than the reference finder form), the simpler builder attribute/token presentation, and the missing Upgrade Planner and Mechanics Lab detail pages.
+Remaining differences are mainly the simpler builder attribute/token presentation, the missing Upgrade Planner, the partial Mechanics Lab detail pages for gameplay and boosts, the missing Highest Overalls board, and the local-only Community/League/Locker backends. The home page now embeds the finder above the tool directory, on the same first-screen pattern as the reference.
