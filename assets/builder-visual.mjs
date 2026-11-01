@@ -63,7 +63,65 @@ function decorateRange(input) {
   input.dataset.fbRange = '1';
   input.addEventListener('input', () => paintRange(input));
   input.addEventListener('change', () => paintRange(input));
-  input.addEventListener('pointerdown', () => input.__fbCancelStep?.());
+  let startX = 0;
+  let startY = 0;
+  let startValue = 0;
+  let previewValue = null;
+  let custom = false;
+  let horizontal = false;
+  const touchLike = event => event.pointerType === 'touch' || event.pointerType === 'pen';
+  const restorePreview = () => {
+    input.value = String(startValue);
+    const number = input.closest('.row')?.querySelector('input[data-num]');
+    if (number) number.value = String(startValue);
+    paintRange(input);
+  };
+  input.addEventListener('pointerdown', event => {
+    input.__fbCancelStep?.();
+    if (!touchLike(event)) return;
+    custom = true;
+    horizontal = false;
+    startX = event.clientX;
+    startY = event.clientY;
+    startValue = Number(input.value);
+    previewValue = startValue;
+    input.__fbVerticalLock = true;
+  });
+  input.addEventListener('pointermove', event => {
+    if (!custom) return;
+    const dx = event.clientX - startX;
+    const dy = event.clientY - startY;
+    if (!horizontal && Math.abs(dx) > 8 && Math.abs(dx) > Math.abs(dy) + 4) horizontal = true;
+    if (horizontal) {
+      const rect = input.getBoundingClientRect();
+      const min = Number(input.min) || 25;
+      const max = Number(input.max) || 99;
+      const pct = Math.max(0, Math.min(1, (event.clientX - rect.left) / rect.width));
+      previewValue = Math.round(min + pct * (max - min));
+      input.value = String(previewValue);
+      const number = input.closest('.row')?.querySelector('input[data-num]');
+      if (number) number.value = String(previewValue);
+      paintRange(input);
+    } else if (Math.abs(dy) > Math.abs(dx) + 4) {
+      restorePreview();
+    }
+  });
+  const finishPointer = () => {
+    if (!custom) return;
+    custom = false;
+    if (horizontal) {
+      const value = previewValue;
+      if (typeof window.__fbSetAttr === 'function') window.__fbSetAttr(Number(input.dataset.attr), value);
+      window.__fbCommit?.();
+      window.__fbSnapshot?.();
+    } else {
+      restorePreview();
+    }
+    horizontal = false;
+    window.setTimeout(() => { input.__fbVerticalLock = false; }, 120);
+  };
+  input.addEventListener('pointerup', finishPointer);
+  input.addEventListener('pointercancel', finishPointer);
   paintRange(input);
 }
 
@@ -194,13 +252,72 @@ function ensureBodyRange(control, key, read, write, labelText) {
     const value = node('span', 'fb-body-value');
     wrap.append(range, value);
     label.append(wrap);
+    let startX = 0;
+    let startY = 0;
+    let startValue = 0;
+    let previewValue = null;
+    let custom = false;
+    let horizontal = false;
+    const touchLike = event => event.pointerType === 'touch' || event.pointerType === 'pen';
+    const restore = () => {
+      range.value = String(startValue);
+      syncBodyRange(control, key, read, write, labelText);
+    };
     range.addEventListener('input', () => {
+      if (range.__fbVerticalLock) return;
       write(control, range);
       syncBodyRange(control, key, read, write, labelText);
     });
     range.addEventListener('change', () => {
+      if (range.__fbVerticalLock) {
+        restore();
+        return;
+      }
       control.dispatchEvent(new Event('change', { bubbles: true }));
     });
+    range.addEventListener('pointerdown', event => {
+      if (!touchLike(event)) return;
+      custom = true;
+      horizontal = false;
+      startX = event.clientX;
+      startY = event.clientY;
+      startValue = Number(range.value);
+      previewValue = startValue;
+      range.__fbVerticalLock = true;
+    });
+    range.addEventListener('pointermove', event => {
+      if (!custom) return;
+      const dx = event.clientX - startX;
+      const dy = event.clientY - startY;
+      if (!horizontal && Math.abs(dx) > 8 && Math.abs(dx) > Math.abs(dy) + 4) horizontal = true;
+      if (horizontal) {
+        const rect = range.getBoundingClientRect();
+        const min = Number(range.min) || 0;
+        const max = Number(range.max) || 100;
+        const pct = Math.max(0, Math.min(1, (event.clientX - rect.left) / rect.width));
+        previewValue = Math.round(min + pct * (max - min));
+        range.value = String(previewValue);
+        syncBodyRange(control, key, read, write, labelText);
+      } else if (Math.abs(dy) > Math.abs(dx) + 4) {
+        restore();
+      }
+    });
+    const finish = () => {
+      if (!custom) return;
+      custom = false;
+      if (horizontal) {
+        write(control, range);
+        control.dispatchEvent(new Event('change', { bubbles: true }));
+        syncBodyRange(control, key, read, write, labelText);
+        startValue = Number(range.value);
+      } else {
+        restore();
+      }
+      horizontal = false;
+      window.setTimeout(() => { range.__fbVerticalLock = false; }, 120);
+    };
+    range.addEventListener('pointerup', finish);
+    range.addEventListener('pointercancel', finish);
     control.addEventListener('change', () => syncBodyRange(control, key, read, write, labelText));
   }
   syncBodyRange(control, key, read, write, labelText);

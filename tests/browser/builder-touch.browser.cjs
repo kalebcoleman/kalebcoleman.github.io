@@ -79,8 +79,22 @@ const { chromium } = require('playwright');
   }));
   if (steadyAfter.rowTop !== steadyBefore.rowTop || steadyAfter.scrollY !== steadyBefore.scrollY) throw new Error(`burst moved the row/scroll: ${JSON.stringify({ steadyBefore, steadyAfter })}`);
   if (steadyAfter.value !== steadyBefore.value + 10) throw new Error(`burst did not apply every tap: ${steadyBefore.value} -> ${steadyAfter.value}`);
+
+  const verticalBefore = await page.evaluate(() => ({ scrollY: Math.round(scrollY), value: document.querySelector('#attr-0').value }));
+  const verticalX = steadyBox.x + steadyBox.width / 2;
+  const verticalY = steadyBox.y + steadyBox.height / 2;
+  await cdp.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [{ x: verticalX, y: verticalY, id: 2 }] });
+  for (let index = 1; index <= 10; index += 1) {
+    await cdp.send('Input.dispatchTouchEvent', { type: 'touchMove', touchPoints: [{ x: verticalX, y: verticalY - index * 12, id: 2 }] });
+    await page.waitForTimeout(20);
+  }
+  await cdp.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] });
+  await page.waitForTimeout(500);
+  const verticalAfter = await page.evaluate(() => ({ scrollY: Math.round(scrollY), value: document.querySelector('#attr-0').value }));
+  if (verticalAfter.scrollY <= verticalBefore.scrollY) throw new Error(`vertical swipe did not scroll: ${JSON.stringify({ verticalBefore, verticalAfter })}`);
+  if (verticalAfter.value !== verticalBefore.value) throw new Error(`vertical swipe changed the range: ${verticalBefore.value} -> ${verticalAfter.value}`);
   if (await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth) !== 0) throw new Error('horizontal overflow');
   if (errors.length) throw new Error(errors.slice(0, 3).join(' | '));
-  console.log({ drag: `${51} -> ${dragged}`, step: `${beforeStep} -> ${afterStep}`, wall: 'settled at 70', errors: 0 });
+  console.log({ drag: `${51} -> ${dragged}`, step: `${beforeStep} -> ${afterStep}`, wall: 'settled at 70', vertical: `${verticalBefore.value} -> ${verticalAfter.value}`, errors: 0 });
   await browser.close();
 })();
