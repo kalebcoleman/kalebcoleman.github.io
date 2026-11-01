@@ -1,0 +1,1058 @@
+{
+  "source": "Recovered Mechanics Lab hub, 2026-11-01",
+  "kinds": [
+    [
+      "b",
+      "Badges"
+    ],
+    [
+      "t",
+      "Takeovers"
+    ],
+    [
+      "m",
+      "Gameplay"
+    ],
+    [
+      "s",
+      "Boosts"
+    ],
+    [
+      "y",
+      "Motion styles"
+    ]
+  ],
+  "categories": [
+    "Finishing",
+    "Shooting",
+    "Playmaking",
+    "Defense",
+    "Rebounding",
+    "Physicals"
+  ],
+  "entries": [
+    {
+      "name": "Aerial Wizard",
+      "slug": "aerial-wizard",
+      "kind": "b",
+      "category": 0,
+      "height": [
+        63,
+        91
+      ],
+      "summary": "Alley-oop catch difficulty",
+      "requirements": "Driving Dunk or Standing Dunk"
+    },
+    {
+      "name": "Float Game",
+      "slug": "float-game",
+      "kind": "b",
+      "category": 0,
+      "height": [
+        63,
+        91
+      ],
+      "summary": "Runner and floater boost",
+      "requirements": "Close Shot or Driving Layup"
+    },
+    {
+      "name": "Ghost Stepper",
+      "slug": "ghost-stepper",
+      "kind": "b",
+      "category": 0,
+      "height": [
+        63,
+        91
+      ],
+      "summary": "Ghost-step finish boost",
+      "requirements": "Close Shot or Post Control"
+    },
+    {
+      "name": "Hook Specialist",
+      "slug": "hook-specialist",
+      "kind": "b",
+      "category": 0,
+      "height": [
+        63,
+        91
+      ],
+      "summary": "Shot rating on hooks",
+      "requirements": "Close Shot + Post Control"
+    },
+    {
+      "name": "Layup Mixmaster",
+      "slug": "layup-mixmaster",
+      "kind": "b",
+      "category": 0,
+      "height": [
+        63,
+        84
+      ],
+      "summary": "Spin, euro, hop-step, reverse, scoop, step-through and flashy layup boost",
+      "requirements": "Driving Layup · 7'0\" or shorter"
+    },
+    {
+      "name": "Paint Prodigy",
+      "slug": "paint-prodigy",
+      "kind": "b",
+      "category": 0,
+      "height": [
+        75,
+        91
+      ],
+      "summary": "Layup contest by a defender 3+ in. shorter (full at 6+ in., inside 10 ft)",
+      "requirements": "Close Shot · 6'3\" or taller"
+    },
+    {
+      "name": "Physical Finisher",
+      "slug": "physical-finisher",
+      "kind": "b",
+      "category": 0,
+      "height": [
+        63,
+        91
+      ],
+      "summary": "Strength edge in strong-vs-weak contact finishes",
+      "requirements": "Driving Layup + Strength"
+    },
+    {
+      "name": "Post Powerhouse",
+      "slug": "post-powerhouse",
+      "kind": "b",
+      "category": 0,
+      "height": [
+        77,
+        91
+      ],
+      "summary": "Post battle edge on backdowns, pushes, drop and hop steps (not rating points)",
+      "requirements": "Post Control + Strength · 6'5\" or taller"
+    },
+    {
+      "name": "Post Spin Catalyst",
+      "slug": "post-spin-catalyst",
+      "kind": "b",
+      "category": 0,
+      "height": [
+        73,
+        91
+      ],
+      "summary": "Post battle edge on spins and drives (not rating points)",
+      "requirements": "Post Control · 6'1\" or taller"
+    },
+    {
+      "name": "Posterizer",
+      "slug": "posterizer",
+      "kind": "b",
+      "category": 0,
+      "height": [
+        63,
+        91
+      ],
+      "summary": "Contact dunk chance, times 2K’s base",
+      "requirements": "Driving Dunk + Vertical"
+    },
+    {
+      "name": "Rise Up",
+      "slug": "rise-up",
+      "kind": "b",
+      "category": 0,
+      "height": [
+        77,
+        91
+      ],
+      "summary": "Standing contact dunk chance, times 2K’s base",
+      "requirements": "Standing Dunk + Vertical · 6'5\" or taller"
+    },
+    {
+      "name": "Arc Cadence",
+      "slug": "arc-cadence",
+      "kind": "b",
+      "category": 1,
+      "height": [
+        63,
+        83
+      ],
+      "summary": "Shot rating on threes on the move",
+      "requirements": "Three-Point · 6'11\" or shorter"
+    },
+    {
+      "name": "Deadeye",
+      "slug": "deadeye",
+      "kind": "b",
+      "category": 1,
+      "height": [
+        63,
+        91
+      ],
+      "summary": "Closeout contest on your jumpers (from 10 ft out)",
+      "requirements": "Mid-Range or Three-Point"
+    },
+    {
+      "name": "Limitless Range",
+      "slug": "limitless-range",
+      "kind": "b",
+      "category": 1,
+      "height": [
+        63,
+        91
+      ],
+      "summary": "Shot rating on deep threes (27 to 40 ft)",
+      "requirements": "Three-Point"
+    },
+    {
+      "name": "Mini Marksman",
+      "slug": "mini-marksman",
+      "kind": "b",
+      "category": 1,
+      "height": [
+        63,
+        76
+      ],
+      "summary": "Shot rating over a defender 3+ in. taller",
+      "requirements": "Mid-Range or Three-Point · 6'4\" or shorter"
+    },
+    {
+      "name": "Post Fade Phenom",
+      "slug": "post-fade-phenom",
+      "kind": "b",
+      "category": 1,
+      "height": [
+        63,
+        91
+      ],
+      "summary": "Shot rating on post fades and post hop shots",
+      "requirements": "Mid-Range + Post Control"
+    },
+    {
+      "name": "Quick Trigger",
+      "slug": "quick-trigger",
+      "kind": "b",
+      "category": 1,
+      "height": [
+        63,
+        91
+      ],
+      "summary": "Shot rating on No Dip shots",
+      "requirements": "Mid-Range or Three-Point"
+    },
+    {
+      "name": "Set and Fire",
+      "slug": "set-and-fire",
+      "kind": "b",
+      "category": 1,
+      "height": [
+        63,
+        91
+      ],
+      "summary": "Shot rating on standing threes",
+      "requirements": "Three-Point"
+    },
+    {
+      "name": "Smooth Operator",
+      "slug": "smooth-operator",
+      "kind": "b",
+      "category": 1,
+      "height": [
+        63,
+        83
+      ],
+      "summary": "Shot rating on mid-range on the move",
+      "requirements": "Mid-Range · 6'11\" or shorter"
+    },
+    {
+      "name": "Static Middy",
+      "slug": "static-middy",
+      "kind": "b",
+      "category": 1,
+      "height": [
+        63,
+        91
+      ],
+      "summary": "Shot rating on standing mid-range",
+      "requirements": "Mid-Range"
+    },
+    {
+      "name": "Ankle Assassin",
+      "slug": "ankle-assassin",
+      "kind": "b",
+      "category": 2,
+      "height": [
+        63,
+        82
+      ],
+      "summary": "Chance a moving dribble move drops the defender, times 2K’s small base",
+      "requirements": "Ball Handle · 6'10\" or shorter"
+    },
+    {
+      "name": "Bail Out",
+      "slug": "bail-out",
+      "kind": "b",
+      "category": 2,
+      "height": [
+        63,
+        91
+      ],
+      "summary": "Mid-air pass miss chance",
+      "requirements": "Pass Accuracy"
+    },
+    {
+      "name": "Break Starter",
+      "slug": "break-starter",
+      "kind": "b",
+      "category": 2,
+      "height": [
+        63,
+        91
+      ],
+      "summary": "Pass lean or miss chance in the backcourt, within 5 s of a defensive rebound",
+      "requirements": "Pass Accuracy"
+    },
+    {
+      "name": "Dimer",
+      "slug": "dimer",
+      "kind": "b",
+      "category": 2,
+      "height": [
+        63,
+        91
+      ],
+      "summary": "Teammate’s two within 3 s of your pass",
+      "requirements": "Pass Accuracy"
+    },
+    {
+      "name": "Handles for Days",
+      "slug": "handles-for-days",
+      "kind": "b",
+      "category": 2,
+      "height": [
+        63,
+        84
+      ],
+      "summary": "Energy used by dribble moves",
+      "requirements": "Ball Handle · 7'0\" or shorter"
+    },
+    {
+      "name": "Lightning Launch",
+      "slug": "lightning-launch",
+      "kind": "b",
+      "category": 2,
+      "height": [
+        63,
+        83
+      ],
+      "summary": "Chance he stumbles on a launch within 2 s of a triple-threat jab step or stepover, times 2K’s 14% base",
+      "requirements": "Speed w/ Ball · 6'11\" or shorter"
+    },
+    {
+      "name": "Pace",
+      "slug": "pace",
+      "kind": "b",
+      "category": 2,
+      "height": [
+        63,
+        82
+      ],
+      "summary": "Moving dribble animation speed (less for bigger players; total capped at x1.15)",
+      "requirements": "Speed w/ Ball · 6'10\" or shorter"
+    },
+    {
+      "name": "Strong Handle",
+      "slug": "strong-handle",
+      "kind": "b",
+      "category": 2,
+      "height": [
+        63,
+        83
+      ],
+      "summary": "Body-up score",
+      "requirements": "Ball Handle + Strength · 6'11\" or shorter"
+    },
+    {
+      "name": "Unpluckable",
+      "slug": "unpluckable",
+      "kind": "b",
+      "category": 2,
+      "height": [
+        63,
+        91
+      ],
+      "summary": "His poke score against you: ball size and safe radius, not a chance",
+      "requirements": "Post Control or Ball Handle"
+    },
+    {
+      "name": "Versatile Visionary",
+      "slug": "versatile-visionary",
+      "kind": "b",
+      "category": 2,
+      "height": [
+        63,
+        91
+      ],
+      "summary": "Flashy pass lean or miss chance",
+      "requirements": "Pass Accuracy"
+    },
+    {
+      "name": "Ankle Braces",
+      "slug": "ankle-braces",
+      "kind": "b",
+      "category": 3,
+      "height": [
+        63,
+        81
+      ],
+      "summary": "Each stumble level’s chance (not on post moves)",
+      "requirements": "Perimeter D + Agility · 6'9\" or shorter"
+    },
+    {
+      "name": "Challenger",
+      "slug": "challenger",
+      "kind": "b",
+      "category": 3,
+      "height": [
+        63,
+        83
+      ],
+      "summary": "Contest strength",
+      "requirements": "Perimeter D · 6'11\" or shorter"
+    },
+    {
+      "name": "Glove",
+      "slug": "glove",
+      "kind": "b",
+      "category": 3,
+      "height": [
+        63,
+        84
+      ],
+      "summary": "Poke score: ball size and safe radius, not a chance",
+      "requirements": "Steal · 7'0\" or shorter"
+    },
+    {
+      "name": "High-Flying Denier",
+      "slug": "high-flying-denier",
+      "kind": "b",
+      "category": 3,
+      "height": [
+        75,
+        91
+      ],
+      "summary": "Block, Vertical, Speed and Agility on a chase-down",
+      "requirements": "Block + Vertical · 6'3\" or taller"
+    },
+    {
+      "name": "Immovable Enforcer",
+      "slug": "immovable-enforcer",
+      "kind": "b",
+      "category": 3,
+      "height": [
+        63,
+        91
+      ],
+      "summary": "Strength edge vs contact shots you defend",
+      "requirements": "Perimeter D + Strength"
+    },
+    {
+      "name": "Interceptor",
+      "slug": "interceptor",
+      "kind": "b",
+      "category": 3,
+      "height": [
+        63,
+        91
+      ],
+      "summary": "Time to get a hand on a pass",
+      "requirements": "Steal"
+    },
+    {
+      "name": "Off-Ball Pest",
+      "slug": "off-ball-pest",
+      "kind": "b",
+      "category": 3,
+      "height": [
+        63,
+        91
+      ],
+      "summary": "Off-ball contact score",
+      "requirements": "Interior D or Perimeter D"
+    },
+    {
+      "name": "Paint Patroller",
+      "slug": "paint-patroller",
+      "kind": "b",
+      "category": 3,
+      "height": [
+        77,
+        91
+      ],
+      "summary": "Contest while you jump to block, inside 10 ft",
+      "requirements": "Interior D + Block · 6'5\" or taller"
+    },
+    {
+      "name": "Pick Dodger",
+      "slug": "pick-dodger",
+      "kind": "b",
+      "category": 3,
+      "height": [
+        63,
+        82
+      ],
+      "summary": "Getting through screens score",
+      "requirements": "Perimeter D + Agility · 6'10\" or shorter"
+    },
+    {
+      "name": "Post Lockdown",
+      "slug": "post-lockdown",
+      "kind": "b",
+      "category": 3,
+      "height": [
+        77,
+        91
+      ],
+      "summary": "Opponent’s post battle edge (not rating points)",
+      "requirements": "Interior D + Strength · 6'5\" or taller"
+    },
+    {
+      "name": "Seatbelt",
+      "slug": "seatbelt",
+      "kind": "b",
+      "category": 3,
+      "height": [
+        63,
+        81
+      ],
+      "summary": "Body-up score",
+      "requirements": "Perimeter D + Agility · 6'9\" or shorter"
+    },
+    {
+      "name": "Wall Up",
+      "slug": "wall-up",
+      "kind": "b",
+      "category": 3,
+      "height": [
+        77,
+        91
+      ],
+      "summary": "Contest with Hands Up, shots inside 10 ft",
+      "requirements": "Interior D + Strength · 6'5\" or taller"
+    },
+    {
+      "name": "Boxout Boss",
+      "slug": "boxout-boss",
+      "kind": "b",
+      "category": 4,
+      "height": [
+        75,
+        91
+      ],
+      "summary": "Box-out ability",
+      "requirements": "Def Rebound + Strength · 6'3\" or taller"
+    },
+    {
+      "name": "Breaker",
+      "slug": "breaker",
+      "kind": "b",
+      "category": 4,
+      "height": [
+        75,
+        91
+      ],
+      "summary": "Beating a box-out",
+      "requirements": "Off Rebound + Strength · 6'3\" or taller"
+    },
+    {
+      "name": "Crasher",
+      "slug": "crasher",
+      "kind": "b",
+      "category": 4,
+      "height": [
+        63,
+        91
+      ],
+      "summary": "Speed, Vertical and Agility while you crash the offensive glass",
+      "requirements": "Off Rebound + Vertical"
+    },
+    {
+      "name": "Possession Closer",
+      "slug": "possession-closer",
+      "kind": "b",
+      "category": 4,
+      "height": [
+        63,
+        91
+      ],
+      "summary": "Speed, Vertical and Agility going for a defensive board",
+      "requirements": "Def Rebound + Vertical"
+    },
+    {
+      "name": "Sync Snatcher",
+      "slug": "sync-snatcher",
+      "kind": "b",
+      "category": 4,
+      "height": [
+        63,
+        91
+      ],
+      "summary": "Rebound and Vertical on a timed jump, not boxed out",
+      "requirements": "Off Rebound or Def Rebound"
+    },
+    {
+      "name": "Brick Wall",
+      "slug": "brick-wall",
+      "kind": "b",
+      "category": 5,
+      "height": [
+        77,
+        91
+      ],
+      "summary": "Screen score",
+      "requirements": "Strength · 6'5\" or taller"
+    },
+    {
+      "name": "Bruiser",
+      "slug": "bruiser",
+      "kind": "b",
+      "category": 5,
+      "height": [
+        63,
+        91
+      ],
+      "summary": "Energy drain edge on contact",
+      "requirements": "Strength"
+    },
+    {
+      "name": "Flash",
+      "slug": "flash",
+      "kind": "b",
+      "category": 5,
+      "height": [
+        63,
+        91
+      ],
+      "summary": "Off-ball run speed in transition",
+      "requirements": "Speed + Agility"
+    },
+    {
+      "name": "Pogo Stick",
+      "slug": "pogo-stick",
+      "kind": "b",
+      "category": 5,
+      "height": [
+        63,
+        91
+      ],
+      "summary": "Wait before your next block or rebound jump, s; after a block its animation can set it",
+      "requirements": "Vertical"
+    },
+    {
+      "name": "Slippery Off-Ball",
+      "slug": "slippery-off-ball",
+      "kind": "b",
+      "category": 5,
+      "height": [
+        63,
+        81
+      ],
+      "summary": "Off-ball move score",
+      "requirements": "Speed + Agility · 6'9\" or shorter"
+    },
+    {
+      "name": "Work Horse",
+      "slug": "work-horse",
+      "kind": "b",
+      "category": 5,
+      "height": [
+        63,
+        91
+      ],
+      "summary": "Energy drain on defense (14 events)",
+      "requirements": "Agility or Strength"
+    },
+    {
+      "name": "How the takeover meter works",
+      "slug": "takeover-meter",
+      "kind": "t",
+      "category": -1,
+      "height": null,
+      "summary": "States, the cap, the drain, and what a miss costs",
+      "requirements": ""
+    },
+    {
+      "name": "The five default takeovers",
+      "slug": "default-takeovers",
+      "kind": "t",
+      "category": -1,
+      "height": null,
+      "summary": "+30 up to 80: which ratings, and when it adds nothing",
+      "requirements": ""
+    },
+    {
+      "name": "Inside Touch",
+      "slug": "inside-touch-takeover",
+      "kind": "t",
+      "category": 0,
+      "height": null,
+      "summary": "Standing layups: Green Window x2.0, contests x0.3",
+      "requirements": "85 Close Shot"
+    },
+    {
+      "name": "Detonator",
+      "slug": "detonator-takeover",
+      "kind": "t",
+      "category": 0,
+      "height": null,
+      "summary": "Standing dunks x2, dunk chance x2, Green Window x1.75",
+      "requirements": "85 Standing Dunk"
+    },
+    {
+      "name": "Airspace",
+      "slug": "airspace-takeover",
+      "kind": "t",
+      "category": 0,
+      "height": null,
+      "summary": "Moving dunks x2, dunk chance and Green Window x1.75",
+      "requirements": "87 Driving Dunk and 75 Vertical"
+    },
+    {
+      "name": "Paint Surgeon",
+      "slug": "paint-surgeon-takeover",
+      "kind": "t",
+      "category": 0,
+      "height": null,
+      "summary": "Post shots x1.5 / x1.75 Green Window, post moves win more",
+      "requirements": "80 Close Shot and 75 Post Control"
+    },
+    {
+      "name": "Navigator",
+      "slug": "navigator-takeover",
+      "kind": "t",
+      "category": 0,
+      "height": null,
+      "summary": "Moving layups: Green Window x1.75, contests x0.6",
+      "requirements": "85 Driving Layup"
+    },
+    {
+      "name": "Shot Artist",
+      "slug": "shot-artist-takeover",
+      "kind": "t",
+      "category": 1,
+      "height": null,
+      "summary": "Pull-ups on the move: Green Window x1.5 / x1.55",
+      "requirements": "89 Three-Point Shot or 89 Mid-Range Shot"
+    },
+    {
+      "name": "Calibrated",
+      "slug": "calibrated-takeover",
+      "kind": "t",
+      "category": 1,
+      "height": null,
+      "summary": "Catch-and-shoot and set jumpers: Green Window x1.4 / x1.45",
+      "requirements": "85 Three-Point Shot or 85 Mid-Range Shot"
+    },
+    {
+      "name": "Zip Code",
+      "slug": "zip-code-takeover",
+      "kind": "t",
+      "category": 1,
+      "height": null,
+      "summary": "Deep shots rated 8 ft closer; nothing inside 26.5 ft",
+      "requirements": "91 Three-Point Shot"
+    },
+    {
+      "name": "Cook",
+      "slug": "cook-takeover",
+      "kind": "t",
+      "category": 2,
+      "height": null,
+      "summary": "Dribble-move ankle breakers x4.5, falls possible",
+      "requirements": "90 Ball Handle"
+    },
+    {
+      "name": "Dishmaster",
+      "slug": "dishmaster-takeover",
+      "kind": "t",
+      "category": 2,
+      "height": null,
+      "summary": "+4 to 13 scoring ratings for every teammate",
+      "requirements": "80 Pass Accuracy"
+    },
+    {
+      "name": "Blur",
+      "slug": "blur-takeover",
+      "kind": "t",
+      "category": 2,
+      "height": null,
+      "summary": "Body-ups go your way; fewer ways to lose the ball",
+      "requirements": "85 Ball Handle and 80 Speed With Ball"
+    },
+    {
+      "name": "Hawk",
+      "slug": "hawk-takeover",
+      "kind": "t",
+      "category": 3,
+      "height": null,
+      "summary": "Right-direction steals x2, loose balls land closer",
+      "requirements": "85 Steal"
+    },
+    {
+      "name": "Glue",
+      "slug": "glue-takeover",
+      "kind": "t",
+      "category": 3,
+      "height": null,
+      "summary": "Screeners can't win; cancels Shot Artist / Calibrated",
+      "requirements": "85 Perimeter Defense"
+    },
+    {
+      "name": "Rim Guardian",
+      "slug": "rim-guardian-takeover",
+      "kind": "t",
+      "category": 3,
+      "height": null,
+      "summary": "Cancels inside contest and dunk boosts, owns stuff blocks",
+      "requirements": "80 Interior Defense and 80 Block"
+    },
+    {
+      "name": "Second Chance",
+      "slug": "second-chance-takeover",
+      "kind": "t",
+      "category": 4,
+      "height": null,
+      "summary": "Putbacks: make chance x1.2, contests x0.3",
+      "requirements": "80 Offensive Rebound"
+    },
+    {
+      "name": "Demolition",
+      "slug": "demolition-takeover",
+      "kind": "t",
+      "category": 4,
+      "height": null,
+      "summary": "Defenders can't beat your screen; knockdowns on",
+      "requirements": "88 Strength"
+    },
+    {
+      "name": "Muscle",
+      "slug": "muscle-takeover",
+      "kind": "t",
+      "category": 4,
+      "height": null,
+      "summary": "Win box-outs outright 75% of the time",
+      "requirements": "80 Offensive Rebound and 80 Defensive Rebound and 80 Strength"
+    },
+    {
+      "name": "See The Future",
+      "slug": "see-the-future-takeover",
+      "kind": "t",
+      "category": 4,
+      "height": null,
+      "summary": "A cue the moment the shot goes up; user players only",
+      "requirements": "85 Offensive Rebound and 85 Defensive Rebound"
+    },
+    {
+      "name": "Hydration Hero",
+      "slug": "hydration-hero-takeover",
+      "kind": "t",
+      "category": -1,
+      "height": null,
+      "summary": "No energy drain, adrenaline refilled, any slot",
+      "requirements": ""
+    },
+    {
+      "name": "Standing dunks: why they \"don't work\"",
+      "slug": "standing-dunks",
+      "kind": "m",
+      "category": 0,
+      "height": null,
+      "summary": "4+ ft with a defender in the way = a layup",
+      "requirements": ""
+    },
+    {
+      "name": "Contact dunks: the roll behind every poster",
+      "slug": "contact-dunks",
+      "kind": "m",
+      "category": 0,
+      "height": null,
+      "summary": "The roll, Posterizer and the online cut",
+      "requirements": ""
+    },
+    {
+      "name": "Jelly layups: why your dunk turned into one",
+      "slug": "jelly-layups",
+      "kind": "m",
+      "category": 0,
+      "height": null,
+      "summary": "Refused: your layup style. Switched: one shared list",
+      "requirements": ""
+    },
+    {
+      "name": "Post moves: what wins the battle",
+      "slug": "post-moves",
+      "kind": "m",
+      "category": 0,
+      "height": null,
+      "summary": "Size and Strength on backdowns, Post Control on spins",
+      "requirements": ""
+    },
+    {
+      "name": "Stick vs button: same Green Window, different spot",
+      "slug": "stick-vs-button",
+      "kind": "m",
+      "category": 1,
+      "height": null,
+      "summary": "Same window size, different green spot",
+      "requirements": ""
+    },
+    {
+      "name": "Why your shot gets harder late in a game",
+      "slug": "late-game-green-window",
+      "kind": "m",
+      "category": 1,
+      "height": null,
+      "summary": "Adrenaline, fatigue and a cold meter, not the takeover",
+      "requirements": ""
+    },
+    {
+      "name": "Block or charge: who gets the call",
+      "slug": "block-vs-charge",
+      "kind": "m",
+      "category": 3,
+      "height": null,
+      "summary": "His speed on a body-up, his set feet on a collision",
+      "requirements": ""
+    },
+    {
+      "name": "Fouls on blocked shots: what 2.0 changed",
+      "slug": "blocked-shot-fouls",
+      "kind": "m",
+      "category": 3,
+      "height": null,
+      "summary": "2.0 cut the maybe-fouls, not the sure ones",
+      "requirements": ""
+    },
+    {
+      "name": "Box-outs: what actually wins them",
+      "slug": "box-outs",
+      "kind": "m",
+      "category": 4,
+      "height": null,
+      "summary": "Badge 3/8, weight 2/8, height 2/8, Strength 1/8",
+      "requirements": ""
+    },
+    {
+      "name": "Adrenaline: what your three boosts do",
+      "slug": "adrenaline",
+      "kind": "m",
+      "category": 5,
+      "height": null,
+      "summary": "Each boost you burn costs your shot 10",
+      "requirements": ""
+    },
+    {
+      "name": "Skill boosts and Gatorade: what each one does",
+      "slug": "boosts",
+      "kind": "s",
+      "category": -1,
+      "height": null,
+      "summary": "Each one in a few lines, and when they're on",
+      "requirements": ""
+    },
+    {
+      "name": "Jump Shots skill boost",
+      "slug": "jump-shots-boost",
+      "kind": "s",
+      "category": 1,
+      "height": null,
+      "summary": "Green Window x1.15 on every timed shot, up to x1.67 on a jumper",
+      "requirements": ""
+    },
+    {
+      "name": "Layups / Dunks skill boost",
+      "slug": "layups-dunks-boost",
+      "kind": "s",
+      "category": 0,
+      "height": null,
+      "summary": "Make chance x1.03 on layups and dunks, contact x0.96",
+      "requirements": ""
+    },
+    {
+      "name": "Ball Handling / Passing skill boost",
+      "slug": "ball-handling-boost",
+      "kind": "s",
+      "category": 2,
+      "height": null,
+      "summary": "Steals against you x0.8, ankle breakers x1.3, x1.03 on the shot after",
+      "requirements": ""
+    },
+    {
+      "name": "Steals skill boost",
+      "slug": "steals-boost",
+      "kind": "s",
+      "category": 3,
+      "height": null,
+      "summary": "Steal chances x1.05, a reach needs 10% less depth",
+      "requirements": ""
+    },
+    {
+      "name": "Blocks skill boost",
+      "slug": "blocks-boost",
+      "kind": "s",
+      "category": 3,
+      "height": null,
+      "summary": "His make chance x0.95 when you're close; near the rim his dunk becomes a layup",
+      "requirements": ""
+    },
+    {
+      "name": "Rebounding skill boost",
+      "slug": "rebounding-boost",
+      "kind": "s",
+      "category": 4,
+      "height": null,
+      "summary": "+5 in the rebound pick, box-outs x1.2 your way",
+      "requirements": ""
+    },
+    {
+      "name": "Gatorade Thirst Quencher",
+      "slug": "thirst-quencher",
+      "kind": "s",
+      "category": 5,
+      "height": null,
+      "summary": "Energy bar 120%, 140% with the extra turbo meter",
+      "requirements": ""
+    },
+    {
+      "name": "Gatorlyte",
+      "slug": "gatorlyte",
+      "kind": "s",
+      "category": 5,
+      "height": null,
+      "summary": "Recovery x1.25, tired drops x0.6 on 8 ratings",
+      "requirements": ""
+    },
+    {
+      "name": "Muscle Milk",
+      "slug": "muscle-milk",
+      "kind": "s",
+      "category": 5,
+      "height": null,
+      "summary": "Energy drain and fatigue x0.75",
+      "requirements": ""
+    },
+    {
+      "name": "Extra turbo meter",
+      "slug": "extra-turbo-meter",
+      "kind": "s",
+      "category": 5,
+      "height": null,
+      "summary": "Energy bar 120%, 140% with Thirst Quencher",
+      "requirements": ""
+    },
+    {
+      "name": "Motion styles",
+      "slug": "motion-styles",
+      "kind": "y",
+      "category": -1,
+      "height": null,
+      "summary": "Every style your height can wear, with the jog and sprint times we ran in game",
+      "requirements": ""
+    }
+  ]
+}

@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#0e1116" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#f6f7f9" media="(prefers-color-scheme: light)">
+  <meta name="description" content="Every NBA 2K27 motion style a MyPLAYER can wear at each height, with the recovered height, Speed and Agility requirements and the reference timing runs.">
+  <title>Motion styles | Free Builder</title>
+  <link rel="stylesheet" href="/motion-styles/styles.css">
+  <link rel="icon" href="/icon-192.png" type="image/png">
+  <script type="module" src="/motion-styles/app.mjs"></script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="top">
+    <a class="brand" href="/">Free <b>Builder</b></a>
+    <nav class="crumbs" aria-label="Breadcrumb">
+      <a href="/mechanics/">Mechanics Lab</a>
+      <span aria-hidden="true">/</span>
+      <span>Motion styles</span>
+    </nav>
+  </header>
+
+  <main id="main">
+    <div class="hero">
+      <p class="eyebrow">Mechanics Lab · Every style</p>
+      <h1>Motion styles</h1>
+      <p class="lede">Every motion style a MyPLAYER of your height can wear, with the recovered height range, Speed and Agility asks, and how fast the reference test builds jogged and sprinted in each one.</p>
+      <p class="meta">NBA 2K27 · 3 height groups · 458 measured rows · 368 unique styles · reference page updated Oct 29, 2026</p>
+    </div>
+
+    <noscript>
+      <p class="notice">This catalog needs JavaScript for search and filtering. The recovered data is stored locally in <code>data/motion-styles.json</code>; nothing is sent anywhere.</p>
+    </noscript>
+
+    <section class="card" aria-labelledby="short-heading">
+      <h2 id="short-heading">The short version</h2>
+      <ol class="three">
+        <li>
+          <b>Your height picks the list</b>
+          <span>Each style is for a range of MyPLAYER heights and can ask for a Speed and an Agility rating. In the recovered table, that is all that locks a style.</span>
+        </li>
+        <li>
+          <b>Off the ball</b>
+          <span>A motion style moves you when you run without the ball, on offense or on defense. With the ball, your dribble style moves you instead.</span>
+        </li>
+        <li>
+          <b>Recommended</b>
+          <span>At each height, the recommended style has the fastest offense sprint and defense sprint together. Ties go to the higher top speed.</span>
+        </li>
+      </ol>
+    </section>
+
+    <section class="card" aria-labelledby="groups-heading">
+      <h2 id="groups-heading">Three height groups</h2>
+      <p class="section-lede">The table was measured on a 6'2", a 6'6" and a 7'0" build. Every style's height range starts and ends on one of these band edges, so each height uses its band's build times.</p>
+      <div id="motion-groups" class="group-grid" aria-live="polite">
+        <p class="note">Loading the recovered height groups…</p>
+      </div>
+    </section>
+
+    <section class="card" aria-labelledby="styles-heading">
+      <h2 id="styles-heading">Every style at your height</h2>
+      <p class="section-lede">Pick a height, search by name, choose which run to sort and highlight, or filter by the Speed and Agility asks. All filtering happens on this device.</p>
+
+      <form id="motion-filters" class="filters" role="search" aria-labelledby="filters-heading" novalidate>
+        <h3 id="filters-heading" class="sr-only">Search and filter motion styles</h3>
+
+        <div class="field field-search">
+          <label for="motion-search">Search a style</label>
+          <input id="motion-search" type="search" placeholder="e.g. Curry, Jokić, Base" autocomplete="off" spellcheck="false">
+        </div>
+
+        <div class="field">
+          <label for="motion-height">Height</label>
+          <select id="motion-height"></select>
+        </div>
+
+        <div class="field">
+          <label for="motion-run">Run</label>
+          <select id="motion-run">
+            <option value="both">Offense + defense sprint</option>
+            <option value="offense-sprint">Offense sprint</option>
+            <option value="defense-sprint">Defense sprint</option>
+            <option value="offense-jog">Offense jog</option>
+            <option value="defense-jog">Defense jog</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="motion-sort">Sort by</label>
+          <select id="motion-sort">
+            <option value="time">Fastest time</option>
+            <option value="speed">Top speed</option>
+            <option value="name">Name, A to Z</option>
+          </select>
+        </div>
+
+        <details class="ratings">
+          <summary>Match my Speed and Agility</summary>
+          <p class="hint">Optional. A blank field means “any rating”. A style with no ask always passes. The values are the minimums shown on each style.</p>
+          <div class="rating-fields">
+            <div class="field">
+              <label for="motion-speed">My Speed</label>
+              <input id="motion-speed" type="number" inputmode="numeric" min="0" max="99" step="1" placeholder="Any">
+            </div>
+            <div class="field">
+              <label for="motion-agility">My Agility</label>
+              <input id="motion-agility" type="number" inputmode="numeric" min="0" max="99" step="1" placeholder="Any">
+            </div>
+          </div>
+        </details>
+
+        <button id="motion-reset" class="btn" type="button">Reset filters</button>
+      </form>
+
+      <p id="motion-status" class="status" role="status" aria-live="polite">Loading motion styles…</p>
+      <aside id="motion-recommendation" class="recommendation" aria-label="Recommended motion style"></aside>
+
+      <ol id="motion-results" class="style-list" aria-label="Motion styles for the selected height"></ol>
+      <div id="motion-empty" class="empty" hidden></div>
+    </section>
+
+    <section class="card" aria-labelledby="how-heading">
+      <h2 id="how-heading">How it works</h2>
+      <ul class="plain">
+        <li><b>Three test builds.</b> Every style was timed on a 6'2", a 6'6" and a 7'0" build. The height ranges start and end on the 5'9" to 6'4", 6'5" to 6'9" and 6'10" to 7'4" band edges, so each height shows the times of its band's build.</li>
+        <li><b>Four runs.</b> Offense jog, offense sprint, defense jog and defense sprint, each 47 ft of half court in a real possession: its time and its top speed.</li>
+        <li><b>Not timed yet.</b> Seven styles a 5'9" to 6'4" MyPLAYER can wear were only ever timed on the 6'6" build. At those heights they show no times and sort last. The catalog never borrows times from another build.</li>
+        <li><b>Recommended.</b> The fastest combined offense and defense sprint time at the selected height, with ties going to the higher combined top speed. Search and rating filters do not change the recommendation.</li>
+      </ul>
+    </section>
+
+    <section class="card" aria-labelledby="limits-heading">
+      <h2 id="limits-heading">What it doesn't do</h2>
+      <ul class="plain">
+        <li><b>Not your dribble speed.</b> Nothing the dribbling player's speed comes from reads the motion style: Speed With Ball sets it.</li>
+        <li><b>Close times are a tie.</b> A run's 47 ft time moves about 0.05 s from one run to the next, and a second pass put the styles in a different order, so styles a few hundredths apart are even. Top speed repeats better than time.</li>
+        <li><b>Recovered, not re-run.</b> The height gates and timing runs are the reference site's recovered data. This rebuild does not claim to have re-timed the game.</li>
+      </ul>
+    </section>
+
+    <section class="card" aria-labelledby="provenance-heading">
+      <h2 id="provenance-heading">How we know</h2>
+      <p>The height ranges and Speed/Agility asks come from the game's own motion style table. The times are the original Goated Build Lab in-game runs, with the style written straight into the player before each run. The gates were read on Oct 16, 2026 and the times were run on Oct 15, 2026; the reference page was updated Oct 29, 2026.</p>
+      <dl class="provenance">
+        <div><dt>Recovered</dt><dd>Nov 1, 2026</dd></div>
+        <div><dt>Groups</dt><dd>Guard (5'9"–6'4"), Wing (6'5"–6'9"), Big (6'10"–7'4")</dd></div>
+        <div><dt>Rows</dt><dd>458 measured rows across the three builds</dd></div>
+        <div><dt>Unique styles</dt><dd>368 names with a height and rating gate</dd></div>
+        <div><dt>Source</dt><dd>Recovered engine motion table and rendered Mechanics Lab page data; both copies agree row for row.</dd></div>
+        <div><dt>Processing</dt><dd>Search, filters, sorting and recommendations run locally in this page. No account, backend or sign-in.</dd></div>
+      </dl>
+      <p class="note">The data file records the row shape, group counts, recovered hash and the original method so the numbers can be checked without the old site.</p>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <p><a href="/mechanics/">Mechanics Lab</a> · <a href="/">Find a build</a></p>
+    <p>Unofficial, free fan tool. Not affiliated with NBA 2K, Visual Concepts, 2K Sports or Take-Two Interactive. All trademarks belong to their owners.</p>
+  </footer>
+</body>
+</html>

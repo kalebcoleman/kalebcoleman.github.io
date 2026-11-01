@@ -1,0 +1,463 @@
+<!doctype html>
+<html lang="en" data-fb-route="jumpshot-trainer">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>Jumpshot Practice Lab — local timing trainer | Free Builder</title>
+  <meta name="description" content="A free, browser-local jumpshot and free-throw timing trainer with shot settings, calibration, session history and practice recommendations. No account, no uploads, no NBA 2K measurements.">
+  <meta name="theme-color" content="#0e1116" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#f6f7f9" media="(prefers-color-scheme: light)">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Free Builder">
+  <meta property="og:title" content="Jumpshot Practice Lab — local timing trainer | Free Builder">
+  <meta property="og:description" content="Practice shot timing, run free-throw sets, calibrate locally and get practice suggestions. Everything stays in your browser.">
+  <meta property="og:url" content="/jumpshot-trainer/">
+  <meta property="og:image" content="/og.png">
+  <link rel="icon" href="/icon-192.png" sizes="192x192" type="image/png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <script>/* Respect the theme choice already saved by the rest of Free Builder. */try{var t=localStorage.getItem('fb_theme')||localStorage.getItem('gbl_theme');if(t==='light'||t==='dark')document.documentElement.dataset.theme=t}catch(e){}</script>
+  <link rel="stylesheet" href="/assets/main-pW0vUW4U.css">
+  <link rel="stylesheet" href="/jumpshot-trainer/trainer.css">
+  <script type="module" src="/assets/trainer-app.mjs"></script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to trainer</a>
+  <div class="trainer-shell">
+    <header class="trainer-top">
+      <a class="brand" href="/"><span class="brand-mark" aria-hidden="true"></span>Free <b>Builder</b></a>
+      <nav class="trainer-nav" aria-label="Free Builder">
+        <a href="/jumpshots">Jumpshot Lab</a>
+        <a href="/builder">Builder</a>
+        <a href="/mechanics/">Mechanics Lab</a>
+      </nav>
+      <span class="local-pill"><span class="local-dot" aria-hidden="true"></span>On-device</span>
+    </header>
+
+    <main id="main">
+      <section class="trainer-hero" aria-labelledby="pageTitle">
+        <div>
+          <p class="eyebrow">Free Builder · practice lab</p>
+          <h1 id="pageTitle">Jumpshot practice, tuned to your hands.</h1>
+          <p class="lede">Run timed jump shots and free-throw sets, watch your release pattern, calibrate a local offset and turn the log into a practice plan. Keyboard and pointer controls are built in.</p>
+          <div class="hero-chips" aria-label="Features">
+            <span>No sign-in</span>
+            <span>Saved on this device</span>
+            <span>Free throws</span>
+            <span>Calibration</span>
+          </div>
+        </div>
+        <aside class="honesty-card" aria-labelledby="honestyTitle">
+          <p class="honesty-kicker">Read this first</p>
+          <h2 id="honestyTitle">A local trainer, not a 2K capture.</h2>
+          <p>The ideal releases, green windows, clean-release counts and suggestions here are <strong>estimated practice targets</strong> generated from your saved settings and your own browser input. They are <strong>not NBA 2K measurements</strong>, not captured game tuning, and not a simulation of NBA 2K shot physics.</p>
+          <p>Nothing is uploaded. No account, subscription or server is involved.</p>
+        </aside>
+      </section>
+
+      <section class="cockpit" aria-labelledby="cockpitTitle">
+        <div class="court-card">
+          <div class="card-top">
+            <div>
+              <p class="card-kicker">Live timing bay</p>
+              <h2 id="cockpitTitle">Release window</h2>
+            </div>
+            <div class="badge-row">
+              <span class="mode-badge" id="modeBadge">Jump shot</span>
+              <span class="estimate-badge">Local estimate</span>
+            </div>
+          </div>
+
+          <div class="shot-stage" id="shotStage" data-side="Bottom">
+            <div class="court-frame">
+              <div class="court-scene" id="courtScene" aria-hidden="true">
+                <svg class="court-art" viewBox="0 0 820 420" preserveAspectRatio="xMidYMid slice" focusable="false">
+                  <defs>
+                    <linearGradient id="floorGradient" x1="0" x2="1" y1="0" y2="1">
+                      <stop offset="0" stop-color="#6d3d23"/>
+                      <stop offset="0.55" stop-color="#9a5b32"/>
+                      <stop offset="1" stop-color="#5b301c"/>
+                    </linearGradient>
+                    <linearGradient id="playerGradient" x1="0" x2="0" y1="0" y2="1">
+                      <stop offset="0" stop-color="#f1c38c"/>
+                      <stop offset="1" stop-color="#b14c33"/>
+                    </linearGradient>
+                    <linearGradient id="boardGradient" x1="0" x2="0" y1="0" y2="1">
+                      <stop offset="0" stop-color="#edf1f7" stop-opacity="0.9"/>
+                      <stop offset="1" stop-color="#c4cedb" stop-opacity="0.45"/>
+                    </linearGradient>
+                  </defs>
+                  <rect width="820" height="420" fill="url(#floorGradient)"/>
+                  <path d="M0 334H820" stroke="#f2d6a8" stroke-opacity="0.45" stroke-width="3"/>
+                  <path d="M0 348C180 314 398 316 820 352" fill="none" stroke="#f2d6a8" stroke-opacity="0.25" stroke-width="2"/>
+                  <path d="M536 420C520 340 590 305 700 292" fill="none" stroke="#f2d6a8" stroke-opacity="0.35" stroke-width="3"/>
+                  <circle cx="694" cy="300" r="112" fill="none" stroke="#f2d6a8" stroke-opacity="0.13" stroke-width="5"/>
+                  <g class="hoop-group">
+                    <rect x="688" y="86" width="8" height="190" rx="3" fill="#cdd5df" fill-opacity="0.55"/>
+                    <rect x="604" y="84" width="120" height="82" rx="4" fill="url(#boardGradient)" stroke="#ffffff" stroke-opacity="0.55" stroke-width="3"/>
+                    <rect x="643" y="115" width="43" height="32" rx="2" fill="none" stroke="#b14c33" stroke-width="4"/>
+                    <path d="M626 166h92" stroke="#ee5a36" stroke-width="7" stroke-linecap="round"/>
+                    <path d="M636 168l10 42m16-42 6 45m18-45-2 45m18-45-10 42" stroke="#e8edf5" stroke-opacity="0.68" stroke-width="2"/>
+                    <path d="M642 178c18 32 54 32 72 0" fill="none" stroke="#e8edf5" stroke-opacity="0.55" stroke-width="2"/>
+                  </g>
+                  <g class="player-silhouette" fill="url(#playerGradient)">
+                    <circle cx="244" cy="92" r="30"/>
+                    <path d="M214 126c20-13 47-13 66 0l15 24-12 77-24-3-7 71-35-2 3-84-22-1 3-56z"/>
+                    <path d="M286 132l31-48 17 9-31 63z"/>
+                    <path d="M265 137l51-61 15 13-46 76z"/>
+                    <path d="M226 200l-20 95 16 5 39-87z"/>
+                    <path d="M246 292h54v14h-54zM217 292h20v14h-20z"/>
+                  </g>
+                  <g fill="#f8e7ce" fill-opacity="0.72">
+                    <circle cx="250" cy="78" r="4"/>
+                    <circle cx="275" cy="97" r="3"/>
+                    <circle cx="235" cy="105" r="3"/>
+                  </g>
+                  <g fill="#0e1116" fill-opacity="0.22">
+                    <ellipse cx="274" cy="335" rx="106" ry="16"/>
+                    <ellipse cx="690" cy="309" rx="92" ry="11"/>
+                  </g>
+                </svg>
+                <div class="release-ring" id="releaseRing"></div>
+                <div class="ball" id="ball"></div>
+                <span class="scene-stamp">Estimated practice target</span>
+              </div>
+            </div>
+
+            <div class="meter-panel" id="meterPanel" data-side="Bottom">
+              <div class="meter-head">
+                <span>Timing meter</span>
+                <span class="window-chip" id="windowChip">±46 ms window</span>
+              </div>
+              <div class="meter-labels" aria-hidden="true">
+                <span>Start</span>
+                <span>Cue</span>
+                <span>Target</span>
+              </div>
+              <div class="timing-track" aria-hidden="true">
+                <div class="green-band" id="greenBand"></div>
+                <div class="cue-marker" id="cueMarker"></div>
+                <div class="meter-marker" id="meterMarker"></div>
+              </div>
+              <p class="meter-readout" id="meterReadout">Estimated window: waiting for a shot.</p>
+            </div>
+          </div>
+
+          <div class="profile-line">
+            <span id="shotProfileText">Estimated practice profile loading…</span>
+            <span class="estimate-tag">estimate</span>
+          </div>
+
+          <button class="shot-pad" id="shotPad" type="button" aria-describedby="shotPadHint meterReadout">
+            <span class="shot-pad-state" id="shotPadState">Ready</span>
+            <strong id="shotPadLabel">Start jump shot</strong>
+            <span id="shotPadHint">Click this pad, or press Space / Enter when it is focused.</span>
+          </button>
+
+          <div class="shot-actions">
+            <button class="btn primary" id="startJumpBtn" type="button">Start jump shot</button>
+            <button class="btn" id="cancelShotBtn" type="button" disabled>Cancel shot</button>
+            <label class="toggle-line" for="autoAdvanceToggle">
+              <input type="checkbox" id="autoAdvanceToggle">
+              <span>Auto-advance after each rep</span>
+            </label>
+          </div>
+
+          <p class="feedback" id="feedback" role="status" aria-live="polite">
+            <span class="feedback-placeholder">No shot yet. Start a rep and release when the cue arrives.</span>
+          </p>
+          <p class="micro-note">Timing is calculated in this browser from the estimated practice profile. Release early or late and the log records the difference — no game data is read or sent.</p>
+        </div>
+
+        <aside class="session-card" aria-labelledby="sessionTitle">
+          <div class="card-top compact">
+            <div>
+              <p class="card-kicker">Local log</p>
+              <h2 id="sessionTitle">Your release pattern</h2>
+            </div>
+            <span class="session-count" id="sessionCount">0 saved</span>
+          </div>
+          <p class="session-mode" id="sessionLabel">No shots logged yet.</p>
+
+          <div class="stat-grid">
+            <div class="stat">
+              <span class="stat-label">Clean rate</span>
+              <strong id="statClean">—</strong>
+              <span class="stat-sub">last 20 reps</span>
+            </div>
+            <div class="stat">
+              <span class="stat-label">Typical error</span>
+              <strong id="statError">—</strong>
+              <span class="stat-sub">median absolute</span>
+            </div>
+            <div class="stat">
+              <span class="stat-label">Tendency</span>
+              <strong id="statBias">—</strong>
+              <span class="stat-sub">average release</span>
+            </div>
+            <div class="stat">
+              <span class="stat-label">Best streak</span>
+              <strong id="statStreak">—</strong>
+              <span class="stat-sub">green window</span>
+            </div>
+          </div>
+
+          <div class="recent-block">
+            <div class="recent-head">
+              <span>Recent reps</span>
+              <span class="recent-key"><i class="key-green"></i>green <i class="key-warm"></i>close <i class="key-miss"></i>missed</span>
+            </div>
+            <ol class="shot-dots" id="recentShots" aria-label="Recent shot results"></ol>
+          </div>
+
+          <div class="coach-box">
+            <span class="coach-label">Next focus</span>
+            <p id="coachLine">Log a few reps to unlock a local practice focus.</p>
+          </div>
+
+          <div class="session-actions">
+            <button class="btn" id="openPlanBtn" type="button">Open practice plan</button>
+          </div>
+          <p class="save-state" id="saveState">Loading local settings…</p>
+          <p class="micro-note">Session metrics are local timing observations, not a prediction of in-game results.</p>
+        </aside>
+      </section>
+
+      <section class="trainer-tabs-wrap" aria-label="Practice tools">
+        <div class="trainer-tabs" id="trainerTabs" role="tablist" aria-label="Trainer sections">
+          <button class="tab is-active" id="tab-shooting" type="button" role="tab" aria-selected="true" aria-controls="panel-shooting" tabindex="0">Shooting</button>
+          <button class="tab" id="tab-free-throws" type="button" role="tab" aria-selected="false" aria-controls="panel-free-throws" tabindex="-1">Free throws</button>
+          <button class="tab" id="tab-calibration" type="button" role="tab" aria-selected="false" aria-controls="panel-calibration" tabindex="-1">Calibration</button>
+          <button class="tab" id="tab-recommendations" type="button" role="tab" aria-selected="false" aria-controls="panel-recommendations" tabindex="-1">Recommendations</button>
+          <button class="tab" id="tab-setup" type="button" role="tab" aria-selected="false" aria-controls="panel-setup" tabindex="-1">Shot setup</button>
+        </div>
+
+        <section class="panel tab-panel" id="panel-shooting" role="tabpanel" aria-labelledby="tab-shooting">
+          <div class="panel-head">
+            <div>
+              <p class="card-kicker">Free practice</p>
+              <h2>Build a repeatable release</h2>
+            </div>
+            <button class="btn primary" id="startJumpShotBtn" type="button">Start jump shot</button>
+          </div>
+          <p>One rep is a short, local timing exercise. The target moves slightly from shot to shot, so the goal is a repeatable release rather than memorising one number.</p>
+          <div class="two-col">
+            <div>
+              <h3>Run a rep</h3>
+              <ol class="steps">
+                <li>Choose a setup below or keep the saved one.</li>
+                <li>Start the shot, then release when the cue flashes, the audio cue sounds, or the marker reaches the green band.</li>
+                <li>Read the local error and the suggested next focus.</li>
+                <li>Repeat or run a free-throw set to change tempo.</li>
+              </ol>
+            </div>
+            <div>
+              <h3>Controls</h3>
+              <dl class="shortcuts">
+                <div><dt><kbd>Space</kbd></dt><dd>Start a rep when idle and release when armed. Works when focus is not inside a form control.</dd></div>
+                <div><dt><kbd>S</kbd></dt><dd>Start a rep from anywhere outside a form control.</dd></div>
+                <div><dt><kbd>Esc</kbd></dt><dd>Cancel an armed shot without logging it.</dd></div>
+                <div><dt><kbd>Tab</kbd> / <kbd>Shift</kbd>+<kbd>Tab</kbd></dt><dd>Reach every control, including the shot pad.</dd></div>
+              </dl>
+            </div>
+          </div>
+          <h3>Local shot log</h3>
+          <p class="micro-note" id="sessionStatsLine">No attempts in this session yet.</p>
+          <div class="history-wrap">
+            <table class="tbl history-table">
+              <caption class="sr-only">Recent local practice attempts</caption>
+              <thead>
+                <tr><th scope="col">Rep</th><th scope="col">Mode</th><th scope="col">Result</th><th scope="col">Release</th><th scope="col">Estimated target</th><th scope="col">Error</th></tr>
+              </thead>
+              <tbody id="historyBody">
+                <tr id="historyEmpty"><td colspan="6" class="muted">No reps yet. Start a jump shot above.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="panel tab-panel" id="panel-free-throws" role="tabpanel" aria-labelledby="tab-free-throws" hidden>
+          <div class="panel-head">
+            <div>
+              <p class="card-kicker">Free throws</p>
+              <h2>Ten-rep free-throw ladder</h2>
+            </div>
+            <button class="btn primary" id="ftStartBtn" type="button">Start 10 free throws</button>
+          </div>
+          <p class="ft-profile" id="ftProfile">Free-throw profile loading…</p>
+          <div class="ft-stage">
+            <div>
+              <p class="ft-status" id="ftStatus" role="status" aria-live="polite">No free-throw set in progress.</p>
+              <ol class="ft-dots" id="ftDots" aria-label="Free-throw set results"></ol>
+              <p class="ft-summary" id="ftSummary">Ten reps per set. A green release counts as a clean practice rep.</p>
+            </div>
+            <div class="ft-side">
+              <h3>Why the tempo changes</h3>
+              <p>The free-throw profile is shorter than a normal jumper. It is still an <strong>estimated local practice tempo</strong>; the trainer does not read or reproduce NBA 2K free-throw timing.</p>
+              <p class="micro-note">A clean count is a timing-drill score, not a simulated game result.</p>
+            </div>
+          </div>
+          <h3>Previous sets</h3>
+          <div class="past-sets" id="ftPastSets"><p class="muted">Completed sets will appear here.</p></div>
+        </section>
+
+        <section class="panel tab-panel" id="panel-calibration" role="tabpanel" aria-labelledby="tab-calibration" hidden>
+          <div class="panel-head">
+            <div>
+              <p class="card-kicker">Calibration</p>
+              <h2>Align the local target to your release</h2>
+            </div>
+            <button class="btn primary" id="calibrationStartBtn" type="button">Start calibration rep</button>
+          </div>
+          <p>Calibration compares your recent jump-shot releases with the browser target and suggests an offset. A positive offset shifts the local target earlier; a negative offset shifts it later. Free throws are excluded so that the shorter tempo does not bias the result.</p>
+          <div class="calibration-grid">
+            <div class="calibration-metrics">
+              <div class="stat">
+                <span class="stat-label">Sample</span>
+                <strong id="calibrationSamples">0 reps</strong>
+                <span class="stat-sub">minimum 6</span>
+              </div>
+              <div class="stat">
+                <span class="stat-label">Residual bias</span>
+                <strong id="calibrationBias">—</strong>
+                <span class="stat-sub">median release error</span>
+              </div>
+              <div class="stat">
+                <span class="stat-label">Consistency</span>
+                <strong id="calibrationSpread">—</strong>
+                <span class="stat-sub">standard deviation</span>
+              </div>
+              <div class="stat">
+                <span class="stat-label">Confidence</span>
+                <strong id="calibrationConfidence">No data</strong>
+                <span class="stat-sub">local sample only</span>
+              </div>
+            </div>
+            <div class="offset-box">
+              <label for="calibrationOffset">Manual local offset</label>
+              <div class="offset-row">
+                <input type="range" id="calibrationOffset" min="-120" max="120" step="1" value="0">
+                <output id="calibrationOffsetOut" for="calibrationOffset">0 ms</output>
+              </div>
+              <p class="micro-note">Use the slider to nudge the target yourself. The suggested offset below is derived from your recent residual error.</p>
+              <p class="suggested-line">Suggested offset: <strong id="calibrationSuggested">0 ms</strong></p>
+              <div class="action-row">
+                <button class="btn primary" id="applyCalibrationBtn" type="button" disabled>Apply suggested offset</button>
+                <button class="btn" id="resetCalibrationBtn" type="button">Reset to 0</button>
+              </div>
+            </div>
+          </div>
+          <div class="calibration-plot-wrap">
+            <div class="plot-head">
+              <span>Recent release errors</span>
+              <span class="plot-key">left = early · right = late</span>
+            </div>
+            <div class="error-plot" id="calibrationPlot" role="img" aria-label="No calibration samples yet"></div>
+          </div>
+          <p class="calibration-advice" id="calibrationAdvice">Take at least six jump-shot reps to measure a local release offset.</p>
+          <p class="micro-note">This adjusts only the browser practice target. It is not an NBA 2K latency measurement or a change to any game setting.</p>
+        </section>
+
+        <section class="panel tab-panel" id="panel-recommendations" role="tabpanel" aria-labelledby="tab-recommendations" hidden>
+          <div class="panel-head">
+            <div>
+              <p class="card-kicker">Practice plan</p>
+              <h2>Recommendations from your local log</h2>
+            </div>
+            <span class="confidence-chip" id="recConfidence">No data</span>
+          </div>
+          <p>These suggestions use only the attempts saved in this browser. They are practice adjustments, not NBA 2K tuning data, ratings or guarantees.</p>
+          <div class="rec-lead">
+            <h3 id="recHeadline">Build a baseline</h3>
+            <p id="recBody">Log a few jump shots to unlock a practice plan.</p>
+            <div class="action-row">
+              <button class="btn primary" id="applyRecBtn" type="button" disabled>Apply suggested setup</button>
+              <button class="btn" id="openCalibrationBtn" type="button">Open calibration</button>
+            </div>
+          </div>
+          <div class="rec-grid">
+            <div>
+              <h3>What the log shows</h3>
+              <ul class="observation-list" id="recObservations"><li>No observations yet.</li></ul>
+            </div>
+            <div>
+              <h3>Suggested changes</h3>
+              <div class="change-list" id="recChanges"><p class="muted">No setup changes suggested yet.</p></div>
+            </div>
+          </div>
+          <h3>Next drills</h3>
+          <div class="drill-grid" id="recDrills"></div>
+          <p class="micro-note" id="recSampleNote">Based on 0 local reps.</p>
+        </section>
+
+        <section class="panel tab-panel" id="panel-setup" role="tabpanel" aria-labelledby="tab-setup" hidden>
+          <div class="panel-head">
+            <div>
+              <p class="card-kicker">Shot setup</p>
+              <h2>Build your practice profile</h2>
+            </div>
+            <span class="estimate-badge">Local only</span>
+          </div>
+          <p>The fields below use the recovered Jumpshot Lab vocabulary. Animation and shot choices label your practice plan; they do not alter or reproduce NBA 2K’s internal timing.</p>
+          <div class="animation-status" id="animationStatus" role="status">Loading the local animation list…</div>
+          <form id="settingsForm" class="settings-form" autocomplete="off">
+            <div class="settings-grid" id="settingsGrid"></div>
+          </form>
+          <div class="share-box">
+            <h3>Open in the existing Jumpshot Lab</h3>
+            <p class="micro-note">This only prepares a local link with the recovered j* field names. It does not send anything.</p>
+            <div class="share-row">
+              <label class="sr-only" for="shareOutput">Jumpshot Lab link</label>
+              <input class="inp code" id="shareOutput" type="text" readonly value="">
+              <button class="btn" id="copyShareBtn" type="button">Copy link</button>
+            </div>
+          </div>
+          <div class="data-box">
+            <h3>Local data</h3>
+            <p>Settings, calibration values and attempts are stored under <code>fb.jumpshotTrainer.v1</code> in this browser. Export a JSON backup before clearing browser storage.</p>
+            <div class="action-row">
+              <button class="btn" id="exportBtn" type="button">Export practice data</button>
+              <label class="btn file-btn" for="importInput">Import practice data</label>
+              <input class="sr-only" id="importInput" type="file" accept="application/json,.json">
+              <button class="btn" id="restoreDefaultsBtn" type="button">Restore default setup</button>
+              <button class="btn danger" id="clearDataBtn" type="button">Clear all local data</button>
+            </div>
+            <p class="save-state" id="storageError" role="status" aria-live="polite"></p>
+          </div>
+        </section>
+      </section>
+
+      <section class="honesty-footer" aria-labelledby="limitsTitle">
+        <h2 id="limitsTitle">What this trainer does and does not do</h2>
+        <div class="limits-grid">
+          <div>
+            <h3>What it does</h3>
+            <ul>
+              <li>Times your browser input against an estimated local release target.</li>
+              <li>Stores settings, calibration offset and practice attempts on this device.</li>
+              <li>Summarises your release bias, spread and clean-release rate.</li>
+              <li>Suggests practice adjustments and drills from that local log.</li>
+            </ul>
+          </div>
+          <div>
+            <h3>What it does not do</h3>
+            <ul>
+              <li>Read, measure or reproduce NBA 2K shot timing or tuning tables.</li>
+              <li>Connect to a game, console, account or server.</li>
+              <li>Predict in-game makes or replace in-game practice.</li>
+              <li>Upload your settings or attempts anywhere.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="trainer-footer">
+      <p>Unofficial, free fan tool. Not affiliated with NBA 2K, Visual Concepts, 2K Sports or Take-Two Interactive. All trademarks belong to their owners.</p>
+      <nav aria-label="Related"><a href="/jumpshots">Jumpshot Lab</a><a href="/builder">Builder</a><a href="/mechanics/">Mechanics Lab</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a></nav>
+    </footer>
+  </div>
+  <div class="sr-only" id="srAnnouncer" role="status" aria-live="polite"></div>
+  <noscript><p class="noscript">This trainer needs JavaScript for local timing. Nothing is sent to a server.</p></noscript>
+</body>
+</html>
