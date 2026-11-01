@@ -68,7 +68,7 @@ The reference's client confirms these gates: Mid unlocks Optimize, badge-token/F
 - The builder now opens with a complete 99-overall example build instead of 25-across defaults, and its overall display uses the recovered approximation rather than the unrecovered WASM slot index, so a build loaded from the finder shows the same 99 overall as the reference result.
 - Navigation now points “Find a build” at `/finder/`, “Jumpshot Lab” at `/jumpshot-lab/`, and adds “Builds” across the site.
 
-Remaining differences are mainly the simpler builder attribute/token presentation, the partial Mechanics Lab detail pages for gameplay and boosts, the removed Community/Locker/League/radio surfaces. The home page now embeds the finder above the tool directory, on the same first-screen pattern as the reference.
+Remaining differences are mainly the partial full Fuse planner (candidate pairs are shown, not a complete slot plan), the partial Mechanics Lab detail pages for gameplay and boosts, the removed Community/Locker/League/radio surfaces. The home page now embeds the finder above the tool directory, on the same first-screen pattern as the reference.
 
 ### Premium-solver follow-up
 
