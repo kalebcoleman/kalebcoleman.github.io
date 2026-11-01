@@ -39,6 +39,16 @@ test('diagnoseBadge finds the missing tier requirement', () => {
   assert.deepEqual(result.needed.map(gap => [gap.attribute, gap.rating]), [[0, 70]]);
 });
 
+test('diagnoseBadge marks requirements above the frame ceiling as unreachable', () => {
+  const capped = { ...G, ceilingsFor: () => Array(21).fill(80) };
+  const result = diagnoseBadge(capped, build(50), 0, 4);
+  assert.equal(result.met, false);
+  assert.equal(result.needed.length, 0);
+  assert.equal(result.unreachable.length, 1);
+  assert.equal(result.unreachable[0].rating, 90);
+  assert.equal(result.caps[0], 80);
+});
+
 test('planToTarget reaches a reachable overall in small steps', () => {
   const result = planToTarget(G, build(50), 60, 300);
   assert.equal(result.ok, true);

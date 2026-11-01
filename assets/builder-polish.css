@@ -29,6 +29,8 @@ html[data-fb-route="builder"] .hdr .nav {
   flex-wrap: nowrap;
   gap: 2px;
   overflow-x: auto;
+  touch-action: pan-x;
+  overscroll-behavior-x: contain;
   scrollbar-width: none;
   -webkit-mask-image: linear-gradient(90deg, #000 0, #000 calc(100% - 26px), transparent);
   mask-image: linear-gradient(90deg, #000 0, #000 calc(100% - 26px), transparent);
@@ -619,6 +621,37 @@ html[data-fb-route="builder"] .tbl-wrap {
   overflow-x: auto;
 }
 
+/* ---------- touch / drag stability ---------- */
+html[data-fb-route="builder"] body {
+  overscroll-behavior-y: contain;
+}
+html[data-fb-route="builder"] .builder-side {
+  overscroll-behavior: contain;
+}
+html[data-fb-route="builder"] .rng,
+html[data-fb-route="builder"] .fb-body-range {
+  touch-action: pan-y pinch-zoom;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+html[data-fb-route="builder"] .btn,
+html[data-fb-route="builder"] .fb-step,
+html[data-fb-route="builder"] .fb-seg,
+html[data-fb-route="builder"] .sel {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+html[data-fb-route="builder"] .inp.num {
+  appearance: textfield;
+  -moz-appearance: textfield;
+}
+html[data-fb-route="builder"] .inp.num::-webkit-inner-spin-button,
+html[data-fb-route="builder"] .inp.num::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
 /* ---------- responsive ---------- */
 @media (max-width: 1360px) {
   html[data-fb-route="builder"] .rows { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -632,16 +665,27 @@ html[data-fb-route="builder"] .tbl-wrap {
     border-left: 0;
     border-right: 0;
   }
-  html[data-fb-route="builder"] #view { display: block; }
-  html[data-fb-route="builder"] #view > .panel { margin-bottom: 12px; }
+  html[data-fb-route="builder"] #view {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+  html[data-fb-route="builder"] #view > .panel,
+  html[data-fb-route="builder"] .builder-side > .panel {
+    min-width: 0;
+    margin-bottom: 0;
+  }
   html[data-fb-route="builder"] #view > .builder-side {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
     position: static;
     max-height: none;
     overflow: visible;
     padding-right: 0;
-    margin-bottom: 12px;
+    margin-bottom: 0;
   }
-  html[data-fb-route="builder"] .builder-side > .panel { margin-bottom: 12px; }
   html[data-fb-route="builder"] .rows { grid-template-columns: minmax(0, 1fr); }
   html[data-fb-route="builder"] .row {
     grid-template-columns: minmax(90px, 1fr) minmax(100px, 1.35fr) 52px 46px;
@@ -654,6 +698,10 @@ html[data-fb-route="builder"] .tbl-wrap {
   }
   html[data-fb-route="builder"] .inp.num {
     height: 40px;
+  }
+  html[data-fb-route="builder"] .rng,
+  html[data-fb-route="builder"] .fb-body-range {
+    height: 44px;
   }
   html[data-fb-route="builder"] .fb-seg {
     min-height: 38px;
@@ -984,4 +1032,31 @@ html[data-fb-route="builder"] .fb-saved-list li .btn {
   min-height: 24px;
   padding: 1px 5px;
   font-size: 9px;
+}
+
+
+/* Coarse-pointer tablets (iPad and similar) get touch sizing and a static sidebar. */
+@media (hover: none), (pointer: coarse) {
+  html[data-fb-route="builder"] .fb-step {
+    width: 44px;
+    height: 44px;
+    font-size: 16px;
+  }
+  html[data-fb-route="builder"] .row {
+    grid-template-columns: minmax(90px, 1fr) minmax(100px, 1.35fr) 52px 46px;
+  }
+  html[data-fb-route="builder"] #view > .builder-side {
+    position: static;
+    max-height: none;
+    overflow: visible;
+  }
+  html[data-fb-route="builder"] .btn,
+  html[data-fb-route="builder"] .sel,
+  html[data-fb-route="builder"] .inp {
+    min-height: 44px;
+  }
+  html[data-fb-route="builder"] .rng,
+  html[data-fb-route="builder"] .fb-body-range {
+    height: 44px;
+  }
 }

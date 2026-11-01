@@ -132,15 +132,21 @@ export function diagnoseBadge(G, build, badgeIndex, tier) {
     gap: Math.max(0, rating - (build.alloc[attribute] ?? 0)),
   }));
   const isOr = !!badge[2];
+  const caps = G.ceilingsFor(build.h, build.w, build.s);
+  const unreachable = gaps.filter(gap => gap.rating > (caps[gap.attribute] ?? 99));
+  const reachable = gaps.filter(gap => gap.rating <= (caps[gap.attribute] ?? 99));
   const needed = isOr
-    ? [gaps.filter(gap => gap.gap > 0).sort((left, right) => left.gap - right.gap)[0]].filter(Boolean)
-    : gaps.filter(gap => gap.gap > 0);
+    ? [reachable.filter(gap => gap.gap > 0).sort((left, right) => left.gap - right.gap)[0]].filter(Boolean)
+    : reachable.filter(gap => gap.gap > 0);
   return {
     badge: badge[0],
     tier,
     current,
     requirements: gaps,
     needed,
+    unreachable,
+    reachable,
+    caps,
     isOr,
     met: current >= tier,
     name: badge[0],
@@ -293,21 +299,41 @@ export function mountBuildDoctor(root, { getBuild }) {
       const name = window.GBLE.ATTRS?.[requirement.attribute] ?? `Attribute ${requirement.attribute + 1}`;
       lines.push(node('p', requirement.gap ? 'warn' : 'ok', `${name}: ${requirement.current} / ${requirement.rating}${requirement.gap ? ` · needs +${requirement.gap}` : ' · met'}`));
     }
+    const tierLabel = window.GBLE.TIERNAME?.[result.tier] ?? `Tier ${result.tier}`;
     if (result.met) {
       lines.push(node('p', 'ok', 'This build already earns that tier.'));
+    } else if (!result.needed.length && result.unreachable.length) {
+      const detail = result.unreachable.map(gap => {
+        const name = window.GBLE.ATTRS?.[gap.attribute] ?? `Attribute ${gap.attribute + 1}`;
+        return `${name} ${gap.rating} (ceiling ${result.caps[gap.attribute]})`;
+      }).join(', ');
+      lines.push(node('p', 'warn', `${tierLabel} is unreachable on this frame: ${detail}. Change the body or find a build that can reach it.`));
+      const gap = result.unreachable[0];
+      const find = node('a', 'btn', 'Find a body');
+      find.href = `/finder/?attribute=${gap.attribute}&target=${gap.rating}&position=${build.p}&height=${build.h}&caps=0`;
+      lines.push(find);
     } else if (result.needed.length) {
+      if (result.unreachable.length) {
+        const detail = result.unreachable.map(gap => {
+          const name = window.GBLE.ATTRS?.[gap.attribute] ?? `Attribute ${gap.attribute + 1}`;
+          return `${name} ${gap.rating} (ceiling ${result.caps[gap.attribute]})`;
+        }).join(', ');
+        lines.push(node('p', 'muted', `Other option${result.unreachable.length === 1 ? '' : 's'} unreachable on this frame: ${detail}.`));
+      }
       const apply = node('button', 'btn primary', `Write ${result.needed.length} target${result.needed.length === 1 ? '' : 's'}`);
       apply.type = 'button';
       apply.addEventListener('click', () => {
         const targets = Object.fromEntries(result.needed.map(gap => [gap.attribute, gap.rating]));
         const written = window.__fbWriteTargets?.(targets, true);
-        if (written) {
-          badgeResult.append(node('p', written.limited?.length ? 'warn' : 'ok', written.limited?.length
-            ? `Wrote ${written.written} target(s); ${written.limited.length} stayed below the target because of the wall or ceilings.`
-            : `Wrote ${written.written} target(s) into the build.`));
-          renderBadge();
-          renderOverall();
+        if (!written) {
+          status.textContent = 'The builder is not ready to write targets.';
+          return;
         }
+        status.textContent = written.limited?.length
+          ? `Wrote ${written.written} target(s); ${written.limited.length} stayed below the target because of the wall or ceilings. Lower another attribute and retry.`
+          : `Wrote ${written.written} target(s) into the build.`;
+        renderBadge();
+        renderOverall();
       });
       lines.push(apply);
     }
@@ -359,15 +385,17 @@ export function mountBuildDoctor(root, { getBuild }) {
   renderOverall();
   renderBadge();
 
-  let scheduled = false;
+  let renderTimer = 0;
   const schedule = () => {
-    if (scheduled) return;
-    scheduled = true;
-    requestAnimationFrame(() => {
-      scheduled = false;
+    window.clearTimeout(renderTimer);
+    renderTimer = window.setTimeout(() => {
+      if (document.documentElement.dataset.fbDragging === '1') {
+        schedule();
+        return;
+      }
       renderOverall();
       renderBadge();
-    });
+    }, 220);
   };
   const overall = document.querySelector('.overall');
   if (overall) new MutationObserver(schedule).observe(overall, { childList: true, subtree: true, characterData: true });

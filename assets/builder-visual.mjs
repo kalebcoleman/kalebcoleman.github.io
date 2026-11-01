@@ -8,6 +8,7 @@ const GROUP_COLORS = {
   Physicals: '#c62828',
 };
 const POSITIONS = ['PG', 'SG', 'SF', 'PF', 'C'];
+let draggingRange = false;
 const FALLBACK_GROUPS = [
   ['Finishing', 0, 5], ['Shooting', 5, 8], ['Playmaking', 8, 11],
   ['Defense', 11, 15], ['Rebounding', 15, 17], ['Physicals', 17, 21],
@@ -16,6 +17,12 @@ const FALLBACK_GROUPS = [
 function sideChild(side, element) {
   let current = element;
   while (current && current.parentElement !== side) current = current.parentElement;
+  return current;
+}
+
+function outerPanel(element) {
+  let current = element;
+  while (current?.parentElement && !current.parentElement.matches('#view, .builder-side')) current = current.parentElement;
   return current;
 }
 
@@ -56,6 +63,7 @@ function decorateRange(input) {
   input.dataset.fbRange = '1';
   input.addEventListener('input', () => paintRange(input));
   input.addEventListener('change', () => paintRange(input));
+  input.addEventListener('pointerdown', () => input.__fbCancelStep?.());
   paintRange(input);
 }
 
@@ -300,14 +308,54 @@ function ensureRowExtras() {
       const plus = node('button', 'fb-step', '+');
       plus.type = 'button';
       plus.setAttribute('aria-label', `Raise ${row.querySelector('.row-label span')?.textContent ?? 'attribute'}`);
+      let pendingStep = null;
+      let stepTimer = 0;
+      let lastApplied = Number(range.value);
+      const applyValue = value => {
+        if (value == null) return false;
+        if (typeof window.__fbSetAttr === 'function') {
+          window.__fbSetAttr(Number(range.dataset.attr), value);
+        } else {
+          range.value = String(value);
+          range.dispatchEvent(new Event('input', { bubbles: true }));
+        }
+        lastApplied = Number(range.value);
+        window.clearTimeout(range.__fbCommit);
+        range.__fbCommit = window.setTimeout(() => {
+          if (typeof window.__fbCommit === 'function') window.__fbCommit();
+          else range.dispatchEvent(new Event('change', { bubbles: true }));
+        }, 250);
+        return true;
+      };
+      const flushStep = () => {
+        if (pendingStep == null) return false;
+        window.clearTimeout(stepTimer);
+        const value = pendingStep;
+        pendingStep = null;
+        return applyValue(value);
+      };
       const step = delta => {
         const min = Number(range.min) || 25;
         const max = Number(range.max) || 99;
-        const next = Math.max(min, Math.min(max, Number(range.value) + delta));
-        if (next === Number(range.value)) return;
+        const current = pendingStep ?? Number(range.value);
+        const next = Math.max(min, Math.min(max, current + delta));
+        if (next === current) return;
+        if (pendingStep == null) lastApplied = Number(range.value);
+        pendingStep = next;
         range.value = String(next);
-        range.dispatchEvent(new Event('input', { bubbles: true }));
-        range.dispatchEvent(new Event('change', { bubbles: true }));
+        const number = row.querySelector('input[data-num]');
+        if (number) number.value = String(next);
+        window.clearTimeout(stepTimer);
+        stepTimer = window.setTimeout(flushStep, 80);
+      };
+      range.__fbFlushStep = flushStep;
+      range.__fbCancelStep = () => {
+        if (pendingStep == null) return;
+        window.clearTimeout(stepTimer);
+        pendingStep = null;
+        range.value = String(lastApplied);
+        const number = row.querySelector('input[data-num]');
+        if (number) number.value = String(lastApplied);
       };
       minus.addEventListener('click', () => step(-1));
       plus.addEventListener('click', () => step(1));
@@ -317,7 +365,28 @@ function ensureRowExtras() {
   }
 }
 
+const mobileOrder = window.matchMedia('(max-width: 900px)');
+
+function syncPanelOrder() {
+  const view = document.getElementById('view');
+  const side = view?.querySelector('.builder-side');
+  const finder = view?.querySelector('#find');
+  if (!view || !side || !finder) return;
+  const doctor = outerPanel(side.querySelector('.build-doctor') ?? view.querySelector('.build-doctor'));
+  const history = outerPanel(side.querySelector('.builder-history') ?? view.querySelector('.builder-history'));
+  const badges = outerPanel(side.querySelector('.builder-badges') ?? view.querySelector('.builder-badges'));
+  if (!doctor || !history || !badges) return;
+  if (mobileOrder.matches) {
+    if (finder.nextElementSibling === doctor && doctor.nextElementSibling === history && history.nextElementSibling === badges) return;
+    finder.after(doctor, history, badges);
+  } else {
+    if (side.lastElementChild === badges && badges.previousElementSibling === history && history.previousElementSibling === doctor) return;
+    side.append(doctor, history, badges);
+  }
+}
+
 function decorate() {
+  if (draggingRange) return;
   const view = document.getElementById('view');
   if (!view) return;
   const side = view.querySelector('.builder-side');
@@ -325,6 +394,7 @@ function decorate() {
     ensureActions(side);
     ensureName(side);
   }
+  syncPanelOrder();
   ensurePosition();
   ensureBodyRanges();
   ensureGroupLegend();
@@ -348,6 +418,40 @@ if (view) {
       decorate();
     });
   };
+  mobileOrder.addEventListener?.('change', () => {
+    syncPanelOrder();
+    run();
+  });
+  const flushPendingSteps = () => {
+    let changed = false;
+    for (const range of document.querySelectorAll('input.rng[data-attr]')) {
+      if (typeof range.__fbFlushStep === 'function' && range.__fbFlushStep()) changed = true;
+    }
+    if (typeof window.__fbCommit === 'function') window.__fbCommit();
+    window.__fbSnapshot?.();
+  };
+  document.addEventListener('click', event => {
+    if (event.target?.closest?.('.fb-step, input.rng, input.fb-body-range')) return;
+    flushPendingSteps();
+  }, true);
+  const markDrag = event => {
+    const target = event.target;
+    if (!target?.closest?.('input.rng, input.fb-body-range')) return;
+    draggingRange = true;
+    document.documentElement.dataset.fbDragging = '1';
+  };
+  const releaseDrag = () => {
+    if (!draggingRange) return;
+    draggingRange = false;
+    delete document.documentElement.dataset.fbDragging;
+    run();
+  };
+  document.addEventListener('pointerdown', markDrag, true);
+  document.addEventListener('touchstart', markDrag, { capture: true, passive: true });
+  document.addEventListener('pointerup', releaseDrag, true);
+  document.addEventListener('pointercancel', releaseDrag, true);
+  document.addEventListener('touchend', releaseDrag, true);
+  document.addEventListener('touchcancel', releaseDrag, true);
   run();
   new MutationObserver(run).observe(view, { childList: true, subtree: true });
 }

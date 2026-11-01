@@ -39,6 +39,16 @@ const { chromium } = require('playwright');
     await page.waitForTimeout(800);
     if (!(await page.locator('.overall').innerText()).startsWith('Overall 99')) throw new Error(`${label}: plan apply did not reach Overall 99`);
 
+    await page.locator('.fb-doctor-badge summary').click();
+    await page.locator('select[aria-label="Badge to diagnose"]').selectOption('0');
+    await page.locator('select[aria-label="Badge tier to diagnose"]').selectOption('4');
+    await page.getByRole('button', { name: 'Check badge' }).click();
+    await page.waitForTimeout(400);
+    const badgeText = await page.locator('.fb-doctor-badge-result').innerText();
+    if (!/unreachable on this frame/i.test(badgeText)) throw new Error(`${label}: HOF unreachable state was not explained: ${badgeText}`);
+    if (await page.locator('.fb-doctor-badge-result').getByRole('button', { name: /Write/ }).count()) throw new Error(`${label}: HOF still offers a dead write button`);
+    if (!(await page.locator('.fb-doctor-badge-result').getByRole('link', { name: 'Find a body' }).count())) throw new Error(`${label}: HOF has no body/finder escape`);
+
     await page.locator('.fb-versions summary').click();
     await page.locator('input[aria-label="Version name"]').fill('Test version');
     await page.getByRole('button', { name: 'Save version' }).click();

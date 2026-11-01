@@ -612,7 +612,18 @@ export function mountFusePlanner(root, { getBuild }) {
   });
 
   render();
+  let renderTimer = 0;
+  const scheduleRender = () => {
+    window.clearTimeout(renderTimer);
+    renderTimer = window.setTimeout(() => {
+      if (document.documentElement.dataset.fbDragging === '1') {
+        scheduleRender();
+        return;
+      }
+      render();
+    }, 220);
+  };
   const overall = document.querySelector('.overall');
-  if (overall) new MutationObserver(render).observe(overall, { childList: true, subtree: true, characterData: true });
+  if (overall) new MutationObserver(scheduleRender).observe(overall, { childList: true, subtree: true, characterData: true });
   return { render };
 }

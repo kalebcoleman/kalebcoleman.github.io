@@ -202,6 +202,7 @@ export function mountBuilderHistory(root) {
 
   window.__fbUndo = undoLast;
   window.__fbRedo = redoLast;
+  window.__fbSnapshot = () => snapshot('Edit');
   snapshot('Initial');
   requestAnimationFrame(() => snapshot('Initial'));
   render();
