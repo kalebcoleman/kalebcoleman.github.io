@@ -129,13 +129,13 @@ At 390 × 844, the document had no horizontal overflow on `/builder/`, `/finder/
 `/face-scan/` and `/jumpshot-lab/`. The nav is an intentional horizontal scroller. The only
 undersized interactive controls found were in the recovered Jumpshot Lab.
 
-## Post-fix verification — 63a6f5b
+## Post-fix verification — e2989e6
 
 Feature commits `91955f4` (finder/Fuse/visual), `d372a75` (Build Doctor/Undo), `829136d`
 (saved searches), `5db21e9` (44×44/cap wording), `5213404` (touch stability, mobile DOM
 order, batching and unreachable badge targets), `81f7bc8` (vertical swipe direction lock,
-clipboard fallback), `322e697` (coarse-pointer copy wording) and `63a6f5b` (cloud deletion clears
-the local session only). Verified by the builder thread against `main` on the local static server, using
+clipboard fallback), `322e697` (coarse-pointer copy wording) `63a6f5b` (cloud deletion clears
+the local session only) and `e2989e6` (build from a sentence). Verified by the builder thread against `main` on the local static server, using
 headless Chromium 140 at 1280 px and 390 px. The historical matrix above is the earlier
 `b37abd0` audit; this section is the post-fix state.
 
@@ -272,6 +272,43 @@ value unchanged during the vertical swipe. The copy nit was real: on `766a7db` t
 said “press Ctrl/Cmd+C”. `322e697` uses **“use your copy menu”** on coarse pointers and keeps
 “press Ctrl/Cmd+C” on fine pointers; the clipboard test now covers both.
 
+### Build from a sentence (e2989e6)
+
+`assets/build-from-sentence.mjs` adds a **Build from a sentence** panel directly after
+**Find a build** in the mobile DOM order. It parses:
+
+- Heights `6'8"`, `6’8”`, `6ft8`, `6 foot 8`, `6-8`, `68"`; weights `205 lb`/`205lbs`/
+  `205 pounds`; wingspans `7'0 WS`, `wingspan 7'`, `80" wingspan`, `+2 wingspan`.
+- PG/SG/SF/PF/C plus guard/wing/forward/big/center.
+- Attribute synonyms including `three`/`3pt`, `perim d`, `swb`, `rebound`/`board`,
+  `dunk`, `pass`, `handle`.
+- Targets `90+ three`, `90 three`, `at least 88 perimeter D`, `max speed`, `min 75 pass`.
+- Breakers `22 cap breakers`, `+5 on three`, `use 3 breakers on steal`.
+- Badges `HOF posterizer`, `gold limitless`, `contact dunks`, `no badges below silver`.
+
+Validation uses `GBLE.heightsFor`, `PB`, `ceilingsFor`, `upStart`, `settle`, `ratingOf`,
+`overallOf`, `trueOvr` and `badgeTiersOf`. The review card shows the chosen body, body
+adjustments, every target's current/requested/cap/result and a cap/99-wall/linked reason,
+badge goals, breaker budget/shortfall and the badge floor. Unrecognized text is listed under
+**I didn't understand**; nonsense input has no Apply button. The current build is unchanged
+until **Apply to builder**; Cancel leaves it unchanged. The review area has a fixed height
+(340 px desktop, 360 px mobile) so the panel does not shift the page when a review appears.
+
+Browser test `tests/browser/builder-sentence.browser.cjs` covers a reachable request,
+an unreachable perimeter target (cap 87, applies 87 with the closest-legal label), pure
+nonsense (unrecognized list, no Apply), no build change before Apply, 44 px mobile Apply,
+and no overflow at 1280/390. `tests/build-from-sentence.test.mjs` has 40 table-driven
+parser/validation cases.
+
+Screenshots:
+
+- `docs/evidence/build-from-sentence/empty-1280.png`
+- `docs/evidence/build-from-sentence/empty-390.png`
+- `docs/evidence/build-from-sentence/review-unreachable-1280.png`
+- `docs/evidence/build-from-sentence/review-unreachable-390.png`
+- `docs/evidence/build-from-sentence/applied-1280.png`
+- `docs/evidence/build-from-sentence/applied-390.png`
+
 ### Cloud account deletion (63a6f5b)
 
 - `deleteAccountWith()` runs `delete_own_account` first, then `signOut({ scope: 'local' })`.
@@ -300,7 +337,7 @@ said “press Ctrl/Cmd+C”. `322e697` uses **“use your copy menu”** on coar
   pre-fills the same controls. The shared link was verified at 390.
 - Browser tests: reset → Diagnose → Apply → Undo → Plan to target → Apply plan → named version,
   and save → load → run → shared link, at 1280 and 390, with no console errors or overflow.
-- `node --test tests/*.mjs`: **105/105 pass** (Build Doctor unit tests plus the unreachable-tier case). Independent clean-archive run on `766a7db`: 103/103; the cloud tests add two cases.
+- `node --test tests/*.mjs`: **146/146 pass** (Build Doctor, cloud, parser/validation and the existing suites). Independent clean-archive run on `766a7db`: 103/103.
 
 ### Mechanics Lab and other P2
 
@@ -318,7 +355,7 @@ said “press Ctrl/Cmd+C”. `322e697` uses **“use your copy menu”** on coar
 
 - `node --test tests/*.mjs`: **98/98 pass**.
 - Browser tests pass: badges (including Tokens), screenshot import/rejection, builder controls,
-  builder finder, cap-breaker row, Fuse planner, Mechanics detail, Build Doctor/history, saved searches, builder touch, builder batching, builder clipboard.
+  builder finder, cap-breaker row, Fuse planner, Mechanics detail, Build Doctor/history, saved searches, builder touch, builder batching, builder clipboard, build from a sentence.
 - 390 px: no horizontal overflow on builder, cap-breakers, badges, mechanics, jumpshot-lab.
 
 ## Not tested
