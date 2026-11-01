@@ -58,7 +58,7 @@ export function findReferenceBuilds(raw, { onProgress, timeoutMs = 45000 } = {})
       reject(new Error(event?.message || 'the reference finder worker failed to start'));
     };
     try {
-      worker.postMessage({ type: 'find', id, raw, sets: [] });
+      worker.postMessage({ type: 'find', id, raw, sets: [], sort: 'value' });
     } catch (error) {
       finish();
       reject(error instanceof Error ? error : new Error(String(error)));
