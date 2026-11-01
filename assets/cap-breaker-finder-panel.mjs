@@ -7,7 +7,7 @@ import {
   sortRows,
   validateFinderQuery,
 } from './cap-breaker-reference-finder.js';
-import { describeSendResult, sendTargetToFinder } from './cap-breaker-finder-link.js';
+import { capBreakerFinderLink } from './finder-query.mjs';
 
 const POSITIONS = ['PG', 'SG', 'SF', 'PF', 'C'];
 const attrOptions = ATTRIBUTE_NAMES.map((name, index) => [index, name]).filter(([index]) => index !== 7);
@@ -38,8 +38,8 @@ async function init() {
   if (!root) return;
   const finder = createCapBreakerFinder();
   let allRows = [];
-  let query = { caps: 5, attr: 2, tgt: null };
   let loading = false;
+  let reloadRequested = false;
 
   const attribute = el('select', null, 'sel');
   attribute.setAttribute('aria-label', 'Cap-breaker attribute');
@@ -146,13 +146,7 @@ async function init() {
         el('td', String(row.tgt)),
         el('td', `+${row.free}`),
       );
-      const use = el('button', { class: 'btn', type: 'button', text: 'Use target' });
-      use.addEventListener('click', async () => {
-        use.disabled = true;
-        const result = await sendTargetToFinder({ attributeIndex: row.a, target: row.tgt });
-        use.disabled = false;
-        status.textContent = describeSendResult(result, { attrName: ATTRIBUTE_NAMES[row.a], target: row.tgt });
-      });
+      const use = el('a', { class: 'btn', href: capBreakerFinderLink(row, caps.value), text: 'Find builds', 'aria-label': `Find ${POSITIONS[row.p]} builds at ${heightLabel(row.h)} targeting ${ATTRIBUTE_NAMES[row.a]} ${row.tgt}` });
       const cell = el('td');
       cell.append(use);
       tr.append(cell);
@@ -161,17 +155,20 @@ async function init() {
   }
 
   async function load() {
-    if (loading) return;
+    if (loading) { reloadRequested = true; return; }
     const validation = validateFinderQuery({ caps: caps.value, attr: attribute.value, tgt: target.value });
     if (!validation.ok) {
       status.textContent = validation.message;
       return;
     }
     loading = true;
+    allRows = [];
+    tbody.replaceChildren();
     run.disabled = true;
     status.textContent = 'Asking the recovered finder for rows…';
     try {
       const result = await finder.findParks(validation.query);
+      if (reloadRequested) return;
       allRows = result.rows;
       const heights = [...new Set(allRows.map(row => row.h))].sort((a, b) => a - b);
       const previous = height.value;
@@ -184,9 +181,7 @@ async function init() {
       }
       height.replaceChildren(...heightOptions);
       height.value = heights.includes(Number(previous)) ? previous : '';
-      query = validation.query;
       loading = false;
-      run.disabled = false;
       status.className = 'muted';
       render();
       return;
@@ -197,6 +192,7 @@ async function init() {
     } finally {
       loading = false;
       run.disabled = false;
+      if (reloadRequested) { reloadRequested = false; void load(); }
     }
   }
 

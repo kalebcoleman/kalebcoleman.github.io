@@ -76,3 +76,10 @@ Remaining differences are mainly the simpler builder attribute/token presentatio
 - Min-max and Better frame now use the recovered reference `b:mm` badge map (`reference-badge-map.mjs`) with the full body state, not only the allocation. Both return 12 results on the default build and on a lower 64-overall test build, where the old local map returned 0.
 - The Builder's overall now uses the recovered `GBLE.trueOvr` calculation, so a 74-overall build reads 74.4 instead of the old always-99 approximation, while the default build remains 92.3 and a loaded reference finder build reads 92–96.
 - Cap-breaker rows still hand off to the finder rather than building a full row directly; the Upgrade Planner and Highest Overalls board remain the largest missing premium/free surfaces.
+
+### Finder and deployment follow-up
+
+- Finder height is now passed into the reference worker before it selects its top results. Previously it filtered the top results afterward, which could hide valid builds at the selected height.
+- A cap-breaker row now opens the current finder with its position, height, target and breaker budget filled in. Result cards distinguish base ratings from ratings after breakers and show badges after those breakers. The builder link still imports the base allocation only; the breaker plan must be applied separately.
+- The finder controls render while the result-display data loads, and the cap-breaker table repeats a query when its controls change during a pending request.
+- A GitHub Actions workflow runs the Node test suite on pushes and pull requests. The existing GitHub Pages branch deployment remains separate from this test workflow.

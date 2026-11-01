@@ -2,14 +2,9 @@ import { n as loadKernel } from './kernel-BWpHXNaH.js';
 import { t as bridge } from './bridge-D0YB3AWd.js';
 import { buildLink, findReferenceBuilds } from './reference-finder.mjs';
 
-const ATTRIBUTES = [
-  'Close Shot', 'Driving Layup', 'Driving Dunk', 'Standing Dunk', 'Post Control',
-  'Mid-Range', 'Three-Point', 'Free Throw', 'Pass Accuracy', 'Ball Handle',
-  'Speed w/ Ball', 'Interior D', 'Perimeter D', 'Steal', 'Block',
-  'Off Rebound', 'Def Rebound', 'Speed', 'Agility', 'Strength', 'Vertical',
-];
-const POSITIONS = ['PG', 'SG', 'SF', 'PF', 'C'];
-const TIER_FALLBACK = ['Bronze', 'Silver', 'Gold', 'HOF'];
+import { FINDER_ATTRIBUTES as ATTRIBUTES, FINDER_POSITIONS as POSITIONS, finderPayload, parseFinderLink } from './finder-query.mjs';
+
+const TIER_FALLBACK = ['', 'Bronze', 'Silver', 'Gold', 'HOF'];
 const PRESETS = [
   { id: 'wing', name: 'Slashing 3-and-D wing', position: 2, summary: 'Driving Dunk 5 · Shooting 4 · Perimeter D 3', targets: { 2: 90, 5: 85, 6: 85, 12: 78 }, levels: { 'Driving Dunk': 5, Shooting: 4, 'Perimeter D': 3 } },
   { id: 'floor', name: 'Floor general', position: 0, summary: 'Ball Handling 5 · Passing 5 · Shooting 3', targets: { 8: 90, 9: 90, 5: 75, 6: 78 }, levels: { Shooting: 3, Passing: 5, 'Ball Handling': 5 } },
@@ -76,10 +71,9 @@ function ensureDescName() {
 async function init() {
   const root = document.querySelector('#finder-page');
   if (!root) return;
-  const kernel = await loadKernel();
-  let descName = null;
-  try { descName = await ensureDescName(); } catch { /* the local bridge name remains available */ }
-  const tierNames = kernel.env.badges.tiers ?? TIER_FALLBACK;
+  // Render controls immediately while result-display data loads in the background.
+  const resultData = Promise.all([loadKernel(), ensureDescName().catch(() => null)]);
+  resultData.catch(() => {}); // Report loading failures when the user requests results.
   let position = 0;
   let anyPosition = true;
   let searching = false;
@@ -132,7 +126,10 @@ async function init() {
   });
 
   const targetGrid = el('div', { class: 'target-grid' }, targets.map(({ name, input }) => {
-    input.addEventListener('input', () => { activePreset = null; });
+    input.addEventListener('input', () => {
+      activePreset = null;
+      for (const card of presetGrid.children) { card.classList.remove('is-active'); card.setAttribute('aria-pressed', 'false'); }
+    });
     return el('label', { class: 'lbl' }, [name, input]);
   }));
   const advanced = el('details', { class: 'target-details' }, [
@@ -142,7 +139,7 @@ async function init() {
   ]);
 
   const presetGrid = el('div', { class: 'preset-grid' }, PRESETS.map(preset => {
-    const button = el('button', { class: 'preset-card', type: 'button' }, [
+    const button = el('button', { class: 'preset-card', type: 'button', 'aria-pressed': 'false' }, [
       el('strong', preset.name),
       el('span', { class: 'muted', text: preset.summary }),
     ]);
@@ -153,12 +150,27 @@ async function init() {
       anyButton.setAttribute('aria-pressed', 'false');
       for (const [i, candidate] of positionButtons.entries()) candidate.setAttribute('aria-pressed', String(i === preset.position));
       for (const { index, input } of targets) input.value = String(preset.targets[index] ?? 0);
-      for (const card of presetGrid.children) card.classList.toggle('is-active', card === button);
+      for (const card of presetGrid.children) {
+        card.classList.toggle('is-active', card === button);
+        card.setAttribute('aria-pressed', String(card === button));
+      }
     });
     return button;
   }));
 
-  const status = el('p', { class: 'muted', role: 'status', 'aria-live': 'polite', text: 'Pick a preset or set exact targets, then press Find builds.' });
+  const prefill = parseFinderLink(window.location.search);
+  if (prefill) {
+    anyPosition = false;
+    position = prefill.position;
+    anyButton.setAttribute('aria-pressed', 'false');
+    positionButtons[position].setAttribute('aria-pressed', 'true');
+    height.value = String(prefill.height);
+    caps.value = String(prefill.caps);
+    targets[prefill.attribute].input.value = String(prefill.target);
+    advanced.open = true;
+  }
+
+  const status = el('p', { class: 'muted', role: 'status', 'aria-live': 'polite', text: prefill ? 'Cap-breaker target and frame loaded. Press Find builds to search.' : 'Pick a preset or set exact targets, then press Find builds.' });
   const results = el('div', { class: 'build-results' }, [
     el('div', { class: 'panel' }, [
       el('h2', { text: 'What you are searching for' }),
@@ -170,7 +182,7 @@ async function init() {
   clearButton.addEventListener('click', () => {
     for (const { input } of targets) input.value = '0';
     activePreset = null;
-    for (const card of presetGrid.children) card.classList.remove('is-active');
+    for (const card of presetGrid.children) { card.classList.remove('is-active'); card.setAttribute('aria-pressed', 'false'); }
     status.textContent = 'Targets cleared. Pick a preset or set exact targets.';
     results.replaceChildren();
   });
@@ -197,9 +209,12 @@ async function init() {
       results.replaceChildren(el('p', { class: 'muted', text: 'No build matched those targets. Lower a target or add cap breakers.' }));
       return;
     }
+    const [kernel, descName] = await resultData;
+    const tierNames = kernel.env.badges.tiers ?? TIER_FALLBACK;
     const cards = [];
     for (const [index, row] of rows.entries()) {
       const alloc = Array.isArray(row.alloc) ? row.alloc : [];
+      const after = Array.isArray(row.after) && row.after.length === alloc.length ? row.after : alloc;
       const ceilings = kernel.W(row.body?.[0] ?? 75, row.body?.[1] ?? 185, row.body?.[2] ?? 80);
       const reference = window.GBLE?.trueOvr ? window.GBLE.trueOvr(alloc, row.pos) : NaN;
       const trueOverall = Number.isFinite(reference) ? reference : kernel.overallApprox(alloc, ceilings);
@@ -207,7 +222,7 @@ async function init() {
       const used = Number(row.used ?? row.needs ?? 0);
       const badgeList = [];
       for (const badge of kernel.env.badges.badges) {
-        const tier = badgeTier(badge, alloc);
+        const tier = badgeTier(badge, after);
         if (tier) badgeList.push({ name: badge[0], tier });
       }
       let name = '';
@@ -230,14 +245,15 @@ async function init() {
           el('p', { class: 'muted build-kicker', text: index === 0 ? 'BEST BUILD' : `BUILD ${index + 1}` }),
           el('h3', { text: name || `Build ${index + 1}` }),
           el('p', { class: 'muted', text: `${POSITIONS[row.pos] ?? '—'} · ${feetInches(row.body?.[0])} · ${row.body?.[1] ?? '—'} lb · ${feetInches(row.body?.[2])} wingspan · ${used ? `${used} cap breaker${used === 1 ? '' : 's'}` : 'no cap breakers'}` }),
-          el('p', { class: 'build-meta', text: `${Number.isFinite(trueOverall) ? `True overall ${trueOverall.toFixed(1)} · ` : ''}${Number(row.points ?? 0)} points · ${row.met ?? 0} target${row.met === 1 ? '' : 's'} met · ${badgeList.length} badge tiers` }),
+          el('p', { class: 'build-meta', text: `${Number.isFinite(trueOverall) ? `True overall ${trueOverall.toFixed(1)} · ` : ''}${Number(row.points ?? 0)} points · ${row.met ?? 0} target${row.met === 1 ? '' : 's'} met · ${badgeList.length} badges${used ? ' after cap breakers' : ''}` }),
           el('div', { class: 'badge-list' }, badgeList.slice(0, 10).map(badge => el('span', { class: 'badge-chip' }, [
             el('b', { text: badge.name }),
             el('span', { text: tierNames[badge.tier] ?? `Tier ${badge.tier}` }),
           ]))),
+          ...(used ? [el('p', { class: 'muted breaker-note', text: 'Attributes show base → after cap breakers. The builder opens the base allocation; apply the breaker plan separately.' })] : []),
           el('div', { class: 'attr-grid' }, ATTRIBUTES.map((label, attribute) => el('div', { class: 'attr-cell' }, [
             el('span', { class: 'muted', text: label }),
-            el('b', { text: String(alloc[attribute] ?? 0) }),
+            el('b', { text: after[attribute] !== alloc[attribute] ? `${alloc[attribute]} → ${after[attribute]}` : String(alloc[attribute] ?? 0) }),
           ]))),
           el('p', {}, [el('a', { class: 'btn primary', href: buildLink(row), text: 'Open in builder' })]),
         ]),
@@ -259,29 +275,10 @@ async function init() {
       const value = Math.max(0, Math.min(99, Number(input.value) || 0));
       if (value > 0) targetMap[name] = value;
     }
-    const raw = {
-      pos: anyPosition ? 'PG' : POSITIONS[position],
-      anyPos: anyPosition,
-      poss: null,
-      attrs: activePreset ? {} : targetMap,
-      fmode: {},
-      btw: {},
-      land: {},
-      maxv: {},
-      kmax: {},
-      caps: caps.value === 'auto' ? 'auto' : Number(caps.value) || 0,
-      lean: false,
-      hard: false,
-      spez: null,
-      capcat: null,
-      hmin: null,
-      hmax: null,
-      hset: null,
-      wsmin: null,
-      wsmax: null,
-      comm: null,
-    };
-    if (activePreset) raw.levels = activePreset.levels;
+    const raw = finderPayload({
+      position, anyPosition, height: height.value, caps: caps.value,
+      targets: targetMap, levels: activePreset?.levels,
+    });
     try {
       const result = await findReferenceBuilds(raw, {
         onProgress: progress => {
@@ -289,9 +286,7 @@ async function init() {
           status.textContent = `${progress.note || 'Searching…'}${progress.total ? ` (${pct}%)` : ''}`;
         },
       });
-      let rows = result.res;
-      const chosenHeight = height.value === '' ? null : Number(height.value);
-      if (chosenHeight !== null) rows = rows.filter(row => Number(row.body?.[0]) === chosenHeight);
+      const rows = result.res;
       lastResults = rows;
       const ms = result.ms ? `${(result.ms / 1000).toFixed(1)} s` : 'a moment';
       status.textContent = `${rows.length} build${rows.length === 1 ? '' : 's'} found in ${ms}.`;
