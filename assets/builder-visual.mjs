@@ -120,8 +120,8 @@ function ensureName(side) {
   if (!panel) {
     panel = node('section', 'panel builder-name');
     panel.append(node('h2', null, 'Build name'));
-    const badges = sideChild(side, side.querySelector('.builder-badges'));
-    side.insertBefore(panel, badges ?? null);
+    const before = sideChild(side, side.querySelector('.build-doctor, .builder-history, .builder-badges'));
+    side.insertBefore(panel, before ?? null);
   }
   const label = input.closest('label.lbl') ?? input;
   if (!panel.contains(label)) panel.append(label);

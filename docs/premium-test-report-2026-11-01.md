@@ -218,6 +218,22 @@ at 390 it is a single horizontal scroller.
 - Steppers were enlarged, and the all-position search is opt-in, so the earlier `Overall 98`,
   tiny-stepper and 26 s default-search findings are closed.
 
+### Build Doctor and history (own features)
+
+- **Build Doctor** (`assets/build-doctor.mjs`) reports the displayed overall, true overall and raw
+  score, explains why the build is below a target, lists frame ceilings, and suggests legal
+  single-step changes. **Plan to target** walks the recovered validator to a target overall; from
+  the reset build it reached 99 in 162 small steps in ~0.5 s. **Apply plan** writes the final
+  allocation through `__applyCandidate`, so the wall and linked ratings still apply.
+- **Target a badge tier** shows the current tier and every requirement gap, and writes the
+  missing targets through `__writeTargets(..., true)`.
+- **Undo/Redo + history** (`assets/builder-history.mjs`) snapshots the builder's own share codes
+  locally, supports Ctrl/Cmd+Z and Shift+Ctrl+Z, lists recent edits with Restore, and stores
+  named versions in `fb.versions.v1`. It never uploads anything.
+- Browser test: reset → Diagnose → Apply → Undo → Plan to target → Apply plan → named version,
+  at 1280 and 390, with no console errors or overflow.
+- `node --test tests/*.mjs`: **102/102 pass** (adds Build Doctor unit tests).
+
 ### Mechanics Lab and other P2
 
 - Mechanics Lab cards now open a detail panel with kind/category, height range, requirements,
@@ -234,7 +250,7 @@ at 390 it is a single horizontal scroller.
 
 - `node --test tests/*.mjs`: **98/98 pass**.
 - Browser tests pass: badges (including Tokens), screenshot import/rejection, builder controls,
-  builder finder, cap-breaker row, Fuse planner, Mechanics detail.
+  builder finder, cap-breaker row, Fuse planner, Mechanics detail, Build Doctor/history.
 - 390 px: no horizontal overflow on builder, cap-breakers, badges, mechanics, jumpshot-lab.
 
 ## Not tested
