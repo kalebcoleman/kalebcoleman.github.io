@@ -30,8 +30,11 @@ test('cap-breaker notice names the row landing and breaker count', () => {
     { position: 0, height: 69, attribute: 2, land: 77, park: 28, caps: 5 },
     ['Close Shot', 'Driving Layup', 'Driving Dunk'],
     ['PG', 'SG', 'SF', 'PF', 'C'],
+    92.2982,
   );
   assert.match(notice, /PG 5'9"/);
   assert.match(notice, /Driving Dunk 28 → 77/);
   assert.match(notice, /5 cap breakers/);
+  assert.match(notice, /Overall 92/);
+  assert.match(notice, /legal under the 99 overall wall/);
 });

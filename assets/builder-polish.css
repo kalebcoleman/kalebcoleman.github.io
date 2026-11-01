@@ -644,7 +644,7 @@ html[data-fb-route="builder"] .tbl-wrap {
   html[data-fb-route="builder"] .builder-side > .panel { margin-bottom: 12px; }
   html[data-fb-route="builder"] .rows { grid-template-columns: minmax(0, 1fr); }
   html[data-fb-route="builder"] .row {
-    grid-template-columns: minmax(90px, 1fr) minmax(100px, 1.35fr) 52px 42px;
+    grid-template-columns: minmax(90px, 1fr) minmax(100px, 1.35fr) 52px 46px;
     padding: 5px 0;
   }
   html[data-fb-route="builder"] .btn,
@@ -659,9 +659,9 @@ html[data-fb-route="builder"] .tbl-wrap {
     min-height: 38px;
   }
   html[data-fb-route="builder"] .fb-step {
-    width: 40px;
-    height: 32px;
-    font-size: 14px;
+    width: 44px;
+    height: 44px;
+    font-size: 16px;
   }
   html[data-fb-route="builder"] .builder-actions .fb-action-grid {
     grid-template-columns: 1fr;

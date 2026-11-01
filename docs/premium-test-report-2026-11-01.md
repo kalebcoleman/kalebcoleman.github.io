@@ -200,7 +200,7 @@ Build name, Badges) and a dense attributes panel. It adds:
 - Dark navy header and cream builder surface in light mode; theme-aware dark surface.
 - Segmented PG/SG/SF/PF/C control and body sliders with exact values.
 - 34 px control height, 6 px range tracks with ticks, 16 px thumbs, and per-row `max` hints.
-- Per-row `−`/`+` steppers (26 × 21 px desktop, 40 × 32 px mobile), grouped category colors and
+- Per-row `−`/`+` steppers (26 × 21 px desktop, 44 × 44 px mobile), grouped category colors and
   a compact group legend.
 - Compact screenshot import below Body with one privacy sentence; tier legend moved to the
   builder badge panel.

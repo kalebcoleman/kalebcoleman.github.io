@@ -821,7 +821,7 @@ html.jpk-on{overflow:hidden}
 @media (max-width: 600px) {
   .jcue { padding-bottom: 44px; }
   .jcuet { height: 44px; margin-top: -44px; }
-  .jcuet button { height: 44px; padding: 20px 4px 0; font-size: 12px; }
+  .jcuet button { height: 44px; min-width: 44px; padding: 20px 4px 0; font-size: 12px; }
   .jcuet button::before { top: 0; }
   #jDlGo, .jmx { min-height: 44px; padding: 10px 14px; }
 }

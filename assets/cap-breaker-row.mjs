@@ -59,9 +59,10 @@ export function parseCapBreakerRow(search) {
   };
 }
 
-export function capRowNotice(row, names, positions) {
+export function capRowNotice(row, names, positions, overall = null) {
   const position = positions?.[row.position] ?? `Position ${row.position}`;
   const attribute = names?.[row.attribute] ?? `Attribute ${row.attribute + 1}`;
   const feet = `${Math.floor(row.height / 12)}'${row.height % 12}"`;
-  return `Built cap-breaker row: ${position} ${feet} · ${attribute} ${row.park} → ${row.land} · ${row.caps} cap breaker${row.caps === 1 ? '' : 's'}. Other attributes were lowered to fit the 99 overall wall.`;
+  const landed = Number.isFinite(overall) ? ` The build landed at Overall ${Math.round(overall)};` : '';
+  return `Built cap-breaker row: ${position} ${feet} · ${attribute} ${row.park} → ${row.land} · ${row.caps} cap breaker${row.caps === 1 ? '' : 's'}.${landed} other attributes were lowered to keep it legal under the 99 overall wall.`;
 }
