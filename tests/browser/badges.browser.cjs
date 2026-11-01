@@ -25,11 +25,20 @@ const { chromium } = require('playwright');
   await page.waitForTimeout(1000);
   const planText = await page.locator('#ptabpanel').innerText();
   if (await page.locator('.badge').count() !== 0 || !/next badge tier/i.test(planText)) throw new Error('plan tab did not render');
+  const planHeader = await page.locator('#ptabpanel thead').innerText();
+  if (!/Tokens/i.test(planHeader)) throw new Error('plan table is missing token costs');
 
   await page.locator('#ptab-next').click();
   await page.waitForTimeout(500);
   const nextText = await page.locator('#ptabpanel').innerText();
   if (!/next tier at/i.test(nextText)) throw new Error('next tab did not render');
+
+  await page.locator('#ptab-tokens').click();
+  await page.waitForTimeout(1500);
+  const tokenHeader = await page.locator('#ptabpanel thead').innerText();
+  const tokenRows = await page.locator('#ptabpanel table tbody tr').count();
+  console.log({ tokenHeader, tokenRows });
+  if (!/Tokens/i.test(tokenHeader) || tokenRows < 200) throw new Error('tokens tab did not render the full cost table');
 
   await page.locator('#ptab-badges').click();
   await page.waitForTimeout(500);

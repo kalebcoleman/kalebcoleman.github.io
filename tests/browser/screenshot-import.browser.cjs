@@ -51,6 +51,20 @@ const { chromium } = require('playwright');
   const after = await page.locator('.overall').innerText();
   console.log('overall before/after', before, after);
   if (!after.startsWith('Overall 25')) throw new Error('apply did not go through the validated builder path');
+
+  // Reject an over-ceiling value and identify the offending attribute.
+  await input.setInputFiles({ name: 'shot.png', mimeType: 'image/png', buffer: Buffer.from('89504e470d0a1a0a', 'hex') });
+  await page.waitForTimeout(1000);
+  const firstAttribute = page.locator('section[aria-label="Import from screenshot"] [data-attribute="3"]');
+  await firstAttribute.fill('99');
+  await page.getByRole('button', { name: 'Apply to builder' }).click();
+  await page.waitForTimeout(500);
+  const highlighted = await page.locator('section[aria-label="Import from screenshot"] .apply-warn').count();
+  const rejection = await page.locator('section[aria-label="Import from screenshot"] [role=alert]').innerText();
+  console.log('rejection', { highlighted, rejection });
+  if (!highlighted) throw new Error('rejected apply did not highlight an attribute');
+  if (!/Standing Dunk/i.test(rejection)) throw new Error('rejected apply did not name the offending attribute');
+  if ((await page.locator('.overall').innerText()) !== after) throw new Error('rejected apply changed the build');
   if (errors.length) throw new Error(errors.slice(0, 3).join(' | '));
   await browser.close();
 })();

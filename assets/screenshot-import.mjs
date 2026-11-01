@@ -18,6 +18,12 @@ const numberInput = (value, min, max, label) => {
   return input;
 };
 
+function feetInches(inches) {
+  const value = Number(inches);
+  if (!Number.isFinite(value)) return '—';
+  return `${Math.floor(value / 12)}'${value % 12}"`;
+}
+
 function layoutName(raw) {
   const code = raw?._layout ?? raw?.layout;
   return LAYOUT_NAMES[code] ?? (code ? `Layout ${code}` : 'Unknown layout');
@@ -85,8 +91,7 @@ export function createScreenshotImport(root, { getCurrentBuild, applyBuild, load
   panel.className = 'panel';
   panel.setAttribute('aria-label', 'Import from screenshot');
   const heading = text('h3', 'Import from screenshot');
-  const description = text('p', 'Read a 2K HQ app, bar-screen or Attribute Editor screenshot. The image is processed on this device and is never uploaded.', 'muted');
-  const privacy = text('p', 'Screenshots stay on this device. Nothing is sent to a server.', 'muted');
+  const description = text('p', 'Read a 2K HQ, bar-screen or Attribute Editor screenshot. It stays on this device.', 'muted');
   const file = document.createElement('input');
   file.type = 'file';
   file.accept = 'image/png,image/jpeg,image/webp';
@@ -106,7 +111,7 @@ export function createScreenshotImport(root, { getCurrentBuild, applyBuild, load
   const row = document.createElement('div');
   row.className = 'fieldset';
   row.append(choose, file);
-  panel.append(heading, description, privacy, row, drop, status, review);
+  panel.append(heading, description, row, drop, status, review);
   root.append(panel);
 
   let templates = null;
@@ -138,7 +143,7 @@ export function createScreenshotImport(root, { getCurrentBuild, applyBuild, load
     review.hidden = false;
     review.replaceChildren();
     const summary = text('p', `${data.layout} · ${data.got}/21 attribute${data.got === 1 ? '' : 's'} read`, 'muted');
-    const bodyLine = text('p', data.body ? `Body: ${(window.GBLE?.POSN ?? [])[data.body.p] ?? '—'} · ${data.body.h}" · ${data.body.w} lb · ${data.body.ws}" wingspan` : 'Body was not read; the current body will be used unless you change it.', data.body ? 'muted' : 'warn');
+    const bodyLine = text('p', data.body ? `Body: ${(window.GBLE?.POSN ?? [])[data.body.p] ?? '—'} · ${feetInches(data.body.h)} · ${data.body.w} lb · ${feetInches(data.body.ws)} wingspan` : 'Body was not read; the current body will be used unless you change it.', data.body ? 'muted' : 'warn');
     const bodyRow = document.createElement('div');
     bodyRow.className = 'fieldset';
     const positions = window.GBLE?.POSN ?? ['PG', 'SG', 'SF', 'PF', 'C'];
@@ -189,17 +194,42 @@ export function createScreenshotImport(root, { getCurrentBuild, applyBuild, load
     if (warningList) warningList.append(...warnings.map(message => text('li', message)));
     const actions = document.createElement('div');
     actions.className = 'fieldset';
+    const applyWarning = text('p', '', 'warn');
+    applyWarning.hidden = true;
+    applyWarning.setAttribute('role', 'alert');
     const apply = text('button', 'Apply to builder', 'btn primary');
     apply.type = 'button';
     const cancel = text('button', 'Cancel', 'btn');
     cancel.type = 'button';
     apply.addEventListener('click', () => {
       if (busy) return;
+      for (const control of attrs.querySelectorAll('.apply-warn')) control.classList.remove('apply-warn');
+      applyWarning.hidden = true;
       const body = { p: Number(position.value), h: Number(height.value), w: Number(weight.value), s: Number(wingspan.value) };
       const candidate = buildCandidate(body, values);
       const result = applyBuild(candidate);
       if (!result?.ok) {
-        setStatus(result?.message ?? 'The builder rejected the screenshot values; nothing was changed.', true);
+        const message = result?.message ?? 'The builder rejected the screenshot values; nothing was changed.';
+        setStatus(message, true);
+        const names = window.GBLE?.ATTRS ?? [];
+        let culprit = names.findIndex(name => message.includes(name));
+        if (culprit < 0) {
+          const caps = window.GBLE?.ceilingsFor?.(body.h, body.w, body.s);
+          if (Array.isArray(caps)) culprit = values.findIndex((value, index) => value > (caps[index] ?? 99));
+        }
+        if (culprit < 0 && typeof window.GBLE?.ratingOf === 'function' && window.GBLE.ratingOf(values, body.h - 63) >= 99) {
+          culprit = values.indexOf(Math.max(...values));
+        }
+        if (culprit >= 0) {
+          const control = attrs.querySelector(`[data-attribute="${culprit}"]`);
+          control?.classList.add('apply-warn');
+          control?.focus?.();
+          applyWarning.hidden = false;
+          applyWarning.textContent = `${names[culprit] ?? `Attribute ${culprit + 1}`} is the likely blocker: ${message}`;
+        } else {
+          applyWarning.hidden = false;
+          applyWarning.textContent = message;
+        }
         return;
       }
       setStatus(`Applied ${data.layout} screenshot to the builder. Review the build before saving.`);
@@ -219,7 +249,7 @@ export function createScreenshotImport(root, { getCurrentBuild, applyBuild, load
       });
       actions.prepend(cardButton);
     }
-    review.append(summary, bodyLine, bodyRow, warningList ?? '', attrs, actions);
+    review.append(summary, bodyLine, bodyRow, warningList ?? '', attrs, applyWarning, actions);
     setStatus(warnings.length ? 'Review the highlighted fields, correct anything wrong, then apply.' : 'Review the read build, then apply.');
   }
 

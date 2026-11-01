@@ -2,7 +2,7 @@
 // retiring a version drops stale entries (the original documented a v2 icon incident, v3 WebView
 // pinning and v4 per-address docs). Policy, reproduced from the spec:
 //   · non-GET → passthrough; cross-origin → IGNORED (never cached);
-//   · bypass /locker/models/, /locker/art/, /radio/ (206 ranges + huge payloads);
+//   · bypass /j3d/ (206 ranges + huge payloads);
 //   · docs (navigate/html) NETWORK-FIRST, re-cached under home→"/" else pathname; offline →
 //     cache-by-path else "/"; a Locker-frame miss returns the inline "needs a connection" page;
 //   · static same-origin CACHE-FIRST, filled on `ok && type === 'basic'`.
@@ -17,10 +17,10 @@
 // pre-rebrand cache, so the name does not continue the old series: activate() deletes any cache
 // that is neither the current `VERSION` nor the current engine cache, which drops `gbl-v*` and
 // `gbl-engine-*` in one step (plus the pre-rebrand `gbl_engine*` URLs / engine cache name).
-const VERSION = 'fb-v22';
+const VERSION = 'fb-v23';
 const ENGINE_PREFIX = 'fb-engine-';
 const SHELL = ['/', '/manifest.webmanifest', '/icon-192.png', '/icon-512.png', '/apple-touch-icon.png'];
-const BYPASS = [/^\/locker\/models\//, /^\/locker\/art\//, /^\/radio\//, /^\/j3d\//];
+const BYPASS = [/^\/j3d\//];
 
 let engineCacheName = null;
 /** The `/engine/*` cache, keyed by the deployed wasm digest (`engine/deploy-manifest.json`). */
@@ -77,14 +77,6 @@ self.addEventListener('fetch', (event) => {
         if (byPath) return byPath;
         const home = await cache.match('/');
         if (home) return home;
-        if (url.pathname.startsWith('/locker/')) {
-          return new Response(
-            '<!doctype html><meta charset="utf-8"><title>The Locker needs a connection.</title>'
-            + '<body style="background:#0e1116;color:#f6f7f9;font:16px system-ui;padding:2rem">'
-            + '<h1>The Locker needs a connection.</h1><p>The look viewer loads its models on demand and is not cached offline.</p></body>',
-            { status: 200, headers: { 'content-type': 'text/html; charset=utf-8' } },
-          );
-        }
         return new Response('Offline', { status: 503, statusText: 'Offline' });
       }
     })());

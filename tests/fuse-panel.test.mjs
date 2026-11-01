@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { fuseCandidates } from '../assets/fuse-panel.mjs';
+import { fuseCandidates } from '../assets/fuse-planner.mjs';
 
 const G = {
   BADGES: [['A'], ['B'], ['C'], ['D']],

@@ -8,6 +8,7 @@ import {
   validateFinderQuery,
 } from './cap-breaker-reference-finder.js';
 import { capBreakerFinderLink } from './finder-query.mjs';
+import { capBreakerRowQuery } from './cap-breaker-row.mjs';
 
 const POSITIONS = ['PG', 'SG', 'SF', 'PF', 'C'];
 const attrOptions = ATTRIBUTE_NAMES.map((name, index) => [index, name]).filter(([index]) => index !== 7);
@@ -146,9 +147,10 @@ async function init() {
         el('td', String(row.tgt)),
         el('td', `+${row.free}`),
       );
+      const build = el('a', { class: 'btn primary', href: `/builder?${capBreakerRowQuery(row, caps.value)}`, text: 'Build this row', 'aria-label': `Build a ${POSITIONS[row.p]} at ${heightLabel(row.h)} with ${ATTRIBUTE_NAMES[row.a]} at ${row.land}` });
       const use = el('a', { class: 'btn', href: capBreakerFinderLink(row, caps.value), text: 'Find builds', 'aria-label': `Find ${POSITIONS[row.p]} builds at ${heightLabel(row.h)} targeting ${ATTRIBUTE_NAMES[row.a]} ${row.tgt}` });
-      const cell = el('td');
-      cell.append(use);
+      const cell = el('td', { style: 'display:flex;gap:6px;flex-wrap:wrap' });
+      cell.append(build, use);
       tr.append(cell);
       return tr;
     }));

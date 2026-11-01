@@ -816,3 +816,12 @@ html.jpk-on{overflow:hidden}
 /* the picker's "me" box sits on the rail, where the bare team ink falls to 4.0:1 (Cleveland at night): a fifth of the
    way to the text colour, as on the chips (looks.css .lk-chip.lk-ink), reads 5.3:1 or more for every city */
 .jpkme button { color: color-mix(in oklab, var(--jl-j-acc) 80%, var(--jl-ink)); }
+
+/* Mobile trainer: larger tap targets without changing cue timing or positions. */
+@media (max-width: 600px) {
+  .jcue { padding-bottom: 44px; }
+  .jcuet { height: 44px; margin-top: -44px; }
+  .jcuet button { height: 44px; padding: 20px 4px 0; font-size: 12px; }
+  .jcuet button::before { top: 0; }
+  #jDlGo, .jmx { min-height: 44px; padding: 10px 14px; }
+}

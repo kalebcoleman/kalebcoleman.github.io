@@ -108,8 +108,12 @@ export async function decorateBadges(root = document) {
   for (const card of root.querySelectorAll('.badge')) decorateBadgeCard(card, categories, icons);
   for (const chip of root.querySelectorAll('.badge-chip')) decorateBadgeChip(chip, categories, icons);
   const grid = root.querySelector('.grid.badges');
-  const panel = grid?.closest('.panel') ?? root.querySelector('.panel');
-  if (panel && !panel.querySelector('.badge-icon-legend')) panel.append(legend());
+  const panel = root.querySelector('.builder-badges') ?? grid?.closest('.panel') ?? root.querySelector('.panel');
+  if (!panel) return;
+  for (const node of root.querySelectorAll('.badge-icon-legend')) {
+    if (node.parentElement !== panel) node.remove();
+  }
+  if (!panel.querySelector('.badge-icon-legend')) panel.append(legend());
 }
 
 function legend() {

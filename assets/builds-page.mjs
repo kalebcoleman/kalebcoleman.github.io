@@ -120,7 +120,7 @@ async function init() {
         el('h3', { text: record.name }),
         el('p', { class: 'muted', text: subtitle }),
         why ? el('p', { class: 'build-meta', text: why }) : null,
-        !legal ? el('p', { class: 'muted breaker-note', text: 'Reference ratings exceed normal builder limits. Opening this card creates a legal fitted version.' }) : checked.adjusted ? el('p', { class: 'muted breaker-note', text: 'Linked ratings will be updated when opened in the builder.' }) : null,
+        !legal ? el('p', { class: 'muted breaker-note', text: 'Reference ratings exceed normal builder limits. Opening this card creates a legal fitted version; the fitted overall can be one point below the card header.' }) : checked.adjusted ? el('p', { class: 'muted breaker-note', text: 'Linked ratings will be updated when opened in the builder.' }) : null,
         el('div', { class: 'attr-grid' }, order.map(name => el('div', { class: 'attr-cell' }, [
           el('span', { class: 'muted', text: name }),
           el('b', { text: String(attributes[name] ?? 0) }),
