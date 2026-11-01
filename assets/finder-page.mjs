@@ -281,6 +281,11 @@ function comparePanel(rows, kernel, descName) {
     const [kernel, descName] = await resultData;
     const tierNames = kernel.env.badges.tiers ?? TIER_FALLBACK;
     const sorted = sortRows(rows, kernel);
+    try {
+      sessionStorage.setItem('fb_finder_last', JSON.stringify(sorted.slice(0, 12).map(row => ({ pos: row.pos, body: row.body, alloc: row.alloc, ovr: rowOverall(row, kernel), points: row.points, met: row.met, used: row.used, needs: row.needs }))));
+    } catch {
+      // Session storage is optional; the result list still works on the page.
+    }
     const cards = [];
     for (const [index, row] of sorted.entries()) {
       const alloc = Array.isArray(row.alloc) ? row.alloc : [];

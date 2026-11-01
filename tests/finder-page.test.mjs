@@ -10,4 +10,8 @@ test('the finder exposes result sorting and multi-build comparison', async () =>
   assert.match(script, /Most badges/);
   assert.match(script, /comparePanel/);
   assert.match(script, /Compare \$\{selected\.length\} builds/);
+  assert.match(script, /fb_finder_last/);
+  const recents = await readFile(new URL('../assets/builder-recents.mjs', import.meta.url), 'utf8');
+  assert.match(recents, /Last finder search/);
+  assert.match(recents, /buildLink/);
 });
