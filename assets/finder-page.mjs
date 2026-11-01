@@ -11,12 +11,12 @@ const ATTRIBUTES = [
 const POSITIONS = ['PG', 'SG', 'SF', 'PF', 'C'];
 const TIER_FALLBACK = ['Bronze', 'Silver', 'Gold', 'HOF'];
 const PRESETS = [
-  { id: 'wing', name: 'Slashing 3-and-D wing', position: 2, summary: 'Driving Dunk 5 · Shooting 4 · Perimeter D 3', targets: { 2: 90, 5: 85, 6: 85, 12: 78 } },
-  { id: 'floor', name: 'Floor general', position: 0, summary: 'Ball Handling 5 · Passing 5 · Shooting 3', targets: { 8: 90, 9: 90, 5: 75, 6: 78 } },
-  { id: 'stretch', name: 'Stretch five', position: 4, summary: 'Shooting 4 · Interior D 3 · Rebounding 3', targets: { 5: 85, 6: 85, 11: 78, 15: 78, 16: 78 } },
-  { id: 'post', name: 'Post scorer', position: 3, summary: 'Post 5 · Close Shot 3 · Strength 3 · Rebounding 3', targets: { 4: 90, 0: 78, 19: 78, 15: 78, 16: 78 } },
-  { id: 'lockdown', name: 'Lockdown guard', position: 1, summary: 'Perimeter D 5 · Shooting 3 · Athleticism 3', targets: { 12: 90, 5: 78, 6: 78, 17: 78, 18: 78, 20: 78 } },
-  { id: 'rim', name: 'Rim runner', position: 4, summary: 'Standing Dunk 5 · Interior D 4 · Rebounding 3', targets: { 3: 90, 11: 85, 15: 78, 16: 78 } },
+  { id: 'wing', name: 'Slashing 3-and-D wing', position: 2, summary: 'Driving Dunk 5 · Shooting 4 · Perimeter D 3', targets: { 2: 90, 5: 85, 6: 85, 12: 78 }, levels: { 'Driving Dunk': 5, Shooting: 4, 'Perimeter D': 3 } },
+  { id: 'floor', name: 'Floor general', position: 0, summary: 'Ball Handling 5 · Passing 5 · Shooting 3', targets: { 8: 90, 9: 90, 5: 75, 6: 78 }, levels: { Shooting: 3, Passing: 5, 'Ball Handling': 5 } },
+  { id: 'stretch', name: 'Stretch five', position: 4, summary: 'Shooting 4 · Interior D 3 · Rebounding 3', targets: { 5: 85, 6: 85, 11: 78, 15: 78, 16: 78 }, levels: { Shooting: 4, 'Interior D': 3, Rebounding: 3 } },
+  { id: 'post', name: 'Post scorer', position: 3, summary: 'Post 5 · Close Shot 3 · Strength 3 · Rebounding 3', targets: { 4: 90, 0: 78, 19: 78, 15: 78, 16: 78 }, levels: { Post: 5, 'Close Shot': 3, Strength: 3, Rebounding: 3 } },
+  { id: 'lockdown', name: 'Lockdown guard', position: 1, summary: 'Perimeter D 5 · Shooting 3 · Athleticism 3', targets: { 12: 90, 5: 78, 6: 78, 17: 78, 18: 78, 20: 78 }, levels: { 'Perimeter D': 5, Shooting: 3, Athleticism: 3 } },
+  { id: 'rim', name: 'Rim runner', position: 4, summary: 'Standing Dunk 5 · Interior D 4 · Rebounding 3', targets: { 3: 90, 11: 85, 15: 78, 16: 78 }, levels: { 'Standing Dunk': 5, 'Interior D': 4, Rebounding: 3 } },
 ];
 
 function el(tag, textOrAttrs, classNameOrChildren, children = []) {
@@ -58,14 +58,32 @@ function badgeTier(badge, alloc) {
   return 0;
 }
 
+let descNamePromise = null;
+
+function ensureDescName() {
+  if (typeof window !== 'undefined' && window.DescName?.describe) return Promise.resolve(window.DescName);
+  if (descNamePromise) return descNamePromise;
+  descNamePromise = new Promise((resolve, reject) => {
+    const script = document.createElement('script');
+    script.src = '/assets/lab-engine.js';
+    script.onload = () => window.DescName?.describe ? resolve(window.DescName) : reject(new Error('DescName did not initialise'));
+    script.onerror = () => reject(new Error('the recovered name table could not load'));
+    document.head.append(script);
+  });
+  return descNamePromise;
+}
+
 async function init() {
   const root = document.querySelector('#finder-page');
   if (!root) return;
   const kernel = await loadKernel();
+  let descName = null;
+  try { descName = await ensureDescName(); } catch { /* the local bridge name remains available */ }
   const tierNames = kernel.env.badges.tiers ?? TIER_FALLBACK;
   let position = 0;
   let anyPosition = true;
   let searching = false;
+  let activePreset = null;
   let lastResults = [];
 
   const positionButtons = POSITIONS.map((name, index) => {
@@ -98,18 +116,25 @@ async function init() {
 
   const caps = el('select', null, 'sel');
   caps.setAttribute('aria-label', 'Cap breakers');
+  const autoCaps = el('option', 'Auto: have the finder tell me');
+  autoCaps.value = 'auto';
+  caps.append(autoCaps);
   for (let value = 0; value <= 26; value += 1) {
     const option = el('option', `${value} cap breaker${value === 1 ? '' : 's'}`);
     option.value = String(value);
     caps.append(option);
   }
+  caps.value = 'auto';
 
   const targets = ATTRIBUTES.map((name, index) => {
     const input = el('input', { class: 'inp num', type: 'number', min: 0, max: 99, value: 0, 'aria-label': `${name} target` });
     return { name, index, input };
   });
 
-  const targetGrid = el('div', { class: 'target-grid' }, targets.map(({ name, input }, index) => el('label', { class: 'lbl' }, [name, input])));
+  const targetGrid = el('div', { class: 'target-grid' }, targets.map(({ name, input }) => {
+    input.addEventListener('input', () => { activePreset = null; });
+    return el('label', { class: 'lbl' }, [name, input]);
+  }));
   const advanced = el('details', { class: 'target-details' }, [
     el('summary', 'Advanced exact attributes'),
     el('p', { class: 'muted', text: 'Blank or 0 means "no target". The recovered finder treats a target as a minimum.' }),
@@ -124,6 +149,7 @@ async function init() {
     button.addEventListener('click', () => {
       anyPosition = false;
       position = preset.position;
+      activePreset = preset;
       anyButton.setAttribute('aria-pressed', 'false');
       for (const [i, candidate] of positionButtons.entries()) candidate.setAttribute('aria-pressed', String(i === preset.position));
       for (const { index, input } of targets) input.value = String(preset.targets[index] ?? 0);
@@ -143,6 +169,7 @@ async function init() {
   const clearButton = el('button', { class: 'btn', type: 'button', text: 'Clear targets' });
   clearButton.addEventListener('click', () => {
     for (const { input } of targets) input.value = '0';
+    activePreset = null;
     for (const card of presetGrid.children) card.classList.remove('is-active');
     status.textContent = 'Targets cleared. Pick a preset or set exact targets.';
     results.replaceChildren();
@@ -174,7 +201,8 @@ async function init() {
     for (const [index, row] of rows.entries()) {
       const alloc = Array.isArray(row.alloc) ? row.alloc : [];
       const ceilings = kernel.W(row.body?.[0] ?? 75, row.body?.[1] ?? 185, row.body?.[2] ?? 80);
-      const trueOverall = kernel.overallApprox(alloc, ceilings);
+      const reference = window.GBLE?.trueOvr ? window.GBLE.trueOvr(alloc, row.pos) : NaN;
+      const trueOverall = Number.isFinite(reference) ? reference : kernel.overallApprox(alloc, ceilings);
       const ovr = Number.isFinite(trueOverall) ? Math.round(trueOverall) : '—';
       const used = Number(row.used ?? row.needs ?? 0);
       const badgeList = [];
@@ -184,10 +212,17 @@ async function init() {
       }
       let name = '';
       try {
-        const named = await bridge.name({ alloc: [...alloc], pos: row.pos, order: [] });
-        name = named?.res?.[0]?.name ?? '';
+        name = descName?.describe ? descName.describe(alloc, row.pos) : '';
       } catch {
         name = '';
+      }
+      if (!name) {
+        try {
+          const named = await bridge.name({ alloc: [...alloc], pos: row.pos, order: [] });
+          name = named?.res?.[0]?.name ?? '';
+        } catch {
+          name = '';
+        }
       }
       const card = el('article', { class: 'build-card' }, [
         el('div', { class: 'build-ovr' }, [el('span', { text: 'OVERALL' }), el('strong', { text: String(ovr) })]),
@@ -227,13 +262,26 @@ async function init() {
     const raw = {
       pos: anyPosition ? 'PG' : POSITIONS[position],
       anyPos: anyPosition,
-      attrs: targetMap,
+      poss: null,
+      attrs: activePreset ? {} : targetMap,
       fmode: {},
-      caps: Number(caps.value) || 0,
+      btw: {},
+      land: {},
+      maxv: {},
+      kmax: {},
+      caps: caps.value === 'auto' ? 'auto' : Number(caps.value) || 0,
       lean: false,
-      hard: true,
-      noAlt: 1,
+      hard: false,
+      spez: null,
+      capcat: null,
+      hmin: null,
+      hmax: null,
+      hset: null,
+      wsmin: null,
+      wsmax: null,
+      comm: null,
     };
+    if (activePreset) raw.levels = activePreset.levels;
     try {
       const result = await findReferenceBuilds(raw, {
         onProgress: progress => {
