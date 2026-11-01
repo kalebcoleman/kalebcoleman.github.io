@@ -129,12 +129,12 @@ At 390 × 844, the document had no horizontal overflow on `/builder/`, `/finder/
 `/face-scan/` and `/jumpshot-lab/`. The nav is an intentional horizontal scroller. The only
 undersized interactive controls found were in the recovered Jumpshot Lab.
 
-## Post-fix verification — 81f7bc8
+## Post-fix verification — 322e697
 
 Feature commits `91955f4` (finder/Fuse/visual), `d372a75` (Build Doctor/Undo), `829136d`
 (saved searches), `5db21e9` (44×44/cap wording), `5213404` (touch stability, mobile DOM
-order, batching and unreachable badge targets) and `81f7bc8` (vertical swipe direction lock,
-clipboard fallback). Verified by the builder thread against `main` on the local static server, using
+order, batching and unreachable badge targets) `81f7bc8` (vertical swipe direction lock,
+clipboard fallback) and `322e697` (coarse-pointer copy wording). Verified by the builder thread against `main` on the local static server, using
 headless Chromium 140 at 1280 px and 390 px. The historical matrix above is the earlier
 `b37abd0` audit; this section is the post-fix state.
 
@@ -247,6 +247,30 @@ at 390 it is a single horizontal scroller.
   `builder-clipboard.browser.cjs` cover vertical/horizontal gestures, 10-tap stability,
   Copy/Save/Undo flush, range cancellation and the denied-clipboard fallback.
 
+### Independent verification — 766a7db vs 81f7bc8
+
+The builder thread re-ran the same checks from a clean `git archive 766a7db` on port 8124,
+with 390×844 touch emulation and CDP, and compared them with the context engineer's run.
+
+| Check | Independent (766a7db) | Context (766a7db) | Verdict |
+| --- | --- | --- | --- |
+| 10 taps on Raise Close Shot | 51 → 61; scrollY 1214 → 1214; row top 376 → 376 | 51 → 61; scrollY 1214 → 1214; row top 400 → 400 | Same behavior; row-top baseline differs with the scroll position |
+| Vertical swipe starting on range | scrollY 1214 → 1343; value 61 → 61 | scrollY 1214 → 1360; value 61 → 61 | Same invariant; scroll distance differs with gesture slop/timing |
+| Weight vertical swipe | weight 180 → 180; scrollY 0 → 128 | weight 180 → 180; scrollY 38 → 169 | Same invariant; starting scroll differs |
+| Weight horizontal drag | weight 180 → 216; scroll unchanged | weight 180 → 230; scroll unchanged | Same behavior; drag distance/start differed |
+| Immediate Copy / Save / Undo | copy 56; save 54; history 55; undo 51 | copy 56; save 54; history 55; undo 51 | Exact match |
+| Range pointerdown cancels stepper | value 51; code 51 | value 51; code 51 | Exact match |
+| Denied clipboard | toast shown; input focused; 128 chars; 0 errors | same | Exact match |
+| Aerial Wizard HOF | unreachable text; no Write; Find a body | same | Exact match |
+| DOM order at 390 | Body → Import → Actions → Name → Attributes → Find → Doctor → History → Badges → Share → Tools → Fuse | same | Exact match |
+| Unit suite | 103 pass / 0 fail | 103 pass / 0 fail | Exact match |
+
+The row-top and scroll-distance differences are baseline/gesture differences, not behavior
+differences: both runs show the row and scrollY unchanged during the tap burst and the range
+value unchanged during the vertical swipe. The copy nit was real: on `766a7db` the mobile toast
+said “press Ctrl/Cmd+C”. `322e697` uses **“use your copy menu”** on coarse pointers and keeps
+“press Ctrl/Cmd+C” on fine pointers; the clipboard test now covers both.
+
 ### Build Doctor and history (own features)
 
 - **Build Doctor** (`assets/build-doctor.mjs`) reports the displayed overall, true overall and raw
@@ -264,7 +288,7 @@ at 390 it is a single horizontal scroller.
   pre-fills the same controls. The shared link was verified at 390.
 - Browser tests: reset → Diagnose → Apply → Undo → Plan to target → Apply plan → named version,
   and save → load → run → shared link, at 1280 and 390, with no console errors or overflow.
-- `node --test tests/*.mjs`: **103/103 pass** (Build Doctor unit tests plus the unreachable-tier case).
+- `node --test tests/*.mjs`: **103/103 pass** (Build Doctor unit tests plus the unreachable-tier case). Independent clean-archive run on `766a7db`: 103/103.
 
 ### Mechanics Lab and other P2
 
