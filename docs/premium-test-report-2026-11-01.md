@@ -143,14 +143,17 @@ headless Chromium 140 at 1280 px and 390 px. The historical matrix above is the 
 - **Fix:** `assets/builder-finder.mjs` maps the builder controls to the recovered reference
   finder worker and validates every returned row through `filterSolverResults`. The builder
   searches legal base allocations (`caps: 0`); cap-breaker plans stay in the cap-breaker planner.
-- **No targets:** 12 rows in ~4.3–4.7 s; first row C 79" / 263 lb / 79", true 98.9,
-  raw 98.9926 / 99. Status: `12 result(s) · recovered reference finder`.
-- **Three-Point 60:** 12 rows in ~25.8 s; 12/12 meet the target; 0 breakers; all raw < 99.
-- **Three-Point 78 + Pass Accuracy 90 + Ball Handle 90:** 12 rows in ~22.3 s; 12/12 meet all
-  three targets; 0 breakers; all raw < 99. The table title now prints six decimals so a value
-  such as 98.99996 is not mistaken for 99.0000.
-- **Load:** applies the validated base allocation and re-checks the wall. Target-search latency
-  is the main remaining cost (roughly 22–26 s); no-target searches are ~4.5 s.
+- **No targets (current position, the new default):** 12 rows in ~1.0 s; first row PG 79" /
+  204 lb / 79", true 98.9, raw 98.9985 / 99. Status: `12 result(s) · recovered reference finder`.
+- **Three-Point 60 (current position):** 12 rows in ~5.6 s; 12/12 meet the target; 0 breakers;
+  all raw < 99.
+- **Three-Point 78 + Pass Accuracy 90 + Ball Handle 90 (current position):** 12 rows in
+  ~5.6 s; 12/12 meet all three targets; 0 breakers; all raw < 99. The table title now prints
+  six decimals so a value such as 98.99996 is not mistaken for 99.0000.
+- **Any position** is now opt-in and labelled `Any position (slower)`. Checking it takes roughly
+  24–26 s; progress entries are cleared when the search finishes.
+- **Load:** applies the validated base allocation and re-checks the wall. Any-position searches
+  remain the slow path; current-position searches are ~1–6 s.
 
 ### Fuse planner
 
@@ -163,8 +166,10 @@ The candidate list was replaced by `assets/fuse-planner.mjs`, mounted in the bui
   (`Silver → HOF` etc.), gain, and `0` token cost for fused badges.
 - **Tier pins** for every badge that can earn a tier, **flex tokens per group**, and editable
   **group caps**.
-- Summary: `30 badge tiers · 8 fuse slots · 21 / 50 tokens` on the default build; the group table
-  shows pool, flex, budget, spent and over/full/ok status.
+- Summary: `30 planned tiers · 8 fuse slots · 21 / 50 tokens` on the default build; the group table
+  shows pool, flex, budget, spent and over/full/ok status. The sidebar's `32 tiers` is the earned
+  tier count; the planner's number is explicitly the planned tier count, and the unlocked line now
+  uses the same 32-tier count as the sidebar.
 - Honesty note kept: the in-game Fuse result table is the final authority.
 - Desktop and 390 px: no console errors, no horizontal overflow; slots, +2 slots, pins and flex
   changes were exercised in the browser test.
@@ -194,13 +199,23 @@ Build name, Badges) and a dense attributes panel. It adds:
 - Dark navy header and cream builder surface in light mode; theme-aware dark surface.
 - Segmented PG/SG/SF/PF/C control and body sliders with exact values.
 - 34 px control height, 6 px range tracks with ticks, 16 px thumbs, and per-row `max` hints.
-- Per-row `−`/`+` steppers, grouped category colors and a compact group legend.
+- Per-row `−`/`+` steppers (26 × 21 px desktop, 40 × 32 px mobile), grouped category colors and
+  a compact group legend.
 - Compact screenshot import below Body with one privacy sentence; tier legend moved to the
   builder badge panel.
 - The primary action is Fill to 99; solver actions are secondary.
 
 Screenshots: `/tmp/desktop-light-builder-v2.png`, `/tmp/desktop-dark-builder-v2.png`,
-`/tmp/mobile-builder-top-v3.png`.
+`/tmp/mobile-builder-top-v3.png`. The builder nav fits at 1280 (client and scroll width 1148);
+at 390 it is a single horizontal scroller.
+
+### Fill to 99 and other controls
+
+- **Fill to 99** now uses the recovered `badgeOptimise` `meta` path first and falls back to the
+  local three-pass fill if the optimizer is unavailable. Reset → Fill to 99 gives
+  `Overall 99 · true 98.9 · raw 98.9960 / 99`.
+- Steppers were enlarged, and the all-position search is opt-in, so the earlier `Overall 98`,
+  tiny-stepper and 26 s default-search findings are closed.
 
 ### Mechanics Lab and other P2
 

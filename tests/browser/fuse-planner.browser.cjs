@@ -14,7 +14,7 @@ const { chromium } = require('playwright');
     const panel = page.locator('section[aria-label="Fuse planner"]');
     if (await panel.count() !== 1) throw new Error(`${label}: fuse planner missing`);
     const initial = await panel.locator('.fuse-summary').innerText();
-    if (!/badge tiers/.test(initial) || !/tokens/.test(initial)) throw new Error(`${label}: summary missing: ${initial}`);
+    if (!/planned tiers/.test(initial) || !/tokens/.test(initial)) throw new Error(`${label}: summary missing: ${initial}`);
     if (await panel.locator('.fuse-slot-table tbody tr').count() !== 8) throw new Error(`${label}: expected 8 fuse slots`);
     await panel.getByRole('button', { name: 'My picks' }).click();
     await panel.locator('select[aria-label="Fuse slots"]').selectOption('4');

@@ -106,20 +106,22 @@ function bestGroupTiers(G, build, budgets, caps, fused) {
     dp[0][0] = 0;
     const choices = [];
     for (const index of items) {
+      const maxTier = Math.max(0, Math.min(5, Number(max[index]) || 0));
+      if (!maxTier) continue;
       const next = dp.map(row => row.slice());
       const pick = Array.from({ length: cap + 1 }, () => new Array(budget + 1).fill(0));
       const weight = Number(G.BW?.[index]) || 1;
       for (let count = 0; count < cap; count += 1) {
+        if (!dp[count]) continue;
         for (let spent = 0; spent <= budget; spent += 1) {
           if (!Number.isFinite(dp[count][spent])) continue;
-          for (let tier = 1; tier <= max[index]; tier += 1) {
-            const cost = fused.has(index) ? 0 : G.tierCost(index, tier, build.h);
-            if (spent + cost > budget) continue;
+          for (let tier = 1; tier <= maxTier; tier += 1) {
+            const cost = fused.has(index) ? 0 : (Number(G.tierCost(index, tier, build.h)) || 0);
+            if (!Number.isFinite(cost) || spent + cost > budget) continue;
             const value = dp[count][spent] + tier * weight;
-            if (value > next[count + 1][spent + cost]) {
-              next[count + 1][spent + cost] = value;
-              pick[count + 1][spent + cost] = tier;
-            }
+            if (!next[count + 1] || value <= next[count + 1][spent + cost]) continue;
+            next[count + 1][spent + cost] = value;
+            pick[count + 1][spent + cost] = tier;
           }
         }
       }
@@ -573,7 +575,7 @@ export function mountFusePlanner(root, { getBuild }) {
     useBest.disabled = state.mode !== 'best';
     const summaryValue = currentPlan(buildValue);
     const over = summaryValue.over.filter(Boolean).length;
-    summary.textContent = `${summaryValue.totalTiers} badge tiers · ${summaryValue.slots.filter(Boolean).length} fuse slot${summaryValue.slots.filter(Boolean).length === 1 ? '' : 's'} · ${summaryValue.totalSpent} / ${summaryValue.totalBudget} tokens${over ? ` · ${over} group${over === 1 ? '' : 's'} over` : ''}`;
+    summary.textContent = `${summaryValue.totalTiers} planned tiers · ${summaryValue.slots.filter(Boolean).length} fuse slot${summaryValue.slots.filter(Boolean).length === 1 ? '' : 's'} · ${summaryValue.totalSpent} / ${summaryValue.totalBudget} tokens${over ? ` · ${over} group${over === 1 ? '' : 's'} over` : ''}`;
     summary.className = over ? 'fuse-summary warn' : 'fuse-summary';
     renderBudgets(summaryValue);
     renderSlots(summaryValue);

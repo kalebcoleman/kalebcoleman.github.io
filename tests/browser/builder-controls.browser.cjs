@@ -26,9 +26,10 @@ const { chromium } = require('playwright');
 
   const before = await page.locator('.overall').innerText();
   await page.getByRole('button', { name: 'Fill the build to the 99 overall wall' }).click();
-  await page.waitForTimeout(1200);
+  await page.waitForTimeout(6000);
   const after = await page.locator('.overall').innerText();
-  if (!after.includes('Overall') || after === before) throw new Error('Fill to 99 did not change the build');
+  if (!after.startsWith('Overall 99') || after === before) throw new Error(`Fill to 99 did not reach the displayed wall: ${after}`);
+  if (!/raw 9[0-8]\./.test(after)) throw new Error(`Fill to 99 exceeded the wall: ${after}`);
 
   if (errors.length) throw new Error(errors.slice(0, 3).join(' | '));
   console.log({ reset: 'ok', clearBreakers: 'ok', keepName: 'ok', fillTo99: after });
