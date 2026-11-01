@@ -8,7 +8,7 @@ The site is a static distribution. To run it locally from the repository root:
 python3 -m http.server 8000
 ```
 
-Open `http://localhost:8000/`. A local web server is needed for browser features such as modules and workers. No build step is required for the current distribution. The test suite covers finder constraints, recovered reference builds, animation classifications, takeovers, and the motion style table:
+Open `http://localhost:8000/`. A local web server is needed for browser features such as modules and workers. No build step is required for the current distribution. The test suite covers finder constraints, recovered reference builds, animation classifications, takeovers, the motion style table, and the upgrade planner:
 
 ```sh
 node --test tests/*.mjs
@@ -18,7 +18,7 @@ GitHub Actions runs the same suite on pushes and pull requests. The cap-breaker 
 
 The builder enforces legal frame limits, linked attributes, and the 99 overall wall using the reference engine. Some special reference cards cannot be made exactly in the normal builder; **Fit to builder** adjusts them to a legal frame and allocation and shows a notice. Invalid imported builds are rejected instead of silently saved.
 
-The current app includes a build editor, a dedicated reference-finder page, recovered GOAT/GOATED/preset builds, the reference cap-breaker finder table, badge and takeover catalogs, an animation catalog, archetype and player comparisons, a browser-local Jumpshot Practice Lab (the 3D Jumpshot Lab currently cannot initialize its timing data on this site), a Mechanics Lab with a searchable 368-style motion catalog, and browser-local build storage. Some features are still being rebuilt; see [the feature research](docs/goated-build-lab-research.md) for the comparison with the earlier site, and [the free-feature parity check](docs/parity-check-2026-11-01.md) for the signed-out browser comparison and remaining visual gaps.
+The current app includes a build editor, a dedicated reference-finder page, recovered GOAT/GOATED/preset builds, the reference cap-breaker finder table, badge and takeover catalogs, an animation catalog, archetype and player comparisons, a 3D Jumpshot Lab with its game-arithmetic timing plus a browser-local Practice Lab, an Upgrade Planner that estimates what VC buys and orders badge upgrades, a Mechanics Lab with a searchable 368-style motion catalog, and browser-local build storage. Some features are still being rebuilt; see [the feature research](docs/goated-build-lab-research.md) for the comparison with the earlier site, [the free-feature parity check](docs/parity-check-2026-11-01.md) for the signed-out browser comparison, and [the premium-gate research](docs/premium-gates.md) for what is client-side versus server-side.
 
 The repository currently contains compiled/minified JavaScript and a WebAssembly engine. The original unminified source for every shipped component has not yet been recovered. [REA setup](REA-SETUP.md) documents the project-local reverse-engineering configuration.
 

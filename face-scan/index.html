@@ -4,12 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Facescan Lab (Beta) | Free Builder</title>
-<meta name="description" content="On-device face scan for NBA 2K27 MyPLAYER: the landmark model runs in your browser and your photos never leave your device.">
+<meta name="description" content="On-device face scan for NBA 2K27 MyPLAYER: upload a photo or use the camera, run the landmark model and keep a local face profile. Nothing is uploaded.">
 <link rel="canonical" href="/face-scan">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Free Builder">
 <meta property="og:title" content="Facescan Lab (Beta) | Free Builder">
-<meta property="og:description" content="On-device face scan for NBA 2K27 MyPLAYER: the landmark model runs in your browser and your photos never leave your device.">
+<meta property="og:description" content="On-device face scan for NBA 2K27 MyPLAYER: upload a photo or use the camera, run the landmark model and keep a local face profile. Nothing is uploaded.">
 <meta property="og:url" content="/face-scan">
 <meta property="og:image" content="/og.png">
 <meta property="og:image:alt" content="Free Builder: NBA 2K27 MyPLAYER builder, cap-breaker planner and build finder.">
@@ -33,7 +33,7 @@ try{var l=localStorage,t=l.getItem('fb_theme')||l.getItem('gbl_theme');if(t==='l
 <div id="app" class="app">
 <header class="hdr">
   <a class="brand" href="/"><span class="brand-mark" aria-hidden="true"></span>Free <b>Builder</b></a>
-  <nav id="nav" class="nav" aria-label="Main"><a href="/finder/">Find a build</a><a href="/builder">Builder</a><a href="/builds/">Builds</a><a href="/cap-breakers">Cap Breakers</a><a href="/badges">Badges</a><a href="/takeovers">Takeovers</a><a href="/animations">Animations</a><a href="/archetypes">Archetypes</a><a href="/shades">Shades</a><a href="/jumpshot-lab/">Jumpshot Lab</a><a href="/face-scan" id="faceTab">Face Scan</a><a href="/locker/">Locker</a><a href="/?tab=community">Community</a><a href="/mechanics/">Mechanics Lab</a></nav>
+  <nav id="nav" class="nav" aria-label="Main"><a href="/finder/">Find a build</a><a href="/builder">Builder</a><a href="/builds/">Builds</a><a href="/cap-breakers">Cap Breakers</a><a href="/upgrade-planner">Upgrade Planner</a><a href="/badges">Badges</a><a href="/takeovers">Takeovers</a><a href="/animations">Animations</a><a href="/archetypes">Archetypes</a><a href="/shades">Shades</a><a href="/jumpshot-lab/">Jumpshot Lab</a><a href="/face-scan" id="faceTab">Face Scan</a><a href="/locker/">Locker</a><a href="/?tab=community">Community</a><a href="/mechanics/">Mechanics Lab</a></nav>
   <div class="hdr-tools">
     <select id="langSel" class="sel" aria-label="Language"><option value="en">English</option><option value="es">Español</option><option value="fr">Français</option><option value="de">Deutsch</option><option value="it">Italiano</option><option value="pt">Português</option><option value="ja">日本語</option><option value="ko">한국어</option><option value="zh-Hans">简体中文</option><option value="zh-Hant">繁體中文</option><option value="tr">Türkçe</option></select>
     <button id="themeBtn" class="btn" type="button" aria-label="Theme: auto">Auto</button>
@@ -42,14 +42,14 @@ try{var l=localStorage,t=l.getItem('fb_theme')||l.getItem('gbl_theme');if(t==='l
 </header>
 <main id="main" class="main">
   <h1 id="pageTitle" class="title">Loading name</h1>
-  <p class="lede" id="pageLede">Capture a selfie, run the on-device landmark model and build a face profile. Everything stays in your browser; there is no account and no upload.</p>
+  <p class="lede" id="pageLede">Upload a photo or capture a selfie, run the on-device landmark model and keep a face profile with 478 points and basic measurements. Everything stays in your browser; there is no account and no upload.</p>
   <div id="view" class="view"><p class="muted" id="boot">Loading…</p></div>
   <p class="note" id="viewNote" role="status" aria-live="polite"></p>
 </main>
 <footer class="ftr">
   <section class="seo" aria-labelledby="seoH">
     <h2 id="seoH">About this page</h2>
-    <p>Capture a selfie, run the on-device landmark model and build a face profile. Everything stays in your browser; there is no account and no upload.</p>
+    <p>Upload a photo or capture a selfie, run the on-device landmark model and keep a face profile with 478 points and basic measurements. Everything stays in your browser; there is no account and no upload.</p>
     <nav class="fb-seo-links" aria-label="Related pages"><a href="/builder">/builder</a> <a href="/cap-breakers">/cap-breakers</a> <a href="/badges">/badges</a> <a href="/takeovers">/takeovers</a> <a href="/animations">/animations</a> <a href="/archetypes">/archetypes</a> <a href="/jumpshot-lab/">/jumpshots</a> <a href="/shades">/shades</a></nav>
   </section>
   <div class="legal">
