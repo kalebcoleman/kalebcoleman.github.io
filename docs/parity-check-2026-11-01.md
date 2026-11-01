@@ -68,14 +68,14 @@ The reference's client confirms these gates: Mid unlocks Optimize, badge-token/F
 - The builder now opens with a complete 99-overall example build instead of 25-across defaults, and its overall display uses the recovered approximation rather than the unrecovered WASM slot index, so a build loaded from the finder shows the same 99 overall as the reference result.
 - Navigation now points “Find a build” at `/finder/`, “Jumpshot Lab” at `/jumpshot-lab/`, and adds “Builds” across the site.
 
-Remaining differences are mainly the simpler builder attribute/token presentation, the partial Mechanics Lab detail pages for gameplay and boosts, the removed Community/Locker/radio surfaces and the local-only League backend. The home page now embeds the finder above the tool directory, on the same first-screen pattern as the reference.
+Remaining differences are mainly the simpler builder attribute/token presentation, the partial Mechanics Lab detail pages for gameplay and boosts, the removed Community/Locker/League/radio surfaces. The home page now embeds the finder above the tool directory, on the same first-screen pattern as the reference.
 
 ### Premium-solver follow-up
 
 - The Finder now sends the reference's simple-mode `levels` and `caps: "auto"` payload for presets, so Floor general returns the same 12 builds and the same first build (`PlayShot Point`, PG 6′3″, 170 lb, 6′9″) as the reference. Result names now come from the recovered `DescName.describe` table instead of the local approximation.
 - Min-max and Better frame now use the recovered reference `b:mm` badge map (`reference-badge-map.mjs`) with the full body state, not only the allocation. Both return 12 results on the default build and on a lower 64-overall test build, where the old local map returned 0.
 - The Builder's overall now uses the recovered `GBLE.trueOvr` calculation, so a 74-overall build reads 74.4 instead of the old always-99 approximation, while the default build remains 92.3 and a loaded reference finder build reads 92–96.
-- Cap-breaker rows still hand off to the finder rather than building a full row directly; the Highest Overalls board and the Upgrade Planner now have local equivalents; cloud league/community/locker remain server-dependent.
+- Cap-breaker rows still hand off to the finder rather than building a full row directly; the Highest Overalls board and the Upgrade Planner now have local equivalents; cloud accounts/build saves use the optional free Supabase setup.
 
 ### Finder and deployment follow-up
 
