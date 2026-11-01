@@ -33,9 +33,9 @@
       "sha256": "29ab3edd791a901e2c145522e67ec138a5b65cb4addbe4ffb940ee6a77e4e1ee"
     },
     "package.json": {
-      "bytes": 468,
-      "gzip": 286,
-      "sha256": "4a853a6d8b3851f34cbac1c90a635d8083c05b0a83ee82e80aa75e7ffa8551ce"
+      "bytes": 461,
+      "gzip": 278,
+      "sha256": "e6bbc1dc3cce3314ea770ff3bd0ccc1897643268f785b1322856e2d7550e9d6d"
     }
   }
 }

@@ -1,0 +1,350 @@
+{
+  "count": 24,
+  "rows": [
+    [
+      1,
+      "INSIDE_TOUCH",
+      "Inside Touch",
+      0,
+      [
+        [
+          0,
+          85,
+          2
+        ]
+      ],
+      "Wider timing window on standing layups, making it easier to finish softly around the basket."
+    ],
+    [
+      2,
+      "DETONATOR",
+      "Detonator",
+      0,
+      [
+        [
+          3,
+          85,
+          2
+        ]
+      ],
+      "Wider timing window on standing dunks, turning catches in the paint and mid-post feeds into reliable rim-rocking opportunities."
+    ],
+    [
+      3,
+      "AIRSPACE",
+      "Airspace",
+      0,
+      [
+        [
+          2,
+          87,
+          1
+        ],
+        [
+          20,
+          75,
+          2
+        ]
+      ],
+      "Take flight on every drive, forcing contact dunk situations, powering through defenders, and finishing alley-oops with ease."
+    ],
+    [
+      4,
+      "DEFAULT_FINISHING",
+      "Finishing (default)",
+      0,
+      [],
+      "Boost to all Finishing attributes by +30, up to a maximum of 80."
+    ],
+    [
+      5,
+      "SHOT_ARTIST",
+      "Shot Artist",
+      1,
+      [
+        [
+          6,
+          89,
+          0
+        ],
+        [
+          5,
+          89,
+          2
+        ]
+      ],
+      "Wider timing window on off-dribble jumpers, making it easier to convert off any dribble move."
+    ],
+    [
+      6,
+      "CALIBRATED",
+      "Calibrated",
+      1,
+      [
+        [
+          6,
+          85,
+          0
+        ],
+        [
+          5,
+          85,
+          2
+        ]
+      ],
+      "Wider timing window on catch-and-shoot and stand-still jumpers, rewarding disciplined shot selection with an easier green."
+    ],
+    [
+      7,
+      "ZIP_CODE",
+      "Zip Code",
+      1,
+      [
+        [
+          6,
+          91,
+          2
+        ]
+      ],
+      "Extends effective shooting range, allowing deep shots to be treated as if taken from closer distances. Fire from further out without the penalty of range."
+    ],
+    [
+      8,
+      "DEFAULT_SHOOTING",
+      "Shooting (default)",
+      1,
+      [],
+      "Boost to all Shooting attributes by +30, up to a maximum of 80."
+    ],
+    [
+      9,
+      "COOK",
+      "Cook",
+      2,
+      [
+        [
+          9,
+          90,
+          2
+        ]
+      ],
+      "Increased chance to trigger defender reactions and devastating anklebreakers."
+    ],
+    [
+      10,
+      "DEFAULT_PLAYMAKING",
+      "Playmaking (default)",
+      2,
+      [],
+      "Boost to all Playmaking attributes by +30, up to a maximum of 80."
+    ],
+    [
+      11,
+      "HAWK",
+      "Hawk",
+      3,
+      [
+        [
+          13,
+          85,
+          2
+        ]
+      ],
+      "Higher efficiency in forcing fumbles and getting on-ball steals."
+    ],
+    [
+      12,
+      "DEFAULT_DEFENSE",
+      "Defense (default)",
+      3,
+      [],
+      "Boost to all Defense attributes by +30, up to a maximum of 80."
+    ],
+    [
+      13,
+      "SECOND_CHANCE",
+      "Second Chance",
+      4,
+      [
+        [
+          15,
+          80,
+          2
+        ]
+      ],
+      "Instantly see feedback on all shots, and increased chance of successful putbacks."
+    ],
+    [
+      14,
+      "DEFAULT_REBOUND",
+      "Rebounding (default)",
+      4,
+      [],
+      "Boost to all Rebounding attributes by +30, up to a maximum of 80."
+    ],
+    [
+      15,
+      "DISHMASTER",
+      "Dishmaster",
+      2,
+      [
+        [
+          8,
+          80,
+          2
+        ]
+      ],
+      "Elevates all teammates' Finishing and Shooting discipline attributes, with crisp passes that can reach players anywhere on the court."
+    ],
+    [
+      16,
+      "GLUE",
+      "Glue",
+      3,
+      [
+        [
+          12,
+          85,
+          2
+        ]
+      ],
+      "Apply relentless pressure on ball handlers to shut down their options, while powering through screens to stay attached on every possession."
+    ],
+    [
+      17,
+      "BLUR",
+      "Blur",
+      2,
+      [
+        [
+          9,
+          85,
+          1
+        ],
+        [
+          10,
+          80,
+          2
+        ]
+      ],
+      "Enhances the ability to drive by defenders, making it easier to get to the rim."
+    ],
+    [
+      18,
+      "PAINT_SURGEON",
+      "Paint Surgeon",
+      0,
+      [
+        [
+          0,
+          80,
+          1
+        ],
+        [
+          4,
+          75,
+          2
+        ]
+      ],
+      "Easily beat defenders with post backdowns, moves, and fakes. Wider timing window on post shots to finish with precision."
+    ],
+    [
+      19,
+      "DEMOLITION",
+      "Demolition",
+      4,
+      [
+        [
+          19,
+          88,
+          2
+        ]
+      ],
+      "Dominate as a screener with boosted screen resolutions, unlocking punishing animations that flatten unsuspecting defenders."
+    ],
+    [
+      20,
+      "MUSCLE",
+      "Muscle",
+      4,
+      [
+        [
+          15,
+          80,
+          1
+        ],
+        [
+          16,
+          80,
+          1
+        ],
+        [
+          19,
+          80,
+          2
+        ]
+      ],
+      "Overpower opponents on the glass with superior boxouts and explosive rebounds."
+    ],
+    [
+      21,
+      "NAVIGATOR",
+      "Navigator",
+      0,
+      [
+        [
+          1,
+          85,
+          2
+        ]
+      ],
+      "Wider timing window on driving and advanced layups, with advanced gather animations that help you navigate through traffic and finish at the rim."
+    ],
+    [
+      22,
+      "RIM_GUARDIAN",
+      "Rim Guardian",
+      3,
+      [
+        [
+          11,
+          80,
+          1
+        ],
+        [
+          14,
+          80,
+          2
+        ]
+      ],
+      "Boosts ability to defend around the basket and in the post."
+    ],
+    [
+      23,
+      "SEE_THE_FUTURE",
+      "See The Future",
+      4,
+      [
+        [
+          15,
+          85,
+          1
+        ],
+        [
+          16,
+          85,
+          2
+        ]
+      ],
+      "See the miss coming. Know exactly where the ball will land before anyone else does."
+    ],
+    [
+      24,
+      "HYDRATION_HERO",
+      "Hydration Hero",
+      5,
+      [],
+      "Prevents adrenaline and energy (Turbo) drain, letting you push the pace with and without the ball. Rehydrate, replenish, and refuel with Gatorade to help you play at your best."
+    ]
+  ]
+}

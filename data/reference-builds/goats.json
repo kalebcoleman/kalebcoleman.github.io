@@ -1,0 +1,6422 @@
+{
+  "schemaVersion": 1,
+  "kind": "goats",
+  "count": 18,
+  "source": {
+    "snapshotDate": "2026-11-01",
+    "archive": "goated-reference-2026-11-01.zip",
+    "archiveSha256": "43da5d3c59fbb425ff74f61608303661de393b02be21e4ed19b53d98521099c3",
+    "enginePath": "public-bundle/engine.js",
+    "engineUrl": "https://www.goatedbuildlab.com/engine/engine.js?v=802b53b6fd",
+    "engineSha256": "2171862d065f778eca9fb95e5772482d7ba0400310a29207f3cd38e7a197f74c",
+    "engineBytes": 1136304,
+    "symbol": "GBLE.GOATS",
+    "minifiedSymbol": "Ne",
+    "literal": {
+      "start": 975263,
+      "end": 1022464,
+      "sha256": "e7d16bf4c0926db6dcc238dd31d2a27e53bbf9cfee75c9bf3b8cd497eb8a3019"
+    }
+  },
+  "attributeOrder": [
+    "Close Shot",
+    "Driving Layup",
+    "Driving Dunk",
+    "Standing Dunk",
+    "Post Control",
+    "Mid-Range",
+    "Three-Point",
+    "Free Throw",
+    "Pass Accuracy",
+    "Ball Handle",
+    "Speed w/ Ball",
+    "Interior D",
+    "Perimeter D",
+    "Steal",
+    "Block",
+    "Off Rebound",
+    "Def Rebound",
+    "Speed",
+    "Agility",
+    "Strength",
+    "Vertical"
+  ],
+  "positions": [
+    {
+      "index": 0,
+      "abbreviation": "PG",
+      "label": "Point guards"
+    },
+    {
+      "index": 1,
+      "abbreviation": "SG",
+      "label": "Shooting guards"
+    },
+    {
+      "index": 2,
+      "abbreviation": "SF",
+      "label": "Small forwards"
+    },
+    {
+      "index": 3,
+      "abbreviation": "PF",
+      "label": "Power forwards"
+    },
+    {
+      "index": 4,
+      "abbreviation": "C",
+      "label": "Centers"
+    }
+  ],
+  "unlockGroups": [
+    {
+      "key": "now",
+      "label": "Available now"
+    },
+    {
+      "key": "pass",
+      "label": "Season 2 pass"
+    },
+    {
+      "key": "rep",
+      "label": "REP rewards"
+    },
+    {
+      "key": "chal",
+      "label": "Lifetime Challenges"
+    }
+  ],
+  "builds": [
+    {
+      "key": "penny",
+      "name": "Penny Hardaway",
+      "positionIndex": 0,
+      "position": "PG",
+      "heightInches": 79,
+      "weightLb": 195,
+      "wingspanInches": 83,
+      "unlock": {
+        "group": "now",
+        "groupLabel": "Available now",
+        "label": "Available now",
+        "detail": ""
+      },
+      "attributes": {
+        "Close Shot": 83,
+        "Driving Layup": 87,
+        "Driving Dunk": 89,
+        "Standing Dunk": 60,
+        "Post Control": 55,
+        "Mid-Range": 89,
+        "Three-Point": 80,
+        "Free Throw": 80,
+        "Pass Accuracy": 85,
+        "Ball Handle": 95,
+        "Speed w/ Ball": 91,
+        "Interior D": 60,
+        "Perimeter D": 80,
+        "Steal": 70,
+        "Block": 40,
+        "Off Rebound": 50,
+        "Def Rebound": 60,
+        "Speed": 92,
+        "Agility": 90,
+        "Strength": 70,
+        "Vertical": 85
+      },
+      "normalCeilings": {
+        "Close Shot": 99,
+        "Driving Layup": 99,
+        "Driving Dunk": 98,
+        "Standing Dunk": 99,
+        "Post Control": 92,
+        "Mid-Range": 91,
+        "Three-Point": 85,
+        "Free Throw": 99,
+        "Pass Accuracy": 99,
+        "Ball Handle": 91,
+        "Speed w/ Ball": 82,
+        "Interior D": 92,
+        "Perimeter D": 96,
+        "Steal": 98,
+        "Block": 81,
+        "Off Rebound": 75,
+        "Def Rebound": 82,
+        "Speed": 91,
+        "Agility": 89,
+        "Strength": 78,
+        "Vertical": 98
+      },
+      "jumpshot": {
+        "base": "Penny Hardaway",
+        "release": "Penny Hardaway",
+        "speed": "Normal"
+      },
+      "jersey": {
+        "number": "1",
+        "colors": [
+          "#141414",
+          "#0077C0",
+          "#C4CED4",
+          "#FFFFFF",
+          "#0077C0",
+          "#0077C0"
+        ]
+      },
+      "animations": [
+        {
+          "group": "Shooting",
+          "items": [
+            {
+              "category": "Free throw",
+              "name": "Tim Hardaway Jr."
+            },
+            {
+              "category": "Dribble pull-up",
+              "name": "Garrison Mathews"
+            },
+            {
+              "category": "Spin shot",
+              "name": "Penny Hardaway"
+            },
+            {
+              "category": "Hop shot",
+              "name": "Jordan Clarkson"
+            },
+            {
+              "category": "Go-to shot",
+              "name": "Shaedon Sharpe"
+            }
+          ]
+        },
+        {
+          "group": "Dribbling",
+          "items": [
+            {
+              "category": "Dribble style",
+              "name": "Scoot Henderson"
+            },
+            {
+              "category": "Signature size-up",
+              "name": "Coby White"
+            },
+            {
+              "category": "Crossover",
+              "name": "Malik Monk"
+            },
+            {
+              "category": "Behind the back",
+              "name": "Jordan Poole"
+            },
+            {
+              "category": "Between the legs",
+              "name": "Cole Anthony"
+            },
+            {
+              "category": "Spin",
+              "name": "Penny Hardaway"
+            },
+            {
+              "category": "Hesitation",
+              "name": "DeMar DeRozan"
+            },
+            {
+              "category": "Lateral hesitation",
+              "name": "Scottie Pippen"
+            },
+            {
+              "category": "In and out",
+              "name": "Pro"
+            },
+            {
+              "category": "Stepback",
+              "name": "Pro"
+            },
+            {
+              "category": "Stepback cross",
+              "name": "Jimmy Butler"
+            },
+            {
+              "category": "Lateral stepback",
+              "name": "Andrew Wiggins"
+            },
+            {
+              "category": "Cross spin",
+              "name": "Immanuel Quickley"
+            },
+            {
+              "category": "Cross combo",
+              "name": "Malik Monk"
+            },
+            {
+              "category": "Hesi cross combo",
+              "name": "Pro"
+            },
+            {
+              "category": "Double cross combo",
+              "name": "Malik Monk"
+            },
+            {
+              "category": "Breakdown",
+              "name": "Penny Hardaway"
+            },
+            {
+              "category": "Breakdown move",
+              "name": "Coby White"
+            },
+            {
+              "category": "Behind the back launch",
+              "name": "Pro"
+            },
+            {
+              "category": "Escape crossover",
+              "name": "Pro"
+            },
+            {
+              "category": "Escape behind the back",
+              "name": "Andrew Wiggins"
+            },
+            {
+              "category": "Escape between the legs",
+              "name": "Pro"
+            },
+            {
+              "category": "Escape hesitation",
+              "name": "Scottie Pippen"
+            },
+            {
+              "category": "Misdirect crossover",
+              "name": "Pro"
+            },
+            {
+              "category": "Misdirect behind the back",
+              "name": "Pro"
+            },
+            {
+              "category": "Misdirect hesitation",
+              "name": "Pro"
+            }
+          ]
+        },
+        {
+          "group": "Triple threat",
+          "items": [
+            {
+              "category": "Style",
+              "name": "Pro"
+            },
+            {
+              "category": "Jab",
+              "name": "Pro"
+            },
+            {
+              "category": "Stepover",
+              "name": "Pro"
+            },
+            {
+              "category": "Breakdown",
+              "name": "Pro"
+            }
+          ]
+        },
+        {
+          "group": "Finishing",
+          "items": [
+            {
+              "category": "Layup",
+              "name": "Matas Buzelis"
+            },
+            {
+              "category": "Reverse",
+              "name": "VJ Edgecombe"
+            },
+            {
+              "category": "Floater",
+              "name": "Eric Gordon"
+            },
+            {
+              "category": "Quick scoop",
+              "name": "Jaden Ivey"
+            },
+            {
+              "category": "Euro step",
+              "name": "VJ Edgecombe"
+            },
+            {
+              "category": "Hop step",
+              "name": "Dejounte Murray"
+            },
+            {
+              "category": "Spin layup",
+              "name": "Kevin Huerter"
+            }
+          ]
+        },
+        {
+          "group": "Post",
+          "items": [
+            {
+              "category": "Post fade",
+              "name": "Ace Bailey"
+            },
+            {
+              "category": "Post hook",
+              "name": "Jalen Duren"
+            },
+            {
+              "category": "One-step pull-up",
+              "name": "Brandon Ingram"
+            },
+            {
+              "category": "Post go-to shot",
+              "name": "Pro"
+            }
+          ]
+        },
+        {
+          "group": "Movement & passing",
+          "items": [
+            {
+              "category": "Motion style",
+              "name": "Bennedict Mathurin"
+            },
+            {
+              "category": "Passing style",
+              "name": "Mike Conley"
+            }
+          ]
+        }
+      ],
+      "dunks": [
+        "One Hand Under Basket Regular",
+        "Two Hand Under Basket Regular",
+        "Under Basket Regular",
+        "Athletic One-Handers Off One",
+        "Athletic One-Handers Off Two",
+        "Athletic Hangs Off One",
+        "Athletic Hangs Off Two",
+        "Quick Drops Off One",
+        "Side Arm Tomahawks",
+        "Front Clutches",
+        "Quick Drop-In Back Scratchers Off Two",
+        "Reverses Off Two",
+        "Clutch Reverses Off One",
+        "Basic 360s",
+        "Zach LaVine",
+        "Pro Contact Dunks Off Two",
+        "Pro Contact Dunks Off One"
+      ],
+      "alleyOops": [
+        "Pro Alley-Oop",
+        "Elite Alley-Oop",
+        "City Alley-Oop Reverses",
+        "City Alley-Oop 360s",
+        "City Alley-Oop Windmills",
+        "City Alley-Oop Under Leg",
+        "City Alley-Oop Flashy",
+        "Pro Contact Alley-Oop"
+      ],
+      "badgeTierThresholds": null
+    },
+    {
+      "key": "arenas",
+      "name": "Gilbert Arenas",
+      "positionIndex": 0,
+      "position": "PG",
+      "heightInches": 75,
+      "weightLb": 195,
+      "wingspanInches": 82,
+      "unlock": {
+        "group": "now",
+        "groupLabel": "Available now",
+        "label": "Available now",
+        "detail": ""
+      },
+      "attributes": {
+        "Close Shot": 80,
+        "Driving Layup": 90,
+        "Driving Dunk": 80,
+        "Standing Dunk": 25,
+        "Post Control": 70,
+        "Mid-Range": 93,
+        "Three-Point": 89,
+        "Free Throw": 80,
+        "Pass Accuracy": 80,
+        "Ball Handle": 92,
+        "Speed w/ Ball": 93,
+        "Interior D": 60,
+        "Perimeter D": 80,
+        "Steal": 80,
+        "Block": 30,
+        "Off Rebound": 55,
+        "Def Rebound": 60,
+        "Speed": 92,
+        "Agility": 91,
+        "Strength": 82,
+        "Vertical": 80
+      },
+      "normalCeilings": {
+        "Close Shot": 99,
+        "Driving Layup": 99,
+        "Driving Dunk": 98,
+        "Standing Dunk": 54,
+        "Post Control": 80,
+        "Mid-Range": 88,
+        "Three-Point": 86,
+        "Free Throw": 99,
+        "Pass Accuracy": 99,
+        "Ball Handle": 97,
+        "Speed w/ Ball": 92,
+        "Interior D": 73,
+        "Perimeter D": 99,
+        "Steal": 99,
+        "Block": 70,
+        "Off Rebound": 71,
+        "Def Rebound": 71,
+        "Speed": 97,
+        "Agility": 96,
+        "Strength": 67,
+        "Vertical": 99
+      },
+      "jumpshot": {
+        "base": "Ayo Dosunmu",
+        "release": "Marcus Smart",
+        "speed": "Normal"
+      },
+      "jersey": {
+        "number": "0",
+        "colors": [
+          "#0F3270",
+          "#AC8E5F",
+          "#000000",
+          "#FFFFFF",
+          "#000000",
+          ""
+        ]
+      },
+      "animations": [
+        {
+          "group": "Shooting",
+          "items": [
+            {
+              "category": "Free throw",
+              "name": "Gilbert Arenas"
+            },
+            {
+              "category": "Dribble pull-up",
+              "name": "Pro 3"
+            },
+            {
+              "category": "Spin shot",
+              "name": "Pro"
+            },
+            {
+              "category": "Hop shot",
+              "name": "Pro 2"
+            },
+            {
+              "category": "Go-to shot",
+              "name": "Darius Garland"
+            }
+          ]
+        },
+        {
+          "group": "Dribbling",
+          "items": [
+            {
+              "category": "Dribble style",
+              "name": "Darius Garland"
+            },
+            {
+              "category": "Signature size-up",
+              "name": "Chris Paul"
+            },
+            {
+              "category": "Crossover",
+              "name": "Rob Dillingham"
+            },
+            {
+              "category": "Behind the back",
+              "name": "Chris Paul"
+            },
+            {
+              "category": "Between the legs",
+              "name": "Rob Dillingham"
+            },
+            {
+              "category": "Spin",
+              "name": "Steve Nash"
+            },
+            {
+              "category": "Hesitation",
+              "name": "Kyrie Irving"
+            },
+            {
+              "category": "Lateral hesitation",
+              "name": "Chris Paul"
+            },
+            {
+              "category": "In and out",
+              "name": "Chris Paul"
+            },
+            {
+              "category": "Stepback",
+              "name": "Darius Garland"
+            },
+            {
+              "category": "Stepback cross",
+              "name": "Chris Paul"
+            },
+            {
+              "category": "Lateral stepback",
+              "name": "Darius Garland"
+            },
+            {
+              "category": "Cross spin",
+              "name": "Darius Garland"
+            },
+            {
+              "category": "Cross combo",
+              "name": "Tim Hardaway"
+            },
+            {
+              "category": "Hesi cross combo",
+              "name": "De'Aaron Fox"
+            },
+            {
+              "category": "Double cross combo",
+              "name": "Damian Lillard"
+            },
+            {
+              "category": "Breakdown",
+              "name": "Darius Garland"
+            },
+            {
+              "category": "Breakdown move",
+              "name": "Darius Garland"
+            },
+            {
+              "category": "Behind the back launch",
+              "name": "Kyrie Irving"
+            },
+            {
+              "category": "Escape crossover",
+              "name": "Stephen Curry"
+            },
+            {
+              "category": "Escape behind the back",
+              "name": "Coby White"
+            },
+            {
+              "category": "Escape between the legs",
+              "name": "De'Aaron Fox"
+            },
+            {
+              "category": "Escape hesitation",
+              "name": "Kyrie Irving"
+            },
+            {
+              "category": "Misdirect crossover",
+              "name": "Pro"
+            },
+            {
+              "category": "Misdirect behind the back",
+              "name": "Pro"
+            },
+            {
+              "category": "Misdirect hesitation",
+              "name": "Kyrie Irving"
+            }
+          ]
+        },
+        {
+          "group": "Triple threat",
+          "items": [
+            {
+              "category": "Style",
+              "name": "Stephen Curry"
+            },
+            {
+              "category": "Jab",
+              "name": "Kobe Bryant"
+            },
+            {
+              "category": "Stepover",
+              "name": "Devin Booker"
+            },
+            {
+              "category": "Breakdown",
+              "name": "LaMelo Ball"
+            }
+          ]
+        },
+        {
+          "group": "Finishing",
+          "items": [
+            {
+              "category": "Layup",
+              "name": "Damian Lillard"
+            },
+            {
+              "category": "Reverse",
+              "name": "Donovan Mitchell"
+            },
+            {
+              "category": "Floater",
+              "name": "Jaden Ivey"
+            },
+            {
+              "category": "Quick scoop",
+              "name": "Ja Morant"
+            },
+            {
+              "category": "Euro step",
+              "name": "Jalen Green"
+            },
+            {
+              "category": "Hop step",
+              "name": "Damian Lillard"
+            },
+            {
+              "category": "Spin layup",
+              "name": "Anthony Edwards"
+            }
+          ]
+        },
+        {
+          "group": "Post",
+          "items": [
+            {
+              "category": "Post fade",
+              "name": "Pro 2"
+            },
+            {
+              "category": "Post hook",
+              "name": "Normal"
+            },
+            {
+              "category": "One-step pull-up",
+              "name": "Pro"
+            },
+            {
+              "category": "Post go-to shot",
+              "name": "Normal 2"
+            }
+          ]
+        },
+        {
+          "group": "Movement & passing",
+          "items": [
+            {
+              "category": "Motion style",
+              "name": "Dejounte Murray"
+            },
+            {
+              "category": "Passing style",
+              "name": "Keyonte George"
+            }
+          ]
+        }
+      ],
+      "dunks": [
+        "Athletic One-Handers Off One",
+        "Athletic One-Handers Off Two",
+        "Quick Drops Off One",
+        "Leaning Slams",
+        "Front Clutches Off Two",
+        "Side Clutches Off Two",
+        "Keon Ellis",
+        "Malik Monk",
+        "Pro Contact Dunks Off Two",
+        "Pro Contact Dunks Off One",
+        "Small Contact Dunks Off Two",
+        "Small Contact Dunks Off One"
+      ],
+      "alleyOops": [
+        "Pro Alley-Oop",
+        "Elite Alley-Oop",
+        "Pro Contact Alley-Oop",
+        "Small Contact Alley-Oop"
+      ],
+      "badgeTierThresholds": null
+    },
+    {
+      "key": "klay",
+      "name": "Klay Thompson",
+      "positionIndex": 1,
+      "position": "SG",
+      "heightInches": 79,
+      "weightLb": 215,
+      "wingspanInches": 81,
+      "unlock": {
+        "group": "now",
+        "groupLabel": "Available now",
+        "label": "Available now",
+        "detail": ""
+      },
+      "attributes": {
+        "Close Shot": 85,
+        "Driving Layup": 88,
+        "Driving Dunk": 54,
+        "Standing Dunk": 30,
+        "Post Control": 60,
+        "Mid-Range": 95,
+        "Three-Point": 99,
+        "Free Throw": 85,
+        "Pass Accuracy": 75,
+        "Ball Handle": 75,
+        "Speed w/ Ball": 70,
+        "Interior D": 60,
+        "Perimeter D": 94,
+        "Steal": 73,
+        "Block": 40,
+        "Off Rebound": 35,
+        "Def Rebound": 60,
+        "Speed": 77,
+        "Agility": 90,
+        "Strength": 71,
+        "Vertical": 60
+      },
+      "normalCeilings": {
+        "Close Shot": 97,
+        "Driving Layup": 97,
+        "Driving Dunk": 94,
+        "Standing Dunk": 95,
+        "Post Control": 93,
+        "Mid-Range": 94,
+        "Three-Point": 88,
+        "Free Throw": 99,
+        "Pass Accuracy": 99,
+        "Ball Handle": 91,
+        "Speed w/ Ball": 81,
+        "Interior D": 96,
+        "Perimeter D": 93,
+        "Steal": 93,
+        "Block": 76,
+        "Off Rebound": 74,
+        "Def Rebound": 81,
+        "Speed": 90,
+        "Agility": 86,
+        "Strength": 90,
+        "Vertical": 97
+      },
+      "jumpshot": {
+        "base": "Klay Thompson",
+        "release": "Klay Thompson",
+        "speed": "Normal"
+      },
+      "jersey": {
+        "number": "11",
+        "colors": [
+          "#1D428A",
+          "#FFC72C",
+          "#FFFFFF",
+          "#FFC72C",
+          "",
+          ""
+        ]
+      },
+      "animations": [
+        {
+          "group": "Shooting",
+          "items": [
+            {
+              "category": "Free throw",
+              "name": "Klay Thompson"
+            },
+            {
+              "category": "Dribble pull-up",
+              "name": "Klay Thompson"
+            },
+            {
+              "category": "Spin shot",
+              "name": "Andrew Wiggins"
+            },
+            {
+              "category": "Hop shot",
+              "name": "Klay Thompson"
+            },
+            {
+              "category": "Go-to shot",
+              "name": "Klay Thompson"
+            }
+          ]
+        },
+        {
+          "group": "Dribbling",
+          "items": [
+            {
+              "category": "Dribble style",
+              "name": "Austin Reaves"
+            },
+            {
+              "category": "Signature size-up",
+              "name": "Pro"
+            },
+            {
+              "category": "Crossover",
+              "name": "Jayson Tatum"
+            },
+            {
+              "category": "Behind the back",
+              "name": "DeMar DeRozan"
+            },
+            {
+              "category": "Between the legs",
+              "name": "Pro"
+            },
+            {
+              "category": "Spin",
+              "name": "Jayson Tatum"
+            },
+            {
+              "category": "Hesitation",
+              "name": "Pro"
+            },
+            {
+              "category": "Lateral hesitation",
+              "name": "Jayson Tatum"
+            },
+            {
+              "category": "In and out",
+              "name": "Pro"
+            },
+            {
+              "category": "Stepback",
+              "name": "Jayson Tatum"
+            },
+            {
+              "category": "Stepback cross",
+              "name": "Klay Thompson"
+            },
+            {
+              "category": "Lateral stepback",
+              "name": "Pro"
+            },
+            {
+              "category": "Cross spin",
+              "name": "DeMar DeRozan"
+            },
+            {
+              "category": "Cross combo",
+              "name": "Andrew Wiggins"
+            },
+            {
+              "category": "Hesi cross combo",
+              "name": "Pro"
+            },
+            {
+              "category": "Double cross combo",
+              "name": "Pro"
+            },
+            {
+              "category": "Breakdown",
+              "name": "Klay Thompson"
+            },
+            {
+              "category": "Breakdown move",
+              "name": "Klay Thompson"
+            },
+            {
+              "category": "Behind the back launch",
+              "name": "Pro"
+            },
+            {
+              "category": "Escape crossover",
+              "name": "Jayson Tatum"
+            },
+            {
+              "category": "Escape behind the back",
+              "name": "Andrew Wiggins"
+            },
+            {
+              "category": "Escape between the legs",
+              "name": "Pro"
+            },
+            {
+              "category": "Escape hesitation",
+              "name": "DeMar DeRozan"
+            },
+            {
+              "category": "Misdirect crossover",
+              "name": "Pro"
+            },
+            {
+              "category": "Misdirect behind the back",
+              "name": "Pro"
+            },
+            {
+              "category": "Misdirect hesitation",
+              "name": "Pro"
+            }
+          ]
+        },
+        {
+          "group": "Triple threat",
+          "items": [
+            {
+              "category": "Style",
+              "name": "Pro"
+            },
+            {
+              "category": "Jab",
+              "name": "Pro"
+            },
+            {
+              "category": "Stepover",
+              "name": "Pro"
+            },
+            {
+              "category": "Breakdown",
+              "name": "Pro"
+            }
+          ]
+        },
+        {
+          "group": "Finishing",
+          "items": [
+            {
+              "category": "Layup",
+              "name": "Klay Thompson"
+            },
+            {
+              "category": "Reverse",
+              "name": "Klay Thompson"
+            },
+            {
+              "category": "Floater",
+              "name": "Klay Thompson"
+            },
+            {
+              "category": "Quick scoop",
+              "name": "Klay Thompson"
+            },
+            {
+              "category": "Euro step",
+              "name": "Default Swing"
+            },
+            {
+              "category": "Hop step",
+              "name": "Default Swing"
+            },
+            {
+              "category": "Spin layup",
+              "name": "Default Swing"
+            },
+            {
+              "category": "Signature dunk",
+              "name": "Klay Thompson"
+            }
+          ]
+        },
+        {
+          "group": "Post",
+          "items": [
+            {
+              "category": "Post fade",
+              "name": "Klay Thompson"
+            },
+            {
+              "category": "Post hook",
+              "name": "Pro"
+            },
+            {
+              "category": "One-step pull-up",
+              "name": "Harrison Barnes"
+            },
+            {
+              "category": "Post go-to shot",
+              "name": "Pro"
+            }
+          ]
+        },
+        {
+          "group": "Movement & passing",
+          "items": [
+            {
+              "category": "Motion style",
+              "name": "Klay Thompson"
+            },
+            {
+              "category": "Passing style",
+              "name": "RJ Barrett"
+            }
+          ]
+        }
+      ],
+      "dunks": [
+        "Basic One-Handers Off One",
+        "Basic Two-Handers Off One",
+        "Basic Two-Handers Off Two",
+        "Klay Thompson"
+      ],
+      "alleyOops": [
+        "Pro Alley-Oop"
+      ],
+      "badgeTierThresholds": null
+    },
+    {
+      "key": "melo",
+      "name": "Carmelo Anthony",
+      "positionIndex": 2,
+      "position": "SF",
+      "heightInches": 80,
+      "weightLb": 240,
+      "wingspanInches": 84,
+      "unlock": {
+        "group": "now",
+        "groupLabel": "Available now",
+        "label": "Available now",
+        "detail": ""
+      },
+      "attributes": {
+        "Close Shot": 85,
+        "Driving Layup": 80,
+        "Driving Dunk": 80,
+        "Standing Dunk": 55,
+        "Post Control": 94,
+        "Mid-Range": 96,
+        "Three-Point": 85,
+        "Free Throw": 80,
+        "Pass Accuracy": 75,
+        "Ball Handle": 86,
+        "Speed w/ Ball": 86,
+        "Interior D": 60,
+        "Perimeter D": 75,
+        "Steal": 60,
+        "Block": 50,
+        "Off Rebound": 65,
+        "Def Rebound": 80,
+        "Speed": 85,
+        "Agility": 80,
+        "Strength": 85,
+        "Vertical": 75
+      },
+      "normalCeilings": {
+        "Close Shot": 99,
+        "Driving Layup": 99,
+        "Driving Dunk": 97,
+        "Standing Dunk": 99,
+        "Post Control": 97,
+        "Mid-Range": 89,
+        "Three-Point": 84,
+        "Free Throw": 98,
+        "Pass Accuracy": 99,
+        "Ball Handle": 86,
+        "Speed w/ Ball": 76,
+        "Interior D": 99,
+        "Perimeter D": 94,
+        "Steal": 92,
+        "Block": 88,
+        "Off Rebound": 83,
+        "Def Rebound": 91,
+        "Speed": 85,
+        "Agility": 79,
+        "Strength": 98,
+        "Vertical": 94
+      },
+      "jumpshot": {
+        "base": "Carmelo Anthony",
+        "release": "Carmelo Anthony",
+        "speed": "Normal"
+      },
+      "jersey": {
+        "number": "15",
+        "colors": [
+          "#5091CD",
+          "#FDB927",
+          "#0E2240",
+          "#FDB927",
+          "#0E2240",
+          ""
+        ]
+      },
+      "animations": [
+        {
+          "group": "Shooting",
+          "items": [
+            {
+              "category": "Free throw",
+              "name": "Carmelo Anthony"
+            },
+            {
+              "category": "Dribble pull-up",
+              "name": "Desmond Bane"
+            },
+            {
+              "category": "Spin shot",
+              "name": "Kyle Kuzma"
+            },
+            {
+              "category": "Hop shot",
+              "name": "Jordan Clarkson"
+            },
+            {
+              "category": "Go-to shot",
+              "name": "Carmelo Anthony"
+            }
+          ]
+        },
+        {
+          "group": "Dribbling",
+          "items": [
+            {
+              "category": "Dribble style",
+              "name": "Devin Booker"
+            },
+            {
+              "category": "Signature size-up",
+              "name": "Pro"
+            },
+            {
+              "category": "Crossover",
+              "name": "Rob Dillingham"
+            },
+            {
+              "category": "Behind the back",
+              "name": "Markelle Fultz"
+            },
+            {
+              "category": "Between the legs",
+              "name": "Rob Dillingham"
+            },
+            {
+              "category": "Spin",
+              "name": "Steve Nash"
+            },
+            {
+              "category": "Hesitation",
+              "name": "DeMar DeRozan"
+            },
+            {
+              "category": "Lateral hesitation",
+              "name": "Jimmy Butler"
+            },
+            {
+              "category": "In and out",
+              "name": "Pro"
+            },
+            {
+              "category": "Stepback",
+              "name": "Pro"
+            },
+            {
+              "category": "Stepback cross",
+              "name": "Zach LaVine"
+            },
+            {
+              "category": "Lateral stepback",
+              "name": "Andrew Wiggins"
+            },
+            {
+              "category": "Cross spin",
+              "name": "DeMar DeRozan"
+            },
+            {
+              "category": "Cross combo",
+              "name": "Pro"
+            },
+            {
+              "category": "Hesi cross combo",
+              "name": "Luka Dončić"
+            },
+            {
+              "category": "Double cross combo",
+              "name": "Pro"
+            },
+            {
+              "category": "Breakdown",
+              "name": "Spencer Dinwiddie"
+            },
+            {
+              "category": "Breakdown move",
+              "name": "CJ McCollum"
+            },
+            {
+              "category": "Behind the back launch",
+              "name": "Pro"
+            },
+            {
+              "category": "Escape crossover",
+              "name": "Zach LaVine"
+            },
+            {
+              "category": "Escape behind the back",
+              "name": "Markelle Fultz"
+            },
+            {
+              "category": "Escape between the legs",
+              "name": "Josh Giddey"
+            },
+            {
+              "category": "Escape hesitation",
+              "name": "Larry Bird"
+            },
+            {
+              "category": "Misdirect crossover",
+              "name": "Pro"
+            },
+            {
+              "category": "Misdirect behind the back",
+              "name": "Tyrese Haliburton"
+            },
+            {
+              "category": "Misdirect hesitation",
+              "name": "Pro"
+            }
+          ]
+        },
+        {
+          "group": "Triple threat",
+          "items": [
+            {
+              "category": "Style",
+              "name": "Pro"
+            },
+            {
+              "category": "Jab",
+              "name": "Pro"
+            },
+            {
+              "category": "Stepover",
+              "name": "Pro"
+            },
+            {
+              "category": "Breakdown",
+              "name": "Pro"
+            }
+          ]
+        },
+        {
+          "group": "Finishing",
+          "items": [
+            {
+              "category": "Layup",
+              "name": "LeBron James"
+            },
+            {
+              "category": "Reverse",
+              "name": "Default Swing"
+            },
+            {
+              "category": "Floater",
+              "name": "Default Swing"
+            },
+            {
+              "category": "Quick scoop",
+              "name": "Default Swing"
+            },
+            {
+              "category": "Euro step",
+              "name": "Default Swing"
+            },
+            {
+              "category": "Hop step",
+              "name": "Default Swing"
+            },
+            {
+              "category": "Spin layup",
+              "name": "Default Swing"
+            }
+          ]
+        },
+        {
+          "group": "Post",
+          "items": [
+            {
+              "category": "Post fade",
+              "name": "Pro"
+            },
+            {
+              "category": "Post hook",
+              "name": "Jaren Jackson Jr."
+            },
+            {
+              "category": "One-step pull-up",
+              "name": "Devin Booker"
+            },
+            {
+              "category": "Post go-to shot",
+              "name": "Carmelo Anthony"
+            }
+          ]
+        },
+        {
+          "group": "Movement & passing",
+          "items": [
+            {
+              "category": "Motion style",
+              "name": "Carmelo Anthony"
+            },
+            {
+              "category": "Passing style",
+              "name": "Scottie Barnes"
+            }
+          ]
+        }
+      ],
+      "dunks": [
+        "One Hand Under Basket Regular",
+        "Two Hand Under Basket Regular",
+        "Under Basket Regular",
+        "Athletic One-Handers Off One",
+        "Athletic One-Handers Off Two",
+        "Athletic Hangs Off One",
+        "Athletic Hangs Off Two",
+        "Quick Drops Off One",
+        "Side Arm Tomahawks",
+        "Front Clutches",
+        "Quick Drop-In Back Scratchers Off Two",
+        "Reverses Off Two",
+        "Clutch Reverses Off One",
+        "Basic 360s",
+        "Malik Monk"
+      ],
+      "alleyOops": [
+        "Pro Alley-Oop",
+        "Elite Alley-Oop",
+        "City Alley-Oop Reverses",
+        "City Alley-Oop 360s",
+        "City Alley-Oop Windmills",
+        "City Alley-Oop Under Leg",
+        "City Alley-Oop Flashy",
+        "Pro Contact Alley-Oop"
+      ],
+      "badgeTierThresholds": null
+    },
+    {
+      "key": "kirilenko",
+      "name": "Andrei Kirilenko",
+      "positionIndex": 2,
+      "position": "SF",
+      "heightInches": 81,
+      "weightLb": 235,
+      "wingspanInches": 84,
+      "unlock": {
+        "group": "now",
+        "groupLabel": "Available now",
+        "label": "Available now",
+        "detail": ""
+      },
+      "attributes": {
+        "Close Shot": 85,
+        "Driving Layup": 80,
+        "Driving Dunk": 82,
+        "Standing Dunk": 70,
+        "Post Control": 60,
+        "Mid-Range": 75,
+        "Three-Point": 83,
+        "Free Throw": 80,
+        "Pass Accuracy": 80,
+        "Ball Handle": 75,
+        "Speed w/ Ball": 75,
+        "Interior D": 75,
+        "Perimeter D": 92,
+        "Steal": 93,
+        "Block": 93,
+        "Off Rebound": 85,
+        "Def Rebound": 85,
+        "Speed": 80,
+        "Agility": 85,
+        "Strength": 60,
+        "Vertical": 85
+      },
+      "normalCeilings": {
+        "Close Shot": 99,
+        "Driving Layup": 98,
+        "Driving Dunk": 93,
+        "Standing Dunk": 99,
+        "Post Control": 99,
+        "Mid-Range": 89,
+        "Three-Point": 86,
+        "Free Throw": 95,
+        "Pass Accuracy": 99,
+        "Ball Handle": 80,
+        "Speed w/ Ball": 71,
+        "Interior D": 99,
+        "Perimeter D": 89,
+        "Steal": 84,
+        "Block": 91,
+        "Off Rebound": 89,
+        "Def Rebound": 91,
+        "Speed": 81,
+        "Agility": 78,
+        "Strength": 97,
+        "Vertical": 92
+      },
+      "jumpshot": {
+        "base": "Haywood Highsmith",
+        "release": "Miles Bridges",
+        "speed": "Normal"
+      },
+      "jersey": {
+        "number": "47",
+        "colors": [
+          "#4B2C82",
+          "#B87333",
+          "#6BB8D6",
+          "#FFFFFF",
+          "#B87333",
+          ""
+        ]
+      },
+      "animations": [
+        {
+          "group": "Shooting",
+          "items": [
+            {
+              "category": "Free throw",
+              "name": "Obi Toppin"
+            },
+            {
+              "category": "Dribble pull-up",
+              "name": "Trey Lyles"
+            },
+            {
+              "category": "Spin shot",
+              "name": "Pro"
+            },
+            {
+              "category": "Hop shot",
+              "name": "Kevin Huerter"
+            },
+            {
+              "category": "Go-to shot",
+              "name": "Ousmane Dieng"
+            }
+          ]
+        },
+        {
+          "group": "Dribbling",
+          "items": [
+            {
+              "category": "Dribble style",
+              "name": "Pro"
+            },
+            {
+              "category": "Signature size-up",
+              "name": "Austin Reaves"
+            },
+            {
+              "category": "Crossover",
+              "name": "Markelle Fultz"
+            },
+            {
+              "category": "Behind the back",
+              "name": "Markelle Fultz"
+            },
+            {
+              "category": "Between the legs",
+              "name": "Zion Williamson"
+            },
+            {
+              "category": "Spin",
+              "name": "Normal"
+            },
+            {
+              "category": "Hesitation",
+              "name": "Larry Bird"
+            },
+            {
+              "category": "Lateral hesitation",
+              "name": "Pro"
+            },
+            {
+              "category": "In and out",
+              "name": "Normal"
+            },
+            {
+              "category": "Stepback",
+              "name": "Pro"
+            },
+            {
+              "category": "Stepback cross",
+              "name": "Klay Thompson"
+            },
+            {
+              "category": "Lateral stepback",
+              "name": "Pro"
+            },
+            {
+              "category": "Cross spin",
+              "name": "Normal"
+            },
+            {
+              "category": "Cross combo",
+              "name": "Pro"
+            },
+            {
+              "category": "Hesi cross combo",
+              "name": "Julius Randle"
+            },
+            {
+              "category": "Double cross combo",
+              "name": "Jimmy Butler"
+            },
+            {
+              "category": "Breakdown",
+              "name": "Quentin Grimes"
+            },
+            {
+              "category": "Breakdown move",
+              "name": "Eric Gordon"
+            },
+            {
+              "category": "Behind the back launch",
+              "name": "Pro"
+            },
+            {
+              "category": "Escape crossover",
+              "name": "Pro"
+            },
+            {
+              "category": "Escape behind the back",
+              "name": "Kyle Kuzma"
+            },
+            {
+              "category": "Escape between the legs",
+              "name": "Pro"
+            },
+            {
+              "category": "Escape hesitation",
+              "name": "Pro"
+            },
+            {
+              "category": "Misdirect crossover",
+              "name": "Normal"
+            },
+            {
+              "category": "Misdirect behind the back",
+              "name": "Pro"
+            },
+            {
+              "category": "Misdirect hesitation",
+              "name": "Normal"
+            }
+          ]
+        },
+        {
+          "group": "Triple threat",
+          "items": [
+            {
+              "category": "Style",
+              "name": "Normal"
+            },
+            {
+              "category": "Jab",
+              "name": "Normal"
+            },
+            {
+              "category": "Stepover",
+              "name": "Normal"
+            },
+            {
+              "category": "Breakdown",
+              "name": "Normal"
+            }
+          ]
+        },
+        {
+          "group": "Finishing",
+          "items": [
+            {
+              "category": "Layup",
+              "name": "Kon Knueppel"
+            },
+            {
+              "category": "Reverse",
+              "name": "Default Swing"
+            },
+            {
+              "category": "Floater",
+              "name": "Franz Wagner"
+            },
+            {
+              "category": "Quick scoop",
+              "name": "Default Swing"
+            },
+            {
+              "category": "Euro step",
+              "name": "Cooper Flagg"
+            },
+            {
+              "category": "Hop step",
+              "name": "Default Swing"
+            },
+            {
+              "category": "Spin layup",
+              "name": "Josh Giddey"
+            }
+          ]
+        },
+        {
+          "group": "Post",
+          "items": [
+            {
+              "category": "Post fade",
+              "name": "Ace Bailey"
+            },
+            {
+              "category": "Post hook",
+              "name": "Jalen Duren"
+            },
+            {
+              "category": "One-step pull-up",
+              "name": "Tobias Harris"
+            },
+            {
+              "category": "Post go-to shot",
+              "name": "Pro"
+            }
+          ]
+        },
+        {
+          "group": "Movement & passing",
+          "items": [
+            {
+              "category": "Motion style",
+              "name": "Jaden McDaniels"
+            },
+            {
+              "category": "Passing style",
+              "name": "Immanuel Quickley"
+            }
+          ]
+        }
+      ],
+      "dunks": [
+        "One Hand Under Basket Regular",
+        "Two Hand Under Basket Regular",
+        "Under Basket Regular",
+        "Rim Grazers Off One",
+        "Rim Grazers Off Two",
+        "Basic One-Handers Off One",
+        "Basic Two-Handers Off One",
+        "Basic One-Handers Off Two",
+        "Basic Two-Handers Off Two",
+        "Athletic One-Handers Off One",
+        "Athletic One-Handers Off Two",
+        "DeMar DeRozan",
+        "Kevin Huerter",
+        "Pro Contact Dunks Off Two"
+      ],
+      "alleyOops": [
+        "Pro Alley-Oop",
+        "Elite Alley-Oop",
+        "Pro Contact Alley-Oop"
+      ],
+      "badgeTierThresholds": null
+    },
+    {
+      "key": "kawhi",
+      "name": "Kawhi Leonard",
+      "positionIndex": 2,
+      "position": "SF",
+      "heightInches": 79,
+      "weightLb": 230,
+      "wingspanInches": 87,
+      "unlock": {
+        "group": "now",
+        "groupLabel": "Available now",
+        "label": "Available now",
+        "detail": ""
+      },
+      "attributes": {
+        "Close Shot": 90,
+        "Driving Layup": 85,
+        "Driving Dunk": 80,
+        "Standing Dunk": 55,
+        "Post Control": 80,
+        "Mid-Range": 91,
+        "Three-Point": 83,
+        "Free Throw": 80,
+        "Pass Accuracy": 75,
+        "Ball Handle": 80,
+        "Speed w/ Ball": 75,
+        "Interior D": 75,
+        "Perimeter D": 96,
+        "Steal": 94,
+        "Block": 50,
+        "Off Rebound": 60,
+        "Def Rebound": 70,
+        "Speed": 77,
+        "Agility": 95,
+        "Strength": 82,
+        "Vertical": 75
+      },
+      "normalCeilings": {
+        "Close Shot": 99,
+        "Driving Layup": 99,
+        "Driving Dunk": 99,
+        "Standing Dunk": 99,
+        "Post Control": 94,
+        "Mid-Range": 83,
+        "Three-Point": 78,
+        "Free Throw": 99,
+        "Pass Accuracy": 99,
+        "Ball Handle": 91,
+        "Speed w/ Ball": 81,
+        "Interior D": 99,
+        "Perimeter D": 99,
+        "Steal": 99,
+        "Block": 93,
+        "Off Rebound": 86,
+        "Def Rebound": 95,
+        "Speed": 89,
+        "Agility": 83,
+        "Strength": 86,
+        "Vertical": 97
+      },
+      "jumpshot": {
+        "base": "Kawhi Leonard",
+        "release": "Kawhi Leonard",
+        "speed": "Normal"
+      },
+      "jersey": {
+        "number": "2",
+        "colors": [
+          "#CE1141",
+          "#000000",
+          "#A1A1A4",
+          "#FFFFFF",
+          "#000000",
+          ""
+        ]
+      },
+      "animations": [
+        {
+          "group": "Shooting",
+          "items": [
+            {
+              "category": "Free throw",
+              "name": "Kawhi Leonard"
+            },
+            {
+              "category": "Dribble pull-up",
+              "name": "Kawhi Leonard"
+            },
+            {
+              "category": "Spin shot",
+              "name": "Kyle Kuzma"
+            },
+            {
+              "category": "Hop shot",
+              "name": "Kawhi Leonard"
+            },
+            {
+              "category": "Go-to shot",
+              "name": "Kawhi Leonard"
+            }
+          ]
+        },
+        {
+          "group": "Dribbling",
+          "items": [
+            {
+              "category": "Dribble style",
+              "name": "Pro"
+            },
+            {
+              "category": "Signature size-up",
+              "name": "Kawhi Leonard"
+            },
+            {
+              "category": "Crossover",
+              "name": "Kawhi Leonard"
+            },
+            {
+              "category": "Behind the back",
+              "name": "Kawhi Leonard"
+            },
+            {
+              "category": "Between the legs",
+              "name": "Kawhi Leonard"
+            },
+            {
+              "category": "Spin",
+              "name": "Kawhi Leonard"
+            },
+            {
+              "category": "Hesitation",
+              "name": "Jimmy Butler"
+            },
+            {
+              "category": "Lateral hesitation",
+              "name": "Scottie Pippen"
+            },
+            {
+              "category": "In and out",
+              "name": "Pro"
+            },
+            {
+              "category": "Stepback",
+              "name": "Kawhi Leonard"
+            },
+            {
+              "category": "Stepback cross",
+              "name": "Kawhi Leonard"
+            },
+            {
+              "category": "Lateral stepback",
+              "name": "Pro"
+            },
+            {
+              "category": "Cross spin",
+              "name": "Kawhi Leonard"
+            },
+            {
+              "category": "Cross combo",
+              "name": "Kawhi Leonard"
+            },
+            {
+              "category": "Hesi cross combo",
+              "name": "Jimmy Butler"
+            },
+            {
+              "category": "Double cross combo",
+              "name": "Kawhi Leonard"
+            },
+            {
+              "category": "Breakdown",
+              "name": "Kawhi Leonard"
+            },
+            {
+              "category": "Breakdown move",
+              "name": "Kawhi Leonard"
+            },
+            {
+              "category": "Behind the back launch",
+              "name": "Pro"
+            },
+            {
+              "category": "Escape crossover",
+              "name": "Paul George"
+            },
+            {
+              "category": "Escape behind the back",
+              "name": "Kawhi Leonard"
+            },
+            {
+              "category": "Escape between the legs",
+              "name": "Zach LaVine"
+            },
+            {
+              "category": "Escape hesitation",
+              "name": "Scottie Pippen"
+            },
+            {
+              "category": "Misdirect crossover",
+              "name": "Pro"
+            },
+            {
+              "category": "Misdirect behind the back",
+              "name": "Pro"
+            },
+            {
+              "category": "Misdirect hesitation",
+              "name": "Pro"
+            }
+          ]
+        },
+        {
+          "group": "Triple threat",
+          "items": [
+            {
+              "category": "Style",
+              "name": "Normal"
+            },
+            {
+              "category": "Jab",
+              "name": "Normal"
+            },
+            {
+              "category": "Stepover",
+              "name": "Normal"
+            },
+            {
+              "category": "Breakdown",
+              "name": "Normal"
+            }
+          ]
+        },
+        {
+          "group": "Finishing",
+          "items": [
+            {
+              "category": "Layup",
+              "name": "Kawhi Leonard"
+            },
+            {
+              "category": "Reverse",
+              "name": "Kawhi Leonard"
+            },
+            {
+              "category": "Floater",
+              "name": "OG Anunoby"
+            },
+            {
+              "category": "Quick scoop",
+              "name": "Jaden Ivey"
+            },
+            {
+              "category": "Euro step",
+              "name": "Pascal Siakam"
+            },
+            {
+              "category": "Hop step",
+              "name": "Julius Randle"
+            },
+            {
+              "category": "Spin layup",
+              "name": "Kawhi Leonard"
+            }
+          ]
+        },
+        {
+          "group": "Post",
+          "items": [
+            {
+              "category": "Post fade",
+              "name": "Kawhi Leonard"
+            },
+            {
+              "category": "Post hook",
+              "name": "Cade Cunningham"
+            },
+            {
+              "category": "One-step pull-up",
+              "name": "Pro"
+            },
+            {
+              "category": "Post go-to shot",
+              "name": "Kawhi Leonard"
+            }
+          ]
+        },
+        {
+          "group": "Movement & passing",
+          "items": [
+            {
+              "category": "Motion style",
+              "name": "Kawhi Leonard"
+            },
+            {
+              "category": "Passing style",
+              "name": "Kawhi Leonard"
+            }
+          ]
+        }
+      ],
+      "dunks": [
+        "One Hand Under Basket Regular",
+        "Two Hand Under Basket Regular",
+        "Under Basket Regular",
+        "Athletic One-Handers Off One",
+        "Athletic One-Handers Off Two",
+        "Athletic Hangs Off One",
+        "Athletic Hangs Off Two",
+        "Quick Drops Off One",
+        "Side Arm Tomahawks",
+        "Front Clutches",
+        "Quick Drop-In Back Scratchers Off Two",
+        "Reverses Off Two",
+        "Clutch Reverses Off One",
+        "Keon Ellis",
+        "Pro Contact Dunks Off Two",
+        "Pro Contact Dunks Off One"
+      ],
+      "alleyOops": [
+        "Pro Alley-Oop",
+        "Elite Alley-Oop",
+        "City Alley-Oop Reverses",
+        "City Alley-Oop 360s",
+        "City Alley-Oop Windmills",
+        "City Alley-Oop Under Leg",
+        "City Alley-Oop Flashy",
+        "Pro Contact Alley-Oop"
+      ],
+      "badgeTierThresholds": null
+    },
+    {
+      "key": "ad",
+      "name": "Anthony Davis",
+      "positionIndex": 3,
+      "position": "PF",
+      "heightInches": 82,
+      "weightLb": 253,
+      "wingspanInches": 86,
+      "unlock": {
+        "group": "now",
+        "groupLabel": "Available now",
+        "label": "Available now",
+        "detail": ""
+      },
+      "attributes": {
+        "Close Shot": 90,
+        "Driving Layup": 80,
+        "Driving Dunk": 89,
+        "Standing Dunk": 95,
+        "Post Control": 87,
+        "Mid-Range": 75,
+        "Three-Point": 70,
+        "Free Throw": 75,
+        "Pass Accuracy": 65,
+        "Ball Handle": 70,
+        "Speed w/ Ball": 70,
+        "Interior D": 93,
+        "Perimeter D": 65,
+        "Steal": 60,
+        "Block": 94,
+        "Off Rebound": 80,
+        "Def Rebound": 89,
+        "Speed": 78,
+        "Agility": 70,
+        "Strength": 85,
+        "Vertical": 83
+      },
+      "normalCeilings": {
+        "Close Shot": 99,
+        "Driving Layup": 98,
+        "Driving Dunk": 93,
+        "Standing Dunk": 99,
+        "Post Control": 99,
+        "Mid-Range": 86,
+        "Three-Point": 84,
+        "Free Throw": 94,
+        "Pass Accuracy": 99,
+        "Ball Handle": 78,
+        "Speed w/ Ball": 65,
+        "Interior D": 99,
+        "Perimeter D": 80,
+        "Steal": 80,
+        "Block": 99,
+        "Off Rebound": 98,
+        "Def Rebound": 99,
+        "Speed": 74,
+        "Agility": 67,
+        "Strength": 99,
+        "Vertical": 88
+      },
+      "jumpshot": {
+        "base": "Anthony Davis",
+        "release": "Anthony Davis",
+        "speed": "Normal"
+      },
+      "jersey": {
+        "number": "3",
+        "colors": [
+          "#552583",
+          "#FDB927",
+          "#FFFFFF",
+          "#FDB927",
+          "#FFFFFF",
+          ""
+        ]
+      },
+      "animations": [
+        {
+          "group": "Shooting",
+          "items": [
+            {
+              "category": "Free throw",
+              "name": "Anthony Davis"
+            },
+            {
+              "category": "Dribble pull-up",
+              "name": "Anthony Davis"
+            },
+            {
+              "category": "Spin shot",
+              "name": "Normal"
+            },
+            {
+              "category": "Hop shot",
+              "name": "Normal"
+            },
+            {
+              "category": "Go-to shot",
+              "name": "Anthony Davis"
+            }
+          ]
+        },
+        {
+          "group": "Dribbling",
+          "items": [
+            {
+              "category": "Dribble style",
+              "name": "Paolo Banchero"
+            },
+            {
+              "category": "Signature size-up",
+              "name": "Normal"
+            },
+            {
+              "category": "Crossover",
+              "name": "Pro"
+            },
+            {
+              "category": "Behind the back",
+              "name": "Pro"
+            },
+            {
+              "category": "Between the legs",
+              "name": "Normal"
+            },
+            {
+              "category": "Spin",
+              "name": "Normal"
+            },
+            {
+              "category": "Hesitation",
+              "name": "Normal"
+            },
+            {
+              "category": "Lateral hesitation",
+              "name": "Basic"
+            },
+            {
+              "category": "In and out",
+              "name": "Normal"
+            },
+            {
+              "category": "Stepback",
+              "name": "Normal"
+            },
+            {
+              "category": "Stepback cross",
+              "name": "Pro"
+            },
+            {
+              "category": "Lateral stepback",
+              "name": "Pro"
+            },
+            {
+              "category": "Cross spin",
+              "name": "Anthony Davis"
+            },
+            {
+              "category": "Cross combo",
+              "name": "Normal"
+            },
+            {
+              "category": "Hesi cross combo",
+              "name": "Giannis Antetokounmpo"
+            },
+            {
+              "category": "Double cross combo",
+              "name": "Giannis Antetokounmpo"
+            },
+            {
+              "category": "Breakdown",
+              "name": "Pro"
+            },
+            {
+              "category": "Breakdown move",
+              "name": "Normal"
+            },
+            {
+              "category": "Behind the back launch",
+              "name": "Normal"
+            },
+            {
+              "category": "Escape crossover",
+              "name": "Pro"
+            },
+            {
+              "category": "Escape behind the back",
+              "name": "Pro"
+            },
+            {
+              "category": "Escape between the legs",
+              "name": "Normal"
+            },
+            {
+              "category": "Escape hesitation",
+              "name": "Basic"
+            },
+            {
+              "category": "Misdirect crossover",
+              "name": "Normal"
+            },
+            {
+              "category": "Misdirect behind the back",
+              "name": "Normal"
+            },
+            {
+              "category": "Misdirect hesitation",
+              "name": "Pro"
+            }
+          ]
+        },
+        {
+          "group": "Triple threat",
+          "items": [
+            {
+              "category": "Style",
+              "name": "Pro"
+            },
+            {
+              "category": "Jab",
+              "name": "Pro"
+            },
+            {
+              "category": "Stepover",
+              "name": "Pro"
+            },
+            {
+              "category": "Breakdown",
+              "name": "Pro"
+            }
+          ]
+        },
+        {
+          "group": "Finishing",
+          "items": [
+            {
+              "category": "Layup",
+              "name": "Anthony Davis"
+            },
+            {
+              "category": "Reverse",
+              "name": "Giannis Antetokounmpo"
+            },
+            {
+              "category": "Floater",
+              "name": "Anthony Davis"
+            },
+            {
+              "category": "Quick scoop",
+              "name": "Default Big"
+            },
+            {
+              "category": "Euro step",
+              "name": "Naz Reid"
+            },
+            {
+              "category": "Hop step",
+              "name": "Naz Reid"
+            },
+            {
+              "category": "Spin layup",
+              "name": "Default Big"
+            }
+          ]
+        },
+        {
+          "group": "Post",
+          "items": [
+            {
+              "category": "Post fade",
+              "name": "Anthony Davis"
+            },
+            {
+              "category": "Post hook",
+              "name": "Anthony Davis"
+            },
+            {
+              "category": "One-step pull-up",
+              "name": "Anthony Davis"
+            },
+            {
+              "category": "Post go-to shot",
+              "name": "Normal"
+            }
+          ]
+        },
+        {
+          "group": "Movement & passing",
+          "items": [
+            {
+              "category": "Motion style",
+              "name": "Anthony Davis"
+            }
+          ]
+        }
+      ],
+      "dunks": [
+        "Pro Under Basket Rim Pulls",
+        "Elite Basket Rim Pulls",
+        "One Hand Under Basket Regular",
+        "Two Hand Under Basket Regular",
+        "Under Basket Regular",
+        "One Hand Under Basket Athletic",
+        "Two Hand Under Basket Athletic",
+        "Under Basket Athletic Flushes",
+        "Big Man Off One",
+        "Big Man Off Two",
+        "Athletic One-Handers Off One",
+        "Athletic One-Handers Off Two",
+        "Hangs Off One",
+        "Big Man Hangs Off One",
+        "Athletic Hangs Off One",
+        "Athletic Hangs Off Two",
+        "Quick Drops Off One",
+        "Big Man Tomahawks Off One",
+        "Big Man Tomahawks Off Two",
+        "Side Arm Tomahawks",
+        "Side Clutches Off Two",
+        "Back Scratchers Off One",
+        "Big Man Back Scratchers",
+        "Reverses Off One",
+        "One-Hand Clutch Reverses",
+        "Reverses Off Two",
+        "Big Man Baseline Reverses Off One",
+        "Big Man Baseline Reverses Off Two",
+        "Bigman Windmills",
+        "Front Windmills",
+        "Athletic Windmills",
+        "Basic 360s",
+        "Amare Stoudemire",
+        "Pro Contact Dunks Off Two",
+        "Pro Contact Dunks Off One",
+        "Pro Bigman Contact Dunks",
+        "Elite Bigman Contact Dunks"
+      ],
+      "alleyOops": [
+        "Pro Alley-Oop",
+        "Elite Alley-Oop",
+        "Anthony Davis Alley-Oop",
+        "City Alley-Oop Reverses",
+        "City Alley-Oop 360s",
+        "City Alley-Oop Windmills",
+        "City Alley-Oop Under Leg",
+        "City Alley-Oop Flashy",
+        "Pro Contact Alley-Oop",
+        "Bigman Contact Alley-Oop"
+      ],
+      "badgeTierThresholds": null
+    },
+    {
+      "key": "dwight",
+      "name": "Dwight Howard",
+      "positionIndex": 4,
+      "position": "C",
+      "heightInches": 83,
+      "weightLb": 265,
+      "wingspanInches": 89,
+      "unlock": {
+        "group": "now",
+        "groupLabel": "Available now",
+        "label": "Available now",
+        "detail": ""
+      },
+      "attributes": {
+        "Close Shot": 88,
+        "Driving Layup": 70,
+        "Driving Dunk": 93,
+        "Standing Dunk": 99,
+        "Post Control": 85,
+        "Mid-Range": 25,
+        "Three-Point": 25,
+        "Free Throw": 50,
+        "Pass Accuracy": 30,
+        "Ball Handle": 45,
+        "Speed w/ Ball": 50,
+        "Interior D": 94,
+        "Perimeter D": 40,
+        "Steal": 60,
+        "Block": 94,
+        "Off Rebound": 94,
+        "Def Rebound": 94,
+        "Speed": 80,
+        "Agility": 65,
+        "Strength": 94,
+        "Vertical": 90
+      },
+      "normalCeilings": {
+        "Close Shot": 99,
+        "Driving Layup": 99,
+        "Driving Dunk": 92,
+        "Standing Dunk": 99,
+        "Post Control": 99,
+        "Mid-Range": 82,
+        "Three-Point": 80,
+        "Free Throw": 93,
+        "Pass Accuracy": 99,
+        "Ball Handle": 70,
+        "Speed w/ Ball": 59,
+        "Interior D": 99,
+        "Perimeter D": 70,
+        "Steal": 76,
+        "Block": 99,
+        "Off Rebound": 99,
+        "Def Rebound": 99,
+        "Speed": 69,
+        "Agility": 57,
+        "Strength": 99,
+        "Vertical": 84
+      },
+      "jumpshot": {
+        "base": "Dwight Howard",
+        "release": "Dwight Howard",
+        "speed": "Normal"
+      },
+      "jersey": {
+        "number": "12",
+        "colors": [
+          "#0077C0",
+          "#000000",
+          "#C4CED4",
+          "#FFFFFF",
+          "#000000",
+          ""
+        ]
+      },
+      "animations": [
+        {
+          "group": "Shooting",
+          "items": [
+            {
+              "category": "Free throw",
+              "name": "Dwight Howard"
+            },
+            {
+              "category": "Dribble pull-up",
+              "name": "Basic"
+            },
+            {
+              "category": "Spin shot",
+              "name": "Basic"
+            },
+            {
+              "category": "Hop shot",
+              "name": "Basic"
+            }
+          ]
+        },
+        {
+          "group": "Dribbling",
+          "items": [
+            {
+              "category": "Dribble style",
+              "name": "Basic"
+            },
+            {
+              "category": "Signature size-up",
+              "name": "Normal"
+            },
+            {
+              "category": "Crossover",
+              "name": "Normal"
+            },
+            {
+              "category": "Behind the back",
+              "name": "Normal"
+            },
+            {
+              "category": "Between the legs",
+              "name": "Normal"
+            },
+            {
+              "category": "Spin",
+              "name": "Normal"
+            },
+            {
+              "category": "Hesitation",
+              "name": "Normal"
+            },
+            {
+              "category": "Lateral hesitation",
+              "name": "Normal"
+            },
+            {
+              "category": "In and out",
+              "name": "Normal"
+            },
+            {
+              "category": "Stepback",
+              "name": "Normal"
+            },
+            {
+              "category": "Stepback cross",
+              "name": "Normal"
+            },
+            {
+              "category": "Lateral stepback",
+              "name": "Normal"
+            },
+            {
+              "category": "Cross spin",
+              "name": "Normal"
+            },
+            {
+              "category": "Cross combo",
+              "name": "Normal"
+            },
+            {
+              "category": "Hesi cross combo",
+              "name": "Normal"
+            },
+            {
+              "category": "Double cross combo",
+              "name": "Normal"
+            },
+            {
+              "category": "Breakdown",
+              "name": "Normal"
+            },
+            {
+              "category": "Breakdown move",
+              "name": "Normal"
+            },
+            {
+              "category": "Behind the back launch",
+              "name": "Normal"
+            },
+            {
+              "category": "Escape crossover",
+              "name": "Normal"
+            },
+            {
+              "category": "Escape behind the back",
+              "name": "Normal"
+            },
+            {
+              "category": "Escape between the legs",
+              "name": "Normal"
+            },
+            {
+              "category": "Escape hesitation",
+              "name": "Normal"
+            },
+            {
+              "category": "Misdirect crossover",
+              "name": "Normal"
+            },
+            {
+              "category": "Misdirect behind the back",
+              "name": "Normal"
+            },
+            {
+              "category": "Misdirect hesitation",
+              "name": "Normal"
+            }
+          ]
+        },
+        {
+          "group": "Triple threat",
+          "items": [
+            {
+              "category": "Style",
+              "name": "Basic"
+            },
+            {
+              "category": "Jab",
+              "name": "Basic"
+            },
+            {
+              "category": "Stepover",
+              "name": "Basic"
+            },
+            {
+              "category": "Breakdown",
+              "name": "Basic"
+            }
+          ]
+        },
+        {
+          "group": "Finishing",
+          "items": [
+            {
+              "category": "Layup",
+              "name": "Default Big"
+            },
+            {
+              "category": "Reverse",
+              "name": "Default Big"
+            },
+            {
+              "category": "Floater",
+              "name": "Default Big"
+            },
+            {
+              "category": "Quick scoop",
+              "name": "Default Big"
+            },
+            {
+              "category": "Euro step",
+              "name": "Default Big"
+            },
+            {
+              "category": "Hop step",
+              "name": "Default Big"
+            },
+            {
+              "category": "Spin layup",
+              "name": "Default Big"
+            },
+            {
+              "category": "Signature dunk",
+              "name": "Dwight Howard"
+            }
+          ]
+        },
+        {
+          "group": "Post",
+          "items": [
+            {
+              "category": "Post fade",
+              "name": "Al Horford"
+            },
+            {
+              "category": "Post hook",
+              "name": "Mark Williams"
+            },
+            {
+              "category": "One-step pull-up",
+              "name": "Basic"
+            },
+            {
+              "category": "Post go-to shot",
+              "name": "Ivica Zubac"
+            }
+          ]
+        },
+        {
+          "group": "Movement & passing",
+          "items": [
+            {
+              "category": "Motion style",
+              "name": "Dwight Howard"
+            },
+            {
+              "category": "Passing style",
+              "name": "Fundamental"
+            }
+          ]
+        }
+      ],
+      "dunks": [
+        "Pro Under Basket Rim Pulls",
+        "Elite Basket Rim Pulls",
+        "One Hand Under Basket Regular",
+        "Two Hand Under Basket Regular",
+        "Under Basket Regular",
+        "One Hand Under Basket Athletic",
+        "Two Hand Under Basket Athletic",
+        "Under Basket Athletic Flushes",
+        "Athletic One-Handers Off One",
+        "Athletic One-Handers Off Two",
+        "Hangs Off One",
+        "Athletic Hangs Off One",
+        "Athletic Hangs Off Two",
+        "Quick Drops Off One",
+        "Quick Drops Off Two",
+        "Big Man Tomahawks Off Two",
+        "Side Arm Tomahawks",
+        "Straight Arm Tomahawks",
+        "Athletic Side Tomahawks",
+        "Uber Athletic Tomahawks Off One",
+        "Uber Athletic Tomahawks Off Two",
+        "Front Clutches",
+        "Big Man Side Clutches Off One",
+        "Side Clutches Off Two",
+        "Reverses Off One",
+        "Reverses Off Two",
+        "Clutch Reverses Off One",
+        "Windmill Baseline Reverses",
+        "Windmills Off One",
+        "Front Windmills",
+        "Side Windmills",
+        "Athletic Windmills",
+        "Basic 360s",
+        "Athletic 360s",
+        "Dwight Howard",
+        "Pro Contact Dunks Off Two",
+        "Pro Contact Dunks Off One",
+        "Pro Bigman Contact Dunks",
+        "Elite Bigman Contact Dunks"
+      ],
+      "alleyOops": [
+        "Pro Alley-Oop",
+        "Elite Alley-Oop",
+        "City Alley-Oop Reverses",
+        "City Alley-Oop 360s",
+        "City Alley-Oop Windmills",
+        "City Alley-Oop Under Leg",
+        "City Alley-Oop Flashy",
+        "Jordan Kilganon Alley-Oop",
+        "Pro Contact Alley-Oop",
+        "Elite Contact Alley-Oop",
+        "Bigman Contact Alley-Oop"
+      ],
+      "badgeTierThresholds": null
+    },
+    {
+      "key": "magic",
+      "name": "Magic Johnson",
+      "positionIndex": 0,
+      "position": "PG",
+      "heightInches": 81,
+      "weightLb": 215,
+      "wingspanInches": 85,
+      "unlock": {
+        "group": "pass",
+        "groupLabel": "Season 2 pass",
+        "label": "Season 2 pass, level 26",
+        "detail": "Level 26"
+      },
+      "attributes": {
+        "Close Shot": 90,
+        "Driving Layup": 95,
+        "Driving Dunk": 58,
+        "Standing Dunk": 60,
+        "Post Control": 93,
+        "Mid-Range": 87,
+        "Three-Point": 70,
+        "Free Throw": 85,
+        "Pass Accuracy": 99,
+        "Ball Handle": 97,
+        "Speed w/ Ball": 93,
+        "Interior D": 80,
+        "Perimeter D": 80,
+        "Steal": 73,
+        "Block": 65,
+        "Off Rebound": 74,
+        "Def Rebound": 84,
+        "Speed": 87,
+        "Agility": 83,
+        "Strength": 85,
+        "Vertical": 70
+      },
+      "normalCeilings": {
+        "Close Shot": 99,
+        "Driving Layup": 99,
+        "Driving Dunk": 95,
+        "Standing Dunk": 99,
+        "Post Control": 99,
+        "Mid-Range": 87,
+        "Three-Point": 84,
+        "Free Throw": 95,
+        "Pass Accuracy": 99,
+        "Ball Handle": 80,
+        "Speed w/ Ball": 72,
+        "Interior D": 95,
+        "Perimeter D": 90,
+        "Steal": 86,
+        "Block": 94,
+        "Off Rebound": 87,
+        "Def Rebound": 88,
+        "Speed": 83,
+        "Agility": 81,
+        "Strength": 86,
+        "Vertical": 93
+      },
+      "jumpshot": {
+        "base": "Magic Johnson",
+        "release": "Magic Johnson",
+        "speed": "Normal"
+      },
+      "jersey": {
+        "number": "32",
+        "colors": [
+          "#FDB927",
+          "#552583",
+          "#FFFFFF",
+          "#552583",
+          "#FFFFFF",
+          ""
+        ]
+      },
+      "animations": [
+        {
+          "group": "Shooting",
+          "items": [
+            {
+              "category": "Free throw",
+              "name": "Magic Johnson"
+            },
+            {
+              "category": "Dribble pull-up",
+              "name": "Bogdan Bogdanović"
+            },
+            {
+              "category": "Spin shot",
+              "name": "Keegan Murray"
+            },
+            {
+              "category": "Hop shot",
+              "name": "Shaedon Sharpe"
+            },
+            {
+              "category": "Go-to shot",
+              "name": "Johnny Juzang"
+            }
+          ]
+        },
+        {
+          "group": "Dribbling",
+          "items": [
+            {
+              "category": "Dribble style",
+              "name": "Cooper Flagg"
+            },
+            {
+              "category": "Signature size-up",
+              "name": "Austin Reaves"
+            },
+            {
+              "category": "Crossover",
+              "name": "Chris Paul"
+            },
+            {
+              "category": "Behind the back",
+              "name": "DeMar DeRozan"
+            },
+            {
+              "category": "Between the legs",
+              "name": "Josh Giddey"
+            },
+            {
+              "category": "Spin",
+              "name": "Luka Dončić"
+            },
+            {
+              "category": "Hesitation",
+              "name": "Luka Dončić"
+            },
+            {
+              "category": "Lateral hesitation",
+              "name": "Scottie Pippen"
+            },
+            {
+              "category": "In and out",
+              "name": "Pro"
+            },
+            {
+              "category": "Stepback",
+              "name": "Jimmy Butler"
+            },
+            {
+              "category": "Stepback cross",
+              "name": "Jayson Tatum"
+            },
+            {
+              "category": "Lateral stepback",
+              "name": "Jimmy Butler"
+            },
+            {
+              "category": "Cross spin",
+              "name": "Pro"
+            },
+            {
+              "category": "Cross combo",
+              "name": "Jayson Tatum"
+            },
+            {
+              "category": "Hesi cross combo",
+              "name": "Jimmy Butler"
+            },
+            {
+              "category": "Double cross combo",
+              "name": "Josh Giddey"
+            },
+            {
+              "category": "Breakdown",
+              "name": "Jaden McDaniels"
+            },
+            {
+              "category": "Breakdown move",
+              "name": "Jaden McDaniels"
+            },
+            {
+              "category": "Behind the back launch",
+              "name": "Anthony Edwards"
+            },
+            {
+              "category": "Escape crossover",
+              "name": "Pro"
+            },
+            {
+              "category": "Escape behind the back",
+              "name": "Andrew Wiggins"
+            },
+            {
+              "category": "Escape between the legs",
+              "name": "Chris Paul"
+            },
+            {
+              "category": "Escape hesitation",
+              "name": "Rajon Rondo"
+            },
+            {
+              "category": "Misdirect crossover",
+              "name": "Pro"
+            },
+            {
+              "category": "Misdirect behind the back",
+              "name": "Anthony Edwards"
+            },
+            {
+              "category": "Misdirect hesitation",
+              "name": "Pro"
+            }
+          ]
+        },
+        {
+          "group": "Triple threat",
+          "items": [
+            {
+              "category": "Style",
+              "name": "Pro"
+            },
+            {
+              "category": "Jab",
+              "name": "Pro"
+            },
+            {
+              "category": "Stepover",
+              "name": "Pro"
+            },
+            {
+              "category": "Breakdown",
+              "name": "Pro"
+            }
+          ]
+        },
+        {
+          "group": "Finishing",
+          "items": [
+            {
+              "category": "Layup",
+              "name": "Magic Johnson"
+            },
+            {
+              "category": "Reverse",
+              "name": "DeMar DeRozan"
+            },
+            {
+              "category": "Floater",
+              "name": "Magic Johnson"
+            },
+            {
+              "category": "Quick scoop",
+              "name": "Default Swing"
+            },
+            {
+              "category": "Euro step",
+              "name": "Magic Johnson"
+            },
+            {
+              "category": "Hop step",
+              "name": "Default Swing"
+            },
+            {
+              "category": "Spin layup",
+              "name": "Magic Johnson"
+            }
+          ]
+        },
+        {
+          "group": "Post",
+          "items": [
+            {
+              "category": "Post fade",
+              "name": "Jaime Jaquez Jr."
+            },
+            {
+              "category": "Post hook",
+              "name": "Mark Williams"
+            },
+            {
+              "category": "One-step pull-up",
+              "name": "Brandon Ingram"
+            },
+            {
+              "category": "Post go-to shot",
+              "name": "Pro"
+            }
+          ]
+        },
+        {
+          "group": "Movement & passing",
+          "items": [
+            {
+              "category": "Motion style",
+              "name": "Isaiah Jackson"
+            },
+            {
+              "category": "Passing style",
+              "name": "Magic Johnson"
+            }
+          ]
+        }
+      ],
+      "dunks": [
+        "One Hand Under Basket Regular",
+        "Two Hand Under Basket Regular",
+        "Under Basket Regular",
+        "Rim Grazers Off One",
+        "Rim Grazers Off Two",
+        "Basic One-Handers Off One",
+        "Basic Two-Handers Off One",
+        "Basic One-Handers Off Two",
+        "Basic Two-Handers Off Two",
+        "DeMar DeRozan",
+        "Manu Ginobili",
+        "Trey Lyles"
+      ],
+      "alleyOops": [
+        "Pro Alley-Oop",
+        "Elite Alley-Oop",
+        "Pro Contact Alley-Oop"
+      ],
+      "badgeTierThresholds": {
+        "Close Shot": [
+          59,
+          67,
+          75,
+          82,
+          90,
+          97
+        ],
+        "Driving Layup": [
+          64,
+          71,
+          77,
+          84,
+          91,
+          98
+        ],
+        "Driving Dunk": [
+          64,
+          71,
+          77,
+          84,
+          91,
+          98
+        ],
+        "Standing Dunk": [
+          69,
+          85
+        ],
+        "Post Control": [
+          63,
+          78,
+          93
+        ],
+        "Mid-Range": [
+          57,
+          61,
+          65,
+          69,
+          73,
+          77,
+          80,
+          84,
+          88,
+          92,
+          96
+        ],
+        "Three-Point": [
+          62,
+          66,
+          69,
+          72,
+          76,
+          79,
+          83,
+          86,
+          89,
+          93,
+          96,
+          99
+        ],
+        "Free Throw": [],
+        "Pass Accuracy": [
+          54,
+          60,
+          67,
+          73,
+          79,
+          86,
+          92,
+          99
+        ],
+        "Ball Handle": [
+          63,
+          68,
+          72,
+          77,
+          82,
+          86,
+          91,
+          96
+        ],
+        "Speed w/ Ball": [
+          71,
+          75,
+          79,
+          83,
+          87,
+          91,
+          95,
+          99
+        ],
+        "Interior D": [
+          65,
+          73,
+          81,
+          89,
+          97
+        ],
+        "Perimeter D": [
+          58,
+          64,
+          70,
+          75,
+          81,
+          87,
+          92,
+          98
+        ],
+        "Steal": [
+          64,
+          70,
+          77,
+          83,
+          90,
+          96
+        ],
+        "Block": [
+          72,
+          78,
+          85,
+          91,
+          98
+        ],
+        "Off Rebound": [
+          59,
+          67,
+          75,
+          83,
+          91,
+          98
+        ],
+        "Def Rebound": [
+          58,
+          62,
+          67,
+          71,
+          76,
+          80,
+          84,
+          89,
+          93,
+          98
+        ],
+        "Speed": [
+          62,
+          72,
+          81,
+          91
+        ],
+        "Agility": [
+          63,
+          73,
+          83,
+          94
+        ],
+        "Strength": [
+          66,
+          78,
+          89
+        ],
+        "Vertical": [
+          61,
+          73,
+          85,
+          97
+        ]
+      }
+    },
+    {
+      "key": "dirk",
+      "name": "Dirk Nowitzki",
+      "positionIndex": 3,
+      "position": "PF",
+      "heightInches": 85,
+      "weightLb": 245,
+      "wingspanInches": 88,
+      "unlock": {
+        "group": "pass",
+        "groupLabel": "Season 2 pass",
+        "label": "Season 2 pass, level 33",
+        "detail": "Level 33"
+      },
+      "attributes": {
+        "Close Shot": 99,
+        "Driving Layup": 85,
+        "Driving Dunk": 55,
+        "Standing Dunk": 70,
+        "Post Control": 99,
+        "Mid-Range": 99,
+        "Three-Point": 96,
+        "Free Throw": 95,
+        "Pass Accuracy": 80,
+        "Ball Handle": 60,
+        "Speed w/ Ball": 45,
+        "Interior D": 82,
+        "Perimeter D": 45,
+        "Steal": 65,
+        "Block": 80,
+        "Off Rebound": 83,
+        "Def Rebound": 92,
+        "Speed": 60,
+        "Agility": 45,
+        "Strength": 83,
+        "Vertical": 72
+      },
+      "normalCeilings": {
+        "Close Shot": 99,
+        "Driving Layup": 83,
+        "Driving Dunk": 79,
+        "Standing Dunk": 99,
+        "Post Control": 99,
+        "Mid-Range": 86,
+        "Three-Point": 84,
+        "Free Throw": 91,
+        "Pass Accuracy": 99,
+        "Ball Handle": 66,
+        "Speed w/ Ball": 53,
+        "Interior D": 97,
+        "Perimeter D": 64,
+        "Steal": 63,
+        "Block": 99,
+        "Off Rebound": 98,
+        "Def Rebound": 99,
+        "Speed": 64,
+        "Agility": 52,
+        "Strength": 93,
+        "Vertical": 79
+      },
+      "jumpshot": {
+        "base": "Dirk Nowitzki",
+        "release": "Dirk Nowitzki",
+        "speed": "Quick"
+      },
+      "jersey": {
+        "number": "41",
+        "colors": [
+          "#0053BC",
+          "#002B5E",
+          "#B8C4CA",
+          "#FFFFFF",
+          "#002B5E",
+          ""
+        ]
+      },
+      "animations": [
+        {
+          "group": "Shooting",
+          "items": [
+            {
+              "category": "Free throw",
+              "name": "Dirk Nowitzki"
+            },
+            {
+              "category": "Dribble pull-up",
+              "name": "Dirk Nowitzki"
+            },
+            {
+              "category": "Spin shot",
+              "name": "Dirk Nowitzki"
+            },
+            {
+              "category": "Hop shot",
+              "name": "Dirk Nowitzki"
+            },
+            {
+              "category": "Go-to shot",
+              "name": "Deandre Ayton"
+            }
+          ]
+        },
+        {
+          "group": "Dribbling",
+          "items": [
+            {
+              "category": "Dribble style",
+              "name": "Basic"
+            },
+            {
+              "category": "Signature size-up",
+              "name": "Normal"
+            },
+            {
+              "category": "Crossover",
+              "name": "Normal"
+            },
+            {
+              "category": "Behind the back",
+              "name": "Normal"
+            },
+            {
+              "category": "Between the legs",
+              "name": "Normal"
+            },
+            {
+              "category": "Spin",
+              "name": "Normal"
+            },
+            {
+              "category": "Hesitation",
+              "name": "Normal"
+            },
+            {
+              "category": "Lateral hesitation",
+              "name": "Normal"
+            },
+            {
+              "category": "In and out",
+              "name": "Normal"
+            },
+            {
+              "category": "Stepback",
+              "name": "Normal"
+            },
+            {
+              "category": "Stepback cross",
+              "name": "Normal"
+            },
+            {
+              "category": "Lateral stepback",
+              "name": "Normal"
+            },
+            {
+              "category": "Cross spin",
+              "name": "Normal"
+            },
+            {
+              "category": "Cross combo",
+              "name": "Normal"
+            },
+            {
+              "category": "Hesi cross combo",
+              "name": "Normal"
+            },
+            {
+              "category": "Double cross combo",
+              "name": "Normal"
+            },
+            {
+              "category": "Breakdown",
+              "name": "Normal"
+            },
+            {
+              "category": "Breakdown move",
+              "name": "Normal"
+            },
+            {
+              "category": "Behind the back launch",
+              "name": "Normal"
+            },
+            {
+              "category": "Escape crossover",
+              "name": "Normal"
+            },
+            {
+              "category": "Escape behind the back",
+              "name": "Normal"
+            },
+            {
+              "category": "Escape between the legs",
+              "name": "Normal"
+            },
+            {
+              "category": "Escape hesitation",
+              "name": "Normal"
+            },
+            {
+              "category": "Misdirect crossover",
+              "name": "Normal"
+            },
+            {
+              "category": "Misdirect behind the back",
+              "name": "Normal"
+            },
+            {
+              "category": "Misdirect hesitation",
+              "name": "Normal"
+            }
+          ]
+        },
+        {
+          "group": "Triple threat",
+          "items": [
+            {
+              "category": "Style",
+              "name": "Pro"
+            },
+            {
+              "category": "Jab",
+              "name": "Pro"
+            },
+            {
+              "category": "Stepover",
+              "name": "Pro"
+            },
+            {
+              "category": "Breakdown",
+              "name": "Normal"
+            }
+          ]
+        },
+        {
+          "group": "Finishing",
+          "items": [
+            {
+              "category": "Layup",
+              "name": "Nikola Vučević"
+            },
+            {
+              "category": "Reverse",
+              "name": "Domantas Sabonis"
+            },
+            {
+              "category": "Floater",
+              "name": "Alperen Sengun"
+            },
+            {
+              "category": "Quick scoop",
+              "name": "Default Big"
+            },
+            {
+              "category": "Euro step",
+              "name": "Lauri Markkanen"
+            },
+            {
+              "category": "Hop step",
+              "name": "Domantas Sabonis"
+            },
+            {
+              "category": "Spin layup",
+              "name": "Default Big"
+            }
+          ]
+        },
+        {
+          "group": "Post",
+          "items": [
+            {
+              "category": "Post fade",
+              "name": "Dirk Nowitzki"
+            },
+            {
+              "category": "Post hook",
+              "name": "Isaiah Hartenstein"
+            },
+            {
+              "category": "One-step pull-up",
+              "name": "Dirk Nowitzki"
+            },
+            {
+              "category": "Post go-to shot",
+              "name": "Dirk Nowitzki"
+            }
+          ]
+        },
+        {
+          "group": "Movement & passing",
+          "items": [
+            {
+              "category": "Motion style",
+              "name": "Mike Muscala"
+            },
+            {
+              "category": "Passing style",
+              "name": "Kristaps Porziņģis"
+            }
+          ]
+        }
+      ],
+      "dunks": [
+        "Pro Under Basket Rim Pulls",
+        "Elite Basket Rim Pulls",
+        "One Hand Under Basket Regular",
+        "Two Hand Under Basket Regular",
+        "Under Basket Regular",
+        "Rim Grazers Off One",
+        "Basic One-Handers Off One",
+        "Basic Two-Handers Off One",
+        "Basic One-Handers Off Two",
+        "Big Man Off One",
+        "Big Man Off Two",
+        "Hangs Off One",
+        "Big Man Hangs Off One",
+        "Basic Hangs Off Two"
+      ],
+      "alleyOops": [],
+      "badgeTierThresholds": {
+        "Close Shot": [
+          60,
+          69,
+          78,
+          87,
+          96
+        ],
+        "Driving Layup": [
+          65,
+          75,
+          84,
+          94
+        ],
+        "Driving Dunk": [
+          65,
+          73,
+          82,
+          91,
+          99
+        ],
+        "Standing Dunk": [
+          64,
+          72,
+          80,
+          88,
+          96
+        ],
+        "Post Control": [
+          61,
+          71,
+          82,
+          93
+        ],
+        "Mid-Range": [
+          57,
+          61,
+          65,
+          68,
+          72,
+          76,
+          79,
+          83,
+          87,
+          90,
+          94,
+          98
+        ],
+        "Three-Point": [
+          62,
+          66,
+          69,
+          73,
+          76,
+          80,
+          83,
+          87,
+          91,
+          94,
+          98
+        ],
+        "Free Throw": [],
+        "Pass Accuracy": [
+          53,
+          58,
+          63,
+          68,
+          72,
+          77,
+          82,
+          87,
+          92,
+          97
+        ],
+        "Ball Handle": [
+          63,
+          68,
+          73,
+          79,
+          84,
+          89,
+          94,
+          99
+        ],
+        "Speed w/ Ball": [
+          71,
+          76,
+          82,
+          87,
+          92,
+          98
+        ],
+        "Interior D": [
+          63,
+          69,
+          74,
+          79,
+          85,
+          90,
+          96
+        ],
+        "Perimeter D": [
+          60,
+          69,
+          78,
+          88,
+          97
+        ],
+        "Steal": [
+          66,
+          77,
+          88,
+          98
+        ],
+        "Block": [
+          70,
+          74,
+          78,
+          82,
+          86,
+          90,
+          94,
+          98
+        ],
+        "Off Rebound": [
+          59,
+          65,
+          71,
+          77,
+          83,
+          90,
+          96
+        ],
+        "Def Rebound": [
+          58,
+          63,
+          69,
+          74,
+          79,
+          84,
+          90,
+          95
+        ],
+        "Speed": [
+          63,
+          75,
+          86,
+          97
+        ],
+        "Agility": [
+          65,
+          79,
+          93
+        ],
+        "Strength": [
+          65,
+          74,
+          83,
+          91
+        ],
+        "Vertical": [
+          60,
+          70,
+          80,
+          90
+        ]
+      }
+    },
+    {
+      "key": "kobe",
+      "name": "Kobe Bryant",
+      "positionIndex": 1,
+      "position": "SG",
+      "heightInches": 78,
+      "weightLb": 200,
+      "wingspanInches": 83,
+      "unlock": {
+        "group": "pass",
+        "groupLabel": "Season 2 pass",
+        "label": "Season 2 pass, level 37",
+        "detail": "Level 37"
+      },
+      "attributes": {
+        "Close Shot": 85,
+        "Driving Layup": 93,
+        "Driving Dunk": 99,
+        "Standing Dunk": 70,
+        "Post Control": 75,
+        "Mid-Range": 87,
+        "Three-Point": 75,
+        "Free Throw": 75,
+        "Pass Accuracy": 70,
+        "Ball Handle": 86,
+        "Speed w/ Ball": 91,
+        "Interior D": 40,
+        "Perimeter D": 85,
+        "Steal": 80,
+        "Block": 60,
+        "Off Rebound": 45,
+        "Def Rebound": 60,
+        "Speed": 90,
+        "Agility": 90,
+        "Strength": 65,
+        "Vertical": 95
+      },
+      "normalCeilings": {
+        "Close Shot": 99,
+        "Driving Layup": 99,
+        "Driving Dunk": 99,
+        "Standing Dunk": 88,
+        "Post Control": 90,
+        "Mid-Range": 90,
+        "Three-Point": 85,
+        "Free Throw": 99,
+        "Pass Accuracy": 99,
+        "Ball Handle": 93,
+        "Speed w/ Ball": 85,
+        "Interior D": 82,
+        "Perimeter D": 99,
+        "Steal": 99,
+        "Block": 77,
+        "Off Rebound": 76,
+        "Def Rebound": 81,
+        "Speed": 94,
+        "Agility": 92,
+        "Strength": 75,
+        "Vertical": 98
+      },
+      "jumpshot": {
+        "base": "Kobe Bryant",
+        "release": "Kobe Bryant",
+        "speed": "Quick"
+      },
+      "jersey": {
+        "number": "8",
+        "colors": [
+          "#FDB927",
+          "#552583",
+          "#FFFFFF",
+          "#552583",
+          "#FFFFFF",
+          ""
+        ]
+      },
+      "animations": [
+        {
+          "group": "Shooting",
+          "items": [
+            {
+              "category": "Free throw",
+              "name": "Kobe Bryant"
+            },
+            {
+              "category": "Dribble pull-up",
+              "name": "Kobe Bryant"
+            },
+            {
+              "category": "Spin shot",
+              "name": "Pro"
+            },
+            {
+              "category": "Hop shot",
+              "name": "Kobe Bryant"
+            },
+            {
+              "category": "Go-to shot",
+              "name": "Devin Booker"
+            }
+          ]
+        },
+        {
+          "group": "Dribbling",
+          "items": [
+            {
+              "category": "Dribble style",
+              "name": "Pro"
+            },
+            {
+              "category": "Signature size-up",
+              "name": "Kobe Bryant"
+            },
+            {
+              "category": "Crossover",
+              "name": "Kobe Bryant"
+            },
+            {
+              "category": "Behind the back",
+              "name": "Kobe Bryant"
+            },
+            {
+              "category": "Between the legs",
+              "name": "Kobe Bryant"
+            },
+            {
+              "category": "Spin",
+              "name": "Kobe Bryant"
+            },
+            {
+              "category": "Hesitation",
+              "name": "Kobe Bryant"
+            },
+            {
+              "category": "Lateral hesitation",
+              "name": "Kobe Bryant"
+            },
+            {
+              "category": "In and out",
+              "name": "Pro"
+            },
+            {
+              "category": "Stepback",
+              "name": "Pro"
+            },
+            {
+              "category": "Stepback cross",
+              "name": "Pro"
+            },
+            {
+              "category": "Lateral stepback",
+              "name": "Pro"
+            },
+            {
+              "category": "Cross spin",
+              "name": "Kobe Bryant"
+            },
+            {
+              "category": "Cross combo",
+              "name": "Kobe Bryant"
+            },
+            {
+              "category": "Hesi cross combo",
+              "name": "Kobe Bryant"
+            },
+            {
+              "category": "Double cross combo",
+              "name": "Kobe Bryant"
+            },
+            {
+              "category": "Breakdown",
+              "name": "Kobe Bryant"
+            },
+            {
+              "category": "Breakdown move",
+              "name": "Andrew Wiggins"
+            },
+            {
+              "category": "Behind the back launch",
+              "name": "Kevin Durant"
+            },
+            {
+              "category": "Escape crossover",
+              "name": "Kobe Bryant"
+            },
+            {
+              "category": "Escape behind the back",
+              "name": "Kobe Bryant"
+            },
+            {
+              "category": "Escape between the legs",
+              "name": "Kobe Bryant"
+            },
+            {
+              "category": "Escape hesitation",
+              "name": "Kobe Bryant"
+            },
+            {
+              "category": "Misdirect crossover",
+              "name": "Pro"
+            },
+            {
+              "category": "Misdirect behind the back",
+              "name": "Pro"
+            },
+            {
+              "category": "Misdirect hesitation",
+              "name": "Pro"
+            }
+          ]
+        },
+        {
+          "group": "Triple threat",
+          "items": [
+            {
+              "category": "Style",
+              "name": "Kobe Bryant"
+            },
+            {
+              "category": "Jab",
+              "name": "Kobe Bryant"
+            },
+            {
+              "category": "Stepover",
+              "name": "Kobe Bryant"
+            },
+            {
+              "category": "Breakdown",
+              "name": "Kobe Bryant"
+            }
+          ]
+        },
+        {
+          "group": "Finishing",
+          "items": [
+            {
+              "category": "Layup",
+              "name": "Kobe Bryant"
+            },
+            {
+              "category": "Reverse",
+              "name": "Kobe Bryant"
+            },
+            {
+              "category": "Floater",
+              "name": "Mikal Bridges"
+            },
+            {
+              "category": "Quick scoop",
+              "name": "Default Swing"
+            },
+            {
+              "category": "Euro step",
+              "name": "Kobe Bryant"
+            },
+            {
+              "category": "Hop step",
+              "name": "Default Swing"
+            },
+            {
+              "category": "Spin layup",
+              "name": "Shai Gilgeous-Alexander"
+            },
+            {
+              "category": "Signature dunk",
+              "name": "Kobe Bryant"
+            }
+          ]
+        },
+        {
+          "group": "Post",
+          "items": [
+            {
+              "category": "Post fade",
+              "name": "Kobe Bryant"
+            },
+            {
+              "category": "Post hook",
+              "name": "Pro"
+            },
+            {
+              "category": "One-step pull-up",
+              "name": "Kobe Bryant"
+            },
+            {
+              "category": "Post go-to shot",
+              "name": "Kobe Bryant"
+            }
+          ]
+        },
+        {
+          "group": "Movement & passing",
+          "items": [
+            {
+              "category": "Motion style",
+              "name": "Kobe Bryant"
+            }
+          ]
+        }
+      ],
+      "dunks": [
+        "One Hand Under Basket Regular",
+        "Two Hand Under Basket Regular",
+        "Under Basket Regular",
+        "Athletic One-Handers Off One",
+        "Athletic One-Handers Off Two",
+        "Athletic Hangs Off One",
+        "Quick Drops Off One",
+        "Side Arm Tomahawks",
+        "Straight Arm Tomahawks",
+        "Cock Back Tomahawks",
+        "Athletic Side Tomahawks",
+        "Athletic Front Tomahawks",
+        "Uber Athletic Tomahawks Off One",
+        "Uber Athletic Tomahawks Off Two",
+        "Leaning Slams",
+        "Front Clutches",
+        "Reverses Off One",
+        "One-Hand Clutch Reverses",
+        "Clutch Reverses Off One",
+        "Windmill Reverses",
+        "Baseline Reverses Off One",
+        "Baseline Reverses Off Two",
+        "Switcheroos Off One",
+        "Windmills Off One",
+        "Side Windmills",
+        "Athletic Windmills",
+        "Basic 360s",
+        "Athletic 360s",
+        "Cradle Dunks Off One",
+        "Kobe Bryant",
+        "Pro Contact Dunks Off Two",
+        "Pro Contact Dunks Off One",
+        "Elite Contact Dunks Off Two",
+        "Elite Contact Dunks Off One"
+      ],
+      "alleyOops": [
+        "Pro Alley-Oop",
+        "Elite Alley-Oop",
+        "City Alley-Oop Reverses",
+        "City Alley-Oop 360s",
+        "City Alley-Oop Windmills",
+        "City Alley-Oop Under Leg",
+        "City Alley-Oop Flashy",
+        "Jordan Kilganon Alley-Oop",
+        "Pro Contact Alley-Oop",
+        "Elite Contact Alley-Oop"
+      ],
+      "badgeTierThresholds": null
+    },
+    {
+      "key": "lebron",
+      "name": "LeBron James",
+      "positionIndex": 2,
+      "position": "SF",
+      "heightInches": 80,
+      "weightLb": 250,
+      "wingspanInches": 84,
+      "unlock": {
+        "group": "rep",
+        "groupLabel": "REP rewards",
+        "label": "REP Legend I",
+        "detail": "Legend I"
+      },
+      "attributes": {
+        "Close Shot": 90,
+        "Driving Layup": 95,
+        "Driving Dunk": 95,
+        "Standing Dunk": 70,
+        "Post Control": 87,
+        "Mid-Range": 91,
+        "Three-Point": 80,
+        "Free Throw": 75,
+        "Pass Accuracy": 90,
+        "Ball Handle": 88,
+        "Speed w/ Ball": 88,
+        "Interior D": 80,
+        "Perimeter D": 96,
+        "Steal": 75,
+        "Block": 75,
+        "Off Rebound": 50,
+        "Def Rebound": 80,
+        "Speed": 88,
+        "Agility": 85,
+        "Strength": 92,
+        "Vertical": 95
+      },
+      "normalCeilings": {
+        "Close Shot": 99,
+        "Driving Layup": 99,
+        "Driving Dunk": 97,
+        "Standing Dunk": 99,
+        "Post Control": 97,
+        "Mid-Range": 89,
+        "Three-Point": 84,
+        "Free Throw": 98,
+        "Pass Accuracy": 99,
+        "Ball Handle": 86,
+        "Speed w/ Ball": 75,
+        "Interior D": 99,
+        "Perimeter D": 94,
+        "Steal": 92,
+        "Block": 88,
+        "Off Rebound": 85,
+        "Def Rebound": 93,
+        "Speed": 84,
+        "Agility": 78,
+        "Strength": 99,
+        "Vertical": 93
+      },
+      "jumpshot": {
+        "base": "LeBron James",
+        "release": "LeBron James",
+        "speed": "Normal"
+      },
+      "jersey": {
+        "number": "6",
+        "colors": [
+          "#141414",
+          "#98002E",
+          "#F9A01B",
+          "#FFFFFF",
+          "#98002E",
+          ""
+        ]
+      },
+      "animations": [
+        {
+          "group": "Shooting",
+          "items": [
+            {
+              "category": "Free throw",
+              "name": "LeBron James"
+            },
+            {
+              "category": "Dribble pull-up",
+              "name": "LeBron James"
+            },
+            {
+              "category": "Spin shot",
+              "name": "Pro"
+            },
+            {
+              "category": "Hop shot",
+              "name": "LeBron James"
+            },
+            {
+              "category": "Go-to shot",
+              "name": "LeBron James"
+            }
+          ]
+        },
+        {
+          "group": "Dribbling",
+          "items": [
+            {
+              "category": "Dribble style",
+              "name": "LeBron James"
+            },
+            {
+              "category": "Signature size-up",
+              "name": "LeBron James"
+            },
+            {
+              "category": "Crossover",
+              "name": "LeBron James"
+            },
+            {
+              "category": "Behind the back",
+              "name": "LeBron James"
+            },
+            {
+              "category": "Between the legs",
+              "name": "LeBron James"
+            },
+            {
+              "category": "Spin",
+              "name": "LeBron James"
+            },
+            {
+              "category": "Hesitation",
+              "name": "LeBron James"
+            },
+            {
+              "category": "Lateral hesitation",
+              "name": "LeBron James"
+            },
+            {
+              "category": "In and out",
+              "name": "Pro"
+            },
+            {
+              "category": "Stepback",
+              "name": "LeBron James"
+            },
+            {
+              "category": "Stepback cross",
+              "name": "Pro"
+            },
+            {
+              "category": "Lateral stepback",
+              "name": "Pro"
+            },
+            {
+              "category": "Cross spin",
+              "name": "LeBron James"
+            },
+            {
+              "category": "Cross combo",
+              "name": "LeBron James"
+            },
+            {
+              "category": "Hesi cross combo",
+              "name": "LeBron James"
+            },
+            {
+              "category": "Double cross combo",
+              "name": "LeBron James"
+            },
+            {
+              "category": "Breakdown",
+              "name": "LeBron James"
+            },
+            {
+              "category": "Breakdown move",
+              "name": "LeBron James"
+            },
+            {
+              "category": "Behind the back launch",
+              "name": "LeBron James"
+            },
+            {
+              "category": "Escape crossover",
+              "name": "LeBron James"
+            },
+            {
+              "category": "Escape behind the back",
+              "name": "LeBron James"
+            },
+            {
+              "category": "Escape between the legs",
+              "name": "LeBron James"
+            },
+            {
+              "category": "Escape hesitation",
+              "name": "LeBron James"
+            },
+            {
+              "category": "Misdirect crossover",
+              "name": "Pro"
+            },
+            {
+              "category": "Misdirect behind the back",
+              "name": "Pro"
+            },
+            {
+              "category": "Misdirect hesitation",
+              "name": "LeBron James"
+            }
+          ]
+        },
+        {
+          "group": "Triple threat",
+          "items": [
+            {
+              "category": "Style",
+              "name": "LeBron James"
+            },
+            {
+              "category": "Jab",
+              "name": "LeBron James"
+            },
+            {
+              "category": "Stepover",
+              "name": "Pro"
+            },
+            {
+              "category": "Breakdown",
+              "name": "LeBron James"
+            }
+          ]
+        },
+        {
+          "group": "Finishing",
+          "items": [
+            {
+              "category": "Layup",
+              "name": "LeBron James"
+            },
+            {
+              "category": "Reverse",
+              "name": "LeBron James"
+            },
+            {
+              "category": "Floater",
+              "name": "LeBron James"
+            },
+            {
+              "category": "Quick scoop",
+              "name": "Default Swing"
+            },
+            {
+              "category": "Euro step",
+              "name": "LeBron James"
+            },
+            {
+              "category": "Hop step",
+              "name": "LeBron James"
+            },
+            {
+              "category": "Spin layup",
+              "name": "LeBron James"
+            },
+            {
+              "category": "Signature dunk",
+              "name": "LeBron James"
+            }
+          ]
+        },
+        {
+          "group": "Post",
+          "items": [
+            {
+              "category": "Post fade",
+              "name": "LeBron James"
+            },
+            {
+              "category": "Post hook",
+              "name": "LeBron James"
+            },
+            {
+              "category": "One-step pull-up",
+              "name": "Pro"
+            },
+            {
+              "category": "Post go-to shot",
+              "name": "Pro 2"
+            }
+          ]
+        },
+        {
+          "group": "Movement & passing",
+          "items": [
+            {
+              "category": "Motion style",
+              "name": "LeBron James"
+            },
+            {
+              "category": "Passing style",
+              "name": "LeBron James"
+            }
+          ]
+        }
+      ],
+      "dunks": [
+        "One Hand Under Basket Regular",
+        "Two Hand Under Basket Regular",
+        "Under Basket Regular",
+        "Athletic One-Handers Off One",
+        "Athletic One-Handers Off Two",
+        "Athletic Hangs Off One",
+        "Athletic Hangs Off Two",
+        "Quick Drops Off One",
+        "Quick Drops Off Two",
+        "Side Arm Tomahawks",
+        "Straight Arm Tomahawks",
+        "Cock Back Tomahawks",
+        "Athletic Side Tomahawks",
+        "Athletic Front Tomahawks",
+        "Uber Athletic Tomahawks Off One",
+        "Uber Athletic Tomahawks Off Two",
+        "Front Clutches",
+        "Front Clutches Off Two",
+        "Side Clutches Off One",
+        "Reverses Off One",
+        "Windmill Reverses",
+        "Baseline Reverses Off One",
+        "Windmill Baseline Reverses",
+        "Windmills Off One",
+        "Basic 360s",
+        "Athletic 360s",
+        "LeBron James",
+        "Pro Contact Dunks Off Two",
+        "Pro Contact Dunks Off One"
+      ],
+      "alleyOops": [
+        "Pro Alley-Oop",
+        "Elite Alley-Oop",
+        "City Alley-Oop Reverses",
+        "City Alley-Oop 360s",
+        "City Alley-Oop Windmills",
+        "City Alley-Oop Under Leg",
+        "City Alley-Oop Flashy",
+        "Jordan Kilganon Alley-Oop",
+        "Pro Contact Alley-Oop",
+        "Elite Contact Alley-Oop"
+      ],
+      "badgeTierThresholds": null
+    },
+    {
+      "key": "hakeem",
+      "name": "Hakeem Olajuwon",
+      "positionIndex": 4,
+      "position": "C",
+      "heightInches": 84,
+      "weightLb": 255,
+      "wingspanInches": 87,
+      "unlock": {
+        "group": "rep",
+        "groupLabel": "REP rewards",
+        "label": "REP Elite V",
+        "detail": "Elite V"
+      },
+      "attributes": {
+        "Close Shot": 96,
+        "Driving Layup": 80,
+        "Driving Dunk": 75,
+        "Standing Dunk": 90,
+        "Post Control": 99,
+        "Mid-Range": 91,
+        "Three-Point": 40,
+        "Free Throw": 75,
+        "Pass Accuracy": 60,
+        "Ball Handle": 60,
+        "Speed w/ Ball": 45,
+        "Interior D": 99,
+        "Perimeter D": 60,
+        "Steal": 70,
+        "Block": 95,
+        "Off Rebound": 88,
+        "Def Rebound": 91,
+        "Speed": 65,
+        "Agility": 65,
+        "Strength": 85,
+        "Vertical": 75
+      },
+      "normalCeilings": {
+        "Close Shot": 99,
+        "Driving Layup": 91,
+        "Driving Dunk": 84,
+        "Standing Dunk": 99,
+        "Post Control": 99,
+        "Mid-Range": 87,
+        "Three-Point": 84,
+        "Free Throw": 92,
+        "Pass Accuracy": 99,
+        "Ball Handle": 70,
+        "Speed w/ Ball": 57,
+        "Interior D": 99,
+        "Perimeter D": 64,
+        "Steal": 66,
+        "Block": 99,
+        "Off Rebound": 99,
+        "Def Rebound": 99,
+        "Speed": 68,
+        "Agility": 55,
+        "Strength": 99,
+        "Vertical": 82
+      },
+      "jumpshot": {
+        "base": "Nikola Vucevic",
+        "release": "DeMarcus Cousins",
+        "speed": "Normal"
+      },
+      "jersey": {
+        "number": "34",
+        "colors": [
+          "#BA0C2F",
+          "#FFC72C",
+          "#FFFFFF",
+          "#FFC72C",
+          "#FFFFFF",
+          ""
+        ]
+      },
+      "animations": [
+        {
+          "group": "Shooting",
+          "items": [
+            {
+              "category": "Free throw",
+              "name": "Moritz Wagner"
+            },
+            {
+              "category": "Dribble pull-up",
+              "name": "Normal 2"
+            },
+            {
+              "category": "Spin shot",
+              "name": "Normal"
+            },
+            {
+              "category": "Hop shot",
+              "name": "Basic 2"
+            }
+          ]
+        },
+        {
+          "group": "Dribbling",
+          "items": [
+            {
+              "category": "Dribble style",
+              "name": "Basic"
+            },
+            {
+              "category": "Signature size-up",
+              "name": "Normal"
+            },
+            {
+              "category": "Crossover",
+              "name": "Basic"
+            },
+            {
+              "category": "Behind the back",
+              "name": "Normal"
+            },
+            {
+              "category": "Between the legs",
+              "name": "Basic"
+            },
+            {
+              "category": "Spin",
+              "name": "Normal"
+            },
+            {
+              "category": "Hesitation",
+              "name": "Normal"
+            },
+            {
+              "category": "Lateral hesitation",
+              "name": "Basic"
+            },
+            {
+              "category": "In and out",
+              "name": "Normal"
+            },
+            {
+              "category": "Stepback",
+              "name": "Normal"
+            },
+            {
+              "category": "Stepback cross",
+              "name": "Normal"
+            },
+            {
+              "category": "Lateral stepback",
+              "name": "Normal"
+            },
+            {
+              "category": "Cross spin",
+              "name": "Normal"
+            },
+            {
+              "category": "Cross combo",
+              "name": "Normal"
+            },
+            {
+              "category": "Hesi cross combo",
+              "name": "Normal"
+            },
+            {
+              "category": "Double cross combo",
+              "name": "Normal"
+            },
+            {
+              "category": "Breakdown",
+              "name": "Normal"
+            },
+            {
+              "category": "Breakdown move",
+              "name": "Basic"
+            },
+            {
+              "category": "Behind the back launch",
+              "name": "Normal"
+            },
+            {
+              "category": "Escape crossover",
+              "name": "Basic"
+            },
+            {
+              "category": "Escape behind the back",
+              "name": "Basic"
+            },
+            {
+              "category": "Escape between the legs",
+              "name": "Basic"
+            },
+            {
+              "category": "Escape hesitation",
+              "name": "Basic"
+            },
+            {
+              "category": "Misdirect crossover",
+              "name": "Normal"
+            },
+            {
+              "category": "Misdirect behind the back",
+              "name": "Normal"
+            },
+            {
+              "category": "Misdirect hesitation",
+              "name": "Normal"
+            }
+          ]
+        },
+        {
+          "group": "Triple threat",
+          "items": [
+            {
+              "category": "Style",
+              "name": "Normal"
+            },
+            {
+              "category": "Jab",
+              "name": "Normal"
+            },
+            {
+              "category": "Stepover",
+              "name": "Normal"
+            },
+            {
+              "category": "Breakdown",
+              "name": "Normal"
+            }
+          ]
+        },
+        {
+          "group": "Finishing",
+          "items": [
+            {
+              "category": "Layup",
+              "name": "Default Big"
+            },
+            {
+              "category": "Reverse",
+              "name": "Default Big"
+            },
+            {
+              "category": "Floater",
+              "name": "Default Big"
+            },
+            {
+              "category": "Quick scoop",
+              "name": "Default Big"
+            },
+            {
+              "category": "Euro step",
+              "name": "Default Big"
+            },
+            {
+              "category": "Hop step",
+              "name": "Default Big"
+            },
+            {
+              "category": "Spin layup",
+              "name": "Default Big"
+            },
+            {
+              "category": "Signature dunk",
+              "name": "Jay Huff"
+            }
+          ]
+        },
+        {
+          "group": "Post",
+          "items": [
+            {
+              "category": "Post fade",
+              "name": "Pro"
+            },
+            {
+              "category": "Post hook",
+              "name": "Jalen Duren"
+            },
+            {
+              "category": "One-step pull-up",
+              "name": "Normal"
+            },
+            {
+              "category": "Post go-to shot",
+              "name": "Hakeem Olajuwon"
+            }
+          ]
+        },
+        {
+          "group": "Movement & passing",
+          "items": [
+            {
+              "category": "Motion style",
+              "name": "Base"
+            }
+          ]
+        }
+      ],
+      "dunks": [
+        "Pro Under Basket Rim Pulls",
+        "Elite Basket Rim Pulls",
+        "One Hand Under Basket Regular",
+        "Two Hand Under Basket Regular",
+        "Under Basket Regular",
+        "One Hand Under Basket Athletic",
+        "Two Hand Under Basket Athletic",
+        "Under Basket Athletic Flushes",
+        "Big Man Off One",
+        "Athletic One-Handers Off One",
+        "Athletic One-Handers Off Two",
+        "Big Man Hangs Off One",
+        "Big Man Tomahawks Off One",
+        "Big Man Tomahawks Off Two",
+        "Big Man Side Clutches Off One",
+        "Big Man Back Scratchers",
+        "Big Man Baseline Reverses Off One",
+        "Big Man Baseline Reverses Off Two",
+        "Precious Achiuwa",
+        "Pro Bigman Contact Dunks",
+        "Elite Bigman Contact Dunks"
+      ],
+      "alleyOops": [
+        "Pro Alley-Oop",
+        "City Alley-Oop Reverses",
+        "Bigman Contact Alley-Oop"
+      ],
+      "badgeTierThresholds": null
+    },
+    {
+      "key": "rose",
+      "name": "Derrick Rose",
+      "positionIndex": 0,
+      "position": "PG",
+      "heightInches": 75,
+      "weightLb": 190,
+      "wingspanInches": 80,
+      "unlock": {
+        "group": "rep",
+        "groupLabel": "REP rewards",
+        "label": "REP Elite VIII",
+        "detail": "Elite VIII"
+      },
+      "attributes": {
+        "Close Shot": 85,
+        "Driving Layup": 94,
+        "Driving Dunk": 99,
+        "Standing Dunk": 25,
+        "Post Control": 60,
+        "Mid-Range": 89,
+        "Three-Point": 70,
+        "Free Throw": 80,
+        "Pass Accuracy": 80,
+        "Ball Handle": 92,
+        "Speed w/ Ball": 99,
+        "Interior D": 30,
+        "Perimeter D": 80,
+        "Steal": 80,
+        "Block": 40,
+        "Off Rebound": 40,
+        "Def Rebound": 45,
+        "Speed": 99,
+        "Agility": 99,
+        "Strength": 70,
+        "Vertical": 99
+      },
+      "normalCeilings": {
+        "Close Shot": 99,
+        "Driving Layup": 99,
+        "Driving Dunk": 96,
+        "Standing Dunk": 52,
+        "Post Control": 79,
+        "Mid-Range": 92,
+        "Three-Point": 90,
+        "Free Throw": 99,
+        "Pass Accuracy": 99,
+        "Ball Handle": 97,
+        "Speed w/ Ball": 92,
+        "Interior D": 72,
+        "Perimeter D": 98,
+        "Steal": 99,
+        "Block": 67,
+        "Off Rebound": 67,
+        "Def Rebound": 67,
+        "Speed": 98,
+        "Agility": 97,
+        "Strength": 66,
+        "Vertical": 99
+      },
+      "jumpshot": {
+        "base": "Derrick Rose",
+        "release": "Derrick Rose",
+        "speed": "Normal"
+      },
+      "jersey": {
+        "number": "1",
+        "colors": [
+          "#CE1141",
+          "#000000",
+          "#FFFFFF",
+          "#FFFFFF",
+          "#000000",
+          ""
+        ]
+      },
+      "animations": [
+        {
+          "group": "Shooting",
+          "items": [
+            {
+              "category": "Free throw",
+              "name": "Derrick Rose"
+            },
+            {
+              "category": "Dribble pull-up",
+              "name": "Pro 2"
+            },
+            {
+              "category": "Spin shot",
+              "name": "Pro"
+            },
+            {
+              "category": "Hop shot",
+              "name": "Nate Robinson"
+            },
+            {
+              "category": "Go-to shot",
+              "name": "D'Angelo Russell"
+            }
+          ]
+        },
+        {
+          "group": "Dribbling",
+          "items": [
+            {
+              "category": "Dribble style",
+              "name": "De'Aaron Fox"
+            },
+            {
+              "category": "Signature size-up",
+              "name": "Scoot Henderson"
+            },
+            {
+              "category": "Crossover",
+              "name": "De'Aaron Fox"
+            },
+            {
+              "category": "Behind the back",
+              "name": "Allen Iverson"
+            },
+            {
+              "category": "Between the legs",
+              "name": "Damian Lillard"
+            },
+            {
+              "category": "Spin",
+              "name": "Darius Garland"
+            },
+            {
+              "category": "Hesitation",
+              "name": "Rajon Rondo"
+            },
+            {
+              "category": "Lateral hesitation",
+              "name": "Jalen Brunson"
+            },
+            {
+              "category": "In and out",
+              "name": "Pro"
+            },
+            {
+              "category": "Stepback",
+              "name": "Darius Garland"
+            },
+            {
+              "category": "Stepback cross",
+              "name": "Ja Morant"
+            },
+            {
+              "category": "Lateral stepback",
+              "name": "De'Aaron Fox"
+            },
+            {
+              "category": "Cross spin",
+              "name": "Immanuel Quickley"
+            },
+            {
+              "category": "Cross combo",
+              "name": "Tim Hardaway"
+            },
+            {
+              "category": "Hesi cross combo",
+              "name": "Jalen Brunson"
+            },
+            {
+              "category": "Double cross combo",
+              "name": "Darius Garland"
+            },
+            {
+              "category": "Breakdown",
+              "name": "Derrick Rose"
+            },
+            {
+              "category": "Breakdown move",
+              "name": "Darius Garland"
+            },
+            {
+              "category": "Behind the back launch",
+              "name": "Allen Iverson"
+            },
+            {
+              "category": "Escape crossover",
+              "name": "Ja Morant"
+            },
+            {
+              "category": "Escape behind the back",
+              "name": "Ja Morant"
+            },
+            {
+              "category": "Escape between the legs",
+              "name": "Kemba Walker"
+            },
+            {
+              "category": "Escape hesitation",
+              "name": "Pro"
+            },
+            {
+              "category": "Misdirect crossover",
+              "name": "Pro"
+            },
+            {
+              "category": "Misdirect behind the back",
+              "name": "Pro"
+            },
+            {
+              "category": "Misdirect hesitation",
+              "name": "Pro"
+            }
+          ]
+        },
+        {
+          "group": "Triple threat",
+          "items": [
+            {
+              "category": "Style",
+              "name": "Zach LaVine"
+            },
+            {
+              "category": "Jab",
+              "name": "Zach LaVine"
+            },
+            {
+              "category": "Stepover",
+              "name": "Pro"
+            },
+            {
+              "category": "Breakdown",
+              "name": "Pro"
+            }
+          ]
+        },
+        {
+          "group": "Finishing",
+          "items": [
+            {
+              "category": "Layup",
+              "name": "Default Small"
+            },
+            {
+              "category": "Reverse",
+              "name": "Default Small"
+            },
+            {
+              "category": "Floater",
+              "name": "Derrick Rose"
+            },
+            {
+              "category": "Quick scoop",
+              "name": "Default Small"
+            },
+            {
+              "category": "Euro step",
+              "name": "Derrick Rose"
+            },
+            {
+              "category": "Hop step",
+              "name": "Derrick Rose"
+            },
+            {
+              "category": "Spin layup",
+              "name": "Default Small"
+            },
+            {
+              "category": "Signature dunk",
+              "name": "Derrick Rose"
+            }
+          ]
+        },
+        {
+          "group": "Post",
+          "items": [
+            {
+              "category": "Post fade",
+              "name": "De'Aaron Fox"
+            },
+            {
+              "category": "Post hook",
+              "name": "Normal"
+            },
+            {
+              "category": "One-step pull-up",
+              "name": "Normal"
+            },
+            {
+              "category": "Post go-to shot",
+              "name": "Basic"
+            }
+          ]
+        },
+        {
+          "group": "Movement & passing",
+          "items": [
+            {
+              "category": "Motion style",
+              "name": "Eric Bledsoe"
+            }
+          ]
+        }
+      ],
+      "dunks": [
+        "Athletic Hangs Off One",
+        "Quick Drops Off One",
+        "Side Arm Tomahawks",
+        "Straight Arm Tomahawks",
+        "Cock Back Tomahawks",
+        "Athletic Side Tomahawks",
+        "Athletic Front Tomahawks",
+        "Uber Athletic Tomahawks Off One",
+        "Front Clutches",
+        "Basic 360s",
+        "Athletic 360s",
+        "Derrick Rose",
+        "Pro Contact Dunks Off Two",
+        "Pro Contact Dunks Off One",
+        "Elite Contact Dunks Off Two",
+        "Elite Contact Dunks Off One",
+        "Small Contact Dunks Off Two",
+        "Small Contact Dunks Off One"
+      ],
+      "alleyOops": [
+        "Pro Alley-Oop",
+        "Elite Alley-Oop",
+        "Malik Monk Alley-Oop",
+        "City Alley-Oop Reverses",
+        "City Alley-Oop 360s",
+        "City Alley-Oop Windmills",
+        "City Alley-Oop Under Leg",
+        "City Alley-Oop Flashy",
+        "Jordan Kilganon Alley-Oop",
+        "Pro Contact Alley-Oop",
+        "Elite Contact Alley-Oop",
+        "Small Contact Alley-Oop"
+      ],
+      "badgeTierThresholds": null
+    },
+    {
+      "key": "ray-allen",
+      "name": "Ray Allen",
+      "positionIndex": 1,
+      "position": "SG",
+      "heightInches": 77,
+      "weightLb": 205,
+      "wingspanInches": 80,
+      "unlock": {
+        "group": "rep",
+        "groupLabel": "REP rewards",
+        "label": "REP Elite V",
+        "detail": "Elite V"
+      },
+      "attributes": {
+        "Close Shot": 85,
+        "Driving Layup": 88,
+        "Driving Dunk": 87,
+        "Standing Dunk": 45,
+        "Post Control": 60,
+        "Mid-Range": 97,
+        "Three-Point": 99,
+        "Free Throw": 90,
+        "Pass Accuracy": 75,
+        "Ball Handle": 85,
+        "Speed w/ Ball": 83,
+        "Interior D": 30,
+        "Perimeter D": 80,
+        "Steal": 80,
+        "Block": 45,
+        "Off Rebound": 40,
+        "Def Rebound": 60,
+        "Speed": 86,
+        "Agility": 85,
+        "Strength": 70,
+        "Vertical": 80
+      },
+      "normalCeilings": {
+        "Close Shot": 99,
+        "Driving Layup": 99,
+        "Driving Dunk": 95,
+        "Standing Dunk": 68,
+        "Post Control": 89,
+        "Mid-Range": 96,
+        "Three-Point": 93,
+        "Free Throw": 99,
+        "Pass Accuracy": 99,
+        "Ball Handle": 95,
+        "Speed w/ Ball": 88,
+        "Interior D": 79,
+        "Perimeter D": 97,
+        "Steal": 99,
+        "Block": 67,
+        "Off Rebound": 72,
+        "Def Rebound": 74,
+        "Speed": 96,
+        "Agility": 93,
+        "Strength": 79,
+        "Vertical": 98
+      },
+      "jumpshot": {
+        "base": "Ray Allen",
+        "release": "Ray Allen",
+        "speed": "Very Quick"
+      },
+      "jersey": {
+        "number": "34",
+        "colors": [
+          "#00653A",
+          "#FFC200",
+          "#FFFFFF",
+          "#FFC200",
+          "#FFFFFF",
+          ""
+        ]
+      },
+      "animations": [
+        {
+          "group": "Shooting",
+          "items": [
+            {
+              "category": "Free throw",
+              "name": "Ray Allen"
+            },
+            {
+              "category": "Dribble pull-up",
+              "name": "Kentavious Caldwell-Pope"
+            },
+            {
+              "category": "Spin shot",
+              "name": "Pro"
+            },
+            {
+              "category": "Hop shot",
+              "name": "Dante Exum"
+            },
+            {
+              "category": "Go-to shot",
+              "name": "Shaedon Sharpe"
+            }
+          ]
+        },
+        {
+          "group": "Dribbling",
+          "items": [
+            {
+              "category": "Dribble style",
+              "name": "Pro"
+            },
+            {
+              "category": "Signature size-up",
+              "name": "Austin Reaves"
+            },
+            {
+              "category": "Crossover",
+              "name": "Rob Dillingham"
+            },
+            {
+              "category": "Behind the back",
+              "name": "Markelle Fultz"
+            },
+            {
+              "category": "Between the legs",
+              "name": "Terrence Ross"
+            },
+            {
+              "category": "Spin",
+              "name": "Steve Nash"
+            },
+            {
+              "category": "Hesitation",
+              "name": "DeMar DeRozan"
+            },
+            {
+              "category": "Lateral hesitation",
+              "name": "DeMar DeRozan"
+            },
+            {
+              "category": "In and out",
+              "name": "Pro"
+            },
+            {
+              "category": "Stepback",
+              "name": "Luka Dončić"
+            },
+            {
+              "category": "Stepback cross",
+              "name": "Vince Carter"
+            },
+            {
+              "category": "Lateral stepback",
+              "name": "Jayson Tatum"
+            },
+            {
+              "category": "Cross spin",
+              "name": "Steve Nash"
+            },
+            {
+              "category": "Cross combo",
+              "name": "Pro"
+            },
+            {
+              "category": "Hesi cross combo",
+              "name": "Pro"
+            },
+            {
+              "category": "Double cross combo",
+              "name": "Malik Monk"
+            },
+            {
+              "category": "Breakdown",
+              "name": "Quentin Grimes"
+            },
+            {
+              "category": "Breakdown move",
+              "name": "Andrew Wiggins"
+            },
+            {
+              "category": "Behind the back launch",
+              "name": "Pro"
+            },
+            {
+              "category": "Escape crossover",
+              "name": "Pro"
+            },
+            {
+              "category": "Escape behind the back",
+              "name": "Andrew Wiggins"
+            },
+            {
+              "category": "Escape between the legs",
+              "name": "Pro"
+            },
+            {
+              "category": "Escape hesitation",
+              "name": "DeMar DeRozan"
+            },
+            {
+              "category": "Misdirect crossover",
+              "name": "Pro"
+            },
+            {
+              "category": "Misdirect behind the back",
+              "name": "Pro"
+            },
+            {
+              "category": "Misdirect hesitation",
+              "name": "Pro"
+            }
+          ]
+        },
+        {
+          "group": "Triple threat",
+          "items": [
+            {
+              "category": "Style",
+              "name": "Pro"
+            },
+            {
+              "category": "Jab",
+              "name": "Pro"
+            },
+            {
+              "category": "Stepover",
+              "name": "Pro"
+            },
+            {
+              "category": "Breakdown",
+              "name": "Pro"
+            }
+          ]
+        },
+        {
+          "group": "Finishing",
+          "items": [
+            {
+              "category": "Layup",
+              "name": "Jalen Green"
+            },
+            {
+              "category": "Reverse",
+              "name": "Brandin Podziemski"
+            },
+            {
+              "category": "Floater",
+              "name": "Tyler Herro"
+            },
+            {
+              "category": "Quick scoop",
+              "name": "Tyler Herro"
+            },
+            {
+              "category": "Euro step",
+              "name": "Jalen Green"
+            },
+            {
+              "category": "Hop step",
+              "name": "Default Swing"
+            },
+            {
+              "category": "Spin layup",
+              "name": "Default Swing"
+            }
+          ]
+        },
+        {
+          "group": "Post",
+          "items": [
+            {
+              "category": "Post fade",
+              "name": "Dillon Brooks"
+            },
+            {
+              "category": "Post hook",
+              "name": "Bobby Portis"
+            },
+            {
+              "category": "One-step pull-up",
+              "name": "James Harden"
+            },
+            {
+              "category": "Post go-to shot",
+              "name": "Basic"
+            }
+          ]
+        },
+        {
+          "group": "Movement & passing",
+          "items": [
+            {
+              "category": "Motion style",
+              "name": "RJ Barrett"
+            },
+            {
+              "category": "Passing style",
+              "name": "Dennis Schröder"
+            }
+          ]
+        }
+      ],
+      "dunks": [
+        "One Hand Under Basket Regular",
+        "Two Hand Under Basket Regular",
+        "Basic One-Handers Off One",
+        "Basic One-Handers Off Two",
+        "Athletic One-Handers Off One",
+        "Athletic One-Handers Off Two",
+        "Athletic Hangs Off One",
+        "Athletic Hangs Off Two",
+        "Leaning Slams",
+        "Side Clutches Off Two",
+        "Reverses Off One",
+        "Reverses Off Two",
+        "Pro Contact Dunks Off Two",
+        "Pro Contact Dunks Off One"
+      ],
+      "alleyOops": [
+        "Pro Alley-Oop",
+        "Elite Alley-Oop",
+        "City Alley-Oop Reverses",
+        "Pro Contact Alley-Oop"
+      ],
+      "badgeTierThresholds": null
+    },
+    {
+      "key": "jordan",
+      "name": "Michael Jordan",
+      "positionIndex": 1,
+      "position": "SG",
+      "heightInches": 78,
+      "weightLb": 195,
+      "wingspanInches": 83,
+      "unlock": {
+        "group": "rep",
+        "groupLabel": "REP rewards",
+        "label": "REP Elite VIII",
+        "detail": "Elite VIII"
+      },
+      "attributes": {
+        "Close Shot": 90,
+        "Driving Layup": 95,
+        "Driving Dunk": 99,
+        "Standing Dunk": 70,
+        "Post Control": 80,
+        "Mid-Range": 87,
+        "Three-Point": 70,
+        "Free Throw": 80,
+        "Pass Accuracy": 80,
+        "Ball Handle": 90,
+        "Speed w/ Ball": 91,
+        "Interior D": 60,
+        "Perimeter D": 90,
+        "Steal": 90,
+        "Block": 75,
+        "Off Rebound": 40,
+        "Def Rebound": 60,
+        "Speed": 90,
+        "Agility": 95,
+        "Strength": 60,
+        "Vertical": 95
+      },
+      "normalCeilings": {
+        "Close Shot": 99,
+        "Driving Layup": 99,
+        "Driving Dunk": 99,
+        "Standing Dunk": 88,
+        "Post Control": 90,
+        "Mid-Range": 90,
+        "Three-Point": 85,
+        "Free Throw": 99,
+        "Pass Accuracy": 99,
+        "Ball Handle": 93,
+        "Speed w/ Ball": 86,
+        "Interior D": 82,
+        "Perimeter D": 98,
+        "Steal": 99,
+        "Block": 77,
+        "Off Rebound": 75,
+        "Def Rebound": 80,
+        "Speed": 94,
+        "Agility": 92,
+        "Strength": 73,
+        "Vertical": 98
+      },
+      "jumpshot": {
+        "base": "Michael Jordan",
+        "release": "Michael Jordan",
+        "speed": "Quick"
+      },
+      "jersey": {
+        "number": "23",
+        "colors": [
+          "#CE1141",
+          "#000000",
+          "#FFFFFF",
+          "#FFFFFF",
+          "#000000",
+          ""
+        ]
+      },
+      "animations": [
+        {
+          "group": "Shooting",
+          "items": [
+            {
+              "category": "Free throw",
+              "name": "Michael Jordan"
+            },
+            {
+              "category": "Dribble pull-up",
+              "name": "Michael Jordan"
+            },
+            {
+              "category": "Spin shot",
+              "name": "Michael Jordan"
+            },
+            {
+              "category": "Hop shot",
+              "name": "Michael Jordan"
+            },
+            {
+              "category": "Go-to shot",
+              "name": "Rui Hachimura"
+            }
+          ]
+        },
+        {
+          "group": "Dribbling",
+          "items": [
+            {
+              "category": "Dribble style",
+              "name": "Amen Thompson"
+            },
+            {
+              "category": "Signature size-up",
+              "name": "Pro"
+            },
+            {
+              "category": "Crossover",
+              "name": "Michael Jordan"
+            },
+            {
+              "category": "Behind the back",
+              "name": "Scottie Pippen"
+            },
+            {
+              "category": "Between the legs",
+              "name": "Michael Jordan"
+            },
+            {
+              "category": "Spin",
+              "name": "Pro"
+            },
+            {
+              "category": "Hesitation",
+              "name": "Jimmy Butler"
+            },
+            {
+              "category": "Lateral hesitation",
+              "name": "Jimmy Butler"
+            },
+            {
+              "category": "In and out",
+              "name": "Pro"
+            },
+            {
+              "category": "Stepback",
+              "name": "Jayson Tatum"
+            },
+            {
+              "category": "Stepback cross",
+              "name": "Jayson Tatum"
+            },
+            {
+              "category": "Lateral stepback",
+              "name": "Jimmy Butler"
+            },
+            {
+              "category": "Cross spin",
+              "name": "Normal"
+            },
+            {
+              "category": "Cross combo",
+              "name": "Jayson Tatum"
+            },
+            {
+              "category": "Hesi cross combo",
+              "name": "Pro"
+            },
+            {
+              "category": "Double cross combo",
+              "name": "Pro"
+            },
+            {
+              "category": "Breakdown",
+              "name": "Michael Jordan"
+            },
+            {
+              "category": "Breakdown move",
+              "name": "Andrew Wiggins"
+            },
+            {
+              "category": "Behind the back launch",
+              "name": "Coby White"
+            },
+            {
+              "category": "Escape crossover",
+              "name": "Pro"
+            },
+            {
+              "category": "Escape behind the back",
+              "name": "Scottie Pippen"
+            },
+            {
+              "category": "Escape between the legs",
+              "name": "Jimmy Butler"
+            },
+            {
+              "category": "Escape hesitation",
+              "name": "Jimmy Butler"
+            },
+            {
+              "category": "Misdirect crossover",
+              "name": "Pro"
+            },
+            {
+              "category": "Misdirect behind the back",
+              "name": "Pro"
+            },
+            {
+              "category": "Misdirect hesitation",
+              "name": "Pro"
+            }
+          ]
+        },
+        {
+          "group": "Triple threat",
+          "items": [
+            {
+              "category": "Style",
+              "name": "Michael Jordan"
+            },
+            {
+              "category": "Jab",
+              "name": "Michael Jordan"
+            },
+            {
+              "category": "Stepover",
+              "name": "Pro"
+            },
+            {
+              "category": "Breakdown",
+              "name": "Michael Jordan"
+            }
+          ]
+        },
+        {
+          "group": "Finishing",
+          "items": [
+            {
+              "category": "Layup",
+              "name": "Michael Jordan"
+            },
+            {
+              "category": "Reverse",
+              "name": "Michael Jordan"
+            },
+            {
+              "category": "Floater",
+              "name": "Mikal Bridges"
+            },
+            {
+              "category": "Quick scoop",
+              "name": "Default Swing"
+            },
+            {
+              "category": "Euro step",
+              "name": "Default Swing"
+            },
+            {
+              "category": "Hop step",
+              "name": "Default Swing"
+            },
+            {
+              "category": "Spin layup",
+              "name": "Default Swing"
+            },
+            {
+              "category": "Signature dunk",
+              "name": "Michael Jordan"
+            }
+          ]
+        },
+        {
+          "group": "Post",
+          "items": [
+            {
+              "category": "Post fade",
+              "name": "Michael Jordan"
+            },
+            {
+              "category": "Post hook",
+              "name": "Pro"
+            },
+            {
+              "category": "One-step pull-up",
+              "name": "Pro"
+            },
+            {
+              "category": "Post go-to shot",
+              "name": "Pro 2"
+            }
+          ]
+        },
+        {
+          "group": "Movement & passing",
+          "items": [
+            {
+              "category": "Motion style",
+              "name": "Michael Jordan"
+            }
+          ]
+        }
+      ],
+      "dunks": [
+        "One Hand Under Basket Regular",
+        "Two Hand Under Basket Regular",
+        "Under Basket Regular",
+        "Athletic One-Handers Off One",
+        "Athletic One-Handers Off Two",
+        "Athletic Hangs Off One",
+        "Quick Drops Off One",
+        "Side Arm Tomahawks",
+        "Straight Arm Tomahawks",
+        "Cock Back Tomahawks",
+        "Athletic Side Tomahawks",
+        "Athletic Front Tomahawks",
+        "Uber Athletic Tomahawks Off One",
+        "Uber Athletic Tomahawks Off Two",
+        "Leaning Slams",
+        "Front Clutches",
+        "Reverses Off One",
+        "One-Hand Clutch Reverses",
+        "Clutch Reverses Off One",
+        "Basic 360s",
+        "Athletic 360s",
+        "Cradle Dunks Off One",
+        "Michael Jordan",
+        "Pro Contact Dunks Off Two",
+        "Pro Contact Dunks Off One",
+        "Elite Contact Dunks Off Two",
+        "Elite Contact Dunks Off One"
+      ],
+      "alleyOops": [
+        "Pro Alley-Oop",
+        "Elite Alley-Oop",
+        "City Alley-Oop Reverses",
+        "City Alley-Oop 360s",
+        "City Alley-Oop Windmills",
+        "City Alley-Oop Under Leg",
+        "City Alley-Oop Flashy",
+        "Jordan Kilganon Alley-Oop",
+        "Pro Contact Alley-Oop",
+        "Elite Contact Alley-Oop"
+      ],
+      "badgeTierThresholds": null
+    },
+    {
+      "key": "edwards",
+      "name": "Anthony Edwards",
+      "positionIndex": 1,
+      "position": "SG",
+      "heightInches": 76,
+      "weightLb": 225,
+      "wingspanInches": 81,
+      "unlock": {
+        "group": "chal",
+        "groupLabel": "Lifetime Challenges",
+        "label": "300 Lifetime Challenges",
+        "detail": "300 challenges"
+      },
+      "attributes": {
+        "Close Shot": 90,
+        "Driving Layup": 95,
+        "Driving Dunk": 98,
+        "Standing Dunk": 45,
+        "Post Control": 60,
+        "Mid-Range": 88,
+        "Three-Point": 91,
+        "Free Throw": 80,
+        "Pass Accuracy": 80,
+        "Ball Handle": 88,
+        "Speed w/ Ball": 91,
+        "Interior D": 50,
+        "Perimeter D": 88,
+        "Steal": 60,
+        "Block": 60,
+        "Off Rebound": 35,
+        "Def Rebound": 60,
+        "Speed": 90,
+        "Agility": 90,
+        "Strength": 60,
+        "Vertical": 95
+      },
+      "normalCeilings": {
+        "Close Shot": 99,
+        "Driving Layup": 99,
+        "Driving Dunk": 97,
+        "Standing Dunk": 64,
+        "Post Control": 87,
+        "Mid-Range": 92,
+        "Three-Point": 90,
+        "Free Throw": 99,
+        "Pass Accuracy": 99,
+        "Ball Handle": 96,
+        "Speed w/ Ball": 89,
+        "Interior D": 81,
+        "Perimeter D": 99,
+        "Steal": 99,
+        "Block": 69,
+        "Off Rebound": 76,
+        "Def Rebound": 80,
+        "Speed": 96,
+        "Agility": 92,
+        "Strength": 87,
+        "Vertical": 99
+      },
+      "jumpshot": {
+        "base": "Anthony Edwards",
+        "release": "Anthony Edwards",
+        "speed": "Normal"
+      },
+      "jersey": {
+        "number": "5",
+        "colors": [
+          "#0C2340",
+          "#78BE20",
+          "#236192",
+          "#FFFFFF",
+          "#78BE20",
+          ""
+        ]
+      },
+      "animations": [
+        {
+          "group": "Shooting",
+          "items": [
+            {
+              "category": "Free throw",
+              "name": "Anthony Edwards"
+            },
+            {
+              "category": "Dribble pull-up",
+              "name": "Anthony Edwards"
+            },
+            {
+              "category": "Spin shot",
+              "name": "Pro"
+            },
+            {
+              "category": "Hop shot",
+              "name": "Anthony Edwards"
+            },
+            {
+              "category": "Go-to shot",
+              "name": "Anthony Edwards"
+            }
+          ]
+        },
+        {
+          "group": "Dribbling",
+          "items": [
+            {
+              "category": "Dribble style",
+              "name": "Anthony Edwards"
+            },
+            {
+              "category": "Signature size-up",
+              "name": "Anthony Edwards"
+            },
+            {
+              "category": "Crossover",
+              "name": "Anthony Edwards"
+            },
+            {
+              "category": "Behind the back",
+              "name": "Anthony Edwards"
+            },
+            {
+              "category": "Between the legs",
+              "name": "Anthony Edwards"
+            },
+            {
+              "category": "Spin",
+              "name": "Anthony Edwards"
+            },
+            {
+              "category": "Hesitation",
+              "name": "Anthony Edwards"
+            },
+            {
+              "category": "Lateral hesitation",
+              "name": "Anthony Edwards"
+            },
+            {
+              "category": "In and out",
+              "name": "Pro"
+            },
+            {
+              "category": "Stepback",
+              "name": "Pro"
+            },
+            {
+              "category": "Stepback cross",
+              "name": "Pro"
+            },
+            {
+              "category": "Lateral stepback",
+              "name": "Pro"
+            },
+            {
+              "category": "Cross spin",
+              "name": "Anthony Edwards"
+            },
+            {
+              "category": "Cross combo",
+              "name": "Anthony Edwards"
+            },
+            {
+              "category": "Hesi cross combo",
+              "name": "Pro"
+            },
+            {
+              "category": "Double cross combo",
+              "name": "Pro"
+            },
+            {
+              "category": "Breakdown",
+              "name": "Anthony Edwards"
+            },
+            {
+              "category": "Breakdown move",
+              "name": "Anthony Edwards"
+            },
+            {
+              "category": "Behind the back launch",
+              "name": "Anthony Edwards"
+            },
+            {
+              "category": "Escape crossover",
+              "name": "Anthony Edwards"
+            },
+            {
+              "category": "Escape behind the back",
+              "name": "Anthony Edwards"
+            },
+            {
+              "category": "Escape between the legs",
+              "name": "Anthony Edwards"
+            },
+            {
+              "category": "Escape hesitation",
+              "name": "Anthony Edwards"
+            },
+            {
+              "category": "Misdirect crossover",
+              "name": "Anthony Edwards"
+            },
+            {
+              "category": "Misdirect behind the back",
+              "name": "Anthony Edwards"
+            },
+            {
+              "category": "Misdirect hesitation",
+              "name": "Pro"
+            }
+          ]
+        },
+        {
+          "group": "Triple threat",
+          "items": [
+            {
+              "category": "Style",
+              "name": "Pro"
+            },
+            {
+              "category": "Jab",
+              "name": "Pro"
+            },
+            {
+              "category": "Stepover",
+              "name": "Pro"
+            },
+            {
+              "category": "Breakdown",
+              "name": "Anthony Edwards"
+            }
+          ]
+        },
+        {
+          "group": "Finishing",
+          "items": [
+            {
+              "category": "Layup",
+              "name": "Anthony Edwards"
+            },
+            {
+              "category": "Reverse",
+              "name": "Anthony Edwards"
+            },
+            {
+              "category": "Floater",
+              "name": "Anthony Edwards"
+            },
+            {
+              "category": "Quick scoop",
+              "name": "Default Small"
+            },
+            {
+              "category": "Euro step",
+              "name": "Anthony Edwards"
+            },
+            {
+              "category": "Hop step",
+              "name": "Anthony Edwards"
+            },
+            {
+              "category": "Spin layup",
+              "name": "Anthony Edwards"
+            },
+            {
+              "category": "Signature dunk",
+              "name": "Anthony Edwards"
+            }
+          ]
+        },
+        {
+          "group": "Post",
+          "items": [
+            {
+              "category": "Post fade",
+              "name": "Anthony Edwards"
+            },
+            {
+              "category": "Post hook",
+              "name": "Normal"
+            },
+            {
+              "category": "One-step pull-up",
+              "name": "Pro"
+            },
+            {
+              "category": "Post go-to shot",
+              "name": "Anthony Edwards"
+            }
+          ]
+        },
+        {
+          "group": "Movement & passing",
+          "items": [
+            {
+              "category": "Motion style",
+              "name": "Anthony Edwards"
+            },
+            {
+              "category": "Passing style",
+              "name": "Anthony Edwards"
+            }
+          ]
+        }
+      ],
+      "dunks": [
+        "Athletic One-Handers Off One",
+        "Athletic One-Handers Off Two",
+        "Quick Drops Off One",
+        "Quick Drops Off Two",
+        "Side Arm Tomahawks",
+        "Straight Arm Tomahawks",
+        "Cock Back Tomahawks",
+        "Athletic Side Tomahawks",
+        "Athletic Front Tomahawks",
+        "Uber Athletic Tomahawks Off One",
+        "Uber Athletic Tomahawks Off Two",
+        "Front Clutches",
+        "Side Clutches Off One",
+        "Reverses Off One",
+        "Baseline Reverses Off One",
+        "Windmill Baseline Reverses",
+        "Athletic Windmills",
+        "Basic 360s",
+        "Athletic 360s",
+        "Anthony Edwards",
+        "Pro Contact Dunks Off Two",
+        "Pro Contact Dunks Off One",
+        "Elite Contact Dunks Off Two",
+        "Small Contact Dunks Off Two",
+        "Small Contact Dunks Off One"
+      ],
+      "alleyOops": [
+        "Pro Alley-Oop",
+        "Elite Alley-Oop",
+        "City Alley-Oop Reverses",
+        "City Alley-Oop 360s",
+        "City Alley-Oop Windmills",
+        "City Alley-Oop Under Leg",
+        "City Alley-Oop Flashy",
+        "Jordan Kilganon Alley-Oop",
+        "Pro Contact Alley-Oop",
+        "Elite Contact Alley-Oop",
+        "Small Contact Alley-Oop"
+      ],
+      "badgeTierThresholds": null
+    },
+    {
+      "key": "wilt",
+      "name": "Wilt Chamberlain",
+      "positionIndex": 4,
+      "position": "C",
+      "heightInches": 85,
+      "weightLb": 275,
+      "wingspanInches": 96,
+      "unlock": {
+        "group": "chal",
+        "groupLabel": "Lifetime Challenges",
+        "label": "350 Lifetime Challenges",
+        "detail": "350 challenges"
+      },
+      "attributes": {
+        "Close Shot": 99,
+        "Driving Layup": 80,
+        "Driving Dunk": 80,
+        "Standing Dunk": 95,
+        "Post Control": 95,
+        "Mid-Range": 70,
+        "Three-Point": 25,
+        "Free Throw": 60,
+        "Pass Accuracy": 50,
+        "Ball Handle": 25,
+        "Speed w/ Ball": 25,
+        "Interior D": 90,
+        "Perimeter D": 50,
+        "Steal": 60,
+        "Block": 94,
+        "Off Rebound": 94,
+        "Def Rebound": 95,
+        "Speed": 70,
+        "Agility": 65,
+        "Strength": 95,
+        "Vertical": 79
+      },
+      "normalCeilings": {
+        "Close Shot": 99,
+        "Driving Layup": 94,
+        "Driving Dunk": 87,
+        "Standing Dunk": 99,
+        "Post Control": 99,
+        "Mid-Range": 68,
+        "Three-Point": 67,
+        "Free Throw": 91,
+        "Pass Accuracy": 99,
+        "Ball Handle": 51,
+        "Speed w/ Ball": 46,
+        "Interior D": 99,
+        "Perimeter D": 59,
+        "Steal": 73,
+        "Block": 99,
+        "Off Rebound": 99,
+        "Def Rebound": 99,
+        "Speed": 56,
+        "Agility": 42,
+        "Strength": 93,
+        "Vertical": 74
+      },
+      "jumpshot": {
+        "base": "Patrick Ewing",
+        "release": "Sam Perkins",
+        "speed": "Normal"
+      },
+      "jersey": {
+        "number": "13",
+        "colors": [
+          "#1D428A",
+          "#FFC72C",
+          "#FFFFFF",
+          "#FFFFFF",
+          "#FFC72C",
+          ""
+        ]
+      },
+      "animations": [
+        {
+          "group": "Shooting",
+          "items": [
+            {
+              "category": "Free throw",
+              "name": "Wilt Chamberlain"
+            },
+            {
+              "category": "Dribble pull-up",
+              "name": "Basic"
+            },
+            {
+              "category": "Spin shot",
+              "name": "Basic"
+            },
+            {
+              "category": "Hop shot",
+              "name": "Basic"
+            }
+          ]
+        },
+        {
+          "group": "Dribbling",
+          "items": [
+            {
+              "category": "Dribble style",
+              "name": "Basic"
+            },
+            {
+              "category": "Signature size-up",
+              "name": "Basic"
+            },
+            {
+              "category": "Crossover",
+              "name": "Basic"
+            },
+            {
+              "category": "Behind the back",
+              "name": "Basic"
+            },
+            {
+              "category": "Between the legs",
+              "name": "Basic"
+            },
+            {
+              "category": "Spin",
+              "name": "Basic"
+            },
+            {
+              "category": "Hesitation",
+              "name": "Basic"
+            },
+            {
+              "category": "Lateral hesitation",
+              "name": "Basic"
+            },
+            {
+              "category": "In and out",
+              "name": "Basic"
+            },
+            {
+              "category": "Stepback",
+              "name": "Basic"
+            },
+            {
+              "category": "Stepback cross",
+              "name": "Basic"
+            },
+            {
+              "category": "Lateral stepback",
+              "name": "Basic"
+            },
+            {
+              "category": "Cross spin",
+              "name": "Basic"
+            },
+            {
+              "category": "Cross combo",
+              "name": "Basic"
+            },
+            {
+              "category": "Hesi cross combo",
+              "name": "Basic"
+            },
+            {
+              "category": "Double cross combo",
+              "name": "Basic"
+            },
+            {
+              "category": "Breakdown",
+              "name": "Basic"
+            },
+            {
+              "category": "Breakdown move",
+              "name": "Basic"
+            },
+            {
+              "category": "Behind the back launch",
+              "name": "Basic"
+            },
+            {
+              "category": "Escape crossover",
+              "name": "Basic"
+            },
+            {
+              "category": "Escape behind the back",
+              "name": "Basic"
+            },
+            {
+              "category": "Escape between the legs",
+              "name": "Basic"
+            },
+            {
+              "category": "Escape hesitation",
+              "name": "Basic"
+            },
+            {
+              "category": "Misdirect crossover",
+              "name": "Basic"
+            },
+            {
+              "category": "Misdirect behind the back",
+              "name": "Basic"
+            },
+            {
+              "category": "Misdirect hesitation",
+              "name": "Basic"
+            }
+          ]
+        },
+        {
+          "group": "Triple threat",
+          "items": [
+            {
+              "category": "Style",
+              "name": "Pro"
+            },
+            {
+              "category": "Jab",
+              "name": "Pro"
+            },
+            {
+              "category": "Stepover",
+              "name": "Pro"
+            },
+            {
+              "category": "Breakdown",
+              "name": "Pro"
+            }
+          ]
+        },
+        {
+          "group": "Finishing",
+          "items": [
+            {
+              "category": "Layup",
+              "name": "Default Big"
+            },
+            {
+              "category": "Reverse",
+              "name": "Default Big"
+            },
+            {
+              "category": "Floater",
+              "name": "Default Big"
+            },
+            {
+              "category": "Quick scoop",
+              "name": "Default Big"
+            },
+            {
+              "category": "Euro step",
+              "name": "Default Big"
+            },
+            {
+              "category": "Hop step",
+              "name": "Default Big"
+            },
+            {
+              "category": "Spin layup",
+              "name": "Default Big"
+            }
+          ]
+        },
+        {
+          "group": "Post",
+          "items": [
+            {
+              "category": "Post fade",
+              "name": "Pro"
+            },
+            {
+              "category": "Post hook",
+              "name": "Pro"
+            },
+            {
+              "category": "One-step pull-up",
+              "name": "Normal"
+            },
+            {
+              "category": "Post go-to shot",
+              "name": "Normal"
+            }
+          ]
+        },
+        {
+          "group": "Movement & passing",
+          "items": [
+            {
+              "category": "Motion style",
+              "name": "Orlando Robinson"
+            },
+            {
+              "category": "Passing style",
+              "name": "Fundamental"
+            }
+          ]
+        }
+      ],
+      "dunks": [
+        "Pro Under Basket Rim Pulls",
+        "Elite Basket Rim Pulls",
+        "One Hand Under Basket Regular",
+        "Two Hand Under Basket Regular",
+        "Under Basket Regular",
+        "One Hand Under Basket Athletic",
+        "Two Hand Under Basket Athletic",
+        "Under Basket Athletic Flushes",
+        "Big Man Off One",
+        "Athletic One-Handers Off One",
+        "Athletic One-Handers Off Two",
+        "Big Man Hangs Off One",
+        "Big Man Tomahawks Off One",
+        "Big Man Tomahawks Off Two",
+        "Big Man Side Clutches Off One",
+        "Big Man Back Scratchers",
+        "Big Man Baseline Reverses Off One",
+        "Big Man Baseline Reverses Off Two",
+        "Jay Huff",
+        "Pro Contact Dunks Off Two",
+        "Pro Bigman Contact Dunks",
+        "Elite Bigman Contact Dunks"
+      ],
+      "alleyOops": [
+        "Pro Alley-Oop",
+        "Elite Alley-Oop",
+        "City Alley-Oop Reverses",
+        "Pro Contact Alley-Oop",
+        "Bigman Contact Alley-Oop"
+      ],
+      "badgeTierThresholds": null
+    }
+  ]
+}

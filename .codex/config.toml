@@ -1,0 +1,5 @@
+[mcp_servers.rea]
+command = "npm"
+args = ["exec", "--yes", "--package=node@24.22.1", "--package=rea-agents@6.8.0", "--", "rea", "mcp"]
+startup_timeout_sec = 120
+tool_timeout_sec = 300

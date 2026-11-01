@@ -1,0 +1,174 @@
+{
+  "schemaVersion": 1,
+  "snapshotDate": "2026-11-01",
+  "description": "GOAT builds, GOATED builds and META_BUILDS presets recovered from the public Goated Build Lab engine bundle for the local Free Builder rebuild.",
+  "source": {
+    "snapshotDate": "2026-11-01",
+    "archive": "goated-reference-2026-11-01.zip",
+    "archiveSha256": "43da5d3c59fbb425ff74f61608303661de393b02be21e4ed19b53d98521099c3",
+    "enginePath": "public-bundle/engine.js",
+    "engineUrl": "https://www.goatedbuildlab.com/engine/engine.js?v=802b53b6fd",
+    "engineSha256": "2171862d065f778eca9fb95e5772482d7ba0400310a29207f3cd38e7a197f74c",
+    "engineBytes": 1136304
+  },
+  "extraction": {
+    "method": "Static top-level array-literal extraction with a string-aware bracket scan. The bundle was parsed as text and the three literals were evaluated in isolation; no app bundle code was executed.",
+    "modules": {
+      "GOATS": {
+        "export": "GBLE.GOATS",
+        "minifiedSymbol": "Ne",
+        "declarationOffset": 975256,
+        "arrayStartOffset": 975263,
+        "arrayEndOffset": 1022464,
+        "literalSha256": "e7d16bf4c0926db6dcc238dd31d2a27e53bbf9cfee75c9bf3b8cd497eb8a3019"
+      },
+      "GOATED": {
+        "export": "GBLE.GOATED",
+        "minifiedSymbol": "ye",
+        "declarationOffset": 1042557,
+        "arrayStartOffset": 1042564,
+        "arrayEndOffset": 1050376,
+        "literalSha256": "b9c04fc8d5eedfc42f77f04d9d1c6ec2c3d239f72c30db0ac6c1350a9eed116e"
+      },
+      "META_BUILDS": {
+        "export": "GBLE.META_BUILDS",
+        "minifiedSymbol": "FY",
+        "declarationOffset": 893738,
+        "arrayStartOffset": 893745,
+        "arrayEndOffset": 903794,
+        "literalSha256": "64d2ab627333fc3e2dec1fedd3cbe7274a19ac38448ea7fd53655337173fc7af"
+      }
+    },
+    "supportingConstants": {
+      "attributeOrder": [
+        "Close Shot",
+        "Driving Layup",
+        "Driving Dunk",
+        "Standing Dunk",
+        "Post Control",
+        "Mid-Range",
+        "Three-Point",
+        "Free Throw",
+        "Pass Accuracy",
+        "Ball Handle",
+        "Speed w/ Ball",
+        "Interior D",
+        "Perimeter D",
+        "Steal",
+        "Block",
+        "Off Rebound",
+        "Def Rebound",
+        "Speed",
+        "Agility",
+        "Strength",
+        "Vertical"
+      ],
+      "attributeGroups": [
+        [
+          "Finishing",
+          0,
+          5
+        ],
+        [
+          "Shooting",
+          5,
+          8
+        ],
+        [
+          "Playmaking",
+          8,
+          11
+        ],
+        [
+          "Defense",
+          11,
+          15
+        ],
+        [
+          "Rebounding",
+          15,
+          17
+        ],
+        [
+          "Physicals",
+          17,
+          21
+        ]
+      ],
+      "positions": [
+        "PG",
+        "SG",
+        "SF",
+        "PF",
+        "C"
+      ],
+      "positionLabels": [
+        [
+          0,
+          "Point guards"
+        ],
+        [
+          1,
+          "Shooting guards"
+        ],
+        [
+          2,
+          "Small forwards"
+        ],
+        [
+          3,
+          "Power forwards"
+        ],
+        [
+          4,
+          "Centers"
+        ]
+      ],
+      "unlockGroups": [
+        [
+          "now",
+          "Available now"
+        ],
+        [
+          "pass",
+          "Season 2 pass"
+        ],
+        [
+          "rep",
+          "REP rewards"
+        ],
+        [
+          "chal",
+          "Lifetime Challenges"
+        ]
+      ],
+      "goatedCapBreakerMax": 26
+    }
+  },
+  "attribution": {
+    "data": "Builds and presets are transcribed from the publicly delivered Goated Build Lab engine bundle. Free Builder is an unofficial fan project and is not affiliated with Goated Build Lab, NBA 2K, Visual Concepts, 2K Sports, Take-Two Interactive or the NBA.",
+    "photos": "GOATED image credits, licenses and source URLs are retained per build in the image field; image files themselves are not included."
+  },
+  "counts": {
+    "goats": 18,
+    "goated": 11,
+    "metaBuilds": 15
+  },
+  "files": {
+    "goats": {
+      "path": "data/reference-builds/goats.json",
+      "bytes": 159208,
+      "sha256": "e26a6889fd768823bcc1f0819d3fdde21526ce16bf05770815687a2175f29348"
+    },
+    "goated": {
+      "path": "data/reference-builds/goated.json",
+      "bytes": 34811,
+      "sha256": "a0af6a79054445730f465f4e7a5600a3da6bd8ac03efc424e7fc098ebcc55545"
+    },
+    "metaBuilds": {
+      "path": "data/reference-builds/meta-builds.json",
+      "bytes": 39637,
+      "sha256": "8daea954342a492f00619a39e92af3f64b292e2866ba10933bff3e8e1988e20d"
+    }
+  }
+}
