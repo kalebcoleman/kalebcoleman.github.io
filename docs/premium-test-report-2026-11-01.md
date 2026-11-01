@@ -129,9 +129,10 @@ At 390 × 844, the document had no horizontal overflow on `/builder/`, `/finder/
 `/face-scan/` and `/jumpshot-lab/`. The nav is an intentional horizontal scroller. The only
 undersized interactive controls found were in the recovered Jumpshot Lab.
 
-## Post-fix verification — 91955f4
+## Post-fix verification — 91955f4 (latest fixes a5fe221)
 
-Verified by the builder thread against `main` at `91955f4` on the local static server, using
+Feature commit `91955f4`; follow-up fix commit `a5fe221` closes the Fill-to-99, stepper-size
+and all-position-latency findings. Verified by the builder thread against `main` at `91955f4` on the local static server, using
 headless Chromium 140 at 1280 px and 390 px. The historical matrix above is the earlier
 `b37abd0` audit; this section is the post-fix state.
 
