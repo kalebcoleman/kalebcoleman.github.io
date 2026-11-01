@@ -17,10 +17,10 @@
 // pre-rebrand cache, so the name does not continue the old series: activate() deletes any cache
 // that is neither the current `VERSION` nor the current engine cache, which drops `gbl-v*` and
 // `gbl-engine-*` in one step (plus the pre-rebrand `gbl_engine*` URLs / engine cache name).
-const VERSION = 'fb-v4';
+const VERSION = 'fb-v5';
 const ENGINE_PREFIX = 'fb-engine-';
 const SHELL = ['/', '/manifest.webmanifest', '/icon-192.png', '/icon-512.png', '/apple-touch-icon.png'];
-const BYPASS = [/^\/locker\/models\//, /^\/locker\/art\//, /^\/radio\//];
+const BYPASS = [/^\/locker\/models\//, /^\/locker\/art\//, /^\/radio\//, /^\/j3d\//];
 
 let engineCacheName = null;
 /** The `/engine/*` cache, keyed by the deployed wasm digest (`engine/deploy-manifest.json`). */

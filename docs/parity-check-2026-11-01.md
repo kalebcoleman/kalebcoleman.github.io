@@ -58,3 +58,14 @@ The reference's client confirms these gates: Mid unlocks Optimize, badge-token/F
 3. Add a Starter/example build to the Builder so the first visit shows a complete build instead of the 25-across default.
 4. Decide whether to vendor the public Jumpshot Lab trainer assets (`lab.js`, model/assets) for real game-arithmetic timing, or keep the clearly labelled local estimator.
 5. Optionally default the rebuild to the dark theme, which is visibly closer to the reference than the current auto/light default.
+
+## Follow-up implemented after this check
+
+- Added `/finder/`, a dedicated reference-finder page that uses the recovered finder worker, six presets, exact attribute targets, height and cap-breaker controls, and result cards with overall, name, badges and all 21 attributes. It returns 12 builds for the Floor general preset, matching the reference count.
+- Added the reference cap-breaker finder table at the top of `/cap-breakers/`. The default Driving Dunk / 5-breaker view returns the same 45 rows and the same first row (`PG 5'9" 28 → 77 +49`) as the reference.
+- Added `/builds/` with the recovered 18 GOAT builds, 11 GOATED builds and 15 community presets, plus one-click loading into the builder.
+- Added `/jumpshot-lab/`, mounting the recovered reference trainer with its own engine, `lab.css`, 3D player/ball models and animation clips. The trainer's timing, 3D scene, shot setup, free throws, look-alikes and calibration are now the reference implementation rather than an estimate. The custom `/jumpshot-trainer/` remains as a lighter local estimator.
+- The builder now opens with a complete 99-overall example build instead of 25-across defaults, and its overall display uses the recovered approximation rather than the unrecovered WASM slot index, so a build loaded from the finder shows the same 99 overall as the reference result.
+- Navigation now points “Find a build” at `/finder/`, “Jumpshot Lab” at `/jumpshot-lab/`, and adds “Builds” across the site.
+
+Remaining differences are mainly the home page (still a tool directory rather than the reference finder form), the simpler builder attribute/token presentation, and the missing Upgrade Planner and Mechanics Lab detail pages.

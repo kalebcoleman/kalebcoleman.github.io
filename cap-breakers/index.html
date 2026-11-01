@@ -33,7 +33,7 @@ try{var l=localStorage,t=l.getItem('fb_theme')||l.getItem('gbl_theme');if(t==='l
 <div id="app" class="app">
 <header class="hdr">
   <a class="brand" href="/"><span class="brand-mark" aria-hidden="true"></span>Free <b>Builder</b></a>
-  <nav id="nav" class="nav" aria-label="Main"><a href="/builder">Builder</a><a href="/?tab=find">Find a build</a><a href="/cap-breakers">Cap Breakers</a><a href="/badges">Badges</a><a href="/takeovers">Takeovers</a><a href="/animations">Animations</a><a href="/archetypes">Archetypes</a><a href="/shades">Shades</a><a href="/jumpshots">Jumpshot Lab</a><a href="/face-scan" id="faceTab">Face Scan</a><a href="/locker/">Locker</a><a href="/?tab=community">Community</a><a href="/mechanics/">Mechanics Lab</a></nav>
+  <nav id="nav" class="nav" aria-label="Main"><a href="/builder">Builder</a><a href="/builds/">Builds</a><a href="/finder/">Find a build</a><a href="/cap-breakers">Cap Breakers</a><a href="/badges">Badges</a><a href="/takeovers">Takeovers</a><a href="/animations">Animations</a><a href="/archetypes">Archetypes</a><a href="/shades">Shades</a><a href="/jumpshot-lab/">Jumpshot Lab</a><a href="/face-scan" id="faceTab">Face Scan</a><a href="/locker/">Locker</a><a href="/?tab=community">Community</a><a href="/mechanics/">Mechanics Lab</a></nav>
   <div class="hdr-tools">
     <select id="langSel" class="sel" aria-label="Language"><option value="en">English</option><option value="es">Español</option><option value="fr">Français</option><option value="de">Deutsch</option><option value="it">Italiano</option><option value="pt">Português</option><option value="ja">日本語</option><option value="ko">한국어</option><option value="zh-Hans">简体中文</option><option value="zh-Hant">繁體中文</option><option value="tr">Türkçe</option></select>
     <button id="themeBtn" class="btn" type="button" aria-label="Theme: auto">Auto</button>
@@ -42,7 +42,13 @@ try{var l=localStorage,t=l.getItem('fb_theme')||l.getItem('gbl_theme');if(t==='l
 </header>
 <main id="main" class="main">
   <h1 id="pageTitle" class="title">Loading name</h1>
-  <p class="lede" id="pageLede">Enter your cap breaker level to see the tier ladder, the attributes each category raises, and how many breakers a target build still needs.</p>
+  <p class="lede" id="pageLede">See where cap breakers pay the most across positions and heights, then use the planner below to inspect the tier ladder, category boosts and remaining points.</p>
+  <div class="panel">
+    <h2>Cap-breaker finder</h2>
+    <p class="muted">Where cap breakers pay the most. For each position and height: how low you can start an attribute and still have your breakers carry it to the target, and how many points that hands you free. Browsing is free; the recovered reference finder runs locally.</p>
+    <div id="reference-cap-finder" aria-live="polite"><p class="muted">Loading the recovered cap-breaker finder…</p></div>
+  </div>
+  <script type="module" src="/assets/cap-breaker-finder-panel.mjs"></script>
   <div id="view" class="view"><p class="muted" id="boot">Loading…</p></div>
   <p class="note" id="viewNote" role="status" aria-live="polite"></p>
 </main>
@@ -50,7 +56,7 @@ try{var l=localStorage,t=l.getItem('fb_theme')||l.getItem('gbl_theme');if(t==='l
   <section class="seo" aria-labelledby="seoH">
     <h2 id="seoH">About this page</h2>
     <p>Enter your cap breaker level to see the tier ladder, the attributes each category raises, and how many breakers a target build still needs.</p>
-    <nav class="fb-seo-links" aria-label="Related pages"><a href="/builder">/builder</a> <a href="/cap-breakers">/cap-breakers</a> <a href="/badges">/badges</a> <a href="/takeovers">/takeovers</a> <a href="/animations">/animations</a> <a href="/archetypes">/archetypes</a> <a href="/jumpshots">/jumpshots</a> <a href="/shades">/shades</a></nav>
+    <nav class="fb-seo-links" aria-label="Related pages"><a href="/builder">/builder</a> <a href="/cap-breakers">/cap-breakers</a> <a href="/badges">/badges</a> <a href="/takeovers">/takeovers</a> <a href="/animations">/animations</a> <a href="/archetypes">/archetypes</a> <a href="/jumpshot-lab/">/jumpshots</a> <a href="/shades">/shades</a></nav>
   </section>
   <div class="legal">
     <p class="disclaimer">Not affiliated with NBA 2K, Visual Concepts, 2K Sports or Take-Two Interactive. All trademarks belong to their owners. Unofficial, free fan tool.</p>
