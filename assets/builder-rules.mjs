@@ -1,6 +1,8 @@
 // Validate every build against the same body, linked-attribute and 99-wall
 // calculations used by the reference engine. A rejected build is never applied.
 export const OVERALL_LIMIT = 99;
+// The shipped engine indexes its 31 height bands from 5'3" (63 inches).
+export const heightBucket = height => Math.max(0, Math.min(30, height - 63));
 
 const integer = value => Number.isInteger(value) && Number.isFinite(value);
 const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
@@ -39,11 +41,11 @@ export function prepareBuild(input, kernel, engine, { adjustBody = false, clampA
   if (alloc.some((value, index) => value < 25 || value > caps[index])) {
     return { ok: false, message: 'An attribute is outside this frame’s legal limits.' };
   }
-  engine.settle(alloc, h, caps);
+  engine.settle(alloc, heightBucket(h), caps);
   if (alloc.some((value, index) => !integer(value) || value < 25 || value > caps[index])) {
     return { ok: false, message: 'Linked attributes cannot fit within this frame’s ceilings.' };
   }
-  const overall = engine.ratingOf(alloc, input.p);
+  const overall = engine.ratingOf(alloc, heightBucket(h));
   if (!Number.isFinite(overall) || overall >= OVERALL_LIMIT) {
     return { ok: false, message: 'This build exceeds the 99 overall limit. Lower an attribute first.' };
   }

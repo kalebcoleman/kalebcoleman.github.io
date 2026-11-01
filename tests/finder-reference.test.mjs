@@ -41,6 +41,7 @@ test('reference worker searches the selected height before ranking results', { t
   for (const row of result.res) {
     const checked = prepareBuild({ p: row.pos, h: row.body[0], w: row.body[1], s: row.body[2], alloc: row.alloc }, kernel, engine);
     assert.equal(checked.ok, true, checked.message);
+    assert.deepEqual(checked.build.alloc, row.alloc, 'loading a finder result should not change its attributes');
   }
   const secondAnswer = new Promise((resolve, reject) => {
     complete = message => {

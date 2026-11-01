@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFile, stat } from 'node:fs/promises';
+import vm from 'node:vm';
 
 const root = new URL('../', import.meta.url);
 
@@ -31,4 +32,17 @@ test('the recovered 3D models and animation clips are present locally', async ()
   }
   const model = await stat(new URL('j3d/m_1k.glb', root));
   assert.ok(model.size > 1_000_000, 'male model is the full recovered asset');
+});
+
+
+test('trainer initialization failures offer the estimated practice lab', async () => {
+  const html = await readFile(new URL('jumpshot-lab/index.html', root), 'utf8');
+  const inline = html.match(/<script>\s*([\s\S]*?)<\/script>/)?.[1];
+  assert.ok(inline);
+  const target = { innerHTML: '' };
+  const context = { window: { GBLLAB_MOUNT() { throw new Error('timing data unavailable'); } }, document: { getElementById: () => target } };
+  assert.doesNotThrow(() => vm.runInNewContext(inline, context));
+  assert.match(target.innerHTML, /Jumpshot Lab is unavailable/);
+  assert.match(target.innerHTML, /href="\/jumpshot-trainer\/"/);
+  assert.match(target.innerHTML, /estimates/);
 });

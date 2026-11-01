@@ -29,10 +29,15 @@
   <script src="/assets/lab-engine.js"></script>
   <script src="/assets/lab.js"></script>
   <script>
-    window.GBLLAB_MOUNT(document.getElementById('lab'));
-    var lab = document.getElementById('vJumper');
-    if (lab) lab.hidden = false;
-    if (window.GBLLAB && window.GBLLAB.paint) window.GBLLAB.paint();
+    var labRoot = document.getElementById('lab');
+    try {
+      window.GBLLAB_MOUNT(labRoot);
+      var lab = document.getElementById('vJumper');
+      if (lab) lab.hidden = false;
+      if (window.GBLLAB && window.GBLLAB.paint) window.GBLLAB.paint();
+    } catch (error) {
+      labRoot.innerHTML = '<section class="panel" role="alert"><h1>Jumpshot Lab is unavailable</h1><p>The 3D trainer could not load its timing data. You can still use the local practice lab; its timing values are estimates.</p><p><a class="btn primary" href="/jumpshot-trainer/">Open Practice Lab</a> <a class="btn" href="/jumpshots/">Open shot composer</a></p></section>';
+    }
   </script>
 </body>
 </html>

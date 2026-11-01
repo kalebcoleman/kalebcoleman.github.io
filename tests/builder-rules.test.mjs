@@ -8,14 +8,16 @@ const { engine, kernel } = await loadRules();
 const example = { p: 0, h: 79, w: 180, s: 79, alloc: [70,80,80,50,50,78,78,88,90,90,83,50,85,80,50,50,50,85,80,60,75], lock: Array(21).fill(false) };
 
 test('preparing a build applies the reference linked-attribute floors', () => {
-  const result = prepareBuild(example, kernel, engine);
+  const input = { ...example, alloc: Array(21).fill(25) };
+  input.alloc[6] = 90;
+  const result = prepareBuild(input, kernel, engine);
   assert.equal(result.ok, true);
-  assert.notDeepEqual(result.build.alloc, example.alloc);
+  assert.notDeepEqual(result.build.alloc, input.alloc);
   const settled = [...result.build.alloc];
-  engine.settle(settled, result.build.h, result.caps);
+  engine.settle(settled, result.build.h - 63, result.caps);
   assert.deepEqual(result.build.alloc, settled);
   assert.ok(result.overall < 99);
-  assert.equal(example.alloc[0], 70, 'the original input was not mutated');
+  assert.equal(input.alloc[0], 25, 'the original input was not mutated');
 });
 
 test('edits and linked increases cannot pass the actual 99 overall wall', () => {
@@ -30,7 +32,19 @@ test('edits and linked increases cannot pass the actual 99 overall wall', () => 
   const blocked = editAttribute(build, 6, 999, kernel, engine);
   assert.equal(blocked.ok, true);
   assert.equal(blocked.limited, true);
-  assert.ok(engine.ratingOf(blocked.build.alloc, blocked.build.p) < 99);
+  assert.ok(engine.ratingOf(blocked.build.alloc, blocked.build.h - 63) < 99);
+});
+
+test('the matched 6-foot-3 finder build retains its ratings and 99-wall calculation', () => {
+  const alloc = [67,82,28,28,42,79,88,63,97,97,93,25,59,33,25,25,33,89,78,32,59];
+  const result = prepareBuild({ p: 0, h: 75, w: 170, s: 81, alloc }, kernel, engine);
+  assert.equal(result.ok, true, result.message);
+  assert.deepEqual(result.build.alloc, alloc);
+  assert.ok(Math.abs(result.overall - 98.99983215332031) < 0.0001);
+  assert.equal(engine.overallOf(alloc, 12, result.caps), 99);
+  const edit = editAttribute(result.build, 8, 99, kernel, engine);
+  assert.equal(edit.ok, true);
+  assert.ok(edit.overall < 99);
 });
 
 test('invalid body, out-of-range attributes and over-budget imports are rejected', () => {

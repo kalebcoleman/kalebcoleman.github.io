@@ -216,9 +216,9 @@ async function init() {
       const alloc = Array.isArray(row.alloc) ? row.alloc : [];
       const after = Array.isArray(row.after) && row.after.length === alloc.length ? row.after : alloc;
       const ceilings = kernel.W(row.body?.[0] ?? 75, row.body?.[1] ?? 185, row.body?.[2] ?? 80);
-      const reference = window.GBLE?.trueOvr ? window.GBLE.trueOvr(alloc, row.pos) : NaN;
+      const reference = window.GBLE?.trueOvr ? window.GBLE.trueOvr(after, row.body[0] - 63) : NaN;
       const trueOverall = Number.isFinite(reference) ? reference : kernel.overallApprox(alloc, ceilings);
-      const ovr = Number.isFinite(trueOverall) ? Math.round(trueOverall) : '—';
+      const ovr = window.GBLE?.overallOf ? Math.min(99, window.GBLE.overallOf(after, row.body[0] - 63, ceilings)) : Number.isFinite(trueOverall) ? Math.round(trueOverall) : '—';
       const used = Number(row.used ?? row.needs ?? 0);
       const badgeList = [];
       for (const badge of kernel.env.badges.badges) {
