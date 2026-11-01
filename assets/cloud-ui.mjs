@@ -1,4 +1,7 @@
-import { CLOUD_ENABLED } from './cloud-config.mjs';
+import { CLOUD_ENABLED, SUPABASE_URL } from './cloud-config.mjs';
+
+const projectRef = SUPABASE_URL.match(/https:\/\/([^.]+)\./)?.[1] ?? '';
+const sqlEditor = projectRef ? `https://supabase.com/dashboard/project/${projectRef}/sql/new` : 'https://supabase.com/dashboard';
 
 function node(tag, text, className) {
   const element = document.createElement(tag);
@@ -115,7 +118,25 @@ export async function mountCloudLibrary(root, { getCode, loadCode }) {
       refresh.addEventListener('click', () => void refreshLibrary());
       libraryHost.replaceChildren(row, list);
     } catch (error) {
-      libraryHost.replaceChildren(node('p', `Cloud builds are unavailable: ${error instanceof Error ? error.message : String(error)}`, 'warn'));
+      const message = error instanceof Error ? error.message : String(error);
+      const setup = /PGRST205|Could not find the table/i.test(message);
+      const retry = node('button', 'Retry', 'btn');
+      retry.type = 'button';
+      retry.addEventListener('click', () => void refreshLibrary());
+      const row = node('div', null, 'fieldset');
+      row.append(retry);
+      const note = node('p', null, 'warn');
+      if (setup) {
+        note.append('The cloud table is not set up yet. Run supabase/schema.sql in the ');
+        const link = node('a', 'Supabase SQL editor', null);
+        link.href = sqlEditor;
+        link.target = '_blank';
+        link.rel = 'noopener';
+        note.append(link, ', then press Retry.');
+      } else {
+        note.textContent = `Cloud builds are unavailable: ${message}`;
+      }
+      libraryHost.replaceChildren(note, row);
     }
   }
 

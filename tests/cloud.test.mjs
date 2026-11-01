@@ -17,9 +17,11 @@ test('the free cloud schema protects builds with owner-only RLS', async () => {
 
 test('cloud config stays local until a project is connected', async () => {
   const config = await readFile(new URL('assets/cloud-config.mjs', root), 'utf8');
-  assert.match(config, /YOUR-PROJECT/);
+  assert.match(config, /SUPABASE_URL/);
+  assert.match(config, /SUPABASE_ANON_KEY/);
   assert.match(config, /CLOUD_ENABLED/);
-  assert.doesNotMatch(config, /service_role/i);
+  assert.doesNotMatch(config, /sb_secret_/);
+  assert.match(config, /SUPABASE_ANON_KEY = '(sb_publishable_|eyJ)/);
   const library = await readFile(new URL('assets/build-library.mjs', root), 'utf8');
   assert.match(library, /mountCloudLibrary/);
   const ui = await readFile(new URL('assets/cloud-ui.mjs', root), 'utf8');

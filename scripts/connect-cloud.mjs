@@ -9,8 +9,8 @@ if (!/^https:\/\/[a-z0-9-]+\.supabase\.co$/i.test(url)) {
   console.error('The project URL should look like https://abcdefgh.supabase.co');
   process.exit(1);
 }
-if (key.length < 80 || /service_role/i.test(key)) {
-  console.error('Use the public anon key, not the service_role key.');
+if (!/^(sb_publishable_|eyJ)/.test(key) || /service_role|sb_secret/i.test(key)) {
+  console.error('Use the public anon/publishable key, not the secret/service_role key.');
   process.exit(1);
 }
 const source = `// Free cloud sync configuration.
