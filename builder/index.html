@@ -23,6 +23,7 @@
    once, then drops it (specs/i18n-theme-pwa.md §2 + web/README.md brand migration) */
 try{var l=localStorage,t=l.getItem('fb_theme')||l.getItem('gbl_theme');if(t==='light'||t==='dark'){document.documentElement.dataset.theme=t;l.setItem('fb_theme',t);l.removeItem('gbl_theme')}}catch(e){}</script>
 <script>window.FB_TAB='build'</script>
+  <script src="/assets/lab-engine.js"></script>
   <script type="module" crossorigin src="/assets/builder-BiMSljHZ.js"></script>
   <link rel="modulepreload" crossorigin href="/assets/preload-helper-CFijIu3R.js">
   <link rel="modulepreload" crossorigin href="/assets/shell-DuKJJrzf.js">
