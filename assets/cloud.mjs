@@ -77,11 +77,18 @@ export async function saveBuild(name, code) {
   return data;
 }
 
-export async function deleteAccount() {
-  const client = await getClient();
+export async function deleteAccountWith(client) {
   const { error } = await client.rpc('delete_own_account');
   if (error) throw error;
-  await client.auth.signOut();
+  // The auth row is already gone; a global sign-out would POST /auth/v1/logout
+  // with a deleted session and return 403 session_not_found. Clear the local
+  // session only. The normal Sign out button still uses a global signOut().
+  await client.auth.signOut({ scope: 'local' });
+}
+
+export async function deleteAccount() {
+  const client = await getClient();
+  return deleteAccountWith(client);
 }
 
 export async function deleteBuild(id) {

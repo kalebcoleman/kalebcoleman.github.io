@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
+import { deleteAccountWith } from '../assets/cloud.mjs';
 
 const root = new URL('../', import.meta.url);
 
@@ -38,6 +39,33 @@ test('cloud config stays local until a project is connected', async () => {
   assert.match(ui, /Delete account/);
 });
 
+
+test('deleteAccount clears the local session only after the account RPC', async () => {
+  const calls = [];
+  const client = {
+    rpc: async name => { calls.push(['rpc', name]); return { error: null }; },
+    auth: {
+      signOut: async options => { calls.push(['signOut', options]); return { error: null }; },
+    },
+  };
+  await deleteAccountWith(client);
+  assert.deepEqual(calls, [
+    ['rpc', 'delete_own_account'],
+    ['signOut', { scope: 'local' }],
+  ]);
+});
+
+test('deleteAccount does not sign out when the account RPC fails', async () => {
+  const calls = [];
+  const client = {
+    rpc: async () => ({ error: new Error('rpc failed') }),
+    auth: {
+      signOut: async options => { calls.push(['signOut', options]); return { error: null }; },
+    },
+  };
+  await assert.rejects(() => deleteAccountWith(client), /rpc failed/);
+  assert.deepEqual(calls, []);
+});
 
 test('the legal pages describe the optional Supabase account and deletion path', async () => {
   for (const file of ['privacy.html', 'privacy/index.html', 'terms.html', 'terms/index.html', 'delete-account.html', 'delete-account/index.html']) {
