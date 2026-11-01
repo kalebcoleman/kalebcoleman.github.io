@@ -129,11 +129,11 @@ At 390 × 844, the document had no horizontal overflow on `/builder/`, `/finder/
 `/face-scan/` and `/jumpshot-lab/`. The nav is an intentional horizontal scroller. The only
 undersized interactive controls found were in the recovered Jumpshot Lab.
 
-## Post-fix verification — 5db21e9
+## Post-fix verification — 5213404
 
-Feature commits `91955f4` (finder/Fuse/visual), `d372a75` (Build Doctor/Undo) and `829136d`
-(saved searches); latest fix `5db21e9` closes the mobile 44×44 and cap-row wording findings.
-Verified by the builder thread against `main` at `91955f4` on the local static server, using
+Feature commits `91955f4` (finder/Fuse/visual), `d372a75` (Build Doctor/Undo), `829136d`
+(saved searches), `5db21e9` (44×44/cap wording) and `5213404` (touch stability, mobile DOM
+order, batching and unreachable badge targets). Verified by the builder thread against `main` on the local static server, using
 headless Chromium 140 at 1280 px and 390 px. The historical matrix above is the earlier
 `b37abd0` audit; this section is the post-fix state.
 
@@ -219,6 +219,27 @@ at 390 it is a single horizontal scroller.
 - Steppers were enlarged, and the all-position search is opt-in, so the earlier `Overall 98`,
   tiny-stepper and 26 s default-search findings are closed.
 
+### Touch stability and mobile order (5213404)
+
+- Mobile DOM order is now Body → Import → Build actions → Build name → Attributes → Find →
+  Build Doctor → History → Badges → Share → Tools → Fuse. This is a real DOM reorder, not CSS
+  `order`/`display: contents`, so tab and screen-reader order match the screen.
+- `overflow-anchor: none` was removed. Ranges use `touch-action: pan-y pinch-zoom`; a vertical
+  swipe starting on a slider scrolls the page, while a horizontal drag changes the value.
+- Coarse-pointer tablets get 44×44 steppers, 44 px controls and a static (not internally
+  scrolling) sidebar. The builder nav uses `touch-action: pan-x` and contained overscroll.
+- Reproduced 10 rapid `+` taps at 60 ms: row top stayed 376 px, scrollY stayed 1214, value
+  went 51 → 61. History/Badges may grow below Attributes but no longer move the row under the
+  finger. History/Badges/Doctor are below Attributes on mobile.
+- Steppers batch for 80 ms and commit the share/QR code after 250 ms. A click-capture flush
+  makes immediate Copy code / Save to this device / Undo use the final displayed value:
+  copy 56, saved 54, history captured 55, then Undo returned 51. A range pointerdown cancels a
+  pending stepper and reverts its preview.
+- Build Doctor HOF target now says “HOF is unreachable on this frame” with the ceiling detail
+  and a **Find a body** link instead of leaving a dead `Write 1 target` button.
+- Browser tests: `builder-touch.browser.cjs` and `builder-batching.browser.cjs` cover the
+  vertical/horizontal gestures, 10-tap stability, Copy/Save/Undo flush and range cancellation.
+
 ### Build Doctor and history (own features)
 
 - **Build Doctor** (`assets/build-doctor.mjs`) reports the displayed overall, true overall and raw
@@ -236,7 +257,7 @@ at 390 it is a single horizontal scroller.
   pre-fills the same controls. The shared link was verified at 390.
 - Browser tests: reset → Diagnose → Apply → Undo → Plan to target → Apply plan → named version,
   and save → load → run → shared link, at 1280 and 390, with no console errors or overflow.
-- `node --test tests/*.mjs`: **102/102 pass** (adds Build Doctor unit tests).
+- `node --test tests/*.mjs`: **103/103 pass** (Build Doctor unit tests plus the unreachable-tier case).
 
 ### Mechanics Lab and other P2
 
@@ -254,7 +275,7 @@ at 390 it is a single horizontal scroller.
 
 - `node --test tests/*.mjs`: **98/98 pass**.
 - Browser tests pass: badges (including Tokens), screenshot import/rejection, builder controls,
-  builder finder, cap-breaker row, Fuse planner, Mechanics detail, Build Doctor/history, saved searches.
+  builder finder, cap-breaker row, Fuse planner, Mechanics detail, Build Doctor/history, saved searches, builder touch, builder batching.
 - 390 px: no horizontal overflow on builder, cap-breakers, badges, mechanics, jumpshot-lab.
 
 ## Not tested
