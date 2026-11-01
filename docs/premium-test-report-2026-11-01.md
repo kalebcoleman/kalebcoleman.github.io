@@ -27,7 +27,7 @@ verification, every possible build state, or server-side functions.
 | Direct cap-breaker row build | Missing | — | Rows still prefill the finder; no "Build this row" action. This is a recovered Premium surface. |
 | Upgrade Planner | Previously verified | Not retested | Earlier comparison: 60.00 → 76.00 for 100,000 VC vs reference 60.04 → 76.02; 176 VC / 0.04 overall difference. |
 | Screenshot import | Pass with mocked OCR | No overflow | Review/apply DOM path works; partial-read warning path is covered by unit tests. Real 2K screenshot accuracy is unverified. |
-| Cloud accounts | Panel mounts | No overflow | Sign-in form loads; password reset and Delete account controls exist. Supabase schema still needs the user's one-time SQL run. |
+| Cloud accounts | Pass | No overflow | Schema applied and verified in `docs/cloud-setup.md`: two-user RLS isolation, save/load/delete, delete-account cascade. Account deletion now clears the local session only. |
 
 ## P0 — builder Find builds returns zero results
 
@@ -129,12 +129,13 @@ At 390 × 844, the document had no horizontal overflow on `/builder/`, `/finder/
 `/face-scan/` and `/jumpshot-lab/`. The nav is an intentional horizontal scroller. The only
 undersized interactive controls found were in the recovered Jumpshot Lab.
 
-## Post-fix verification — 322e697
+## Post-fix verification — 63a6f5b
 
 Feature commits `91955f4` (finder/Fuse/visual), `d372a75` (Build Doctor/Undo), `829136d`
 (saved searches), `5db21e9` (44×44/cap wording), `5213404` (touch stability, mobile DOM
-order, batching and unreachable badge targets) `81f7bc8` (vertical swipe direction lock,
-clipboard fallback) and `322e697` (coarse-pointer copy wording). Verified by the builder thread against `main` on the local static server, using
+order, batching and unreachable badge targets), `81f7bc8` (vertical swipe direction lock,
+clipboard fallback), `322e697` (coarse-pointer copy wording) and `63a6f5b` (cloud deletion clears
+the local session only). Verified by the builder thread against `main` on the local static server, using
 headless Chromium 140 at 1280 px and 390 px. The historical matrix above is the earlier
 `b37abd0` audit; this section is the post-fix state.
 
@@ -271,6 +272,17 @@ value unchanged during the vertical swipe. The copy nit was real: on `766a7db` t
 said “press Ctrl/Cmd+C”. `322e697` uses **“use your copy menu”** on coarse pointers and keeps
 “press Ctrl/Cmd+C” on fine pointers; the clipboard test now covers both.
 
+### Cloud account deletion (63a6f5b)
+
+- `deleteAccountWith()` runs `delete_own_account` first, then `signOut({ scope: 'local' })`.
+  The normal Sign out button still uses the global `signOut()`.
+- Unit tests assert the RPC/sign-out order, the `scope: 'local'` option, and that a failed RPC
+  does not sign out.
+- Browser test mocks sign-in, `getUser`, the builds list, the delete RPC and a local logout;
+  it asserts the UI reports success, no global logout is requested, and no logout response is
+  4xx. The real client still issues a `scope=local` request; Supabase treats 401/403/404 there
+  as non-fatal and clears the local session.
+
 ### Build Doctor and history (own features)
 
 - **Build Doctor** (`assets/build-doctor.mjs`) reports the displayed overall, true overall and raw
@@ -288,7 +300,7 @@ said “press Ctrl/Cmd+C”. `322e697` uses **“use your copy menu”** on coar
   pre-fills the same controls. The shared link was verified at 390.
 - Browser tests: reset → Diagnose → Apply → Undo → Plan to target → Apply plan → named version,
   and save → load → run → shared link, at 1280 and 390, with no console errors or overflow.
-- `node --test tests/*.mjs`: **103/103 pass** (Build Doctor unit tests plus the unreachable-tier case). Independent clean-archive run on `766a7db`: 103/103.
+- `node --test tests/*.mjs`: **105/105 pass** (Build Doctor unit tests plus the unreachable-tier case). Independent clean-archive run on `766a7db`: 103/103; the cloud tests add two cases.
 
 ### Mechanics Lab and other P2
 
