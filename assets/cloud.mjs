@@ -42,6 +42,12 @@ export async function signUp(email, password) {
   return { user: data.user, needsConfirmation: !data.session };
 }
 
+export async function resetPassword(email) {
+  const client = await getClient();
+  const { error } = await client.auth.resetPasswordForEmail(email, { redirectTo: `${location.origin}/builder` });
+  if (error) throw error;
+}
+
 export async function signOut() {
   const client = await getClient();
   const { error } = await client.auth.signOut();
@@ -69,6 +75,13 @@ export async function saveBuild(name, code) {
     .single();
   if (error) throw error;
   return data;
+}
+
+export async function deleteAccount() {
+  const client = await getClient();
+  const { error } = await client.rpc('delete_own_account');
+  if (error) throw error;
+  await client.auth.signOut();
 }
 
 export async function deleteBuild(id) {

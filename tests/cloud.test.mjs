@@ -13,6 +13,8 @@ test('the free cloud schema protects builds with owner-only RLS', async () => {
   assert.match(schema, /for insert/);
   assert.match(schema, /for update/);
   assert.match(schema, /for delete/);
+  assert.match(schema, /delete_own_account/);
+  assert.match(schema, /security definer/);
 });
 
 test('cloud config stays local until a project is connected', async () => {
@@ -32,4 +34,16 @@ test('cloud config stays local until a project is connected', async () => {
   assert.doesNotMatch(cloud, /service_role/i);
   assert.match(cloud, /signInWithPassword/);
   assert.match(cloud, /from\('builds'\)/);
+  assert.match(cloud, /delete_own_account/);
+  assert.match(ui, /Delete account/);
+});
+
+
+test('the legal pages describe the optional Supabase account and deletion path', async () => {
+  for (const file of ['privacy.html', 'privacy/index.html', 'terms.html', 'terms/index.html', 'delete-account.html', 'delete-account/index.html']) {
+    const html = await readFile(new URL(file, root), 'utf8');
+    assert.match(html, /Supabase/);
+    assert.match(html, /builder#cloud|Cloud builds/);
+    assert.doesNotMatch(html, /There are no accounts|no accounts, no analytics/);
+  }
 });

@@ -31,6 +31,7 @@ export async function mountCloudLibrary(root, { getCode, loadCode }) {
 
   const panel = node('section', null, 'panel');
   panel.setAttribute('aria-label', 'Cloud builds');
+  panel.id = 'cloud';
   const heading = node('h3', 'Cloud builds');
   const intro = node('p', 'Sign in to save builds across devices. Free account, no payment.', 'muted');
   const authHost = node('div');
@@ -160,7 +161,23 @@ export async function mountCloudLibrary(root, { getCode, loadCode }) {
           setBusy(false);
         }
       });
-      row.append(out);
+      const removeAccount = node('button', 'Delete account', 'btn');
+      removeAccount.type = 'button';
+      removeAccount.addEventListener('click', async () => {
+        if (!confirm('Delete your Free Builder account and every cloud build saved to it? This cannot be undone.')) return;
+        setBusy(true);
+        try {
+          await cloud.deleteAccount();
+          user = null;
+          setStatus('Account and cloud builds deleted.');
+          renderAuth();
+        } catch (error) {
+          setStatus(`Could not delete the account: ${error instanceof Error ? error.message : String(error)}`, true);
+        } finally {
+          setBusy(false);
+        }
+      });
+      row.append(out, removeAccount);
       authHost.append(row);
       libraryHost.hidden = false;
       void refreshLibrary();
@@ -173,8 +190,10 @@ export async function mountCloudLibrary(root, { getCode, loadCode }) {
     signIn.type = 'button';
     const signUp = node('button', 'Create free account', 'btn');
     signUp.type = 'button';
+    const forgot = node('button', 'Forgot password?', 'btn');
+    forgot.type = 'button';
     const row = node('div', null, 'fieldset');
-    row.append(email, password, signIn, signUp);
+    row.append(email, password, signIn, signUp, forgot);
     const note = node('p', 'No payment is collected. The account only stores your build codes so you can load them on another device.', 'muted');
     authHost.append(row, note);
 
@@ -214,6 +233,19 @@ export async function mountCloudLibrary(root, { getCode, loadCode }) {
     };
     signIn.addEventListener('click', () => void submit(false));
     signUp.addEventListener('click', () => void submit(true));
+    forgot.addEventListener('click', async () => {
+      const address = email.value.trim();
+      if (!address) { setStatus('Enter the account email first.', true); return; }
+      setBusy(true);
+      try {
+        await cloud.resetPassword(address);
+        setStatus('Password reset email sent. Check that inbox.');
+      } catch (error) {
+        setStatus(`Could not send the reset email: ${error instanceof Error ? error.message : String(error)}`, true);
+      } finally {
+        setBusy(false);
+      }
+    });
     password.addEventListener('keydown', event => { if (event.key === 'Enter') void submit(false); });
   }
 

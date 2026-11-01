@@ -4,12 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Delete your account · Free Builder</title>
-<meta name="description" content="This rebuild has no accounts. Here is how to clear everything it stores in your browser.">
+<meta name="description" content="How to delete a free Free Builder cloud account and the builds stored in this browser.">
 <link rel="canonical" href="/delete-account">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Free Builder">
 <meta property="og:title" content="Delete your account · Free Builder">
-<meta property="og:description" content="This rebuild has no accounts. Here is how to clear everything it stores in your browser.">
+<meta property="og:description" content="How to delete a free Free Builder cloud account and the builds stored in this browser.">
 <meta property="og:url" content="/delete-account">
 <meta property="og:image" content="/og.png">
 <meta property="og:image:alt" content="Free Builder: NBA 2K27 MyPLAYER builder, cap-breaker planner and build finder.">
@@ -35,14 +35,18 @@
 </header>
 <main id="main" class="main">
   <h1 id="pageTitle" class="title">Delete account</h1>
-  <p class="lede" id="pageLede">There are no accounts to delete: this rebuild never creates one. To clear everything it stores, remove site data in your browser settings.</p>
-  <div id="view" class="view"></div>
+  <p class="lede" id="pageLede">Cloud accounts are optional and free. If you created one, you can delete it and every cloud build from the builder.</p>
+  <div id="view" class="view">
+<section class="panel"><h2>Delete a cloud account</h2><p>Sign in to the builder, open <a href="/builder#cloud">Cloud builds</a> under My build library, and choose <b>Delete account</b>. The account deletion runs the <code>delete_own_account()</code> database function, which deletes only the signed-in user's auth row; the builds table cascades and removes that user's cloud builds.</p><p>If you cannot sign in, use the password reset on the sign-in form. If you still cannot access the account, use the project issue tracker linked from the project page and include the account email; never send your password.</p></section>
+<section class="panel"><h2>Clear local data</h2><p>Builds, preferences and the local library are stored in this browser. Clear this site's storage in your browser settings to remove them. Export any builds you want to keep first.</p></section>
+<section class="panel"><h2>What is deleted</h2><p>Cloud deletion removes the account email, build names, build codes and timestamps from Supabase. Local browser data is separate and is removed only when you clear site storage.</p></section>
+</div>
   <p class="note" id="viewNote" role="status" aria-live="polite"></p>
 </main>
 <footer class="ftr">
   <section class="seo" aria-labelledby="seoH">
     <h2 id="seoH">About this page</h2>
-    <p>There are no accounts to delete: this rebuild never creates one. To clear everything it stores, remove site data in your browser settings.</p>
+    <p>Cloud accounts are optional and free. If you created one, you can delete it and every cloud build from the builder.</p>
     <nav class="fb-seo-links" aria-label="Related pages"><a href="/builder">/builder</a> <a href="/cap-breakers">/cap-breakers</a> <a href="/badges">/badges</a> <a href="/takeovers">/takeovers</a> <a href="/animations">/animations</a> <a href="/archetypes">/archetypes</a> <a href="/jumpshot-lab/">/jumpshots</a> <a href="/shades">/shades</a></nav>
   </section>
   <div class="legal">

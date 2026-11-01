@@ -55,3 +55,17 @@ create policy "Users delete their own builds"
   using (auth.uid() = user_id);
 
 grant select, insert, update, delete on public.builds to authenticated;
+
+-- Account deletion: deletes only the signed-in user's auth row. The builds
+-- table cascades from auth.users, so the user's cloud builds go with it.
+create or replace function public.delete_own_account()
+returns void
+language sql
+security definer
+set search_path = public, auth
+as $$
+  delete from auth.users where id = auth.uid();
+$$;
+
+revoke all on function public.delete_own_account() from public;
+grant execute on function public.delete_own_account() to authenticated;

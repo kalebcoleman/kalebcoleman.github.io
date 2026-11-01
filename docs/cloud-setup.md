@@ -32,6 +32,8 @@ Deploy. The **Cloud builds** panel appears under **My build library** in the bui
 
 ## 3. What users get
 
+- Password reset by email from the sign-in form.
+
 - Create a free email/password account, sign in and sign out.
 - Save the current build code under a name.
 - Load or delete their own cloud builds on any device.
@@ -40,6 +42,10 @@ Deploy. The **Cloud builds** panel appears under **My build library** in the bui
 ## Free-tier notes
 
 Supabase's free plan is enough for early growth, but check the current limits before promoting heavily. Free projects can pause after inactivity; a small uptime ping or regular use keeps them awake. If usage outgrows the free plan, the next step is the paid plan or moving the same schema to Cloudflare D1/Workers. The builder calculations stay in the browser either way; the database only stores build codes and account rows.
+
+## Account deletion
+
+Re-run `supabase/schema.sql` once after this file changes so `delete_own_account()` exists. The Cloud builds panel has a **Delete account** button; it calls that RPC and removes only the signed-in user's auth row. The `builds` table cascades from `auth.users`, so that user's cloud builds are deleted too. Local browser data is separate.
 
 ## Security checklist
 

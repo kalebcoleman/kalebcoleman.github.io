@@ -4,12 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Privacy Policy · Free Builder</title>
-<meta name="description" content="How this rebuild handles your data: local-only storage in your browser, no accounts, no analytics, no third-party trackers.">
+<meta name="description" content="How Free Builder handles local builds, optional free Supabase accounts, screenshots and face photos.">
 <link rel="canonical" href="/privacy">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Free Builder">
 <meta property="og:title" content="Privacy Policy · Free Builder">
-<meta property="og:description" content="How this rebuild handles your data: local-only storage in your browser, no accounts, no analytics, no third-party trackers.">
+<meta property="og:description" content="How Free Builder handles local builds, optional free Supabase accounts, screenshots and face photos.">
 <meta property="og:url" content="/privacy">
 <meta property="og:image" content="/og.png">
 <meta property="og:image:alt" content="Free Builder: NBA 2K27 MyPLAYER builder, cap-breaker planner and build finder.">
@@ -35,14 +35,20 @@
 </header>
 <main id="main" class="main">
   <h1 id="pageTitle" class="title">Privacy</h1>
-  <p class="lede" id="pageLede">This rebuild stores preferences and builds in your browser only. There are no accounts, no analytics and no server-side profile.</p>
-  <div id="view" class="view"></div>
+  <p class="lede" id="pageLede">Builds and preferences stay in your browser unless you choose to create a free cloud account. Screenshots and face photos are processed on-device.</p>
+  <div id="view" class="view">
+<section class="panel"><h2>Local data</h2><p>Theme, language, cap-breaker level, saved builds and other preferences are stored in this browser. If you never create an account, no build data is sent to a server.</p></section>
+<section class="panel"><h2>Optional free cloud account</h2><p>Creating an account is optional and free. Supabase stores your email address, build names, build codes and timestamps. It does not store screenshots, face photos, payment details or analytics. The Supabase client library is loaded from jsDelivr; Supabase handles authentication and the database. No other third-party trackers or advertising scripts are used.</p></section>
+<section class="panel"><h2>Screenshots and face photos</h2><p>Builder screenshots are read in this browser with the recovered layout reader and are never uploaded. Facescan photos are processed in the browser; the Facescan tool may fetch public Wikimedia/Openverse images when you search for a name, but your own photos stay on your device.</p></section>
+<section class="panel"><h2>Deleting data</h2><p>Sign in, open <a href="/builder#cloud">Cloud builds in the builder</a> and choose <b>Delete account</b>. That deletes the auth user and, by cascade, every cloud build saved to it. Local browser data remains until you clear this site's storage in your browser settings. See the <a href="/delete-account">Delete account</a> page for details.</p></section>
+<section class="panel"><h2>Contact</h2><p>This is an unofficial fan project. For a data request or a bug, use the repository issue tracker linked from the project page. Do not send account passwords.</p></section>
+</div>
   <p class="note" id="viewNote" role="status" aria-live="polite"></p>
 </main>
 <footer class="ftr">
   <section class="seo" aria-labelledby="seoH">
     <h2 id="seoH">About this page</h2>
-    <p>This rebuild stores preferences and builds in your browser only. There are no accounts, no analytics and no server-side profile.</p>
+    <p>Builds and preferences stay in your browser unless you choose to create a free cloud account. Screenshots and face photos are processed on-device.</p>
     <nav class="fb-seo-links" aria-label="Related pages"><a href="/builder">/builder</a> <a href="/cap-breakers">/cap-breakers</a> <a href="/badges">/badges</a> <a href="/takeovers">/takeovers</a> <a href="/animations">/animations</a> <a href="/archetypes">/archetypes</a> <a href="/jumpshot-lab/">/jumpshots</a> <a href="/shades">/shades</a></nav>
   </section>
   <div class="legal">
