@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
-import { editAttribute, filterSolverResults, fitBuild, prepareBuild } from '../assets/builder-rules.mjs';
+import { editAttribute, filterSolverResults, fitBuild, fitTargets, prepareBuild, writeTargets } from '../assets/builder-rules.mjs';
 import { loadRules } from './helpers/reference-rules.mjs';
 
 const { engine, kernel } = await loadRules();
@@ -111,4 +111,37 @@ test('solver results must be legal and preserve badge tiers before they are show
   const candidates = filterSolverResults([row(base), impossible, row(gain.build)], base, kernel, engine, { preserveBadges: true, sameFrame: true, requireGain: true });
   assert.equal(candidates.length, 1);
   assert.deepEqual(candidates[0].alloc, gain.build.alloc);
+});
+
+
+test('writing a set of targets uses validated edits and never passes the wall', () => {
+  const empty = prepareBuild({ ...example, alloc: Array(21).fill(25) }, kernel, engine).build;
+  const reachable = writeTargets(empty, { 2: 60, 6: 90 }, kernel, engine);
+  assert.equal(reachable.written, 2);
+  assert.deepEqual(reachable.limited, []);
+  assert.ok(reachable.build.alloc[2] >= 60);
+  assert.ok(engine.ratingOf(reachable.build.alloc, reachable.build.h - 63) < 99);
+
+  const atWall = prepareBuild({ p: 0, h: 75, w: 170, s: 81, lock: Array(21).fill(false), alloc: [67,82,28,28,42,79,88,63,97,97,93,25,59,33,25,25,33,89,78,32,59] }, kernel, engine).build;
+  const blocked = writeTargets(atWall, { 8: 99, 9: 99 }, kernel, engine);
+  assert.ok(blocked.limited.length > 0);
+  assert.ok(blocked.build.alloc.every((value, index) => value >= 25 && value <= kernel.W(blocked.build.h, blocked.build.w, blocked.build.s)[index]));
+  assert.ok(engine.ratingOf(blocked.build.alloc, blocked.build.h - 63) < 99);
+
+  const raised = editAttribute(empty, 2, 70, kernel, engine).build;
+  const keepHigher = writeTargets(raised, { 2: 60 }, kernel, engine, { onlyRaise: true });
+  assert.equal(keepHigher.build.alloc[2], 70, 'a badge target only raises an attribute');
+});
+
+
+test('an over-wall finder row can be fitted down while keeping its badge target', () => {
+  const row = { p: 0, h: 69, w: 152, s: 76, alloc: [92,92,60,25,59,99,99,99,99,99,99,42,81,98,48,44,53,99,99,49,99] };
+  assert.equal(prepareBuild(row, kernel, engine).ok, false);
+  const fitted = fitTargets(row, { 2: 60 }, kernel, engine);
+  assert.equal(fitted.ok, true, fitted.message);
+  assert.ok(fitted.build.alloc[2] >= 60, 'the requested badge target is kept');
+  assert.ok(fitted.overall < 99);
+  const band = kernel.bands(fitted.build.p).find(entry => entry.h === fitted.build.h);
+  assert.ok(fitted.build.w >= band.wmin && fitted.build.w <= band.wmax);
+  assert.ok(fitted.build.s >= fitted.build.h && fitted.build.s <= fitted.build.h + 6);
 });

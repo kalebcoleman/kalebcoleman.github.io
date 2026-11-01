@@ -7,7 +7,7 @@ export const heightBucket = height => Math.max(0, Math.min(30, height - 63));
 const integer = value => Number.isInteger(value) && Number.isFinite(value);
 const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
 
-export function prepareBuild(input, kernel, engine, { adjustBody = false, clampAttributes = false } = {}) {
+export function prepareBuild(input, kernel, engine, { adjustBody = false, clampAttributes = false, allowOverWall = false } = {}) {
   if (!engine || typeof engine.settle !== 'function' || typeof engine.ratingOf !== 'function') {
     return { ok: false, message: 'The build rules could not load. Try reloading the page.' };
   }
@@ -46,7 +46,7 @@ export function prepareBuild(input, kernel, engine, { adjustBody = false, clampA
     return { ok: false, message: 'Linked attributes cannot fit within this frame’s ceilings.' };
   }
   const overall = engine.ratingOf(alloc, heightBucket(h));
-  if (!Number.isFinite(overall) || overall >= OVERALL_LIMIT) {
+  if (!Number.isFinite(overall) || (!allowOverWall && overall >= OVERALL_LIMIT)) {
     return { ok: false, message: 'This build exceeds the 99 overall limit. Lower an attribute first.' };
   }
   return { ok: true, build: { ...input, h, w, s, alloc }, caps, overall, adjusted: h !== input.h || w !== input.w || s !== input.s || alloc.some((value, index) => value !== input.alloc[index]) };
@@ -81,6 +81,28 @@ export function editAttribute(current, index, requested, kernel, engine) {
   return { ...result, limited, message: limited ? `Adjusted to ${actual} to respect attribute limits, linked ratings and the 99 overall wall.` : linked ? 'Linked attribute ratings were updated.' : '' };
 }
 
+// Apply a set of attribute targets through the same validated edit path used
+// by the sliders. Targets that cannot fit under the frame ceilings, linked
+// ratings or the 99 wall are reported instead of being written anyway.
+export function writeTargets(current, targets, kernel, engine, { onlyRaise = false } = {}) {
+  let build = current;
+  const limited = [];
+  let written = 0;
+  for (const [key, value] of Object.entries(targets ?? {})) {
+    const index = Number(key);
+    const requested = onlyRaise ? Math.max(build.alloc[index] ?? 25, Number(value)) : value;
+    const result = editAttribute(build, index, requested, kernel, engine);
+    if (!result.ok) {
+      limited.push(index);
+      continue;
+    }
+    build = result.build;
+    if (result.limited) limited.push(index);
+    else written++;
+  }
+  return { ok: true, build, written, limited };
+}
+
 // Fit special reference cards into the normal builder without pretending the
 // original ratings are legal. Preserve their proportions as closely as the
 // 99 wall permits and return the adjusted allocation for the user to review.
@@ -102,6 +124,33 @@ export function fitBuild(input, kernel, engine) {
     if (result.ok) { low = mid; best = result; } else high = mid - 1;
   }
   return best;
+}
+
+// The reference finder sometimes returns a cap-max row whose raw overall is
+// over the wall even though its target is valid. Lower only the attributes the
+// user did not ask for until the row fits, keeping every target intact.
+export function fitTargets(input, targets, kernel, engine) {
+  const base = prepareBuild(input, kernel, engine, { adjustBody: true, clampAttributes: true, allowOverWall: true });
+  if (!base.ok) return base;
+  const protectedIndexes = new Set(Object.keys(targets ?? {}).map(Number));
+  let alloc = [...base.build.alloc];
+  for (let guard = 0; guard < 200; guard++) {
+    const checked = prepareBuild({ ...base.build, alloc }, kernel, engine, { allowOverWall: true });
+    if (!checked.ok) return checked;
+    alloc = [...checked.build.alloc];
+    if (checked.overall < OVERALL_LIMIT) {
+      const missesTarget = Object.entries(targets ?? {}).some(([index, value]) => (alloc[Number(index)] ?? 0) < Number(value));
+      return missesTarget ? { ok: false, message: 'The finder result cannot keep its targets under the 99 overall wall.' } : { ...checked, build: { ...checked.build, alloc } };
+    }
+    let changed = false;
+    for (let index = 0; index < 21; index++) {
+      if (protectedIndexes.has(index) || alloc[index] <= 25) continue;
+      alloc[index] -= 1;
+      changed = true;
+    }
+    if (!changed) break;
+  }
+  return { ok: false, message: 'The finder result cannot be fitted under the 99 overall wall.' };
 }
 
 export function loadBuildRules() {
