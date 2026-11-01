@@ -13,6 +13,7 @@
   <meta property="og:description" content="Practice shot timing, run free-throw sets, calibrate locally and get practice suggestions. Everything stays in your browser.">
   <meta property="og:url" content="/jumpshot-trainer/">
   <meta property="og:image" content="/og.png">
+  <link rel="canonical" href="/jumpshot-trainer/">
   <link rel="icon" href="/icon-192.png" sizes="192x192" type="image/png">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <link rel="manifest" href="/manifest.webmanifest">
@@ -127,7 +128,7 @@
             <div class="meter-panel" id="meterPanel" data-side="Bottom">
               <div class="meter-head">
                 <span>Timing meter</span>
-                <span class="window-chip" id="windowChip">±46 ms window</span>
+                <span class="window-chip" id="windowChip">92 ms window</span>
               </div>
               <div class="meter-labels" aria-hidden="true">
                 <span>Start</span>
@@ -254,8 +255,8 @@
             <div>
               <h3>Controls</h3>
               <dl class="shortcuts">
-                <div><dt><kbd>Space</kbd></dt><dd>Start a rep when idle and release when armed. Works when focus is not inside a form control.</dd></div>
-                <div><dt><kbd>S</kbd></dt><dd>Start a rep from anywhere outside a form control.</dd></div>
+                <div><dt><kbd>Space</kbd></dt><dd>Start a rep when idle and release when armed, while the timing bay is in view or the shot pad has focus.</dd></div>
+                <div><dt><kbd>S</kbd></dt><dd>Start a rep from anywhere outside a form field; the timing bay scrolls into view.</dd></div>
                 <div><dt><kbd>Esc</kbd></dt><dd>Cancel an armed shot without logging it.</dd></div>
                 <div><dt><kbd>Tab</kbd> / <kbd>Shift</kbd>+<kbd>Tab</kbd></dt><dd>Reach every control, including the shot pad.</dd></div>
               </dl>

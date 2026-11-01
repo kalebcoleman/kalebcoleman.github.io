@@ -20,6 +20,12 @@ Every timing number is an **estimated local practice target** derived from the s
 
 The 3D-looking court is a decorative CSS/SVG scene. It is not a game capture.
 
+## Integration
+
+The page is self-contained at `/jumpshot-trainer/` and reuses the existing `/assets/main-pW0vUW4U.css` theme tokens. Add it to navigation or link it from `/jumpshots` in a separate integration change. The page also deep-links to its own sections with `#shooting`, `#free-throws`, `#calibration`, `#recommendations` and `#setup`.
+
+It uses no shared JavaScript beyond the already-served main stylesheet, and it writes only the `fb.jumpshotTrainer.v1` localStorage key.
+
 ## Run locally
 
 From the repository root:

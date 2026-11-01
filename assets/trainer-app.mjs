@@ -163,6 +163,7 @@ let audioContext = null;
 let scheduledCueNodes = [];
 let lastRecommendation = null;
 let persistPaused = false;
+let storageFailureAnnounced = false;
 let settingsFormBuilt = false;
 let idCounter = 0;
 
@@ -214,6 +215,16 @@ function firstSentence(text) {
   return end === -1 ? value : value.slice(0, end + 1);
 }
 
+function flashButton(button, text) {
+  if (!button) return;
+  if (!button.dataset.originalLabel) button.dataset.originalLabel = button.textContent;
+  button.textContent = text;
+  window.clearTimeout(Number(button.dataset.flashTimer) || 0);
+  button.dataset.flashTimer = String(window.setTimeout(() => {
+    button.textContent = button.dataset.originalLabel;
+  }, 1800));
+}
+
 function createId(prefix) {
   idCounter += 1;
   const uuid = globalThis.crypto?.randomUUID?.().slice(0, 8)
@@ -261,12 +272,17 @@ function persistNow() {
     ui: { tab: activeTab },
   });
   if (saved) {
+    storageFailureAnnounced = false;
     setStorageMessage(`Saved on this device · ${formatTimeNow()}`);
   } else {
     setStorageMessage(
       'Local saving is unavailable. Practice still works in this tab, but changes will not persist.',
       'Browser storage could not be written. Check private-browsing or storage settings.',
     );
+    if (!storageFailureAnnounced) {
+      storageFailureAnnounced = true;
+      announce('Local saving is unavailable. Practice still works in this tab, but changes will not persist.');
+    }
   }
 }
 
@@ -1372,12 +1388,14 @@ async function copyShareLink() {
   try {
     if (!navigator.clipboard?.writeText) throw new Error('Clipboard API unavailable');
     await navigator.clipboard.writeText(url);
+    flashButton(dom.copyShareBtn, 'Copied');
     announce('Jumpshot Lab link copied to the clipboard.');
   } catch {
     dom.shareOutput.focus();
     dom.shareOutput.select();
     try {
       document.execCommand('copy');
+      flashButton(dom.copyShareBtn, 'Copied');
       announce('Jumpshot Lab link selected and copied.');
     } catch {
       announce('Clipboard access is unavailable. The link is selected for manual copying.');
@@ -1396,6 +1414,7 @@ function exportPracticeData() {
   link.click();
   link.remove();
   window.setTimeout(() => URL.revokeObjectURL(url), 1200);
+  flashButton(dom.exportBtn, 'Exported');
   announce(`Exported ${attempts.length} local reps and the current setup.`);
 }
 
@@ -1547,7 +1566,7 @@ function wireEvents() {
   dom.clearDataBtn.addEventListener('click', clearAllData);
 
   document.addEventListener('keydown', (event) => {
-    if (event.defaultPrevented || event.altKey || event.ctrlKey || event.metaKey) return;
+    if (event.defaultPrevented || event.altKey || event.ctrlKey || event.metaKey || event.repeat) return;
     const target = event.target;
     const editable = target instanceof HTMLElement
       && Boolean(target.closest('input, select, textarea, [contenteditable="true"]'));
@@ -1562,14 +1581,25 @@ function wireEvents() {
     }
     if (event.key === ' ' || event.code === 'Space') {
       if (interactive) return;
+      if (activeShot) {
+        event.preventDefault();
+        releaseShot();
+        return;
+      }
+      /*
+       * Do not steal Space for shot timing when the timing bay is off-screen;
+       * off-screen Space should keep its normal page-scroll behaviour.
+       */
+      const padRect = dom.shotPad.getBoundingClientRect();
+      const padInView = padRect.top < window.innerHeight && padRect.bottom > 0;
+      if (!padInView) return;
       event.preventDefault();
-      if (activeShot) releaseShot();
-      else startShot(modeForTab());
+      startShot(modeForTab());
       return;
     }
     if (event.key.toLowerCase() === 's' && !editable) {
       event.preventDefault();
-      if (!activeShot) startShot(modeForTab());
+      if (!activeShot) startShot(modeForTab(), { scroll: true });
     }
   });
 
