@@ -14,7 +14,7 @@ Open `http://localhost:8000/`. A local web server is needed for browser features
 node --test tests/*.mjs
 ```
 
-The current app includes a build editor and finder, cap-breaker and badge tools, an animation catalog, archetype and player comparisons, a Jumpshot Lab composer plus a browser-local Practice Lab with timed drills, free throws and calibration, a Mechanics Lab with a searchable 368-style motion catalog, and browser-local build storage. Some features are still being rebuilt; see [the feature research](docs/goated-build-lab-research.md) for the comparison with the earlier site and known limitations.
+The current app includes a build editor and finder, cap-breaker and badge tools, an animation catalog, archetype and player comparisons, a Jumpshot Lab composer plus a browser-local Practice Lab with timed drills, free throws and calibration, a Mechanics Lab with a searchable 368-style motion catalog, and browser-local build storage. Some features are still being rebuilt; see [the feature research](docs/goated-build-lab-research.md) for the comparison with the earlier site, and [the free-feature parity check](docs/parity-check-2026-11-01.md) for the signed-out browser comparison and remaining visual gaps.
 
 The repository currently contains compiled/minified JavaScript and a WebAssembly engine. The original unminified source for every shipped component has not yet been recovered. [REA setup](REA-SETUP.md) documents the project-local reverse-engineering configuration.
 
