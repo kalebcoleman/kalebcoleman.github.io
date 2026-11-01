@@ -88,12 +88,22 @@ function ensureActions(side) {
     'Fill to 99', 'Reset', 'Clear breakers', 'Optimize this build',
     'Min-max this build', 'Find a better frame', 'Max badge tokens',
   ]);
+  const shortLabel = {
+    'Min-max this build': 'Min-max',
+    'Find a better frame': 'Better frame',
+    'Optimize this build': 'Optimize',
+    'Max badge tokens': 'Max tokens',
+  };
   for (const button of document.querySelectorAll('#view button')) {
     const label = button.textContent.trim();
     if (!wanted.has(label) || grid.contains(button)) continue;
     button.classList.add('fb-action');
     if (label === 'Fill to 99') button.classList.add('primary');
     else button.classList.remove('primary');
+    if (shortLabel[label]) {
+      button.setAttribute('aria-label', button.getAttribute('aria-label') || label);
+      button.textContent = shortLabel[label];
+    }
     grid.append(button);
   }
   for (const fieldset of document.querySelectorAll('#view .fieldset')) {
