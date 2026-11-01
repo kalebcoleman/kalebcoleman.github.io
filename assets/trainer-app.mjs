@@ -165,7 +165,6 @@ let lastRecommendation = null;
 let persistPaused = false;
 let settingsFormBuilt = false;
 let idCounter = 0;
-const reduceMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches ?? false;
 
 function clamp(value, low, high) {
   return Math.max(low, Math.min(high, value));
@@ -1218,6 +1217,18 @@ function ensureFreeThrowRun() {
 function startShot(mode = modeForTab(), { scroll = false } = {}) {
   if (activeShot) return;
   cancelAutoTimer();
+  /*
+   * Panel buttons can sit well below the cockpit. Jump to the pad before the
+   * clock starts so the player never loses the first part of a rep to a
+   * smooth-scroll animation.
+   */
+  if (scroll) {
+    try {
+      dom.shotPad.scrollIntoView({ block: 'center', behavior: 'auto' });
+    } catch {
+      dom.shotPad.scrollIntoView();
+    }
+  }
   if (mode === 'freeThrow') ensureFreeThrowRun();
   const shot = createShot(settings, mode, Math.random);
   shot.startedAtEpoch = Date.now();
@@ -1236,22 +1247,14 @@ function startShot(mode = modeForTab(), { scroll = false } = {}) {
   setNeutralFeedback(settings.meter === 'Off'
     ? 'Shot armed. Release on the cue flash or the audio cue.'
     : 'Shot armed. Release when the marker reaches the green band.');
+  dom.shotPad.focus({ preventScroll: true });
   /*
-   * The display work above happens before the clock starts, so the audio cue,
-   * the visual marker and the eventual release all share one start time.
+   * The display and focus work above happens before the clock starts, so the
+   * audio cue, the visual marker and the eventual release share one start time.
    */
   activeShot.startedAt = performance.now();
   scheduleCue(activeShot);
   shotFrame = window.requestAnimationFrame(tickShot);
-  dom.shotPad.focus({ preventScroll: true });
-  if (scroll) {
-    const behavior = reduceMotion ? 'auto' : 'smooth';
-    try {
-      dom.shotPad.scrollIntoView({ block: 'center', behavior });
-    } catch {
-      dom.shotPad.scrollIntoView();
-    }
-  }
 }
 
 function releaseShot() {
