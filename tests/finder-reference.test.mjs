@@ -3,6 +3,8 @@ import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import vm from 'node:vm';
 import { capBreakerFinderLink, finderPayload, parseFinderLink } from '../assets/finder-query.mjs';
+import { prepareBuild } from '../assets/builder-rules.mjs';
+import { loadRules } from './helpers/reference-rules.mjs';
 
 test('cap-breaker row links preserve frame, target and breaker budget', () => {
   const row = { p: 1, h: 75, a: 6, tgt: 91 };
@@ -16,6 +18,7 @@ test('cap-breaker row links preserve frame, target and breaker budget', () => {
 
 test('reference worker searches the selected height before ranking results', { timeout: 90000 }, async () => {
   // The actual shipped classic worker, with only the host globals a worker provides.
+  const { engine, kernel } = await loadRules();
   const source = await readFile(new URL('../assets/reference-finder-worker.js', import.meta.url), 'utf8');
   const raw = finderPayload({ position: 0, anyPosition: true, height: '75', caps: '0', targets: { 'Three-Point': 78 } });
   assert.deepEqual(raw.hset, [75]);
@@ -35,6 +38,10 @@ test('reference worker searches the selected height before ranking results', { t
   assert.ok(result.res.length > 0, 'a legal height should return builds');
   assert.ok(result.res.every(row => row.body[0] === 75), 'every returned build uses the requested height');
   assert.ok(result.res.every(row => row.alloc[6] >= 78), 'every returned build meets its three-point target');
+  for (const row of result.res) {
+    const checked = prepareBuild({ p: row.pos, h: row.body[0], w: row.body[1], s: row.body[2], alloc: row.alloc }, kernel, engine);
+    assert.equal(checked.ok, true, checked.message);
+  }
   const secondAnswer = new Promise((resolve, reject) => {
     complete = message => {
       if (message.type === 'done') resolve(message);

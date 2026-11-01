@@ -1,4 +1,5 @@
 import { n as loadKernel } from './kernel-BWpHXNaH.js';
+import { loadBuildRules, prepareBuild } from './builder-rules.mjs';
 
 const TABS = [
   { id: 'goats', label: 'GOAT builds', url: '/data/reference-builds/goats.json' },
@@ -47,7 +48,7 @@ function buildQuery(position, height, weight, wingspan, alloc) {
 async function init() {
   const root = document.querySelector('#builds-page');
   if (!root) return;
-  const kernel = await loadKernel();
+  const [kernel, rules] = await Promise.all([loadKernel(), loadBuildRules()]);
   const cache = new Map();
   let active = 'goats';
   let position = '';
@@ -104,9 +105,10 @@ async function init() {
     const overall = kind === 'goated' && Number.isFinite(Number(record.card?.overall))
       ? Number(record.card.overall)
       : kernel.overallApprox(alloc, ceilings);
-    const link = kind === 'presets'
-      ? `/builder?${record.code}`
-      : `/builder?${buildQuery(positionIndex, height, weight, wingspan, alloc)}`;
+    const checked = prepareBuild({ p: positionIndex, h: height, w: weight, s: wingspan, alloc }, kernel, rules);
+    const legal = checked.ok;
+    const query = kind === 'presets' ? record.code : buildQuery(positionIndex, height, weight, wingspan, alloc);
+    const link = `/builder?${query}${legal ? '' : '&fit=1'}`;
     const subtitle = kind === 'presets'
       ? `${record.position} · ${record.heightRangeInches?.min === record.heightRangeInches?.max ? feetInches(record.heightRangeInches.min) : record.heightRangeInches ? `${feetInches(record.heightRangeInches.min)}–${feetInches(record.heightRangeInches.max)}` : 'Any height'} · ${record.source ?? 'preset'}`
       : `${record.position ?? ''} · ${feetInches(height)} · ${weight} lb · ${feetInches(wingspan)} wingspan${record.teamSeason ? ` · ${record.teamSeason}` : ''}`;
@@ -118,12 +120,13 @@ async function init() {
         el('h3', { text: record.name }),
         el('p', { class: 'muted', text: subtitle }),
         why ? el('p', { class: 'build-meta', text: why }) : null,
+        !legal ? el('p', { class: 'muted breaker-note', text: 'Reference ratings exceed normal builder limits. Opening this card creates a legal fitted version.' }) : checked.adjusted ? el('p', { class: 'muted breaker-note', text: 'Linked ratings will be updated when opened in the builder.' }) : null,
         el('div', { class: 'attr-grid' }, order.map(name => el('div', { class: 'attr-cell' }, [
           el('span', { class: 'muted', text: name }),
           el('b', { text: String(attributes[name] ?? 0) }),
         ]))),
         el('p', { class: 'fieldset' }, [
-          el('a', { class: 'btn primary', href: link, text: 'Open in builder' }),
+          el('a', { class: 'btn primary', href: link, text: legal ? 'Open in builder' : 'Fit to builder' }),
           kind === 'presets' ? el('code', { class: 'code', text: record.code }) : null,
         ]),
       ]),

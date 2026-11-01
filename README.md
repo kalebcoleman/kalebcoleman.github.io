@@ -16,6 +16,8 @@ node --test tests/*.mjs
 
 GitHub Actions runs the same suite on pushes and pull requests. The cap-breaker finder can prefill a frame and target in the build finder; result cards show base and post-breaker values. Opening a result in the builder imports its base allocation, so breaker allocations still need to be applied separately.
 
+The builder enforces legal frame limits, linked attributes, and the 99 overall wall using the reference engine. Some special reference cards cannot be made exactly in the normal builder; **Fit to builder** adjusts them to a legal frame and allocation and shows a notice. Invalid imported builds are rejected instead of silently saved.
+
 The current app includes a build editor, a dedicated reference-finder page, recovered GOAT/GOATED/preset builds, the reference cap-breaker finder table, badge and takeover catalogs, an animation catalog, archetype and player comparisons, the game-arithmetic Jumpshot Lab trainer plus a browser-local practice lab, a Mechanics Lab with a searchable 368-style motion catalog, and browser-local build storage. Some features are still being rebuilt; see [the feature research](docs/goated-build-lab-research.md) for the comparison with the earlier site, and [the free-feature parity check](docs/parity-check-2026-11-01.md) for the signed-out browser comparison and remaining visual gaps.
 
 The repository currently contains compiled/minified JavaScript and a WebAssembly engine. The original unminified source for every shipped component has not yet been recovered. [REA setup](REA-SETUP.md) documents the project-local reverse-engineering configuration.

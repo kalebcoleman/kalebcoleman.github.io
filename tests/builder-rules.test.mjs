@@ -1,0 +1,85 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { readFile } from 'node:fs/promises';
+import { editAttribute, fitBuild, prepareBuild } from '../assets/builder-rules.mjs';
+import { loadRules } from './helpers/reference-rules.mjs';
+
+const { engine, kernel } = await loadRules();
+const example = { p: 0, h: 79, w: 180, s: 79, alloc: [70,80,80,50,50,78,78,88,90,90,83,50,85,80,50,50,50,85,80,60,75], lock: Array(21).fill(false) };
+
+test('preparing a build applies the reference linked-attribute floors', () => {
+  const result = prepareBuild(example, kernel, engine);
+  assert.equal(result.ok, true);
+  assert.notDeepEqual(result.build.alloc, example.alloc);
+  const settled = [...result.build.alloc];
+  engine.settle(settled, result.build.h, result.caps);
+  assert.deepEqual(result.build.alloc, settled);
+  assert.ok(result.overall < 99);
+  assert.equal(example.alloc[0], 70, 'the original input was not mutated');
+});
+
+test('edits and linked increases cannot pass the actual 99 overall wall', () => {
+  let build = prepareBuild(example, kernel, engine).build;
+  for (let attribute = 0; attribute < 21; attribute++) {
+    const result = editAttribute(build, attribute, 99, kernel, engine);
+    assert.equal(result.ok, true);
+    assert.ok(result.overall < 99);
+    assert.ok(result.build.alloc.every((value, i) => value >= 25 && value <= result.caps[i]));
+    build = result.build;
+  }
+  const blocked = editAttribute(build, 6, 999, kernel, engine);
+  assert.equal(blocked.ok, true);
+  assert.equal(blocked.limited, true);
+  assert.ok(engine.ratingOf(blocked.build.alloc, blocked.build.p) < 99);
+});
+
+test('invalid body, out-of-range attributes and over-budget imports are rejected', () => {
+  assert.equal(prepareBuild({ ...example, p: 20 }, kernel, engine).ok, false);
+  assert.equal(prepareBuild({ ...example, s: 120 }, kernel, engine).ok, false);
+  assert.equal(prepareBuild({ ...example, w: 999 }, kernel, engine).ok, false);
+  assert.equal(prepareBuild({ ...example, alloc: Array(21).fill(100) }, kernel, engine).ok, false);
+  const caps = kernel.W(example.h, example.w, example.s);
+  assert.match(prepareBuild({ ...example, alloc: caps }, kernel, engine).message, /99 overall/);
+});
+
+test('body changes adjust weight and wingspan to legal frame boundaries', () => {
+  const baseline = prepareBuild({ ...example, alloc: Array(21).fill(25) }, kernel, engine).build;
+  const result = prepareBuild({ ...baseline, w: 999, s: 999 }, kernel, engine, { adjustBody: true, clampAttributes: true });
+  assert.equal(result.ok, true);
+  const band = kernel.bands(result.build.p).find(row => row.h === result.build.h);
+  assert.equal(result.build.w, band.wmax);
+  assert.equal(result.build.s, result.build.h + 6);
+});
+
+
+test('every catalog card can be fitted to legal builder limits', async () => {
+  let originalInvalid = 0;
+  for (const collection of ['goats', 'goated', 'meta-builds']) {
+    const data = JSON.parse(await readFile(new URL(`../data/reference-builds/${collection}.json`, import.meta.url), 'utf8'));
+    for (const record of data.builds ?? data.presets) {
+      const raw = record.decodedCode ?? record;
+      const input = { p: raw.positionIndex, h: raw.heightInches, w: raw.weightLb, s: raw.wingspanInches,
+        alloc: data.attributeOrder.map(name => raw.attributes[name]) };
+      if (!prepareBuild(input, kernel, engine).ok) originalInvalid++;
+      const result = fitBuild(input, kernel, engine);
+      assert.equal(result.ok, true, `${record.name}: ${result.message}`);
+      assert.ok(result.overall < 99, record.name);
+      assert.ok(result.build.alloc.every((rating, i) => rating >= 25 && rating <= result.caps[i]), record.name);
+    }
+  }
+  assert.ok(originalInvalid > 0, 'the catalog includes special cards that need fitting');
+});
+
+test('optimizer returns an editable build within the 99 wall', { timeout: 30000 }, async () => {
+  const { runInThisContext } = await import('node:vm');
+  const worker = await readFile(new URL('../assets/reference-finder-worker.js', import.meta.url), 'utf8');
+  const base = prepareBuild(example, kernel, engine).build;
+  let answer;
+  globalThis.postMessage = message => { if (message.type === 'b:opt' || message.type === 'b:err') answer = message; };
+  runInThisContext(worker, { filename: 'reference-finder-worker.js' });
+  globalThis.onmessage({ data: { type: 'b:opt', obj: 'meta', st: { p: base.p, h: base.h, w: base.w, ws: base.s, alloc: base.alloc, lock: base.lock, order: [], keep: false } } });
+  assert.equal(answer?.type, 'b:opt', answer?.msg);
+  const checked = prepareBuild({ ...base, alloc: answer.alloc }, kernel, engine);
+  assert.equal(checked.ok, true, checked.message);
+  assert.ok(checked.overall < 99);
+});
