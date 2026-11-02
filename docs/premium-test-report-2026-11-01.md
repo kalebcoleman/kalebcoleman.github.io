@@ -129,16 +129,17 @@ At 390 × 844, the document had no horizontal overflow on `/builder/`, `/finder/
 `/face-scan/` and `/jumpshot-lab/`. The nav is an intentional horizontal scroller. The only
 undersized interactive controls found were in the recovered Jumpshot Lab.
 
-## Post-fix verification — 1c8f7fa
+## Post-fix verification — 08ca9e7
 
 Feature commits `91955f4` (finder/Fuse/visual), `d372a75` (Build Doctor/Undo), `829136d`
 (saved searches), `5db21e9` (44×44/cap wording), `5213404` (touch stability, mobile DOM
 order, batching and unreachable badge targets), `81f7bc8` (vertical swipe direction lock,
 clipboard fallback), `322e697` (coarse-pointer copy wording) `63a6f5b` (cloud deletion clears
 the local session only), `e2989e6` (build from a sentence), `fb406ca` (sentence apply
-receipt, cancel copy and badge goals), `0f228ba` (faded applied action) and `1c8f7fa`
-(clear-review message after an external Undo). Verified by the builder thread against `main`
-on the local static server, using
+receipt, cancel copy and badge goals), `0f228ba` (faded applied action), `1c8f7fa`
+(clear-review message after an external Undo) and `08ca9e7` (finder result cards with badge
+tiers and tokens). Verified by the builder thread against `main` on the local static server,
+using
 headless Chromium 140 at 1280 px and 390 px. The historical matrix above is the earlier
 `b37abd0` audit; this section is the post-fix state.
 
@@ -332,6 +333,31 @@ Screenshots:
 The applied screenshots show the sentence panel, the single receipt and the post-apply action
 row (Applied / Undo / Clear review) at both widths.
 
+### Finder result cards with badge tiers and tokens (08ca9e7)
+
+The builder finder now renders each result as a card instead of a table row. Each card shows
+position, body, true overall, targets met, finder points, breaker count, badge tiers earned,
+token budget, and the top five earned badges (the full list is in the title). The numbers come
+from `GBLE.badgeTiersOf` and `GBLE.tokensAt`; the Load button still uses the existing
+`Ve`/`__applyCandidate` path and applies the same breaker plan as before.
+
+A **Sort results** control reorders the cards client-side without re-running the search:
+True overall (default), Badge tiers, Tokens, and Finder order. `assets/finder-power.mjs` is
+unminified and unit-tested; the builder bundle only imports it and renders the cards.
+
+`tests/finder-power.test.mjs` covers the tier count, token sum, top-badge ordering,
+unavailable-engine fallback, all four sort modes and non-mutation.
+`tests/browser/builder-finder.browser.cjs` now asserts 12 cards, real badge/token values,
+descending order for all three sorts, restoration of engine order, a Load whose badge/token
+values match the loaded build, 44 px sort/Load controls at 390 and no overflow. Not exercised:
+any-position searches, target searches with cards, and non-default positions; the browser test
+uses the default no-target PG search.
+
+Screenshots:
+
+- `docs/evidence/finder-cards/finder-cards-1280.png`
+- `docs/evidence/finder-cards/finder-cards-390.png`
+
 ### Cloud account deletion (63a6f5b)
 
 - `deleteAccountWith()` runs `delete_own_account` first, then `signOut({ scope: 'local' })`.
@@ -360,7 +386,7 @@ row (Applied / Undo / Clear review) at both widths.
   pre-fills the same controls. The shared link was verified at 390.
 - Browser tests: reset → Diagnose → Apply → Undo → Plan to target → Apply plan → named version,
   and save → load → run → shared link, at 1280 and 390, with no console errors or overflow.
-- `node --test tests/*.mjs`: **146/146 pass** (Build Doctor, cloud, parser/validation and the existing suites). Independent clean-archive run on `766a7db`: 103/103.
+- `node --test tests/*.mjs`: **152/152 pass** (Build Doctor, cloud, parser/validation, finder power and the existing suites). Independent clean-archive run on `766a7db`: 103/103.
 
 ### Mechanics Lab and other P2
 
