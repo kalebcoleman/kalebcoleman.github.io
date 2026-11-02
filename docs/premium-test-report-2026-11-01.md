@@ -129,15 +129,15 @@ At 390 × 844, the document had no horizontal overflow on `/builder/`, `/finder/
 `/face-scan/` and `/jumpshot-lab/`. The nav is an intentional horizontal scroller. The only
 undersized interactive controls found were in the recovered Jumpshot Lab.
 
-## Post-fix verification — fb406ca
+## Post-fix verification — 0f228ba
 
 Feature commits `91955f4` (finder/Fuse/visual), `d372a75` (Build Doctor/Undo), `829136d`
 (saved searches), `5db21e9` (44×44/cap wording), `5213404` (touch stability, mobile DOM
 order, batching and unreachable badge targets), `81f7bc8` (vertical swipe direction lock,
 clipboard fallback), `322e697` (coarse-pointer copy wording) `63a6f5b` (cloud deletion clears
-the local session only), `e2989e6` (build from a sentence) and `fb406ca` (sentence apply
-receipt, cancel copy and badge goals). Verified by the builder thread against `main` on the
-local static server, using
+the local session only), `e2989e6` (build from a sentence), `fb406ca` (sentence apply
+receipt, cancel copy and badge goals) and `0f228ba` (faded applied action). Verified by the
+builder thread against `main` on the local static server, using
 headless Chromium 140 at 1280 px and 390 px. The historical matrix above is the earlier
 `b37abd0` audit; this section is the post-fix state.
 
