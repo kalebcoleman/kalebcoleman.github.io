@@ -18,6 +18,7 @@ const { chromium } = require('playwright');
       overall: document.querySelector('.overall')?.textContent ?? '',
       three: document.querySelector('#attr-6')?.value ?? '',
       perimeter: document.querySelector('#attr-12')?.value ?? '',
+      dd: document.querySelector('#attr-2')?.value ?? '',
       rowTop: Math.round((document.querySelector('[data-row="0"]')?.getBoundingClientRect().top ?? 0) + window.scrollY),
       cap: localStorage.getItem('fb.lbrk'),
     }));
@@ -41,7 +42,7 @@ const { chromium } = require('playwright');
     if (!/reachable/.test(reviewText)) throw new Error(`${label}: reachable target not marked`);
     if (during.overall !== before.overall || during.three !== before.three || during.perimeter !== before.perimeter) throw new Error(`${label}: review changed the build`);
     if (during.rowTop !== before.rowTop) throw new Error(`${label}: review shifted the attribute rows`);
-    const apply = panel().locator('.sentence-actions').getByRole('button', { name: /Apply/ });
+    const apply = panel().locator('.sentence-actions .btn.primary');
     if (await apply.count() !== 1) throw new Error(`${label}: Apply missing`);
     if (label === 'mobile' && (await apply.evaluate(button => button.getBoundingClientRect().height)) < 44) throw new Error('mobile Apply is under 44px');
     await apply.click();
@@ -50,6 +51,37 @@ const { chromium } = require('playwright');
     if (after.overall === before.overall) throw new Error(`${label}: Apply did not change the overall`);
     if (Number(after.three) < 80 || Number(after.perimeter) < 75) throw new Error(`${label}: applied attributes are wrong: ${JSON.stringify(after)}`);
     if (after.cap !== '22') throw new Error(`${label}: breaker budget was not stored: ${after.cap}`);
+    if (!(await apply.isDisabled())) throw new Error(`${label}: Apply stayed enabled after success`);
+    if ((await apply.innerText()).trim() !== 'Applied') throw new Error(`${label}: Apply was not replaced by a confirmed state`);
+    const receipt = panel().locator('.sentence-receipt');
+    if (await receipt.count() !== 1 || !(await receipt.isVisible())) throw new Error(`${label}: applied receipt missing`);
+    if (!/^Applied /.test((await receipt.innerText()).trim())) throw new Error(`${label}: applied receipt has the wrong text: ${await receipt.innerText()}`);
+    if ((await panel().locator('.sentence-actions').getByRole('button', { name: 'Undo' }).count()) !== 1) throw new Error(`${label}: Undo missing after apply`);
+    if ((await panel().locator('.sentence-actions').getByRole('button', { name: 'Clear review' }).count()) !== 1) throw new Error(`${label}: Clear review missing after apply`);
+    await page.evaluate(() => {
+      const button = document.querySelector('.sentence-actions .btn.primary');
+      button.click();
+      button.dispatchEvent(new MouseEvent('click', { bubbles: true }));
+    });
+    await page.waitForTimeout(300);
+    if (await panel().locator('.sentence-receipt').count() !== 1) throw new Error(`${label}: double Apply stacked receipts`);
+    const afterDouble = await read();
+    if (afterDouble.overall !== after.overall || afterDouble.three !== after.three || afterDouble.perimeter !== after.perimeter) throw new Error(`${label}: double Apply changed the build again`);
+    await panel().locator('.sentence-actions').getByRole('button', { name: 'Undo' }).click();
+    await page.waitForTimeout(700);
+    const afterUndo = await read();
+    if (afterUndo.overall !== before.overall || afterUndo.three !== before.three) throw new Error(`${label}: Undo did not restore the build`);
+    if (Number(afterUndo.cap || 0) !== 0) throw new Error(`${label}: Undo did not restore the breaker level: ${afterUndo.cap}`);
+    await panel().locator('.sentence-actions .btn.primary').click();
+    await page.waitForTimeout(700);
+    const afterReapply = await read();
+    if (afterReapply.overall !== after.overall || afterReapply.three !== after.three) throw new Error(`${label}: reapplying after Undo did not restore the applied build`);
+    await panel().locator('.sentence-actions').getByRole('button', { name: 'Clear review' }).click();
+    await page.waitForTimeout(300);
+    const cancelStatus = (await panel().locator('.sentence-status').innerText()).trim();
+    if (!/applied build stays/.test(cancelStatus) || /not changed/.test(cancelStatus)) throw new Error(`${label}: clear-review message lied: ${cancelStatus}`);
+    const afterCancel = await read();
+    if (afterCancel.overall !== after.overall) throw new Error(`${label}: clearing the review changed the applied build`);
 
     // Unreachable request: review must show the cap reason, and apply the closest legal value.
     await page.evaluate(() => localStorage.removeItem('fb.lbrk'));
@@ -65,6 +97,27 @@ const { chromium } = require('playwright');
     await page.waitForTimeout(700);
     const afterApply = await read();
     if (Number(afterApply.perimeter) > 87) throw new Error(`${label}: applied an over-cap perimeter value: ${afterApply.perimeter}`);
+
+    // Badge-only request: badge-derived rows are labelled, the impossible tier is reported once,
+    // and nothing is applied until the user confirms.
+    await open();
+    const beforeBadge = await read();
+    await review(`6'4 PG HOF posterizer`);
+    const badgeText = await panel().locator('.sentence-review').innerText();
+    const badgeSources = await panel().locator('.sentence-source').allInnerTexts();
+    if (badgeSources.length !== 2 || badgeSources.some(text => text.trim() !== 'from Posterizer')) throw new Error(`${label}: badge-derived rows are not labelled: ${JSON.stringify(badgeSources)}`);
+    if ((badgeText.match(/unreachable on this body/g) ?? []).length !== 1) throw new Error(`${label}: badge unreachable was not reported exactly once: ${badgeText}`);
+    if (!/HOF Posterizer is unreachable on this body: needs Driving Dunk 99 \(cap 90\)/.test(badgeText)) throw new Error(`${label}: badge unreachable detail missing: ${badgeText}`);
+    if (/Unreachable:/.test(badgeText)) throw new Error(`${label}: badge-only request used the explicit-target warning: ${badgeText}`);
+    const badgeApplyLabel = (await panel().locator('.sentence-actions .btn.primary').innerText()).trim();
+    if (badgeApplyLabel !== 'Apply to builder') throw new Error(`${label}: badge-only request was labelled ${badgeApplyLabel}`);
+    const duringBadge = await read();
+    if (duringBadge.overall !== beforeBadge.overall || duringBadge.dd !== beforeBadge.dd) throw new Error(`${label}: badge review changed the build`);
+    await panel().locator('.sentence-actions .btn.primary').click();
+    await page.waitForTimeout(700);
+    const afterBadge = await read();
+    if (afterBadge.overall === beforeBadge.overall) throw new Error(`${label}: badge Apply did not change the build`);
+    if (afterBadge.dd !== '90') throw new Error(`${label}: badge Apply did not set Driving Dunk to the cap: ${afterBadge.dd}`);
 
     // Nonsense: only the didn't-understand list, no Apply.
     await open();

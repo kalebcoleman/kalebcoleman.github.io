@@ -406,6 +406,11 @@ export function validateSentence(parsed, { G, current }) {
     return { ...row, actual, reachable, reason };
   });
 
+  for (const goal of badgeGoals) {
+    if (goal.missing) continue;
+    goal.unreachable = rows.filter(row => row.source === `badge:${goal.name}` && !row.reachable);
+  }
+
   const assignmentSum = parsed.breakers.assignments.reduce((sum, item) => sum + item.amount, 0);
   const breakerLevel = parsed.breakers.budget ?? assignmentSum;
   const breakerShortfall = parsed.breakers.budget != null ? Math.max(0, assignmentSum - parsed.breakers.budget) : 0;
@@ -513,8 +518,11 @@ export function mountBuildFromSentence(root, { getBuild, applyBuild, setBreakerL
       for (const row of result.targetRows) {
         const tr = node('tr');
         const name = window.GBLE?.ATTRS?.[row.attribute] ?? `Attribute ${row.attribute + 1}`;
+        const nameCell = node('td');
+        nameCell.append(node('span', null, name));
+        if (row.source?.startsWith('badge:')) nameCell.append(node('small', 'sentence-source', `from ${row.source.slice(6)}`));
         tr.append(
-          node('td', null, name),
+          nameCell,
           node('td', null, String(row.base)),
           node('td', null, row.mode === 'max' ? `max ${row.requested}` : String(row.requested)),
           node('td', null, String(row.cap)),
@@ -531,10 +539,13 @@ export function mountBuildFromSentence(root, { getBuild, applyBuild, setBreakerL
       const list = node('ul', 'list sentence-badges');
       for (const goal of result.badgeGoals) {
         const tier = window.GBLE?.TIERNAME?.[goal.tier] ?? `Tier ${goal.tier}`;
+        const unreachable = goal.unreachable ?? [];
         const text = goal.missing
           ? `${goal.name} ${tier}: badge not found`
-          : `${goal.name} ${tier}: current ${window.GBLE?.TIERNAME?.[goal.current] ?? 'not earned'} · ${goal.chosen?.map(item => `${window.GBLE?.ATTRS?.[item.attribute] ?? item.attribute} ${item.rating}`).join(goal.isOr ? ' or ' : ' + ') ?? 'no requirements'}`;
-        list.append(node('li', goal.missing ? 'warn' : null, text));
+          : unreachable.length
+            ? `${tier} ${goal.name} is unreachable on this body: needs ${unreachable.map(row => `${window.GBLE?.ATTRS?.[row.attribute] ?? row.attribute} ${row.requested} (${row.reason})`).join(', ')}`
+            : `${goal.name} ${tier}: current ${window.GBLE?.TIERNAME?.[goal.current] ?? 'not earned'} · ${goal.chosen?.map(item => `${window.GBLE?.ATTRS?.[item.attribute] ?? item.attribute} ${item.rating}`).join(goal.isOr ? ' or ' : ' + ') ?? 'no requirements'}`;
+        list.append(node('li', goal.missing || unreachable.length ? 'warn' : null, text));
       }
       lines.push(node('h3', null, 'Badge goals'), list);
     }
@@ -548,39 +559,77 @@ export function mountBuildFromSentence(root, { getBuild, applyBuild, setBreakerL
       lines.push(node('p', result.breakerShortfall || result.breakerTooHigh ? 'warn' : 'muted', `Breakers: budget ${budget}${assignments ? ` · ${assignments}` : ''}${shortfall}${result.breakerTooHigh ? ' · builder supports 0–26' : ''}`));
     }
     if (parsed.notes.length) lines.push(node('p', 'muted', parsed.notes.join(' · ')));
-    const unreachableRows = result.targetRows.filter(row => !row.reachable);
+    const unreachableRows = result.targetRows.filter(row => !row.reachable && row.source === 'sentence');
     if (unreachableRows.length) {
       lines.push(node('p', 'warn', `Unreachable: ${unreachableRows.map(row => `${window.GBLE?.ATTRS?.[row.attribute] ?? row.attribute} ${row.requested} (${row.reason})`).join(' · ')}.`));
       lines.push(node('p', 'warn', 'Some requests cannot be met on this body. Apply will use the closest legal ratings shown above; nothing is clamped silently.'));
     }
+    const receipt = node('p', 'ok sentence-receipt');
+    receipt.hidden = true;
+    lines.push(receipt);
     const actions = node('div', 'fieldset sentence-actions');
-    const apply = node('button', 'btn primary', result.targetRows.some(row => !row.reachable) ? 'Apply closest legal build' : 'Apply to builder');
+    const explicitUnreachable = result.targetRows.some(row => !row.reachable && row.source === 'sentence');
+    const applyLabel = explicitUnreachable ? 'Apply closest legal build' : 'Apply to builder';
+    const apply = node('button', 'btn primary', applyLabel);
     apply.type = 'button';
     apply.disabled = !result.canApply;
+    let applied = false;
+    let previousBreaker = 0;
+    const undo = node('button', 'btn', 'Undo');
+    undo.type = 'button';
+    undo.hidden = true;
     apply.addEventListener('click', () => {
-      if (!result.canApply) return;
-      const applied = applyBuild(result.candidate);
-      if (!applied?.ok) {
-        status.className = 'warn';
-        status.textContent = applied?.message || 'The builder rejected the sentence build.';
+      if (!result.canApply || applied) return;
+      previousBreaker = Number(localStorage.getItem('fb.lbrk')) || 0;
+      const response = applyBuild(result.candidate);
+      if (!response?.ok) {
+        status.className = 'sentence-status warn';
+        status.textContent = response?.message || 'The builder rejected the sentence build.';
         return;
       }
+      applied = true;
+      apply.disabled = true;
+      apply.textContent = 'Applied';
+      undo.hidden = false;
+      cancel.textContent = 'Clear review';
       if (result.breakerLevel > 0 && result.breakerLevel <= 26) setBreakerLevel?.(result.breakerLevel);
       window.__fbCommit?.();
       window.__fbSnapshot?.();
-      status.className = 'ok';
-      status.textContent = `Applied ${position} ${Math.floor(result.body.h / 12)}'${result.body.h % 12}" · ${result.overall} overall · ${result.trueOvr.toFixed(1)} true.`;
-      reviewHost.prepend(node('p', 'ok', 'Applied. The build changed; use Undo or Cancel to leave this review.'));
+      const message = `Applied ${position} ${Math.floor(result.body.h / 12)}'${result.body.h % 12}" · ${result.overall} overall · ${result.trueOvr.toFixed(1)} true.`;
+      receipt.hidden = false;
+      receipt.textContent = `${message} Use Undo to revert, or Clear review to dismiss this card.`;
+      status.className = 'sentence-status';
+      status.textContent = '';
+    });
+    undo.addEventListener('click', () => {
+      if (!applied) return;
+      window.__fbUndo?.();
+      if (result.breakerLevel > 0 && result.breakerLevel <= 26) {
+        setBreakerLevel?.(previousBreaker);
+        window.__fbCommit?.();
+      }
+      applied = false;
+      apply.disabled = !result.canApply;
+      apply.textContent = applyLabel;
+      undo.hidden = true;
+      cancel.textContent = 'Cancel';
+      receipt.hidden = false;
+      receipt.textContent = 'Undid the applied build. You can apply this review again or clear it.';
+      status.className = 'sentence-status';
+      status.textContent = '';
     });
     const cancel = node('button', 'btn', 'Cancel');
     cancel.type = 'button';
     cancel.addEventListener('click', () => {
+      const wasApplied = applied;
       reviewHost.replaceChildren();
       placeholder();
-      status.className = 'muted';
-      status.textContent = 'Review cancelled; the current build was not changed.';
+      status.className = 'sentence-status muted';
+      status.textContent = wasApplied
+        ? 'Review cleared; the applied build stays — use Undo to revert.'
+        : 'Review cancelled; the current build was not changed.';
     });
-    actions.append(apply, cancel);
+    actions.append(apply, undo, cancel);
     if (!result.canApply) lines.push(node('p', 'warn', 'This request cannot be applied until the breaker budget is within 0–26.'));
     lines.push(actions);
     reviewHost.replaceChildren(...lines);
@@ -596,8 +645,8 @@ export function mountBuildFromSentence(root, { getBuild, applyBuild, setBreakerL
     const parsed = parseSentence(text, { badgeNames: (window.GBLE?.BADGES ?? []).map(badge => badge[0]) });
     const result = validateSentence(parsed, { G: window.GBLE, current: getBuild() });
     render(parsed, result);
-    status.className = 'muted';
-    status.textContent = 'Review ready. Nothing has been applied.';
+    status.className = 'sentence-status muted';
+    status.textContent = 'Review ready. Nothing has been applied by this review.';
   });
   clear.addEventListener('click', () => {
     textarea.value = '';
@@ -606,7 +655,7 @@ export function mountBuildFromSentence(root, { getBuild, applyBuild, setBreakerL
   });
   textarea.addEventListener('input', () => {
     if (reviewHost.querySelector('.sentence-actions')) {
-      status.className = 'muted';
+      status.className = 'sentence-status muted';
       status.textContent = 'Text changed; press Review sentence again to refresh this review.';
     }
   });

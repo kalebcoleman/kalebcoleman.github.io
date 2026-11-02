@@ -109,9 +109,16 @@ test('sentence validation reports breaker shortfall', () => {
   assert.equal(result.breakerLevel, 2);
 });
 
-test('sentence validation reports an unreachable badge requirement', () => {
+test('sentence validation reports an unreachable badge requirement once on the badge goal', () => {
   const capped = { ...fakeG, ceilingsFor: () => { const caps = Array(21).fill(99); caps[0] = 70; return caps; } };
   const result = validateSentence(parseSentence('HOF test badge', { badgeNames: ['Test Badge'] }), { G: capped, current });
+  assert.equal(result.targetRows.length, 1);
+  assert.equal(result.targetRows[0].source, 'badge:Test Badge');
   assert.equal(result.targetRows[0].reachable, false);
   assert.match(result.targetRows[0].reason, /cap 70/);
+  assert.equal(result.targetRows.filter(row => row.source === 'sentence').length, 0);
+  assert.equal(result.badgeGoals.length, 1);
+  assert.equal(result.badgeGoals[0].unreachable.length, 1);
+  assert.equal(result.badgeGoals[0].unreachable[0].attribute, 0);
+  assert.match(result.badgeGoals[0].unreachable[0].reason, /cap 70/);
 });

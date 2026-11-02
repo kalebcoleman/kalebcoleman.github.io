@@ -1115,6 +1115,23 @@ html[data-fb-route="builder"] .build-from-sentence .sentence-actions {
 html[data-fb-route="builder"] .build-from-sentence .sentence-unparsed {
   font-size: 11px;
 }
+html[data-fb-route="builder"] .build-from-sentence .sentence-source {
+  display: block;
+  margin-top: 1px;
+  font-size: 9px;
+  line-height: 1.2;
+  font-weight: 500;
+  color: var(--fg-muted);
+  white-space: normal;
+}
+html[data-fb-route="builder"] .build-from-sentence .sentence-receipt {
+  margin: 7px 0 0;
+  padding: 6px 8px;
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--ok) 12%, transparent);
+  font-size: 10.5px;
+  line-height: 1.35;
+}
 @media (max-width: 900px) {
   html[data-fb-route="builder"] .build-from-sentence .sentence-input {
     min-height: 96px;
@@ -1122,6 +1139,22 @@ html[data-fb-route="builder"] .build-from-sentence .sentence-unparsed {
   html[data-fb-route="builder"] .build-from-sentence .sentence-review {
     height: 360px;
   }
+  html[data-fb-route="builder"] .build-from-sentence .sentence-targets {
+    table-layout: fixed;
+    font-size: 9.5px;
+  }
+  html[data-fb-route="builder"] .build-from-sentence .sentence-targets th,
+  html[data-fb-route="builder"] .build-from-sentence .sentence-targets td {
+    padding: 3px 2px;
+    white-space: normal;
+    overflow-wrap: normal;
+    font-size: 9.5px;
+  }
+  html[data-fb-route="builder"] .build-from-sentence .sentence-targets th:nth-child(1) { width: 26%; }
+  html[data-fb-route="builder"] .build-from-sentence .sentence-targets th:nth-child(2) { width: 19%; }
+  html[data-fb-route="builder"] .build-from-sentence .sentence-targets th:nth-child(3) { width: 24%; }
+  html[data-fb-route="builder"] .build-from-sentence .sentence-targets th:nth-child(4) { width: 10%; }
+  html[data-fb-route="builder"] .build-from-sentence .sentence-targets th:nth-child(5) { width: 21%; }
   html[data-fb-route="builder"] .build-from-sentence .btn,
   html[data-fb-route="builder"] .build-from-sentence .sentence-input {
     min-height: 44px;
