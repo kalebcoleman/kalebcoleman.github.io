@@ -129,15 +129,16 @@ At 390 × 844, the document had no horizontal overflow on `/builder/`, `/finder/
 `/face-scan/` and `/jumpshot-lab/`. The nav is an intentional horizontal scroller. The only
 undersized interactive controls found were in the recovered Jumpshot Lab.
 
-## Post-fix verification — 0f228ba
+## Post-fix verification — 1c8f7fa
 
 Feature commits `91955f4` (finder/Fuse/visual), `d372a75` (Build Doctor/Undo), `829136d`
 (saved searches), `5db21e9` (44×44/cap wording), `5213404` (touch stability, mobile DOM
 order, batching and unreachable badge targets), `81f7bc8` (vertical swipe direction lock,
 clipboard fallback), `322e697` (coarse-pointer copy wording) `63a6f5b` (cloud deletion clears
 the local session only), `e2989e6` (build from a sentence), `fb406ca` (sentence apply
-receipt, cancel copy and badge goals) and `0f228ba` (faded applied action). Verified by the
-builder thread against `main` on the local static server, using
+receipt, cancel copy and badge goals), `0f228ba` (faded applied action) and `1c8f7fa`
+(clear-review message after an external Undo). Verified by the builder thread against `main`
+on the local static server, using
 headless Chromium 140 at 1280 px and 390 px. The historical matrix above is the earlier
 `b37abd0` audit; this section is the post-fix state.
 
@@ -303,14 +304,17 @@ disabled **Applied** button, a single receipt replaces the pending state, **Undo
 and Cancel becomes **Clear review**. Pressing Apply again does nothing and cannot stack
 receipts. Undo restores the build and the previous breaker level; re-applying restores the
 candidate. **Clear review** after an apply says the applied build stays and points at Undo;
-before an apply it says the current build was not changed. The review area has a fixed height
+if the applied build was undone or edited outside the panel, it says the applied build is no
+longer current; before an apply it says the current build was not changed. The review area
+has a fixed height
 (340 px desktop, 360 px mobile) so the panel does not shift the page when a review appears;
 at 390 the five target columns fit without page overflow.
 
 Browser test `tests/browser/builder-sentence.browser.cjs` covers a reachable request,
 an unreachable perimeter target (cap 87, applies 87 with the closest-legal label), pure
 nonsense (unrecognized list, no Apply), no build change before Apply, double Apply (one
-receipt, disabled action), Undo/re-apply, Clear review after apply, a badge-only `6'4 PG HOF
+receipt, disabled action), Undo/re-apply, Clear review after apply, external History Undo
+then Clear review (no false "applied build stays" claim), a badge-only `6'4 PG HOF
 posterizer` request (two `from Posterizer` rows, one unreachable badge line, no generic
 warning, Apply to builder, unchanged until confirm), 44 px mobile Apply, and no overflow at
 1280/390. `tests/build-from-sentence.test.mjs` has 41 parser/validation cases, including the
