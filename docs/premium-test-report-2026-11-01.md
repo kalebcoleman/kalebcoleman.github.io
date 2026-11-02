@@ -129,13 +129,15 @@ At 390 × 844, the document had no horizontal overflow on `/builder/`, `/finder/
 `/face-scan/` and `/jumpshot-lab/`. The nav is an intentional horizontal scroller. The only
 undersized interactive controls found were in the recovered Jumpshot Lab.
 
-## Post-fix verification — e2989e6
+## Post-fix verification — fb406ca
 
 Feature commits `91955f4` (finder/Fuse/visual), `d372a75` (Build Doctor/Undo), `829136d`
 (saved searches), `5db21e9` (44×44/cap wording), `5213404` (touch stability, mobile DOM
 order, batching and unreachable badge targets), `81f7bc8` (vertical swipe direction lock,
 clipboard fallback), `322e697` (coarse-pointer copy wording) `63a6f5b` (cloud deletion clears
-the local session only) and `e2989e6` (build from a sentence). Verified by the builder thread against `main` on the local static server, using
+the local session only), `e2989e6` (build from a sentence) and `fb406ca` (sentence apply
+receipt, cancel copy and badge goals). Verified by the builder thread against `main` on the
+local static server, using
 headless Chromium 140 at 1280 px and 390 px. The historical matrix above is the earlier
 `b37abd0` audit; this section is the post-fix state.
 
@@ -272,7 +274,7 @@ value unchanged during the vertical swipe. The copy nit was real: on `766a7db` t
 said “press Ctrl/Cmd+C”. `322e697` uses **“use your copy menu”** on coarse pointers and keeps
 “press Ctrl/Cmd+C” on fine pointers; the clipboard test now covers both.
 
-### Build from a sentence (e2989e6)
+### Build from a sentence (e2989e6, hardened in fb406ca)
 
 `assets/build-from-sentence.mjs` adds a **Build from a sentence** panel directly after
 **Find a build** in the mobile DOM order. It parses:
@@ -289,16 +291,30 @@ said “press Ctrl/Cmd+C”. `322e697` uses **“use your copy menu”** on coar
 Validation uses `GBLE.heightsFor`, `PB`, `ceilingsFor`, `upStart`, `settle`, `ratingOf`,
 `overallOf`, `trueOvr` and `badgeTiersOf`. The review card shows the chosen body, body
 adjustments, every target's current/requested/cap/result and a cap/99-wall/linked reason,
-badge goals, breaker budget/shortfall and the badge floor. Unrecognized text is listed under
-**I didn't understand**; nonsense input has no Apply button. The current build is unchanged
-until **Apply to builder**; Cancel leaves it unchanged. The review area has a fixed height
-(340 px desktop, 360 px mobile) so the panel does not shift the page when a review appears.
+badge goals, breaker budget/shortfall and the badge floor. Badge-derived target rows are
+labelled `from <badge>`. A badge tier that cannot be reached on the body is reported once on
+the badge goal (for example `HOF Posterizer is unreachable on this body: needs Driving Dunk
+99 (cap 90)`), and a badge-only request does not produce the generic explicit-target warning
+or the closest-legal button label. Unrecognized text is listed under **I didn't understand**;
+nonsense input has no Apply button.
+
+The current build is unchanged until **Apply to builder**. On success Apply becomes a
+disabled **Applied** button, a single receipt replaces the pending state, **Undo** appears
+and Cancel becomes **Clear review**. Pressing Apply again does nothing and cannot stack
+receipts. Undo restores the build and the previous breaker level; re-applying restores the
+candidate. **Clear review** after an apply says the applied build stays and points at Undo;
+before an apply it says the current build was not changed. The review area has a fixed height
+(340 px desktop, 360 px mobile) so the panel does not shift the page when a review appears;
+at 390 the five target columns fit without page overflow.
 
 Browser test `tests/browser/builder-sentence.browser.cjs` covers a reachable request,
 an unreachable perimeter target (cap 87, applies 87 with the closest-legal label), pure
-nonsense (unrecognized list, no Apply), no build change before Apply, 44 px mobile Apply,
-and no overflow at 1280/390. `tests/build-from-sentence.test.mjs` has 40 table-driven
-parser/validation cases.
+nonsense (unrecognized list, no Apply), no build change before Apply, double Apply (one
+receipt, disabled action), Undo/re-apply, Clear review after apply, a badge-only `6'4 PG HOF
+posterizer` request (two `from Posterizer` rows, one unreachable badge line, no generic
+warning, Apply to builder, unchanged until confirm), 44 px mobile Apply, and no overflow at
+1280/390. `tests/build-from-sentence.test.mjs` has 41 parser/validation cases, including the
+badge goal's single unreachable requirement.
 
 Screenshots:
 
@@ -308,6 +324,9 @@ Screenshots:
 - `docs/evidence/build-from-sentence/review-unreachable-390.png`
 - `docs/evidence/build-from-sentence/applied-1280.png`
 - `docs/evidence/build-from-sentence/applied-390.png`
+
+The applied screenshots show the sentence panel, the single receipt and the post-apply action
+row (Applied / Undo / Clear review) at both widths.
 
 ### Cloud account deletion (63a6f5b)
 
