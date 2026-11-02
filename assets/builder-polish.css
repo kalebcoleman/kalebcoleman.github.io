@@ -1171,3 +1171,80 @@ html[data-fb-route="builder"] .build-from-sentence .sentence-receipt {
     width: 100%;
   }
 }
+
+/* ---------- finder result cards ---------- */
+html[data-fb-route="builder"] .finder-sort {
+  margin-top: 10px;
+}
+html[data-fb-route="builder"] .finder-sort .lbl {
+  min-width: 180px;
+}
+html[data-fb-route="builder"] .finder-sort .sel {
+  min-height: 36px;
+}
+html[data-fb-route="builder"] .finder-results {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+  gap: 10px;
+  margin-top: 10px;
+}
+html[data-fb-route="builder"] .finder-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--bg-soft);
+}
+html[data-fb-route="builder"] .finder-card-head {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+html[data-fb-route="builder"] .finder-pos {
+  font-weight: 700;
+}
+html[data-fb-route="builder"] .finder-body {
+  color: var(--fg-muted);
+  font-size: 11px;
+}
+html[data-fb-route="builder"] .finder-true {
+  margin-left: auto;
+  font-weight: 700;
+  font-size: 16px;
+}
+html[data-fb-route="builder"] .finder-card-stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 3px 8px;
+  font-size: 11px;
+}
+html[data-fb-route="builder"] .finder-card-stats b {
+  color: var(--fg-muted);
+  font-weight: 600;
+}
+html[data-fb-route="builder"] .finder-card-badges {
+  margin: 0;
+  color: var(--fg-muted);
+  font-size: 10.5px;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+html[data-fb-route="builder"] .finder-card .btn {
+  align-self: flex-start;
+  min-height: 36px;
+}
+@media (max-width: 900px) {
+  html[data-fb-route="builder"] .finder-results {
+    grid-template-columns: 1fr;
+  }
+  html[data-fb-route="builder"] .finder-card .btn,
+  html[data-fb-route="builder"] .finder-sort .sel {
+    min-height: 44px;
+  }
+  html[data-fb-route="builder"] .finder-sort .lbl,
+  html[data-fb-route="builder"] .finder-sort .sel {
+    width: 100%;
+  }
+}
