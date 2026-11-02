@@ -119,6 +119,21 @@ const { chromium } = require('playwright');
     if (afterBadge.overall === beforeBadge.overall) throw new Error(`${label}: badge Apply did not change the build`);
     if (afterBadge.dd !== '90') throw new Error(`${label}: badge Apply did not set Driving Dunk to the cap: ${afterBadge.dd}`);
 
+    // External History Undo then Clear review: the message must not claim the applied build is current.
+    await open();
+    const beforeExternalUndo = await read();
+    await review(`6'8" wing 205 lb 7'0" wingspan 80 three 75 perimeter D 22 cap breakers`);
+    await panel().locator('.sentence-actions .btn.primary').click();
+    await page.waitForTimeout(700);
+    await page.evaluate(() => window.__fbUndo());
+    await page.waitForTimeout(700);
+    const afterExternalUndo = await read();
+    if (afterExternalUndo.overall !== beforeExternalUndo.overall) throw new Error(`${label}: external Undo did not restore the build`);
+    await panel().locator('.sentence-actions').getByRole('button', { name: 'Clear review' }).click();
+    await page.waitForTimeout(300);
+    const externalStatus = (await panel().locator('.sentence-status').innerText()).trim();
+    if (!/no longer the current build/.test(externalStatus) || /applied build stays/.test(externalStatus)) throw new Error(`${label}: clear-review message ignored the external Undo: ${externalStatus}`);
+
     // Nonsense: only the didn't-understand list, no Apply.
     await open();
     const beforeNonsense = await read();

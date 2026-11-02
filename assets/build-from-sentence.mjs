@@ -574,6 +574,7 @@ export function mountBuildFromSentence(root, { getBuild, applyBuild, setBreakerL
     apply.type = 'button';
     apply.disabled = !result.canApply;
     let applied = false;
+    let appliedCode = '';
     let previousBreaker = 0;
     const undo = node('button', 'btn', 'Undo');
     undo.type = 'button';
@@ -595,6 +596,7 @@ export function mountBuildFromSentence(root, { getBuild, applyBuild, setBreakerL
       if (result.breakerLevel > 0 && result.breakerLevel <= 26) setBreakerLevel?.(result.breakerLevel);
       window.__fbCommit?.();
       window.__fbSnapshot?.();
+      appliedCode = document.querySelector('#view input.inp.code')?.value ?? '';
       const message = `Applied ${position} ${Math.floor(result.body.h / 12)}'${result.body.h % 12}" · ${result.overall} overall · ${result.trueOvr.toFixed(1)} true.`;
       receipt.hidden = false;
       receipt.textContent = `${message} Use Undo to revert, or Clear review to dismiss this card.`;
@@ -621,13 +623,16 @@ export function mountBuildFromSentence(root, { getBuild, applyBuild, setBreakerL
     const cancel = node('button', 'btn', 'Cancel');
     cancel.type = 'button';
     cancel.addEventListener('click', () => {
-      const wasApplied = applied;
+      const currentCode = document.querySelector('#view input.inp.code')?.value ?? '';
+      const stillApplied = applied && (!appliedCode || currentCode === appliedCode);
       reviewHost.replaceChildren();
       placeholder();
       status.className = 'sentence-status muted';
-      status.textContent = wasApplied
+      status.textContent = stillApplied
         ? 'Review cleared; the applied build stays — use Undo to revert.'
-        : 'Review cancelled; the current build was not changed.';
+        : applied
+          ? 'Review cleared; the applied build is no longer the current build.'
+          : 'Review cancelled; the current build was not changed.';
     });
     actions.append(apply, undo, cancel);
     if (!result.canApply) lines.push(node('p', 'warn', 'This request cannot be applied until the breaker budget is within 0–26.'));
