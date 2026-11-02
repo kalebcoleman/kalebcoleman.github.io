@@ -1112,6 +1112,10 @@ html[data-fb-route="builder"] .build-from-sentence .sentence-badges {
 html[data-fb-route="builder"] .build-from-sentence .sentence-actions {
   margin-top: 8px;
 }
+html[data-fb-route="builder"] .build-from-sentence .sentence-actions .btn:disabled {
+  opacity: .5;
+  cursor: default;
+}
 html[data-fb-route="builder"] .build-from-sentence .sentence-unparsed {
   font-size: 11px;
 }
