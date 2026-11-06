@@ -1,9 +1,10 @@
 {% extends "base.html" %}
+{% from "_macros.html" import project_image_url, media_figure, scope_details, evidence_links %}
 
 {% block content %}
 <section class="hero">
     <div class="hero-copy">
-        <p class="eyebrow">Research & engineering portfolio <span> / 2026</span></p>
+        <p class="eyebrow">Robotics research portfolio <span> / 2026</span></p>
         <h1>{{ profile.name }}</h1>
         <p class="hero-headline">{{ profile.headline }}</p>
         <p class="hero-intro">{{ profile.intro }}</p>
@@ -18,36 +19,83 @@
     </div>
 
     <aside class="hero-panel panel">
-        <h2>Current focus</h2>
-        <ul class="detail-list">
-            <li>UR5e digital twin and manipulation in Isaac Sim</li>
-            <li>System identification and sim-to-real transfer</li>
-            <li>Deep learning, generative modeling, and GPU/HPC experiments</li>
-            <li>Reproducible data engineering and simulation evidence</li>
-        </ul>
+        <h2>Research direction</h2>
+        <p class="direction-text">{{ profile.direction }}</p>
     </aside>
 </section>
 
-<section class="section-block">
+<section class="section-block" id="demos">
     <div class="section-heading">
-        <p class="eyebrow">Featured work</p>
-        <h2>Selected technical projects</h2>
-        <p>Focused projects in modeling, AI, analytics, and systems-oriented implementation.</p>
+        <p class="eyebrow">Demonstrated work</p>
+        <h2>What I have built and run</h2>
+        <p>Robot manipulation and tooling in NVIDIA Isaac Sim. Everything here runs in simulation.</p>
     </div>
 
-    <div class="project-grid project-grid-featured">
-        {% for project in featured_projects %}
-        <article class="project-card">
-            {% if loop.first %}<a class="featured-image" href="{{ url_for('projects') }}#research"><img src="{{ url_for('static', filename='images/ur5e-workstation.png') }}" alt="Single UR5e robot and workstation in Isaac Sim"></a>{% elif loop.index == 3 %}<a class="featured-image" href="{{ url_for('projects') }}"><img src="{{ url_for('static', filename='images/nba_plots/nba-sdi-vs-actual-2014-2024.jpg') }}" alt="NBA shot difficulty and scoring analysis"></a>{% else %}<div class="featured-image featured-image-type" aria-hidden="true"><span>CONTROL<br>IN MOTION<span class="featured-index">02 / RESEARCH</span></span></div>{% endif %}
-            <p class="project-kicker">{{ project.repo_name }}</p>
-            <h3>{{ project.name }}</h3>
-            <p>{{ project.summary }}</p>
-            <div class="stack-list">
-                {% for tech in project.stack[:4] %}
-                <span class="chip">{{ tech }}</span>
-                {% endfor %}
+    {% set lead = sections.lead %}
+    <article class="lead-demo" aria-labelledby="lead-title">
+        <div class="lead-media">{{ media_figure(lead.media) }}</div>
+        <div class="lead-copy">
+            <p class="project-kicker"><span class="status-badge">{{ lead.badge }}</span></p>
+            <h3 id="lead-title">{{ lead.name }}</h3>
+            <p class="lead-tagline">{{ lead.tagline }}</p>
+            <div class="stack-list">{% for tech in lead.stack %}<span class="chip">{{ tech }}</span>{% endfor %}</div>
+            {{ evidence_links(lead) }}
+            {{ scope_details(lead, status_labels) }}
+        </div>
+    </article>
+
+    <div class="secondary-grid">
+        {% for project in sections.secondary %}
+        <article class="secondary-demo" aria-labelledby="sec-{{ project.slug }}">
+            {{ media_figure(project.media) }}
+            <p class="project-kicker"><span class="status-badge">{{ project.badge }}</span></p>
+            <h3 id="sec-{{ project.slug }}">{{ project.name }}</h3>
+            <p>{{ project.tagline }}</p>
+            {{ evidence_links(project) }}
+            {{ scope_details(project, status_labels) }}
+        </article>
+        {% endfor %}
+    </div>
+</section>
+
+<section class="section-block" id="more-robotics">
+    <div class="section-heading">
+        <p class="eyebrow">More robotics</p>
+        <h2>Control and perception</h2>
+    </div>
+    <div class="compact-grid">
+        {% for project in sections.more_robotics %}
+        <article class="compact-card">
+            {% if project.image %}<a class="compact-image" href="{{ project_image_url(project.image) }}"><img src="{{ url_for('static', filename=project.image.file) }}" alt="{{ project.image.alt }}" loading="lazy" decoding="async"></a>{% endif %}
+            <div class="compact-body">
+                <p class="project-kicker"><span class="status-badge">{{ project.badge }}</span></p>
+                <h3>{{ project.name }}</h3>
+                <p>{{ project.tagline }}</p>
+                {{ evidence_links(project) }}
+                {{ scope_details(project, status_labels) }}
             </div>
-            {% if project.repo_url %}<a class="text-link" href="{{ project.repo_url }}" target="_blank" rel="noopener noreferrer">View repository</a>{% else %}<a class="text-link" href="{{ url_for('projects') }}#research">Explore research</a>{% endif %}
+        </article>
+        {% endfor %}
+    </div>
+</section>
+
+<section class="section-block" id="data-science">
+    <div class="section-heading">
+        <p class="eyebrow">Data science background</p>
+        <h2>Where I started</h2>
+        <p>Machine learning and data engineering projects. More on the <a class="text-link" href="{{ url_for('projects') }}">projects page</a>.</p>
+    </div>
+    <div class="compact-grid">
+        {% for project in sections.data_science %}
+        <article class="compact-card">
+            {% if project.image %}<a class="compact-image" href="{{ project_image_url(project.image) }}" target="_blank" rel="noopener noreferrer"><img src="{{ url_for('static', filename=project.image.file) }}" alt="{{ project.image.alt }}" loading="lazy" decoding="async"></a>{% endif %}
+            <div class="compact-body">
+                <p class="project-kicker"><span class="status-badge">{{ project.badge }}</span></p>
+                <h3>{{ project.name }}</h3>
+                <p>{{ project.tagline }}</p>
+                {{ evidence_links(project) }}
+                {% if project.limits or project.credits %}{{ scope_details(project, status_labels) }}{% endif %}
+            </div>
         </article>
         {% endfor %}
     </div>

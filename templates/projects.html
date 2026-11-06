@@ -1,24 +1,54 @@
 {% extends "base.html" %}
+{% from "_macros.html" import status_list, project_image_url, media_figure %}
 
 {% block content %}
 <section class="page-header">
     <p class="eyebrow">Projects</p>
     <h1>Curated technical work</h1>
     <p>
-        A focused selection of projects that best represent my interests in machine learning,
-        generative modeling, data engineering, analytics, and autonomous systems.
+        Robotics and simulation work first, then the data science and machine learning projects behind it.
+        Robotics results are simulation-based: each card separates what runs in simulation, what is in development, and what is only planned.
     </p>
 </section>
 
 <section class="section-block panel" id="research">
-    <p class="eyebrow">RISE Lab · Current research</p>
-    <h2>A self-calibrating digital twin for UR5e manipulation</h2>
-    <p>The goal is a real-to-sim-to-real loop: use observations from a physical UR5e to improve its simulated twin, then use that twin to plan or train manipulation controllers for the real robot.</p>
-    <figure><img src="{{ url_for('static', filename='images/ur5e-workstation.png') }}" alt="Single UR5e and RG2 gripper on a simulated workstation in Isaac Sim" style="display:block;width:100%;max-width:960px;height:auto"><figcaption>The single-arm UR5e workstation scene in Isaac Sim 5.1.</figcaption></figure>
-    <p><strong>Current progress:</strong> The single-arm workstation scene has been built and verified in simulation. The next milestones are repeatable scripted manipulation and characterization of the simulated arm.</p>
-    <p><strong>Research direction:</strong> Calibrate the twin against real observations, investigate online adaptation, and explore model predictive control, imitation learning, and reinforcement learning for manipulation.</p>
-    <p><strong>Status:</strong> Physical calibration, controller transfer, and real-robot validation are future work. The earlier two-arm simulation established experience with coordinated manipulation and remains a benchmark.</p>
-    <p><a class="text-link" href="https://github.com/kalebcoleman/ur5e-digital-twin" target="_blank" rel="noopener noreferrer">Explore the digital twin repository</a> · <a class="text-link" href="https://github.com/kalebcoleman/rise-two-arm-research" target="_blank" rel="noopener noreferrer">View earlier two-arm work</a></p>
+    <p class="eyebrow">RISE Lab · Research direction</p>
+    <h2>Toward a Jenga-playing robot</h2>
+    <p>{{ profile.direction }}</p>
+    <p>The completed work below is what that direction builds on: UR5e brick stacking and two-arm manipulation in Isaac Sim, and <a class="text-link" href="https://github.com/kalebcoleman/isaac-mcp" target="_blank" rel="noopener noreferrer">Isaac MCP</a>, the tooling for driving the simulator from an agent.</p>
+</section>
+<section class="project-grid">
+    {% for project in projects %}
+    <article class="project-card project-card-detailed" id="{{ project.slug }}">
+        <div class="card-topline">
+            <p class="project-kicker">{{ project.repo_name }}</p>
+            {% if project.repo_url %}<a class="text-link" href="{{ project.repo_url }}" target="_blank" rel="noopener noreferrer">GitHub</a>{% endif %}
+        </div>
+        {% if project.media %}{{ media_figure(project.media) }}{% elif project.image %}<a class="card-image" href="{{ project_image_url(project.image) }}"{% if project.image.url %} target="_blank" rel="noopener noreferrer"{% endif %}><img src="{{ url_for('static', filename=project.image.file) }}" alt="{{ project.image.alt }}" loading="lazy" decoding="async"></a>{% endif %}
+        {% for item in project.gallery %}<figure class="media-figure"><img src="{{ url_for('static', filename=item.file) }}" alt="{{ item.alt }}" loading="lazy" decoding="async"><figcaption>{{ item.caption }}</figcaption></figure>{% endfor %}
+        {% if project.badge %}<p class="project-kicker"><span class="status-badge">{{ project.badge }}</span></p>{% endif %}
+        <h2>{{ project.name }}</h2>
+        <p>{{ project.summary }}</p>
+
+        <div class="stack-list">
+            {% for tech in project.stack %}
+            <span class="chip">{{ tech }}</span>
+            {% endfor %}
+        </div>
+
+        <ul class="detail-list">
+            {% for item in project.highlights %}
+            <li>{{ item }}</li>
+            {% endfor %}
+        </ul>
+        {{ status_list(project.status, status_labels) }}
+        {% if project.limits %}<p class="limits">{{ project.limits }}</p>{% endif %}
+        {% if project.credits %}<p class="credits"><strong>Credits:</strong> {{ project.credits }}</p>{% endif %}
+        {% if project.links %}
+        <p class="project-links">{% for link in project.links %}<a class="text-link" href="{{ link.url }}" target="_blank" rel="noopener noreferrer">{{ link.label }}</a>{% if not loop.last %} · {% endif %}{% endfor %}</p>
+        {% endif %}
+    </article>
+    {% endfor %}
 </section>
 <section class="section-block panel" id="nau-capstone">
     <p class="eyebrow">NAU undergraduate capstone · UGRADS</p>
@@ -35,32 +65,5 @@
         <figcaption>Research poster from the Department of Mathematics and Statistics at NAU, by Kanaan Law, Kaleb Coleman, and Drianna Walker.</figcaption>
     </figure>
     <p><a class="text-link" href="{{ url_for('static', filename='nau-capstone-poster.pdf') }}" target="_blank" rel="noopener noreferrer">Open the research poster (PDF)</a> · <a class="text-link" href="https://github.com/kalebcoleman/nau-capstone" target="_blank" rel="noopener noreferrer">Explore the capstone repository</a> · <a class="text-link" href="https://github.com/kalebcoleman/nau-capstone/blob/main/docs/final-poster-guide.md" target="_blank" rel="noopener noreferrer">View poster research and figures</a></p>
-</section>
-<section class="project-grid">
-    {% for project in projects %}
-    <article class="project-card project-card-detailed">
-        <div class="card-topline">
-            <p class="project-kicker">{{ project.repo_name }}</p>
-            {% if project.repo_url %}<a class="text-link" href="{{ project.repo_url }}" target="_blank" rel="noopener noreferrer">GitHub</a>{% endif %}
-        </div>
-        <h2>{{ project.name }}</h2>
-        <p>{{ project.summary }}</p>
-
-        <div class="stack-list">
-            {% for tech in project.stack %}
-            <span class="chip">{{ tech }}</span>
-            {% endfor %}
-        </div>
-
-        <ul class="detail-list">
-            {% for item in project.highlights %}
-            <li>{{ item }}</li>
-            {% endfor %}
-        </ul>
-        {% if project.links %}
-        <p class="project-links">{% for link in project.links %}<a class="text-link" href="{{ link.url }}" target="_blank" rel="noopener noreferrer">{{ link.label }}</a>{% if not loop.last %} · {% endif %}{% endfor %}</p>
-        {% endif %}
-    </article>
-    {% endfor %}
 </section>
 {% endblock %}
