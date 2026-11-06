@@ -1,4 +1,5 @@
 import sys
+from html import escape
 import unittest
 from pathlib import Path
 
@@ -7,7 +8,7 @@ if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
 import app as portfolio  # noqa: E402
-from app import FEATURED_SLUGS, PROFILE, PROJECTS, SKILLS, STATUS_LABELS, app, featured_projects  # noqa: E402
+from app import FEATURED_SLUGS, PROFILE, PROJECTS, SKILLS, SPOTLIGHT_SLUGS, STATUS_LABELS, app, featured_projects, spotlight_projects  # noqa: E402
 
 
 class PortfolioRouteTests(unittest.TestCase):
@@ -17,7 +18,7 @@ class PortfolioRouteTests(unittest.TestCase):
 
     def test_primary_routes_render(self) -> None:
         route_markers = {
-            "/home": b"Selected technical projects",
+            "/home": b"Simulation, control, and sensing",
             "/projects": b"Curated technical work",
             "/skills": b"Technical toolkit",
             "/experience": b"Applied work, research direction, and recognition",
@@ -147,6 +148,47 @@ class PortfolioRouteTests(unittest.TestCase):
             for name in private:
                 with self.subTest(route=route, repo=name):
                     self.assertNotIn(f"github.com/kalebcoleman/{name}", html)
+
+    def test_spotlight_media_exists_with_alt_text_and_stays_with_project(self) -> None:
+        self.assertEqual([p["slug"] for p in spotlight_projects()], SPOTLIGHT_SLUGS)
+        html = self.client.get("/home").get_data(as_text=True)
+        for project in spotlight_projects():
+            media = project["spotlight"]["media"]
+            items = [media] + ([media["second"]] if media.get("second") else [])
+            with self.subTest(project=project["slug"]):
+                for item in items:
+                    self.assertTrue((PROJECT_ROOT / "static" / item["src"]).is_file())
+                    self.assertGreater(len(item["alt"]), 30)
+                    self.assertIn(escape(item["alt"]), html)
+                if media["kind"] == "video":
+                    self.assertTrue((PROJECT_ROOT / "static" / media["poster"]).is_file())
+                    self.assertIn("<video controls", html)
+                    self.assertNotIn("autoplay", html)
+                block = html.split(f'id="spotlight-{project["slug"]}"')[0].rsplit("<article", 1)[1]
+                self.assertIn(media["src"], block)
+        # Spotlight media stays small enough for quick loading.
+        total = sum((PROJECT_ROOT / "static" / m["spotlight"]["media"]["src"]).stat().st_size for m in spotlight_projects())
+        self.assertLess(total, 400_000)
+
+    def test_home_leads_with_new_work_and_keeps_older_projects_on_projects_page(self) -> None:
+        home = self.client.get("/home").get_data(as_text=True)
+        for marker in ("Unitree G1", "TurtleBot3", "BrickSim", "Isaac MCP"):
+            self.assertIn(marker, home)
+        for older in ("Leakage-Aware NBA Win Modeling", "NBA Shot Data Engineering Package", "Halma Game AI"):
+            self.assertNotIn(older, home)
+            self.assertIn(older, self.client.get("/projects").get_data(as_text=True))
+
+    def test_claims_stay_scoped(self) -> None:
+        text = " ".join(self.client.get(r).get_data(as_text=True) for r in ("/home", "/projects", "/experience"))
+        self.assertIn("not a new locomotion algorithm", text.replace("or a new locomotion algorithm", "not a new locomotion algorithm"))
+        self.assertIn("closed-loop Nav2 navigation", text)
+        self.assertNotIn("Researcher, RISE Lab", text)
+        self.assertNotIn("autonomously navigat", text)
+
+    def test_resume_file_is_unchanged(self) -> None:
+        import hashlib
+        digest = hashlib.sha256((PROJECT_ROOT / "static" / "resume.pdf").read_bytes()).hexdigest()
+        self.assertEqual(digest, "0cb5a951adeb4ee3e7454c302b774aba3868c489623e01e6e5e0f6527a993702")
 
 
 if __name__ == "__main__":

@@ -1,10 +1,10 @@
 {% extends "base.html" %}
-{% from "_macros.html" import project_image_url %}
+{% from "_macros.html" import project_image_url, status_list %}
 
 {% block content %}
 <section class="hero">
     <div class="hero-copy">
-        <p class="eyebrow">Research & engineering portfolio <span> / 2026</span></p>
+        <p class="eyebrow">Robotics research portfolio <span> / 2026</span></p>
         <h1>{{ profile.name }}</h1>
         <p class="hero-headline">{{ profile.headline }}</p>
         <p class="hero-intro">{{ profile.intro }}</p>
@@ -28,17 +28,64 @@
     </aside>
 </section>
 
-<section class="section-block">
+<section class="section-block" id="newest-work">
     <div class="section-heading">
-        <p class="eyebrow">Featured work</p>
-        <h2>Selected technical projects</h2>
-        <p>Current robotics and simulation work first, followed by the data science and machine learning projects behind it. Each project says what runs in simulation, what is in development, and what is only planned.</p>
+        <p class="eyebrow">Newest robotics work</p>
+        <h2>Simulation, control, and sensing</h2>
+        <p>Recent work in NVIDIA Isaac Sim and ROS 2. Every result here is from simulation, and each project says what runs today, what is in development, and what is only planned.</p>
+    </div>
+
+    {% for project in spotlight_projects %}
+    {% set media = project.spotlight.media %}
+    <article class="spotlight" aria-labelledby="spotlight-{{ project.slug }}">
+        <div class="spotlight-media">
+            <figure>
+                {% if media.kind == "video" %}
+                <video controls muted loop playsinline preload="none" width="{{ media.width }}" height="{{ media.height }}" poster="{{ url_for('static', filename=media.poster) }}" aria-label="{{ media.alt }}">
+                    <source src="{{ url_for('static', filename=media.src) }}" type="video/mp4">
+                    <a href="{{ url_for('static', filename=media.src) }}">Download the training clip (MP4)</a>
+                </video>
+                {% else %}
+                <img src="{{ url_for('static', filename=media.src) }}" alt="{{ media.alt }}" width="{{ media.width }}" height="{{ media.height }}" loading="lazy" decoding="async">
+                {% endif %}
+                <figcaption>{{ media.caption }}</figcaption>
+            </figure>
+            {% if media.second %}
+            <figure>
+                <img src="{{ url_for('static', filename=media.second.src) }}" alt="{{ media.second.alt }}" width="{{ media.second.width }}" height="{{ media.second.height }}" loading="lazy" decoding="async">
+                <figcaption>{{ media.second.caption }}</figcaption>
+            </figure>
+            {% endif %}
+        </div>
+        <div class="spotlight-copy">
+            <p class="project-kicker">{{ project.spotlight.label }}</p>
+            <h3 id="spotlight-{{ project.slug }}">{{ project.spotlight.title }}</h3>
+            <p>{{ project.summary }}</p>
+            <ul class="detail-list">
+                {% for item in project.highlights[:3] %}<li>{{ item }}</li>{% endfor %}
+            </ul>
+            {{ status_list(project.status, status_labels) }}
+            {% if project.limits %}<p class="limits">{{ project.limits }}</p>{% endif %}
+            {% if project.credits %}<p class="credits"><strong>Credits:</strong> {{ project.credits }}</p>{% endif %}
+            <p class="project-links">
+                {% if project.repo_url %}<a class="text-link" href="{{ project.repo_url }}" target="_blank" rel="noopener noreferrer">View repository</a> · {% endif %}<a class="text-link" href="{{ url_for('projects') }}#{{ project.slug }}">Full project details</a>
+            </p>
+        </div>
+    </article>
+    {% endfor %}
+</section>
+
+<section class="section-block" id="tools-and-research">
+    <div class="section-heading">
+        <p class="eyebrow">Tooling and ongoing research</p>
+        <h2>Isaac MCP, the digital twin, and quadrotor control</h2>
+        <p>The open-source tooling and longer-running research behind the work above.</p>
     </div>
 
     <div class="project-grid project-grid-featured">
         {% for project in featured_projects %}
         <article class="project-card">
-            {% if project.image %}<a class="featured-image" href="{{ project_image_url(project.image) }}"{% if project.image.url %} target="_blank" rel="noopener noreferrer"{% endif %}><img src="{{ url_for('static', filename=project.image.file) }}" alt="{{ project.image.alt }}" loading="lazy"></a>{% else %}<div class="featured-image featured-image-type" aria-hidden="true"><span>{{ (project.placeholder or project.name)|safe }}<span class="featured-index">{{ '%02d'|format(loop.index) }} / {{ project.stack[0]|upper }}</span></span></div>{% endif %}
+            {% if project.image %}<a class="featured-image" href="{{ project_image_url(project.image) }}"{% if project.image.url %} target="_blank" rel="noopener noreferrer"{% endif %}><img src="{{ url_for('static', filename=project.image.file) }}" alt="{{ project.image.alt }}" loading="lazy" decoding="async"></a>{% else %}<div class="featured-image featured-image-type" aria-hidden="true"><span>{{ (project.placeholder or project.name)|safe }}<span class="featured-index">{{ '%02d'|format(loop.index) }} / {{ project.stack[0]|upper }}</span></span></div>{% endif %}
             <p class="project-kicker">{{ project.repo_name }}</p>
             <h3>{{ project.name }}</h3>
             <p>{{ project.summary }}</p>
@@ -52,6 +99,7 @@
         </article>
         {% endfor %}
     </div>
+    <p class="section-more"><a class="text-link" href="{{ url_for('projects') }}">All projects, including data science and machine learning work</a></p>
 </section>
 
 <section class="section-block">

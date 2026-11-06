@@ -39,7 +39,7 @@
 </section>
 <section class="project-grid">
     {% for project in projects %}
-    <article class="project-card project-card-detailed">
+    <article class="project-card project-card-detailed" id="{{ project.slug }}">
         <div class="card-topline">
             <p class="project-kicker">{{ project.repo_name }}</p>
             {% if project.repo_url %}<a class="text-link" href="{{ project.repo_url }}" target="_blank" rel="noopener noreferrer">GitHub</a>{% endif %}
@@ -60,6 +60,7 @@
             {% endfor %}
         </ul>
         {{ status_list(project.status, status_labels) }}
+        {% if project.limits %}<p class="limits">{{ project.limits }}</p>{% endif %}
         {% if project.credits %}<p class="credits"><strong>Credits:</strong> {{ project.credits }}</p>{% endif %}
         {% if project.links %}
         <p class="project-links">{% for link in project.links %}<a class="text-link" href="{{ link.url }}" target="_blank" rel="noopener noreferrer">{{ link.label }}</a>{% if not loop.last %} · {% endif %}{% endfor %}</p>

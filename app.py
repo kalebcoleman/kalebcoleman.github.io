@@ -48,15 +48,19 @@ HERO_FOCUS: list[dict[str, str]] = [
     {"status": "planned", "text": "Physical calibration, controller transfer, and hardware validation"},
 ]
 
-# Home-page featured projects: deliberate slugs, in display order. Images live on
-# each project (see PROJECTS), so reordering this list never mismatches an image.
-FEATURED_SLUGS: list[str] = [
-    "ur5e-digital-twin",
-    "isaac-mcp",
+# Home page: newest robotics work gets full-width spotlights (media beside text);
+# the featured grid below keeps the lab tooling and ongoing research easy to find.
+# Both lists are explicit slugs in display order. Media lives on each project, so
+# reordering never pairs a project with the wrong image or video.
+SPOTLIGHT_SLUGS: list[str] = [
+    "g1-humanoid-walking",
     "two-arm-manipulation",
+    "turtlebot3-ros2-lidar",
+]
+FEATURED_SLUGS: list[str] = [
+    "isaac-mcp",
+    "ur5e-digital-twin",
     "quadrotor-control",
-    "nba-shot-package",
-    "image-reconstruction",
 ]
 
 NAV_ITEMS: list[dict[str, Any]] = [
@@ -162,6 +166,35 @@ PROJECTS: list[dict[str, Any]] = [
         "image": {"file": "images/isaac-mcp-ur5e-target.jpg", "alt": "Isaac Sim window showing a UR5e arm and RG2 gripper at a target pose commanded through Isaac MCP", "url": "https://github.com/kalebcoleman/isaac-mcp"},
     },
     {
+        "slug": "g1-humanoid-walking",
+        "name": "Unitree G1 Walking Policy Training in Isaac Lab",
+        "repo_name": "isaac-mcp · Isaac Lab workflow",
+        "repo_url": "https://github.com/kalebcoleman/isaac-mcp#train-a-humanoid-to-walk",
+        "summary": "I used and extended my Isaac MCP workflow to run Isaac Lab's existing G1 flat-ground walking task: train, score, and watch a policy from an agent session, entirely in simulation.",
+        "stack": ["Isaac Lab", "Isaac Sim", "rsl_rl", "Isaac MCP"],
+        "highlights": [
+            "Task: Isaac Lab's built-in Isaac-Velocity-Flat-G1-v0 with NVIDIA's G1 model, 1,024 parallel environments, trained with rsl_rl. The locomotion task and learning algorithm are existing Isaac Lab components, not my own.",
+            "Two training runs through isaaclab__train: 300 iterations (152 s) and 1,500 iterations (727 s). Speed-tracking reward rose from 0.37 to 0.91 and training episodes ended by a fall dropped from 39% to 1.4%.",
+            "Scored with isaaclab__eval: 16 episodes each, all lasting the full 1,000 steps (mean return 13.3 versus 34.4).",
+            "The tools were called directly by Claude Sonnet 5.5 and the exact calls are recorded in the repository. These are single runs with different seeds, not averages.",
+        ],
+        "status": {
+            "simulated": "Both runs trained, evaluated, and played back in Isaac Sim on flat ground.",
+            "planned": "Training a user's own robot through the tools is on the Isaac MCP checklist and is not supported yet.",
+        },
+        "limits": "Not shown: hardware deployment, rough terrain, or a new locomotion algorithm.",
+        "credits": "Isaac Lab task and G1 model from NVIDIA; walking run recorded in the Isaac MCP README.",
+        "image": {"file": "images/g1-walk-poster.jpg", "alt": "Unitree G1 humanoids walking on a grid floor during Isaac Lab training", "url": "https://github.com/kalebcoleman/isaac-mcp#train-a-humanoid-to-walk"},
+        "spotlight": {
+            "label": "Humanoid locomotion · Isaac Lab",
+            "title": "Training a Unitree G1 to walk in simulation",
+            "media": {"kind": "video", "src": "media/g1-walk-1500it.mp4", "poster": "images/g1-walk-poster.jpg", "width": 420, "height": 364,
+                      "alt": "Six Unitree G1 humanoids walking on a grid floor after 1,500 Isaac Lab training iterations",
+                      "caption": "Six-second clip from the 1,500-iteration run in Isaac Sim (from the Isaac MCP README). The arrows are the speed commands each robot follows."},
+        },
+        "placeholder": "G1<br>WALKING",
+    },
+    {
         "slug": "two-arm-manipulation",
         "name": "Two-Arm UR5e Manipulation in Isaac Sim",
         "repo_name": "rise-two-arm-research",
@@ -172,11 +205,49 @@ PROJECTS: list[dict[str, Any]] = [
         "highlights": ["Added collision validation, joint-frame corrections, object-space goals, and per-arm inverse kinematics.", "A 26-second simulated sequence recorded four-finger contact at every measured sample, no unexpected collisions, and 0.135 mm maximum slip.", "Tested limits in this model only: at baseline speed a 1.25 kg bar passed and 1.5 kg exceeded the drift bound. These are not payload ratings."],
         "status": {
             "simulated": "Coordinated bar motion runs and passes its checks in Isaac Sim 5.1.",
-            "developing": "A repeatable baseline for changing one controller or task variable at a time.",
+            "developing": "A higher-fidelity Jenga digital twin, and a repeatable baseline for changing one controller or task variable at a time.",
             "planned": "Real-hardware operation. Contact and actuator parameters are still uncalibrated.",
         },
         "credits": "Builds on BrickSim (Intelligent Control Lab), Aldrin Inbaraj's isaac-sim-mcp, and lab-supplied robot and Vention assets. My additions are listed in the repository's provenance notes.",
         "image": {"file": "images/two-arm-simulation.png", "alt": "Two UR5e arms holding a shared bar over a workstation in Isaac Sim", "url": "https://github.com/kalebcoleman/rise-two-arm-research"},
+        "limits": "Brick assembly here is BrickSim's own demo, used as the installation baseline. The UR5e work above manipulates a shared bar, not bricks. A higher-fidelity Jenga twin is ongoing and not shown.",
+        "spotlight": {
+            "label": "BrickSim · UR5e workcell",
+            "title": "A simulated UR5e workcell on BrickSim",
+            "media": {"kind": "image", "src": "images/bricksim-ur5e-workcell.jpg", "width": 960, "height": 720,
+                      "alt": "Two UR5e arms with RG2 grippers lifting a shared wooden bar on a Vention workstation in a simulated room",
+                      "caption": "Two UR5e arms and RG2 grippers lifting a shared bar in the simulated workcell (rise-two-arm-research).",
+                      "second": {"src": "images/two-arm-load-speed-map.png", "width": 1100, "height": 794,
+                                 "alt": "Grid of 20 simulated trials showing pass, drift, track, or drop outcomes for bar masses from 0.1 to 2 kilograms at speed scales from 1 to 8 times",
+                                 "caption": "Observed load and speed outcomes across 20 simulated trials. Tested brackets in this model, not RG2 ratings."}},
+        },
+    },
+    {
+        "slug": "turtlebot3-ros2-lidar",
+        "name": "TurtleBot3 ROS 2 Sensing in Isaac Sim",
+        "repo_name": "ASU RAS 545 · Lab 3",
+        "repo_url": None,
+        "summary": "A simulated TurtleBot3 Burger in Isaac Sim publishing sensor data over ROS 2, built with Isaac MCP and checked in RViz. Course lab work on a course-supplied robot scene.",
+        "stack": ["ROS 2 Humble", "Isaac Sim", "2D LiDAR", "RViz", "TF"],
+        "highlights": [
+            "Built Action Graphs for ROS 2 clock, differential-drive commands, 2D LiDAR, camera, and odometry/TF on the TurtleBot3 Burger.",
+            "RViz receives the simulated /scan LiDAR, /camera/image_raw, /odom, and TF displays alongside the Isaac Sim stage.",
+            "A 0.05 m/pixel occupancy-map file and a localization checkpoint scene were also saved.",
+        ],
+        "status": {
+            "simulated": "LiDAR, camera, odometry, and TF visualization in RViz from the simulated robot.",
+        },
+        "limits": "Not shown: a physical TurtleBot, closed-loop Nav2 navigation, or a verified mapping or localization result.",
+        "credits": "The TurtleBot3 scene was supplied by the course handout; the graphs and checks are my lab work.",
+        "image": {"file": "images/turtlebot3-isaac-ros2-rviz.jpg", "alt": "Isaac Sim viewport with a TurtleBot3 Burger beside RViz showing its LiDAR scan, camera image, and TF display", "endpoint": "projects", "anchor": "turtlebot3-ros2-lidar"},
+        "spotlight": {
+            "label": "ROS 2 · LiDAR · TurtleBot3",
+            "title": "TurtleBot3 LiDAR and camera streaming into ROS 2",
+            "media": {"kind": "image", "src": "images/turtlebot3-isaac-ros2-rviz.jpg", "width": 1600, "height": 644,
+                      "alt": "Isaac Sim viewport with a TurtleBot3 Burger and its stage tree on the left, and RViz on the right showing its red LiDAR scan lines, camera image, and TF frames",
+                      "caption": "Frame from my Lab 3 screen recording: the simulated TurtleBot3 Burger (left) and RViz displaying its /scan, /camera/image_raw, /odom, and TF topics (right)."},
+        },
+        "placeholder": "TURTLEBOT3<br>LIDAR + ROS 2",
     },
     {
         "slug": "quadrotor-control",
@@ -314,7 +385,6 @@ PROJECTS: list[dict[str, Any]] = [
 ]
 
 EXPERIENCE: list[dict[str, str]] = [
-    {"title": "Researcher, RISE Lab", "organization": "Arizona State University", "period": "2026 - Present", "summary": "Simulation research on UR5e manipulation and digital twins in Isaac Sim: two-arm coordination, a single-arm workstation twin, and Isaac MCP tooling that lets agents drive the simulator. Results so far are in simulation; hardware validation is planned."},
     {"title": "Information Systems Security Analyst Intern", "organization": "Gila River Indian Community", "period": "June 2026 - Present", "summary": "Support endpoint and mobile security, network threat monitoring, SaaS security, phishing defense, and secure remote troubleshooting. Work involves highly confidential information in a tribal government environment supporting government agency operations."},
     {
         "title": "Website Audience Analysis Project",
@@ -363,10 +433,19 @@ CONTACT_METHODS: list[dict[str, str]] = [
 ]
 
 
+def projects_by_slugs(slugs: list[str]) -> list[dict[str, Any]]:
+    by_slug = {project["slug"]: project for project in PROJECTS}
+    return [by_slug[slug] for slug in slugs]
+
+
 def featured_projects(slugs: list[str] | None = None) -> list[dict[str, Any]]:
     """Return the deliberately featured projects, in FEATURED_SLUGS order."""
-    by_slug = {project["slug"]: project for project in PROJECTS}
-    return [by_slug[slug] for slug in (FEATURED_SLUGS if slugs is None else slugs)]
+    return projects_by_slugs(FEATURED_SLUGS if slugs is None else slugs)
+
+
+def spotlight_projects(slugs: list[str] | None = None) -> list[dict[str, Any]]:
+    """Return the home-page spotlight projects, in SPOTLIGHT_SLUGS order."""
+    return projects_by_slugs(SPOTLIGHT_SLUGS if slugs is None else slugs)
 
 
 def build_context(*, page_title: str, active_page: str, **extra: Any) -> dict[str, Any]:
@@ -395,6 +474,7 @@ def home() -> str:
             page_title="Home",
             active_page="home",
             featured_projects=featured_projects(),
+            spotlight_projects=spotlight_projects(),
             skills=SKILLS,
             hero_focus=HERO_FOCUS,
         ),
