@@ -16,7 +16,7 @@ PROFILE: dict[str, str] = {
         "I build and test manipulation and control systems in NVIDIA Isaac Sim, and I came to robotics through data science and machine learning."
     ),
     "direction": (
-        "With Dr. Zhang, I am exploring a Jenga-playing robot that could use approaches such as model predictive control or reinforcement learning. "
+        "With Dr. Wenlong Zhang, I am exploring a Jenga-playing robot that could use approaches such as model predictive control or reinforcement learning. "
         "That is a research direction, not a finished robot or a proven controller. "
         "I am also interested in drones, LiDAR, robotic perception, simulation, and robot learning."
     ),
@@ -145,7 +145,7 @@ PROJECTS: list[dict[str, Any]] = [
         "status": {
             "simulated": "A fixed-scene run using simulation ground-truth poses and BrickSim's simulated connection behavior.",
             "developing": "Broader test cases for the same setup.",
-            "planned": "A Jenga-playing robot using MPC or reinforcement learning is a direction with Dr. Zhang, not something this demonstration shows.",
+            "planned": "A Jenga-playing robot using MPC or reinforcement learning is a direction with Dr. Wenlong Zhang, not something this demonstration shows.",
         },
         "limits": "This is one fixed-scene simulation trial, not a measured success rate. It does not show physical assembly. Hardware would need measured poses and calibrated frames. The controller is a scripted pipeline, not MPC or reinforcement learning.",
         "credits": "BrickSim is the Intelligent Control Lab's simulator (upstream: intelligent-control-lab/BrickSim); the experiments in experiments/ur5e_lego are mine. The UR5e, RG2, and Vention workstation assets are lab-supplied, loaded through Aldrin Inbaraj's isaac-mcp asset resolver.",
@@ -216,15 +216,15 @@ PROJECTS: list[dict[str, Any]] = [
     {
         "slug": "jenga-direction",
         "name": "Jenga-Playing Robot (Research Direction)",
-        "repo_name": "With Dr. Zhang · RISE Lab",
+        "repo_name": "With Dr. Wenlong Zhang · RISE Lab",
         "repo_url": None,
         "badge": "Research direction",
         "tagline": "Where the brick work is heading: a robot that plays Jenga, possibly using model predictive control or reinforcement learning. Not built yet.",
-        "summary": "A direction Dr. Zhang and I are exploring: a Jenga-playing robot using approaches such as model predictive control or reinforcement learning, with the UR5e brick work as a starting point.",
+        "summary": "A direction Dr. Wenlong Zhang and I are exploring: a Jenga-playing robot using approaches such as model predictive control or reinforcement learning, with the UR5e brick work as a starting point.",
         "stack": ["Manipulation", "MPC", "Reinforcement learning", "Simulation"],
         "highlights": ["Related interests: drones, LiDAR, robotic perception, simulation, and robot learning."],
         "status": {"planned": "Exploring approaches. There is no Jenga robot and no proven controller yet."},
-        "credits": "Direction shared with Dr. Zhang.",
+        "credits": "Direction shared with Dr. Wenlong Zhang.",
         "image": None,
     },
     {
@@ -423,7 +423,7 @@ RESEARCH_ITEMS = [
     {"title": "UR5e brick stacking", "summary": "Runs in simulation: my experiments on BrickSim in which a UR5e stacks four bricks in Isaac Sim, from a fixed scene using ground-truth poses. Not physical assembly."},
     {"title": "Two-arm UR5e manipulation", "summary": "Runs in simulation: coordinated shared-bar motion in Isaac Sim, with lab-supplied assets. Not validated on physical hardware."},
     {"title": "Isaac MCP", "summary": "Pre-release open-source MCP server for Isaac Sim and Isaac Lab, built on Aldrin Inbaraj's omni-kit-mcp and isaac-sim-mcp, with a G1 walking demo run through its Isaac Lab tools."},
-    {"title": "Jenga-playing robot (direction)", "summary": "A research direction with Dr. Zhang, possibly using model predictive control or reinforcement learning. It is not built, and no controller has been shown."},
+    {"title": "Jenga-playing robot (direction)", "summary": "A research direction with Dr. Wenlong Zhang, possibly using model predictive control or reinforcement learning. It is not built, and no controller has been shown."},
     {"title": "Prescribed-time quadrotor control", "summary": "Collaborating with John Lok, who led the controller development, on simulation research in MuJoCo. I reproduced an archived baseline and am working on timing and validation."},
 ]
 AWARDS = [{"title": "Best Visualization — NAU ASA DataFest 2026", "summary": "Built models, engineered features, and visualized early signals of high healthcare utilization with a team during the 48-hour competition. The award included a one-year American Statistical Association membership."}]
