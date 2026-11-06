@@ -1,0 +1,16 @@
+{% macro project_image_url(image) -%}
+{%- if image.url %}{{ image.url }}{% else %}{{ url_for(image.endpoint) }}{% if image.anchor %}#{{ image.anchor }}{% endif %}{% endif -%}
+{%- endmacro %}
+
+{% macro status_list(status, labels) %}
+{% if status %}
+<dl class="status-list">
+    {% for key in ("simulated", "developing", "planned") if status[key] %}
+    <div class="status-row status-{{ key }}">
+        <dt><span class="status-badge">{{ labels[key] }}</span></dt>
+        <dd>{{ status[key] }}</dd>
+    </div>
+    {% endfor %}
+</dl>
+{% endif %}
+{% endmacro %}

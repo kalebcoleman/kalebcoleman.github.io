@@ -25,3 +25,7 @@ GitHub Settings → Pages → Source: **GitHub Actions**. Pushes to `master` run
 The static export includes Home, Projects, Skills, Experience, Contact, the résumé PDF, and compatibility redirects for `/1` through `/5` and `/resume`. Source content is in `app.py`, templates in `templates/`, styling and assets in `static/`.
 
 Robotics results are explicitly simulation-based; physical digital-twin calibration and quadrotor hardware validation remain future work. The downloadable résumé was updated in October 2026 with current robotics research, technical skills, and education.
+
+## Content conventions
+
+Home-page featured projects are chosen by `FEATURED_SLUGS` in `app.py`; each project carries its own `image` (or a `placeholder` label), so reordering never mismatches images. Robotics projects use a `status` mapping (`simulated`, `developing`, `planned`) so simulation results, work in progress, and future plans stay distinct. Do not link or describe private repositories without the owner's approval.

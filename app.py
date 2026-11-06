@@ -10,14 +10,15 @@ PROFILE: dict[str, str] = {
     "name": "Kaleb Coleman",
     "email": "kaleb.a.coleman@gmail.com",
     "phone": "480-359-8122",
-    "headline": "AI Engineering (Robotics) at ASU · Simulation, Control, and Machine Learning",
+    "headline": "Robotics, Digital Twins, and Simulation · M.S. AI Engineering (Robotics) at ASU",
     "intro": (
         "I am an M.S. AI Engineering (Robotics) student at ASU and a researcher in the RISE Lab. "
-        "My current focus is a UR5e digital twin: building toward a simulation that can learn from real robot data and support manipulation controllers that transfer to hardware."
+        "I build reproducible simulations for UR5e manipulation, digital twins, and quadrotor control, "
+        "backed by a data science and machine learning background and security experience from an internship at Gila River Indian Community."
     ),
     "summary": (
-        "My work is centered on applied ML, statistical modeling, autonomous decision systems, "
-        "and technical research projects that are useful in both lab and industry settings."
+        "Robotics, simulation, and control research, grounded in data science, machine learning, "
+        "and enterprise security experience."
     ),
     "degree": "M.S. AI Engineering (Robotics), ASU",
     "minor": "Cybersecurity minor",
@@ -25,12 +26,38 @@ PROFILE: dict[str, str] = {
     "linkedin_url": "https://www.linkedin.com/in/kalebacoleman/",
     "github_url": "https://github.com/kalebcoleman",
     "site_description": (
-        "Kaleb Coleman portfolio featuring machine learning, AI, data science, and research-focused "
-        "technical projects."
+        "Kaleb Coleman: ASU robotics student building a UR5e digital twin, Isaac Sim tooling, "
+        "and quadrotor control simulations, with a data science background."
     ),
 }
 
 RESUME_FILE = "resume.pdf"
+
+# Status vocabulary used on project cards and the home page. Keep these three
+# kinds of claim separate: what runs in simulation today, what is being built,
+# and what is only planned.
+STATUS_LABELS: dict[str, str] = {
+    "simulated": "Runs in simulation",
+    "developing": "In development",
+    "planned": "Planned",
+}
+
+HERO_FOCUS: list[dict[str, str]] = [
+    {"status": "simulated", "text": "UR5e workstation, two-arm manipulation, and quadrotor control in simulation"},
+    {"status": "developing", "text": "Self-calibrating UR5e digital twin and Isaac MCP tooling"},
+    {"status": "planned", "text": "Physical calibration, controller transfer, and hardware validation"},
+]
+
+# Home-page featured projects: deliberate slugs, in display order. Images live on
+# each project (see PROJECTS), so reordering this list never mismatches an image.
+FEATURED_SLUGS: list[str] = [
+    "ur5e-digital-twin",
+    "isaac-mcp",
+    "two-arm-manipulation",
+    "quadrotor-control",
+    "nba-shot-package",
+    "image-reconstruction",
+]
 
 NAV_ITEMS: list[dict[str, Any]] = [
     {"label": "Home", "endpoint": "home"},
@@ -41,8 +68,7 @@ NAV_ITEMS: list[dict[str, Any]] = [
 ]
 
 SKILLS: list[dict[str, Any]] = [
-    {"name": "Cybersecurity", "summary": "Enterprise security experience supporting a tribal government environment.", "items": ["Endpoint security", "Network threat monitoring", "SaaS security", "Phishing defense", "Secure remote support"], "evidence_label": "View professional experience", "evidence_url": "/experience"},
-    {"name": "Robotics / Control", "summary": "Tools used in current simulation research and control experiments.", "items": ["NVIDIA Isaac Sim", "MuJoCo", "USD scene authoring", "Inverse kinematics", "Bimanual manipulation", "Model predictive control", "System identification", "Simulation validation"], "evidence_label": "Explore robotics projects", "evidence_url": "/projects#research"},
+    {"name": "Robotics / Simulation", "summary": "Tools used in current simulation research, digital twin work, and control experiments.", "items": ["NVIDIA Isaac Sim", "Isaac Lab", "MuJoCo", "UR5e / RG2", "USD and URDF assets", "Inverse kinematics", "Bimanual manipulation", "Model predictive control", "System identification", "Simulation validation", "ROS 2 TF", "MCP tool servers"], "evidence_label": "Explore robotics projects", "evidence_url": "/projects#research"},
     {
         "name": "Languages",
         "summary": "Core programming languages used across modeling, data pipelines, and application work.",
@@ -98,37 +124,79 @@ SKILLS: list[dict[str, Any]] = [
             "Testing and automation",
         ],
     },
+    {"name": "Cybersecurity", "summary": "Enterprise security experience supporting a tribal government environment.", "items": ["Endpoint security", "Network threat monitoring", "SaaS security", "Phishing defense", "Secure remote support"], "evidence_label": "View professional experience", "evidence_url": "/experience"},
 ]
 
 PROJECTS: list[dict[str, Any]] = [
     {
+        "slug": "ur5e-digital-twin",
         "name": "Self-Calibrating UR5e Digital Twin",
-        "repo_name": "ur5e-digital-twin",
-        "repo_url": "https://github.com/kalebcoleman/ur5e-digital-twin",
-        "summary": "A single-arm UR5e and RG2 digital twin in Isaac Sim, with a long-term goal of using real robot data to improve simulation and transfer manipulation controllers to hardware.",
-        "stack": ["Isaac Sim", "Robotics", "System identification", "Sim-to-real"],
-        "highlights": ["Verified the single-arm workstation scene in Isaac Sim 5.1, including the UR5e, RG2 gripper, and Vention workstation.", "Next steps include repeatable scripted manipulation and simulation characterization; physical calibration and hardware validation remain future work.", "Research direction: compare simulation predictions with real observations, recalibrate the twin, and investigate planning and learned controllers."],
-        "featured": True,
+        "repo_name": "RISE Lab · research in progress",
+        "repo_url": None,
+        "links": [{"label": "UR5e twin tools in Isaac MCP", "url": "https://github.com/kalebcoleman/isaac-mcp/blob/main/docs/TOOLS-UR5E.md"}],
+        "summary": "A single-arm UR5e and RG2 digital twin in Isaac Sim, with a long-term goal of using real robot data to improve the simulation and transfer manipulation controllers to hardware.",
+        "stack": ["Isaac Sim", "UR5e", "System identification", "Sim-to-real"],
+        "highlights": ["Verified the single-arm workstation scene in Isaac Sim 5.1, including the UR5e, RG2 gripper, and Vention workstation.", "Research direction: compare simulation predictions with real observations, recalibrate the twin, and investigate planning, model predictive control, and learned controllers."],
+        "status": {
+            "simulated": "Workstation scene and arm control run in Isaac Sim.",
+            "developing": "Repeatable scripted manipulation and characterization of the simulated arm.",
+            "planned": "Physical calibration, controller transfer, and real-robot validation. None of this has been done yet.",
+        },
+        "credits": "RISE Lab research. The robot, gripper, and workstation assets are lab-supplied, not authored by me.",
+        "image": {"file": "images/ur5e-workstation.png", "alt": "Single UR5e robot and workstation in Isaac Sim", "endpoint": "projects", "anchor": "research"},
     },
     {
-        "name": "Two-Arm Manipulation in Isaac Sim",
+        "slug": "isaac-mcp",
+        "name": "Isaac MCP",
+        "repo_name": "isaac-mcp",
+        "repo_url": "https://github.com/kalebcoleman/isaac-mcp",
+        "summary": "An MCP server that lets AI agents drive NVIDIA Isaac Sim and Isaac Lab: build scenes, load robots, read cameras and LiDAR, and run Isaac Lab training jobs. It includes a tool group for the RISE UR5e digital twin.",
+        "stack": ["Python", "MCP", "Isaac Sim", "Isaac Lab", "ROS 2"],
+        "highlights": ["Lists 126 tools by default, or 135 with optional groups, covering scene and asset authoring, joints and physics, cameras and LiDAR, ROS 2 TF, and Isaac Lab train, evaluate, and play.", "README demos are real Isaac Sim captures, including a UR5e driven to a target and back and a G1 humanoid walking policy trained in Isaac Lab. Each is a single run, and the README records how it was produced.", "Pre-release for Linux x86_64. Results are recorded per Isaac Sim build rather than certified across all versions."],
+        "status": {
+            "simulated": "Tools run against Isaac Sim 6.x builds; every demo is simulation only.",
+            "developing": "Pre-release hardening and wider compatibility testing.",
+            "planned": "Training a user's own robot through the tools is on the project checklist and is not supported yet.",
+        },
+        "credits": "Built on Aldrin Inbaraj's omni-kit-mcp and isaac-sim-mcp (MIT).",
+        "image": {"file": "images/isaac-mcp-ur5e-target.jpg", "alt": "Isaac Sim window showing a UR5e arm and RG2 gripper at a target pose commanded through Isaac MCP", "url": "https://github.com/kalebcoleman/isaac-mcp"},
+    },
+    {
+        "slug": "two-arm-manipulation",
+        "name": "Two-Arm UR5e Manipulation in Isaac Sim",
         "repo_name": "rise-two-arm-research",
         "repo_url": "https://github.com/kalebcoleman/rise-two-arm-research",
-        "summary": "Earlier RISE Lab simulation work coordinating two UR5e arms and RG2 grippers around a shared bar. This project provided a foundation for the single-arm digital twin research.",
-        "stack": ["Python", "NVIDIA Isaac Sim", "USD", "Inverse kinematics"],
-        "highlights": ["Added collision validation, joint-frame corrections, object-space goals, and per-arm inverse kinematics.", "A 26-second simulation recorded four-finger contact at every measured sample, no unexpected collisions, and 0.135 mm maximum slip.", "The two-arm work remains a simulation benchmark; it has not been validated on physical hardware."],
-        "featured": False,
+        "links": [{"label": "Project page", "url": "https://kalebcoleman.github.io/rise-two-arm-research/"}, {"label": "BrickSim (upstream)", "url": "https://github.com/intelligent-control-lab/BrickSim"}],
+        "summary": "RISE Lab simulation work coordinating two opposing UR5e arms and RG2 grippers around a shared bar, built on the open-source BrickSim simulator and lab-supplied assets. It provided the foundation for the single-arm digital twin research.",
+        "stack": ["Python", "Isaac Sim", "BrickSim", "Inverse kinematics", "USD"],
+        "highlights": ["Added collision validation, joint-frame corrections, object-space goals, and per-arm inverse kinematics.", "A 26-second simulated sequence recorded four-finger contact at every measured sample, no unexpected collisions, and 0.135 mm maximum slip.", "Tested limits in this model only: at baseline speed a 1.25 kg bar passed and 1.5 kg exceeded the drift bound. These are not payload ratings."],
+        "status": {
+            "simulated": "Coordinated bar motion runs and passes its checks in Isaac Sim 5.1.",
+            "developing": "A repeatable baseline for changing one controller or task variable at a time.",
+            "planned": "Real-hardware operation. Contact and actuator parameters are still uncalibrated.",
+        },
+        "credits": "Builds on BrickSim (Intelligent Control Lab), Aldrin Inbaraj's isaac-sim-mcp, and lab-supplied robot and Vention assets. My additions are listed in the repository's provenance notes.",
+        "image": {"file": "images/two-arm-simulation.png", "alt": "Two UR5e arms holding a shared bar over a workstation in Isaac Sim", "url": "https://github.com/kalebcoleman/rise-two-arm-research"},
     },
     {
+        "slug": "quadrotor-control",
         "name": "Energy-Aware Quadrotor Control",
         "repo_name": "Collaborative research · private repository",
         "repo_url": None,
-        "summary": "Collaborative research with John Lok on prescribed-time quadrotor control using an S500-based MuJoCo test bench. Results are simulation-based; hardware flight validation remains future work.",
+        "summary": "Collaborative research with John Lok on prescribed-time quadrotor control using an S500-based MuJoCo test bench.",
         "stack": ["MuJoCo", "Control", "System identification", "Simulation"],
-        "highlights": ["Built reproducible simulation comparisons and saved-output baselines for tracking, motor lag, and drag studies.", "Added solver timing diagnostics and contributed to a paper draft; physical calibration and flight testing remain future work."],
-        "featured": True,
+        "highlights": ["Built reproducible simulation comparisons and saved-output baselines for tracking, motor lag, and drag studies.", "Added solver timing diagnostics and contributed to a paper draft."],
+        "status": {
+            "simulated": "Controller comparisons run in the MuJoCo test bench; all results are simulation-based.",
+            "developing": "Paper draft.",
+            "planned": "Physical calibration and flight testing.",
+        },
+        "credits": "Joint work with John Lok.",
+        "image": None,
+        "placeholder": "CONTROL<br>IN MOTION",
     },
     {
+        "slug": "nba-shot-package",
         "name": "NBA Shot Data Engineering Package",
         "repo_name": "spatialSportsR",
         "repo_url": "https://github.com/kalebcoleman/spatialSportsR",
@@ -143,9 +211,10 @@ PROJECTS: list[dict[str, Any]] = [
             "Documented ~63% unseen-data xFG accuracy and delivered residual, SDI, and player archetype analysis outputs.",
             "Structured the repo as both an R package and analytics application with dashboard support.",
         ],
-        "featured": True,
+        "image": {"file": "images/nba_plots/nba-sdi-vs-actual-2014-2024.jpg", "alt": "NBA shot difficulty and scoring analysis", "endpoint": "projects"},
     },
     {
+        "slug": "nba-win-modeling",
         "name": "Leakage-Aware NBA Win Modeling",
         "repo_name": "nba-modeling",
         "repo_url": "https://github.com/kalebcoleman/nba-modeling",
@@ -166,9 +235,11 @@ PROJECTS: list[dict[str, Any]] = [
             "Corrected evaluation problems in an earlier course version, including cross-validation that mixed seasons and a threshold tuned on the test season, and documented each change.",
             "Live 2026-27 predictions are scored on the project site; with only a few games played, early accuracy is not yet a conclusion.",
         ],
-        "featured": True,
+        "image": None,
+        "placeholder": "NO LEAKAGE<br>BEFORE TIP-OFF",
     },
     {
+        "slug": "nau-course-scraper",
         "name": "NAU Course Catalog Scraper",
         "repo_name": "nau-course-scraping",
         "repo_url": "https://github.com/kalebcoleman/nau-course-scraping",
@@ -183,9 +254,10 @@ PROJECTS: list[dict[str, Any]] = [
             "Supports focused AI-course detection, broader recall analysis, and ethics-oriented reporting flows.",
             "Designed as a reproducible data collection and reporting workflow rather than a one-off scraper.",
         ],
-        "featured": False,
+        "image": None,
     },
     {
+        "slug": "image-reconstruction",
         "name": "Image Reconstruction and Generative Modeling",
         "repo_name": "ImageReconstruction",
         "repo_url": "https://github.com/kalebcoleman/ImageReconstruction",
@@ -200,9 +272,11 @@ PROJECTS: list[dict[str, Any]] = [
             "Includes Slurm-safe dataset handling, run isolation, and GPU-oriented experiment workflows for shared compute environments.",
             "Covers diffusion experiments, autoencoder baselines, and reproducible parameter sweeps for model comparison.",
         ],
-        "featured": True,
+        "image": None,
+        "placeholder": "RECONSTRUCT<br>AND GENERATE",
     },
     {
+        "slug": "halma-ai",
         "name": "Halma Game AI",
         "repo_name": "halma-ai",
         "repo_url": "https://github.com/kalebcoleman/halma-ai",
@@ -217,9 +291,10 @@ PROJECTS: list[dict[str, Any]] = [
             "Provides both a GUI surface and a headless arena for AI-vs-AI benchmarking.",
             "Supports multiple board sizes and configurable per-move search budgets.",
         ],
-        "featured": True,
+        "image": None,
     },
     {
+        "slug": "ai-multitool-assistant",
         "name": "AI Multitool Assistant",
         "repo_name": "ai-multitool-assistant",
         "repo_url": "https://github.com/kalebcoleman/ai-multitool-assistant",
@@ -234,11 +309,12 @@ PROJECTS: list[dict[str, Any]] = [
             "Supports PDF indexing and question answering alongside real-time tools such as weather, stocks, and news.",
             "Shows end-to-end application design in addition to modeling-oriented repository work.",
         ],
-        "featured": False,
+        "image": None,
     },
 ]
 
 EXPERIENCE: list[dict[str, str]] = [
+    {"title": "Researcher, RISE Lab", "organization": "Arizona State University", "period": "2026 - Present", "summary": "Simulation research on UR5e manipulation and digital twins in Isaac Sim: two-arm coordination, a single-arm workstation twin, and Isaac MCP tooling that lets agents drive the simulator. Results so far are in simulation; hardware validation is planned."},
     {"title": "Information Systems Security Analyst Intern", "organization": "Gila River Indian Community", "period": "June 2026 - Present", "summary": "Support endpoint and mobile security, network threat monitoring, SaaS security, phishing defense, and secure remote troubleshooting. Work involves highly confidential information in a tribal government environment supporting government agency operations."},
     {
         "title": "Website Audience Analysis Project",
@@ -261,8 +337,10 @@ EXPERIENCE: list[dict[str, str]] = [
 ]
 
 RESEARCH_ITEMS = [
-    {"title": "Self-calibrating UR5e digital twin", "summary": "Developing a single-arm UR5e simulation in Isaac Sim toward a real-to-sim-to-real research loop. The workstation scene is verified in simulation; physical calibration, controller transfer, and hardware validation are future work."},
-    {"title": "Energy-aware prescribed-time quadrotor control", "summary": "Collaborating with John Lok on an S500-based MuJoCo test bench, studying tracking deadlines, motor lag, drag, wind estimation, and system identification. Results are simulation-based; hardware validation remains future work."},
+    {"title": "Self-calibrating UR5e digital twin", "summary": "In development: a single-arm UR5e twin in Isaac Sim toward a real-to-sim-to-real research loop. The workstation scene runs in simulation; physical calibration, controller transfer, and hardware validation are planned and not started."},
+    {"title": "Two-arm UR5e manipulation", "summary": "Runs in simulation: coordinated two-arm bar motion in Isaac Sim, built on BrickSim and lab-supplied assets. Not validated on physical hardware."},
+    {"title": "Isaac MCP", "summary": "Pre-release open-source MCP server for Isaac Sim and Isaac Lab, built on Aldrin Inbaraj's omni-kit-mcp and isaac-sim-mcp."},
+    {"title": "Energy-aware prescribed-time quadrotor control", "summary": "Collaborating with John Lok on an S500-based MuJoCo test bench, studying tracking deadlines, motor lag, drag, wind estimation, and system identification. Results are simulation-based; a paper draft is in progress and hardware validation is planned."},
 ]
 AWARDS = [{"title": "Best Visualization — NAU ASA DataFest 2026", "summary": "Built models, engineered features, and visualized early signals of high healthcare utilization with a team during the 48-hour competition. The award included a one-year American Statistical Association membership."}]
 EDUCATION = {"school": "Arizona State University", "program": "M.S. Artificial Intelligence Engineering (Robotics)", "details": "Previously: B.S. Data Science, Cybersecurity minor, Northern Arizona University (May 2026)", "timeline": "Expected master's completion: May 2028"}
@@ -285,13 +363,16 @@ CONTACT_METHODS: list[dict[str, str]] = [
 ]
 
 
-def featured_projects(limit: int = 3) -> list[dict[str, Any]]:
-    return [project for project in PROJECTS if project["featured"]][:limit]
+def featured_projects(slugs: list[str] | None = None) -> list[dict[str, Any]]:
+    """Return the deliberately featured projects, in FEATURED_SLUGS order."""
+    by_slug = {project["slug"]: project for project in PROJECTS}
+    return [by_slug[slug] for slug in (FEATURED_SLUGS if slugs is None else slugs)]
 
 
 def build_context(*, page_title: str, active_page: str, **extra: Any) -> dict[str, Any]:
     context: dict[str, Any] = {
         "profile": PROFILE,
+        "status_labels": STATUS_LABELS,
         "nav_items": NAV_ITEMS,
         "page_title": page_title,
         "page_description": PROFILE["site_description"],
@@ -313,8 +394,9 @@ def home() -> str:
         **build_context(
             page_title="Home",
             active_page="home",
-            featured_projects=featured_projects(3),
+            featured_projects=featured_projects(),
             skills=SKILLS,
+            hero_focus=HERO_FOCUS,
         ),
     )
 

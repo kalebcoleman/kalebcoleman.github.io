@@ -170,3 +170,18 @@ figcaption { color: var(--muted); font-size: .78rem; margin-top: .6rem; }
 @media (min-width: 651px) {
     .project-grid > .project-card-detailed:last-child:nth-child(odd) { grid-column: 1 / -1; }
 }
+
+/* Status badges: simulation vs in-development vs planned */
+.status-badge { display: inline-block; padding: .1rem .5rem; border: 1px solid var(--border); border-radius: 999px; background: var(--surface-alt); color: var(--accent-strong); font-size: .65rem; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; line-height: 1.6; white-space: nowrap; }
+.status-simulated .status-badge, .status-badge.status-simulated { border-color: var(--accent); }
+.status-planned .status-badge, .status-badge.status-planned { border-style: dashed; background: transparent; color: var(--muted); }
+.status-line { display: flex; flex-wrap: wrap; gap: .4rem; }
+.status-list { margin: 1.2rem 0 0; display: grid; gap: .8rem; }
+.status-row { display: grid; grid-template-columns: 10.5rem minmax(0, 1fr); gap: .8rem; align-items: baseline; }
+.status-row dt, .status-row dd { margin: 0; }
+.status-row dd { color: var(--muted); font-size: .9rem; }
+.credits { font-size: .85rem; }
+.card-image { display: block; margin: 1rem 0 .4rem; aspect-ratio: 16 / 9; overflow: hidden; background: var(--surface-alt); border-radius: 12px; }
+.card-image img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.hero-panel .detail-list li .status-badge { margin-right: .35rem; }
+@media (max-width: 650px) { .status-row { grid-template-columns: 1fr; gap: .25rem; } }

@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% from "_macros.html" import project_image_url %}
 
 {% block content %}
 <section class="hero">
@@ -20,10 +21,9 @@
     <aside class="hero-panel panel">
         <h2>Current focus</h2>
         <ul class="detail-list">
-            <li>UR5e digital twin and manipulation in Isaac Sim</li>
-            <li>System identification and sim-to-real transfer</li>
-            <li>Deep learning, generative modeling, and GPU/HPC experiments</li>
-            <li>Reproducible data engineering and simulation evidence</li>
+            {% for item in hero_focus %}
+            <li class="status-{{ item.status }}"><span class="status-badge">{{ status_labels[item.status] }}</span> {{ item.text }}</li>
+            {% endfor %}
         </ul>
     </aside>
 </section>
@@ -32,16 +32,17 @@
     <div class="section-heading">
         <p class="eyebrow">Featured work</p>
         <h2>Selected technical projects</h2>
-        <p>Focused projects in modeling, AI, analytics, and systems-oriented implementation.</p>
+        <p>Current robotics and simulation work first, followed by the data science and machine learning projects behind it. Each project says what runs in simulation, what is in development, and what is only planned.</p>
     </div>
 
     <div class="project-grid project-grid-featured">
         {% for project in featured_projects %}
         <article class="project-card">
-            {% if loop.first %}<a class="featured-image" href="{{ url_for('projects') }}#research"><img src="{{ url_for('static', filename='images/ur5e-workstation.png') }}" alt="Single UR5e robot and workstation in Isaac Sim"></a>{% elif loop.index == 3 %}<a class="featured-image" href="{{ url_for('projects') }}"><img src="{{ url_for('static', filename='images/nba_plots/nba-sdi-vs-actual-2014-2024.jpg') }}" alt="NBA shot difficulty and scoring analysis"></a>{% else %}<div class="featured-image featured-image-type" aria-hidden="true"><span>CONTROL<br>IN MOTION<span class="featured-index">02 / RESEARCH</span></span></div>{% endif %}
+            {% if project.image %}<a class="featured-image" href="{{ project_image_url(project.image) }}"{% if project.image.url %} target="_blank" rel="noopener noreferrer"{% endif %}><img src="{{ url_for('static', filename=project.image.file) }}" alt="{{ project.image.alt }}" loading="lazy"></a>{% else %}<div class="featured-image featured-image-type" aria-hidden="true"><span>{{ (project.placeholder or project.name)|safe }}<span class="featured-index">{{ '%02d'|format(loop.index) }} / {{ project.stack[0]|upper }}</span></span></div>{% endif %}
             <p class="project-kicker">{{ project.repo_name }}</p>
             <h3>{{ project.name }}</h3>
             <p>{{ project.summary }}</p>
+            {% if project.status %}<p class="status-line">{% for key in ("simulated", "developing", "planned") if project.status[key] %}<span class="status-badge status-{{ key }}">{{ status_labels[key] }}</span>{% endfor %}</p>{% endif %}
             <div class="stack-list">
                 {% for tech in project.stack[:4] %}
                 <span class="chip">{{ tech }}</span>
