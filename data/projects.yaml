@@ -263,40 +263,53 @@ projects:
     credits: Direction shared with Dr. Wenlong Zhang.
 
   - slug: turtlebot3-ros2-lidar
-    name: TurtleBot3 ROS 2 Sensing in Isaac Sim
+    name: TurtleBot3 ROS 2 Sensing and Nav2 in Isaac Sim
     repo_name: ASU RAS 545 · Lab 3
     badge: Lab coursework
     tagline: >-
-      A simulated TurtleBot3 publishing LiDAR, camera, odometry, and TF over ROS 2 to RViz, set up with
-      Isaac MCP.
+      A simulated TurtleBot3 publishing LiDAR, camera, odometry, and TF over ROS 2, then driving to a Nav2
+      goal around the legs of a table in the room.
     summary: >-
       Course lab work in Isaac Sim: Action Graphs for ROS 2 clock, drive commands, 2D LiDAR, camera, and
-      odometry/TF on a TurtleBot3 Burger, checked in RViz.
-    stack: [ROS 2 Humble, Isaac Sim, 2D LiDAR, RViz, TF]
+      odometry/TF on a TurtleBot3 Burger, checked in RViz, then a Nav2 goal sent to the simulated robot.
+    stack: [ROS 2 Humble, Isaac Sim, Nav2, 2D LiDAR, RViz, TF]
     highlights:
       - RViz shows the simulated /scan, /camera/image_raw, /odom, and TF alongside the Isaac Sim stage.
+      - >-
+        One Nav2 goal reached in simulation: with a saved map of the room, AMCL localization, the NavFn
+        planner, and the DWB controller, a NavigateToPose goal finished with status SUCCEEDED. The costmap
+        marks the four table legs as obstacles.
     status:
-      simulated: Sensor topics visualized in RViz from the simulated robot.
+      simulated: Sensor topics visualized in RViz, and one Nav2 goal reached, by the simulated robot.
     limits: >-
-      Not shown: a physical TurtleBot, closed-loop Nav2 navigation, or a verified mapping or localization
-      result. The public Nav2 goal examples in Isaac MCP use a Create 3, not this TurtleBot.
-    credits: The TurtleBot3 scene came from the course handout; the graphs and checks are my lab work.
+      This is one goal in one run, with no measured final-pose error and no repeated trials. Not shown: a
+      physical TurtleBot or a verified mapping result. The public Nav2 goal examples in Isaac MCP use a
+      Create 3, not this TurtleBot.
+    credits: The TurtleBot3 scene came from the course handout; the graphs, Nav2 setup, and checks are my lab work.
     image:
-      file: images/turtlebot3-isaac-ros2-rviz.jpg
+      file: images/turtlebot3-nav2-rviz.jpg
       alt: >-
-        Isaac Sim viewport with a TurtleBot3 Burger beside RViz showing its red LiDAR scan lines, camera
-        image, and TF frames
+        RViz view of a Nav2 costmap with four table legs shown as purple squares with cyan and pink halos,
+        and a thin pink path line running from the TurtleBot3 toward its goal
       endpoint: projects
       anchor: turtlebot3-ros2-lidar
     media:
       kind: image
-      src: images/turtlebot3-isaac-ros2-rviz.jpg
-      width: 1600
-      height: 644
+      src: images/turtlebot3-nav2-rviz.jpg
+      width: 1272
+      height: 954
       alt: >-
-        Isaac Sim viewport with a TurtleBot3 Burger beside RViz showing its red LiDAR scan lines, camera
-        image, and TF frames
-      caption: The simulated TurtleBot3 in Isaac Sim (left) and its sensor topics in RViz (right).
+        RViz view of a Nav2 costmap with four table legs shown as purple squares with cyan and pink halos,
+        and a thin pink path line running from the TurtleBot3 toward its goal
+      caption: >-
+        RViz during the Nav2 goal: the costmap around the four table legs, and the planned path (pink line)
+        from the simulated TurtleBot3.
+    gallery:
+      - file: images/turtlebot3-isaac-ros2-rviz.jpg
+        alt: >-
+          Isaac Sim viewport with a TurtleBot3 Burger beside RViz showing its red LiDAR scan lines, camera
+          image, and TF frames
+        caption: The simulated TurtleBot3 in Isaac Sim (left) and its sensor topics in RViz (right).
 
   - slug: datafest-2026
     name: "DataFest 2026: Early Signals of High Healthcare Utilization"

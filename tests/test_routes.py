@@ -129,7 +129,7 @@ class PortfolioRouteTests(unittest.TestCase):
         home = self.client.get("/home").get_data(as_text=True)
         order = (
             "Unitree G1 Humanoid Locomotion", "Contact-Rich Robotic Assembly Testbed", "Isaac MCP</h3>",
-            "Prescribed-Time Quadrotor Control", "TurtleBot3 ROS 2 Sensing", "DataFest", "NBA Win Modeling",
+            "Prescribed-Time Quadrotor Control", "TurtleBot3 ROS 2 Sensing and Nav2", "DataFest", "NBA Win Modeling",
         )
         for marker in order:
             self.assertIn(marker, home)
@@ -194,6 +194,8 @@ class PortfolioRouteTests(unittest.TestCase):
         self.assertIn("Everything here runs in simulation", text)
         self.assertIn("not a finished robot or a proven controller", text)
         self.assertIn("use a Create 3, not this TurtleBot", text)
+        self.assertIn("One Nav2 goal reached in simulation", text)
+        self.assertIn("one goal in one run", text)
         self.assertNotIn("PCA", text)
         self.assertNotIn("20 ms", text)
 
