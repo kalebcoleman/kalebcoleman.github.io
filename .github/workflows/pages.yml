@@ -19,7 +19,7 @@ jobs:
           cache: pip
       - run: pip install -r requirements.txt
       - run: python tests/test_routes.py
-      - run: python build_static.py --base-path /portfolio
+      - run: python build_static.py --base-path /
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist

@@ -1,21 +1,21 @@
 {% extends "base.html" %}
-{% from "_macros.html" import status_list, project_image_url, media_figure %}
+{% from "_macros.html" import status_list, project_image_url, media_figure, link_href %}
 
 {% block content %}
 <section class="page-header">
     <p class="eyebrow">Projects</p>
     <h1>Curated technical work</h1>
     <p>
-        Robotics and simulation work first, then the data science and machine learning projects behind it.
+        Digital twins and simulation work first, then the data science and machine learning projects behind it.
         Robotics results are simulation-based: each card separates what runs in simulation, what is in development, and what is only planned.
     </p>
 </section>
 
 <section class="section-block panel" id="research">
     <p class="eyebrow">RISE Lab · Research direction</p>
-    <h2>Toward a Jenga-playing robot</h2>
+    <h2>Digital twins across systems</h2>
+    <p>I build simulation digital twins of several kinds of robot: a Unitree G1 humanoid, UR5e arms doing contact-rich assembly and two-arm manipulation, and a quadrotor control test bench, with <a class="text-link" href="https://github.com/kalebcoleman/isaac-mcp" target="_blank" rel="noopener noreferrer">Isaac MCP</a> as the tooling for driving the simulator from an agent.</p>
     <p>{{ profile.direction }}</p>
-    <p>The completed work below is what that direction builds on: UR5e brick stacking and two-arm manipulation in Isaac Sim, and <a class="text-link" href="https://github.com/kalebcoleman/isaac-mcp" target="_blank" rel="noopener noreferrer">Isaac MCP</a>, the tooling for driving the simulator from an agent.</p>
 </section>
 <section class="project-grid">
     {% for project in projects %}
@@ -36,34 +36,40 @@
             {% endfor %}
         </div>
 
+        {% if project.highlights %}
         <ul class="detail-list">
             {% for item in project.highlights %}
             <li>{{ item }}</li>
             {% endfor %}
         </ul>
+        {% endif %}
         {{ status_list(project.status, status_labels) }}
         {% if project.limits %}<p class="limits">{{ project.limits }}</p>{% endif %}
         {% if project.credits %}<p class="credits"><strong>Credits:</strong> {{ project.credits }}</p>{% endif %}
         {% if project.links %}
-        <p class="project-links">{% for link in project.links %}<a class="text-link" href="{{ link.url }}" target="_blank" rel="noopener noreferrer">{{ link.label }}</a>{% if not loop.last %} · {% endif %}{% endfor %}</p>
+        <p class="project-links">{% for link in project.links %}<a class="text-link" href="{{ link_href(link) }}" target="_blank" rel="noopener noreferrer">{{ link.label }}</a>{% if not loop.last %} · {% endif %}{% endfor %}</p>
         {% endif %}
     </article>
     {% endfor %}
 </section>
-<section class="section-block panel" id="nau-capstone">
-    <p class="eyebrow">NAU undergraduate capstone · UGRADS</p>
-    <h2>Shot difficulty and scoring across the NBA and NHL</h2>
-    <p>How much of a player's shooting efficiency reflects the difficulty of the shots they take? This capstone uses matched 2014–2024 NBA and NHL shot data to study expected scoring, shot difficulty, and player performance.</p>
-    <figure style="margin: 1.5rem 0; max-width: 960px">
-        <a href="https://raw.githubusercontent.com/kalebcoleman/nau-capstone/main/analysis/nba/figures/nba_sdi_vs_actual_2014_2024.png" target="_blank" rel="noopener noreferrer" aria-label="Open the full-resolution NBA player graph"><img src="{{ url_for('static', filename='images/nba_plots/nba-sdi-vs-actual-2014-2024.jpg') }}" alt="Scatterplot comparing NBA players' average shot difficulty with actual field-goal percentage from 2014 to 2024" style="display:block;width:100%;height:auto;border-radius:12px"></a>
-        <figcaption>NBA shot difficulty versus actual field-goal percentage. Point size represents shot volume; color shows actual minus expected scoring rate.</figcaption>
+{% for project in feature_projects %}
+<section class="section-block panel" id="{{ project.slug }}">
+    {% if project.eyebrow %}<p class="eyebrow">{{ project.eyebrow }}</p>{% endif %}
+    <h2>{{ project.name }}</h2>
+    <p>{{ project.summary }}</p>
+    {% for figure in project.figures %}
+    {% set figure_href = url_for('static', filename=figure.link_file) if figure.link_file else figure.url %}
+    <figure class="feature-figure">
+        {% if figure_href %}<a href="{{ figure_href }}" target="_blank" rel="noopener noreferrer"{% if figure.aria_label %} aria-label="{{ figure.aria_label }}"{% endif %}>{% endif %}<img src="{{ url_for('static', filename=figure.file) }}" alt="{{ figure.alt }}" loading="lazy" decoding="async">{% if figure_href %}</a>{% endif %}
+        <figcaption>{{ figure.caption }}</figcaption>
     </figure>
-    <p><a class="text-link" href="https://raw.githubusercontent.com/kalebcoleman/nau-capstone/main/analysis/nba/figures/nba_sdi_vs_actual_2014_2024.png" target="_blank" rel="noopener noreferrer">Open full-resolution graph to zoom</a></p>
-    <p><strong>My work:</strong> Developed data preparation and validation workflows, shot-quality models, a Shot Difficulty Index, and visual comparisons of player performance. The team presented the capstone at NAU UGRADS.</p>
-    <figure style="margin: 1.5rem 0; max-width: 960px">
-        <a href="{{ url_for('static', filename='nau-capstone-poster.pdf') }}" target="_blank" rel="noopener noreferrer" aria-label="Open the capstone research poster as a PDF"><img src="{{ url_for('static', filename='images/nau-capstone-poster-preview.jpg') }}" alt="Research poster titled Cross-Sport Shot Analysis, with generalized additive model curves and shot difficulty scatterplots for the NBA and NHL" style="display:block;width:100%;height:auto;border-radius:12px"></a>
-        <figcaption>Research poster from the Department of Mathematics and Statistics at NAU, by Kanaan Law, Kaleb Coleman, and Drianna Walker.</figcaption>
-    </figure>
-    <p><a class="text-link" href="{{ url_for('static', filename='nau-capstone-poster.pdf') }}" target="_blank" rel="noopener noreferrer">Open the research poster (PDF)</a> · <a class="text-link" href="https://github.com/kalebcoleman/nau-capstone" target="_blank" rel="noopener noreferrer">Explore the capstone repository</a> · <a class="text-link" href="https://github.com/kalebcoleman/nau-capstone/blob/main/docs/final-poster-guide.md" target="_blank" rel="noopener noreferrer">View poster research and figures</a></p>
+    {% if figure.link_label and figure_href %}<p><a class="text-link" href="{{ figure_href }}" target="_blank" rel="noopener noreferrer">{{ figure.link_label }}</a></p>{% endif %}
+    {% if loop.first and project.contribution %}<p><strong>My work:</strong> {{ project.contribution }}</p>{% endif %}
+    {% endfor %}
+    {% if not project.figures and project.contribution %}<p><strong>My work:</strong> {{ project.contribution }}</p>{% endif %}
+    {% if project.links %}
+    <p>{% for link in project.links %}<a class="text-link" href="{{ link_href(link) }}" target="_blank" rel="noopener noreferrer">{{ link.label }}</a>{% if not loop.last %} · {% endif %}{% endfor %}</p>
+    {% endif %}
 </section>
+{% endfor %}
 {% endblock %}

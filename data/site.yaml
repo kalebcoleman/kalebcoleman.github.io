@@ -1,0 +1,181 @@
+# Site-wide content: profile, skills, experience, research summary, awards, education.
+# Projects live in data/projects.yaml. Both files are loaded by app.py.
+
+profile:
+  name: Kaleb Coleman
+  email: kaleb.a.coleman@gmail.com
+  phone: 480-359-8122
+  headline: Digital twins of robotic systems, from arms and humanoids to quadrotors
+  intro: >-
+    I am an M.S. AI Engineering (Robotics) student at ASU and a researcher in the RISE Lab. I build
+    simulation digital twins of robotic systems, including UR5e arms, a Unitree G1 humanoid, quadrotors,
+    and contact-rich assembly, in NVIDIA Isaac Sim, Isaac Lab, and MuJoCo. I came to robotics through
+    data science and machine learning.
+  direction: >-
+    The twins here are the simulation side: physics models of real robots, with measured results and
+    written limits, not yet calibrated against hardware. The goal is sim-to-real, where data from the real
+    robot improves the model and the control. With Dr. Wenlong Zhang, I am exploring a Jenga-playing robot
+    that could use approaches such as model predictive control or reinforcement learning. That is a
+    research direction, not a finished robot or a proven controller.
+  summary: >-
+    Digital twins, simulation, and control research, grounded in data science, machine learning, and
+    enterprise security experience.
+  degree: M.S. AI Engineering (Robotics), ASU
+  minor: Cybersecurity minor
+  graduation: Expected May 2028
+  linkedin_url: https://www.linkedin.com/in/kalebacoleman/
+  github_url: https://github.com/kalebcoleman
+  x_url: https://x.com/kalebcoIeman
+  x_handle: "@kalebcoIeman"
+  site_url: https://kalebcoleman.github.io/
+  site_description: >-
+    Kaleb Coleman: ASU robotics student building digital twins of UR5e arms, a Unitree G1 humanoid, and
+    quadrotors in Isaac Sim, Isaac Lab, and MuJoCo.
+
+# Each group may carry an `evidence` link: either `url` (external) or `endpoint` (+ optional `anchor`).
+skills:
+  - name: Robotics / Simulation
+    summary: Tools used to build and test digital twins of arms, a humanoid, and quadrotors.
+    items:
+      - NVIDIA Isaac Sim
+      - Isaac Lab
+      - MuJoCo
+      - Newton / MuJoCo-Warp
+      - UR5e / RG2
+      - Unitree G1
+      - USD and URDF assets
+      - Contact-rich assembly
+      - Inverse kinematics
+      - Bimanual manipulation
+      - PPO policy training and evaluation
+      - Model predictive control
+      - System identification
+      - Simulation validation
+      - ROS 2 TF
+      - MCP tool servers
+    evidence:
+      label: Explore robotics projects
+      endpoint: projects
+      anchor: research
+  - name: Languages
+    summary: Core programming languages used across modeling, data pipelines, and application work.
+    items: [Python, R, SQL, TypeScript, JavaScript, C, HTML/CSS]
+  - name: ML / AI
+    summary: Modeling and experimentation tools for predictive analytics, deep learning, and generative work.
+    items:
+      - PyTorch
+      - scikit-learn
+      - XGBoost
+      - PyGAM
+      - Reinforcement learning (PPO)
+      - CNNs
+      - RNNs
+      - Autoencoders
+      - Diffusion models
+      - Clustering
+      - Dimensionality reduction
+      - Feature engineering
+    evidence:
+      label: See NBA win modeling
+      url: https://github.com/kalebcoleman/nba-modeling
+  - name: Data / Databases
+    summary: Data collection, validation, storage, and reproducible analysis workflows.
+    items:
+      - pandas
+      - NumPy
+      - SQLite
+      - PostgreSQL
+      - SQLAlchemy
+      - API ingestion
+      - Schema validation
+      - ETL pipelines
+      - CSV/report workflows
+      - R Markdown
+    evidence:
+      label: See sports data engineering
+      url: https://github.com/kalebcoleman/spatialSportsR
+  - name: Tools / Systems
+    summary: Workflow, deployment, and engineering tools used to ship and maintain projects.
+    items:
+      - Flask
+      - Streamlit
+      - Git/GitHub
+      - Docker
+      - GitHub Actions
+      - Linux/CLI
+      - Selenium
+      - Tkinter
+      - Slurm/HPC workflows
+      - Testing and automation
+  - name: Cybersecurity
+    summary: Enterprise security experience supporting a tribal government environment.
+    items:
+      - Endpoint security
+      - Network threat monitoring
+      - SaaS security
+      - Phishing defense
+      - Secure remote support
+    evidence:
+      label: View professional experience
+      endpoint: experience
+
+experience:
+  - title: Information Systems Security Analyst Intern
+    organization: Gila River Indian Community
+    period: June 2026 - Present
+    summary: >-
+      Support endpoint and mobile security, network threat monitoring, SaaS security, phishing defense, and
+      secure remote troubleshooting. Work involves highly confidential information in a tribal government
+      environment supporting government agency operations.
+  - title: Website Audience Analysis Project
+    organization: The Career Accelerator — The GRAMMYs Project
+    period: Training project, 2023
+    summary: >-
+      Worked on web audience analysis, exploratory data analysis, segmentation, and testing-oriented insights
+      to support digital content decisions.
+  - title: Project Collaboration
+    organization: NAU Institute of Advanced Applications of Artificial Intelligence
+    period: Academic collaboration
+    summary: >-
+      Built a course-catalog scraping and analysis workflow used to examine AI and ethics-related curriculum
+      coverage through reproducible data collection and reporting.
+
+research_items:
+  - title: Unitree G1 humanoid locomotion
+    summary: >-
+      Runs in simulation: a G1 walking policy trained in Isaac Lab on Newton/MuJoCo-Warp. In the published
+      evaluation, 237 of 256 simulated robots stayed up through a 24-second pushed test. One policy, one
+      training seed; fall recovery is still in progress.
+  - title: Contact-rich robotic assembly
+    summary: >-
+      Runs in simulation: a UR5e assembly testbed in Isaac Sim 6.2 where a joint-strength model decides
+      whether each connection holds. 21 of 29 catalogued structures complete. No real-robot trials yet.
+  - title: Two-arm UR5e manipulation
+    summary: >-
+      Runs in simulation: coordinated shared-bar motion in Isaac Sim, with lab-supplied assets. Not validated
+      on physical hardware.
+  - title: Isaac MCP
+    summary: >-
+      Pre-release open-source MCP server for Isaac Sim and Isaac Lab, built on Aldrin Inbaraj's omni-kit-mcp
+      and isaac-sim-mcp, so AI agents can build scenes, drive robots, and run training jobs.
+  - title: Prescribed-time quadrotor control
+    summary: >-
+      Collaborating with John Lok, who led the controller development, on simulation research in MuJoCo.
+      I reproduced an archived baseline and am working on timing and validation.
+  - title: Jenga-playing robot (direction)
+    summary: >-
+      A research direction with Dr. Wenlong Zhang, possibly using model predictive control or reinforcement
+      learning. It is not built, and no controller has been shown.
+
+awards:
+  - title: Best Visualization — NAU ASA DataFest 2026
+    summary: >-
+      Built models, engineered features, and visualized early signals of high healthcare utilization with
+      a team during the 48-hour competition. The award included a one-year American Statistical Association
+      membership.
+
+education:
+  school: Arizona State University
+  program: M.S. Artificial Intelligence Engineering (Robotics)
+  details: "Previously: B.S. Data Science, Cybersecurity minor, Northern Arizona University (May 2026)"
+  timeline: "Expected master's completion: May 2028"

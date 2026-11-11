@@ -18,7 +18,7 @@ class PortfolioRouteTests(unittest.TestCase):
 
     def test_primary_routes_render(self) -> None:
         route_markers = {
-            "/home": b"What I have built and run",
+            "/home": b"Digital twins across systems",
             "/projects": b"Curated technical work",
             "/skills": b"Technical toolkit",
             "/experience": b"Applied work, research direction, and recognition",
@@ -85,7 +85,7 @@ class PortfolioRouteTests(unittest.TestCase):
         projects_page = self.client.get("/projects")
         self.assertEqual(projects_page.status_code, 200)
         self.assertIn(b"NBA Shot Data Engineering Package", projects_page.data)
-        self.assertIn(b"Image Reconstruction and Generative Modeling", projects_page.data)
+        self.assertIn(b"Diffusion and Autoencoder Image Models", projects_page.data)
         self.assertIn(b"AI Multitool Assistant", projects_page.data)
         self.assertNotIn(b"Build Notes Across Portfolio Projects", projects_page.data)
 
@@ -106,7 +106,7 @@ class PortfolioRouteTests(unittest.TestCase):
         for slug in layout:
             self.assertIn(slug, slugs)
         for project in PROJECTS:
-            for ref in filter(None, [project.get("image"), project.get("media"), *(project.get("gallery") or [])]):
+            for ref in filter(None, [project.get("image"), project.get("media"), *(project.get("gallery") or []), *(project.get("figures") or [])]):
                 with self.subTest(project=project["slug"], media=ref.get("src") or ref.get("file")):
                     self.assertTrue((PROJECT_ROOT / "static" / (ref.get("src") or ref.get("file"))).is_file())
                     self.assertGreater(len(ref["alt"]), 30)
@@ -119,49 +119,92 @@ class PortfolioRouteTests(unittest.TestCase):
             HOME_LAYOUT.update(original)
         for project in home_sections()["secondary"]:
             card = html.split(f'id="sec-{project["slug"]}"')[0].rsplit("<article", 1)[1]
-            self.assertIn(project["media"]["src"], card)
+            if project.get("media"):
+                self.assertIn(project["media"]["src"], card)
+            else:
+                self.assertIn(project["placeholder"], card)
+        self.assertIn("media", home_sections()["lead"])
 
-    def test_home_leads_with_demonstrated_robotics_and_keeps_older_work_below(self) -> None:
+    def test_home_leads_with_digital_twins_across_systems_and_keeps_older_work_below(self) -> None:
         home = self.client.get("/home").get_data(as_text=True)
-        for marker in ("UR5e Brick Stacking in Simulation", "Isaac MCP", "Two-Arm UR5e Shared-Bar", "Jenga", "DataFest", "NBA Win Modeling"):
+        order = (
+            "Unitree G1 Humanoid Locomotion", "Contact-Rich Robotic Assembly Testbed", "Two-Arm UR5e Shared-Bar",
+            "Isaac MCP</h3>", "Prescribed-Time Quadrotor Control", "DataFest", "NBA Win Modeling",
+        )
+        for marker in order:
             self.assertIn(marker, home)
-        self.assertLess(home.index("UR5e Brick Stacking"), home.index("Two-Arm UR5e Shared-Bar"))
-        self.assertLess(home.index("Two-Arm UR5e Shared-Bar"), home.index("DataFest"))
-        for older in ("Halma Game AI", "AI Multitool", "NAU Course Catalog Scraper", "NBA Shot Data Engineering Package"):
+        positions = [home.index(marker) for marker in order]
+        self.assertEqual(positions, sorted(positions))
+        self.assertEqual(HOME_LAYOUT["lead"], "g1-locomotion-lab")
+        self.assertIn("237 of 256", home)
+        for older in ("Halma Game AI", "AI Multitool", "NAU Course Catalog Scraper", "NBA Shot Data Engineering Package", "Diffusion and Autoencoder Image Models"):
             self.assertNotIn(older, home)
             self.assertIn(older, self.client.get("/projects").get_data(as_text=True))
+
+    def test_image_reconstruction_is_a_minor_older_project(self) -> None:
+        robotics_and_data = [p["slug"] for p in PROJECTS if p.get("layout") != "feature"]
+        self.assertEqual(robotics_and_data[-1], "image-reconstruction")
+        project = next(p for p in PROJECTS if p["slug"] == "image-reconstruction")
+        self.assertEqual(project["badge"], "Older coursework")
+        for group in SKILLS:
+            self.assertNotIn("ImageReconstruction", str(group.get("evidence", "")))
 
     def test_video_media_is_accessible_and_light(self) -> None:
         html = self.client.get("/home").get_data(as_text=True)
         self.assertNotIn("autoplay", html)
-        self.assertEqual(html.count("<video controls"), 2)
-        self.assertEqual(html.count('preload="none"'), 2)
-        for project in home_sections()["secondary"] + [home_sections()["lead"]]:
-            media = project["media"]
-            if media["kind"] == "video":
+        featured = home_sections()["secondary"] + [home_sections()["lead"]]
+        videos = sum(1 for project in featured if project.get("media", {}).get("kind") == "video")
+        self.assertGreaterEqual(videos, 1)
+        self.assertEqual(html.count("<video controls"), videos)
+        self.assertEqual(html.count('preload="none"'), videos)
+        for project in featured:
+            media = project.get("media")
+            if media and media["kind"] == "video":
                 size = (PROJECT_ROOT / "static" / media["src"]).stat().st_size
                 self.assertLess(size, 1_000_000)
                 self.assertTrue((PROJECT_ROOT / "static" / media["poster"]).is_file())
 
-    def test_brick_demo_is_scoped_and_credited(self) -> None:
+    def test_contact_assembly_is_scoped_and_credited(self) -> None:
         html = self.client.get("/projects").get_data(as_text=True)
         for marker in (
-            "ur5e-stack-four.md", "ur5e-stack-four-room.mp4", "experiments/ur5e_lego",
-            "not a measured success rate", "does not show physical assembly", "not MPC or reinforcement learning",
+            "https://github.com/kalebcoleman/contact-assembly-lab", "docs/STRUCTURES.md", "FAILURES.md",
+            "21 complete in simulation", "no real-robot trials have been run", "not evidence of robustness",
             "Intelligent Control Lab",
         ):
             self.assertIn(marker, html)
 
+    def test_g1_project_uses_the_published_evaluation(self) -> None:
+        html = self.client.get("/projects").get_data(as_text=True)
+        for marker in (
+            "https://github.com/kalebcoleman/g1-locomotion-lab", "237 of 256", "231 and 233",
+            "one policy from one training seed", "not a new algorithm of mine",
+        ):
+            self.assertIn(marker, html)
+        # The older 16-episode Isaac MCP walking figures are gone.
+        self.assertNotIn("16 episodes", html)
+        self.assertNotIn("39% of episodes", html)
+
     def test_claims_stay_scoped(self) -> None:
         text = " ".join(self.client.get(r).get_data(as_text=True) for r in ("/home", "/projects", "/experience", "/skills"))
         self.assertNotIn("Researcher, RISE Lab", text)
-        self.assertNotIn("digital twin", text.lower())
         self.assertNotIn("self-calibrating", text.lower())
-        self.assertIn("not a controlled benchmark", text)
+        # "Digital twin" is the positioning, so it must stay scoped to simulation.
+        self.assertIn("digital twin", text.lower())
+        self.assertIn("not yet calibrated against hardware", text)
+        self.assertIn("Everything here runs in simulation", text)
         self.assertIn("not a finished robot or a proven controller", text)
         self.assertIn("use a Create 3, not this TurtleBot", text)
-        self.assertIn("PCA results are placeholders", text)
+        self.assertNotIn("PCA", text)
         self.assertNotIn("20 ms", text)
+
+    def test_brick_framing_is_de_emphasized(self) -> None:
+        for route in ("/home", "/projects", "/skills", "/experience", "/contact"):
+            text = self.client.get(route).get_data(as_text=True).lower()
+            with self.subTest(route=route):
+                self.assertNotIn("lego", text)
+                self.assertNotIn("brick stacking", text)
+        # On the home page the only remaining mention is the BrickSim credit.
+        self.assertNotIn("brick", self.client.get("/home").get_data(as_text=True).lower().replace("bricksim", ""))
 
     def test_private_team_repository_is_not_exposed(self) -> None:
         text = self.client.get("/projects").get_data(as_text=True)
@@ -171,26 +214,82 @@ class PortfolioRouteTests(unittest.TestCase):
     def test_isaac_mcp_project_and_status_labels(self) -> None:
         html = self.client.get("/projects").get_data(as_text=True)
         self.assertIn("https://github.com/kalebcoleman/isaac-mcp", html)
-        self.assertIn("https://github.com/kalebcoleman/isaac-mcp#train-a-humanoid-to-walk", html)
+        self.assertIn("129 tools", html)
         for label in STATUS_LABELS.values():
             self.assertIn(label, html)
         for project in PROJECTS:
-            if project["slug"] in ("ur5e-brick-stacking", "isaac-mcp", "two-arm-manipulation", "quadrotor-control"):
+            if project["slug"] in ("g1-locomotion-lab", "contact-assembly-lab", "isaac-mcp", "two-arm-manipulation", "quadrotor-control"):
                 self.assertEqual(set(project["status"]), {"simulated", "developing", "planned"})
 
     def test_seo_description_reflects_current_work(self) -> None:
         html = self.client.get("/home").get_data(as_text=True)
         self.assertIn(f'<meta name="description" content="{PROFILE["site_description"]}">', html)
         self.assertIn("UR5e", PROFILE["site_description"])
+        self.assertIn("digital twins", PROFILE["site_description"])
         self.assertLessEqual(len(PROFILE["site_description"]), 170)
 
     def test_private_repositories_are_not_linked(self) -> None:
-        private = ("ur5e-digital-twin", "rise-ur5e-twin", "bricksim-learning", "jenga-rl", "urdf-reaching", "semiconductor-amr-demo")
+        private = (
+            "ur5e-digital-twin", "rise-ur5e-twin", "bricksim-learning", "jenga-rl", "jenga-ur5e-twin", "urdf-reaching",
+            "semiconductor-amr-demo", "g1-recovery", "drone-controller-validation", "PrescribedTimeDroneController",
+            "BrickSim", "unsupervised-machine-learning", "malware-analysis", "deep-learning-projects", "neovim-config",
+            "nba-outcome-predictor", "free-builder", "free-builder-site", "portfolio",
+        )
         for route in ("/home", "/projects", "/skills", "/experience", "/contact"):
             html = self.client.get(route).get_data(as_text=True)
             for name in private:
                 with self.subTest(route=route, repo=name):
                     self.assertNotIn(f"github.com/kalebcoleman/{name}", html)
+            with self.subTest(route=route, link="old /portfolio/ path"):
+                self.assertNotIn("kalebcoleman.github.io/portfolio", html)
+
+    def test_x_profile_is_linked(self) -> None:
+        for route in ("/home", "/contact"):
+            with self.subTest(route=route):
+                self.assertIn("https://x.com/kalebcoIeman", self.client.get(route).get_data(as_text=True))
+
+    def test_every_project_entry_is_complete(self) -> None:
+        for project in PROJECTS:
+            with self.subTest(project=project.get("slug")):
+                for key in ("slug", "name", "repo_name", "summary", "stack"):
+                    self.assertTrue(project.get(key), key)
+                for link in project.get("links", []):
+                    self.assertTrue(link.get("label"))
+                    self.assertTrue(bool(link.get("url")) != bool(link.get("file")))
+                    if link.get("file"):
+                        self.assertTrue((PROJECT_ROOT / "static" / link["file"]).is_file())
+        for slug in self._layout_slugs():
+            project = next(p for p in PROJECTS if p["slug"] == slug)
+            self.assertTrue(project.get("tagline"), slug)
+            self.assertTrue(project.get("badge"), slug)
+
+    def test_capstone_is_data_driven(self) -> None:
+        capstone = next(p for p in PROJECTS if p["slug"] == "nau-capstone")
+        self.assertEqual(capstone["layout"], "feature")
+        html = self.client.get("/projects").get_data(as_text=True)
+        self.assertIn('id="nau-capstone"', html)
+        self.assertIn(capstone["name"], html)
+        self.assertNotIn("nau-capstone", (PROJECT_ROOT / "templates" / "projects.html").read_text(encoding="utf-8"))
+
+    def test_static_export_serves_from_root_and_redirects_old_portfolio_paths(self) -> None:
+        import tempfile
+        import build_static
+
+        with tempfile.TemporaryDirectory() as tmp:
+            out = Path(tmp)
+            build_static.build(out, "/")
+            home = (out / "index.html").read_text(encoding="utf-8")
+            self.assertIn('href="/static/css/base.css', home)
+            self.assertIn('href="/projects/"', home)
+            self.assertNotIn("/portfolio/", home)
+            for page in ("", "home/", "projects/", "skills/", "experience/", "contact/", "resume/"):
+                with self.subTest(legacy=page):
+                    redirect = (out / "portfolio" / page / "index.html").read_text(encoding="utf-8")
+                    self.assertIn("http-equiv=\"refresh\"", redirect)
+                    self.assertNotIn("url=/portfolio", redirect)
+            self.assertIn('url=/projects/"', (out / "portfolio" / "projects" / "index.html").read_text(encoding="utf-8"))
+            self.assertIn("/portfolio", (out / "404.html").read_text(encoding="utf-8"))
+            self.assertTrue((out / "static" / "resume.pdf").is_file())
 
     def test_resume_file_is_unchanged(self) -> None:
         import hashlib

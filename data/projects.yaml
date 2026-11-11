@@ -1,0 +1,523 @@
+# Projects shown on the site. One entry per project; see README.md ("Adding a project").
+#
+# Required: slug (unique, used as the page anchor), name, repo_name (the small label above the
+#           card), summary, stack (list).
+# Optional: repo_url      public repository only. Never link a private repository.
+#           badge         short status label, e.g. "Runs in simulation".
+#           tagline       one or two sentences used on the home page. Needed for any slug in home_layout.
+#           highlights    list of bullet points.
+#           links         list of {label, url} or {label, file} (file = path under static/).
+#           status        any of simulated / developing / planned (see STATUS_LABELS in app.py).
+#           limits, credits
+#           media         {kind: video|image, src, poster (video), width, height, alt, caption}.
+#                         Needed for the home-page lead; videos must stay under 1 MB.
+#           image         {file, alt} plus url, or endpoint (+ anchor), for compact cards.
+#           gallery       list of {file, alt, caption}.
+#           placeholder   short text shown when a home-page card has no media.
+#           layout        "feature" renders a full-width panel after the grid; it can also carry
+#                         eyebrow, contribution, and figures: [{file, alt, caption, url | link_file, link_label}].
+#
+# Order here is the order on the Projects page. The home page is driven by home_layout.
+
+home_layout:
+  lead: g1-locomotion-lab
+  secondary:
+    - contact-assembly-lab
+    - two-arm-manipulation
+    - isaac-mcp
+    - quadrotor-control
+  more_robotics:
+    - turtlebot3-ros2-lidar
+    - jenga-direction
+  data_science:
+    - datafest-2026
+    - nba-win-modeling
+
+projects:
+  - slug: g1-locomotion-lab
+    name: Unitree G1 Humanoid Locomotion
+    repo_name: g1-locomotion-lab
+    repo_url: https://github.com/kalebcoleman/g1-locomotion-lab
+    badge: Runs in simulation
+    tagline: >-
+      A simulated Unitree G1 humanoid trained to walk in Isaac Lab on Newton/MuJoCo-Warp physics. In the
+      published evaluation, 237 of 256 robots stayed up through a 24-second stand, walk, turn, and stop test
+      with random pushes.
+    summary: >-
+      Training and evaluating Unitree G1 locomotion in Isaac Lab with the Newton/MuJoCo-Warp physics backend.
+      The task, rewards, and PPO setup are Isaac Lab's; my work is the training run on Newton, a scripted
+      evaluation with pushes, a sweep across saved checkpoints, and a study of when and where robots fall.
+    stack: [Isaac Lab 3.0, Newton / MuJoCo-Warp, PPO (rsl_rl), Unitree G1, Python]
+    highlights:
+      - >-
+        Published evaluation: 237 of 256 simulated robots stayed up through a 24-second scripted stand, walk,
+        turn, and stop test with random pushes of up to 0.5 m/s. Two reruns gave 231 and 233. This is one
+        policy from one training seed.
+      - >-
+        Most falls happen while turning: 17 of the 19 falls in the published run were in the turn phase.
+      - >-
+        Follow-up pilots measured where the policy breaks: half of the robots fall at about 2.2 m/s of added
+        push speed, and the flat-ground policy keeps at least 80% survival on a 19 degree downhill and a
+        9 degree uphill.
+      - >-
+        Getting back up after a fall is work in progress: the current baseline passes strict validity checks
+        on 68.2% of 256 held-out lying poses, and handing over from getting up to walking is the weak link.
+    links:
+      - label: Walking write-up
+        url: https://github.com/kalebcoleman/g1-locomotion-lab/blob/main/docs/WALKING.md
+      - label: Evaluation protocol
+        url: https://github.com/kalebcoleman/g1-locomotion-lab/blob/main/EVAL_PROTOCOL.md
+    status:
+      simulated: A walking policy and its scripted 256-robot evaluation, on flat ground in Isaac Lab.
+      developing: Fall recovery and the hand-over from getting up to walking.
+      planned: Any hardware run. Nothing here has been tried on a physical G1.
+    limits: >-
+      Simulation only, one policy from one training seed, with no repeats or confidence intervals. The
+      task, rewards, and PPO are upstream Isaac Lab components, not a new algorithm of mine.
+    credits: >-
+      Built on Isaac Lab (NVIDIA and contributors), the Unitree G1 model by Unitree Robotics, rsl_rl,
+      Newton, and MuJoCo-Warp.
+    image:
+      file: images/g1-before-after-poster.jpg
+      alt: Two groups of simulated Unitree G1 humanoids on a checkered floor, untrained on the left and walking on the right
+      url: https://github.com/kalebcoleman/g1-locomotion-lab
+    media:
+      kind: video
+      src: media/g1-before-after.mp4
+      poster: images/g1-before-after-poster.jpg
+      width: 960
+      height: 270
+      alt: >-
+        Two groups of 16 simulated Unitree G1 humanoids following the same commands. At training iteration 0
+        on the left they collapse; at iteration 1499 on the right they stay upright and walk
+      caption: >-
+        Same scripted commands at training iteration 0 (left) and 1499 (right), 16 simulated robots per side.
+        Fallen robots are reset in place, and this clip is not footage of the 256-robot test.
+
+  - slug: contact-assembly-lab
+    name: Contact-Rich Robotic Assembly Testbed
+    repo_name: contact-assembly-lab
+    repo_url: https://github.com/kalebcoleman/contact-assembly-lab
+    badge: Runs in simulation
+    tagline: >-
+      A UR5e with an RG2 gripper assembles structures from interlocking parts in Isaac Sim 6.2 while a
+      joint-strength model decides, at every physics step, whether each connection holds. 21 of 29
+      catalogued structures complete, and every failure is traced to a cause.
+    summary: >-
+      A contact-rich assembly testbed in Isaac Sim 6.2. A UR5e builds catalogued structures from
+      interlocking bricks, and a joint-strength physics model breaks any connection that is overloaded. The
+      project asks what a robot can assemble reliably and why builds fail, and it is the contact-physics
+      testbed for my Jenga research.
+    stack: [Isaac Sim 6.2, PhysX 5.9, UR5e / RG2, Python]
+    highlights:
+      - >-
+        Ported the simulator from Isaac Sim 5.1 and Python 3.11 to Isaac Sim 6.2 and Python 3.12, and added a
+        weld-torque correction for PhysX 5.9's CPU TGS solver, which misreported the loads the breakage model
+        reads.
+      - >-
+        Wrote an assembly controller that builds any structure config, releases each part without touching
+        its neighbours, and logs every gripper contact.
+      - >-
+        In the catalog of 29 structures, 21 complete in simulation at their saved settings. The other 8,
+        including two cantilever break tests designed to fail, do not.
+      - >-
+        Failures led to specific fixes: easing off 0.5 mm before release, or releasing in 0.5 s instead of
+        1 s, stopped joints breaking as the gripper opened. Tables with no room for the fingers and 4-stud
+        joints that break are still open.
+      - >-
+        Sweeps are reproducible: each records its configs, settings, and controller commit, and repeated
+        runs gave identical results on the reference machine. A local dashboard shows every run.
+    links:
+      - label: Structure catalog
+        url: https://github.com/kalebcoleman/contact-assembly-lab/blob/main/docs/STRUCTURES.md
+      - label: Failure analysis
+        url: https://github.com/kalebcoleman/contact-assembly-lab/blob/main/experiments/ur5e_structures/FAILURES.md
+      - label: Isaac Sim 6.2 port notes
+        url: https://github.com/kalebcoleman/contact-assembly-lab/blob/main/docs/ISAACSIM_6.2_PORT.md
+    status:
+      simulated: Structure builds and break tests in Isaac Sim 6.2, judged by simulator ground truth.
+      developing: More ways to grip parts, such as long-side grips and re-grasping, to remove the gripper limits found so far.
+      planned: Building the same structures on the real UR5e and comparing what fails; carrying the evaluation methods over to Jenga.
+    limits: >-
+      All results are simulation; no real-robot trials have been run. A completed run is one deterministic
+      run, not evidence of robustness.
+    credits: >-
+      Builds on BrickSim by Haowei Wen, Ruixuan Liu, Weiyi Piao, Siyu Li, and Changliu Liu (Intelligent
+      Control Lab, Carnegie Mellon University; MIT License). The connection and breakage physics, the native
+      extension, and the simulator UI are theirs. The UR5e, gripper, and bench models are lab-supplied.
+    image:
+      file: images/contact-assembly-bridge-poster.jpg
+      alt: Isaac Sim view of an RG2 gripper lowering a part onto a small arch bridge assembled on a baseplate
+      url: https://github.com/kalebcoleman/contact-assembly-lab
+    media:
+      kind: video
+      src: media/contact-assembly-bridge.mp4
+      poster: images/contact-assembly-bridge-poster.jpg
+      width: 960
+      height: 540
+      alt: >-
+        Isaac Sim recording of a UR5e gripper picking up loose parts one at a time and assembling a
+        seven-part arch bridge on a baseplate
+      caption: The UR5e assembling the seven-part arch bridge in Isaac Sim 6.2, from the repository.
+    gallery:
+      - file: images/contact-assembly-dashboard.jpg
+        alt: Dashboard grid listing all 29 catalogued structures with their simulation run results
+        caption: The run dashboard listing all 29 catalogued structures and their simulation results.
+
+  - slug: two-arm-manipulation
+    name: Two-Arm UR5e Shared-Bar Manipulation
+    repo_name: rise-two-arm-research
+    repo_url: https://github.com/kalebcoleman/rise-two-arm-research
+    badge: Runs in simulation
+    tagline: >-
+      Two UR5e arms with RG2 grippers lift and move a shared bar in Isaac Sim, with no unexpected collisions
+      and 0.135 mm maximum slip over a 26-second sequence.
+    summary: >-
+      Simulation work in the RISE Lab coordinating two opposing UR5e arms and RG2 grippers around a shared
+      0.1 kg bar, with collision validation, joint-frame corrections, object-space goals, and per-arm inverse
+      kinematics. It uses lab-supplied robot assets and BrickSim's Isaac Sim tooling.
+    stack: [Python, Isaac Sim 5.1, Inverse kinematics, USD]
+    highlights:
+      - >-
+        The 26.07-second accepted sequence translates, yaws, pitches, returns, and moves the bar to a final
+        pose. Four-finger contact held at every measured sample; the bar's maximum translation and rotation
+        slip were 0.135 mm and 0.036 degrees; maximum tracking error was 2.02 mm.
+      - >-
+        Load and speed tests found limits in this model only: at baseline speed a 1.25 kg bar passed and
+        1.5 kg exceeded the drift bound, and a 0.1 kg bar passed at 5x speed but exceeded the tracking bound
+        at 6x. These are not payload ratings.
+    links:
+      - label: Project page
+        url: https://kalebcoleman.github.io/rise-two-arm-research/
+      - label: Validation results
+        url: https://github.com/kalebcoleman/rise-two-arm-research/blob/main/docs/VALIDATION.md
+    status:
+      simulated: Coordinated shared-bar motion passes its checks in Isaac Sim 5.1.
+      developing: A repeatable baseline for changing one controller or task variable at a time.
+      planned: Real-hardware operation. Contact and actuator parameters are uncalibrated.
+    limits: >-
+      A simulation result with uncalibrated contact and actuator parameters; it is not yet a calibrated
+      physical twin.
+    credits: >-
+      Builds on lab-supplied UR5e, RG2, and Vention assets, Aldrin Inbaraj's isaac-sim-mcp, and BrickSim
+      (Intelligent Control Lab). My additions are listed in the repository's provenance notes.
+    image:
+      file: images/two-arm-shared-bar.jpg
+      alt: Two UR5e arms with RG2 grippers lifting a shared wooden bar on a Vention workstation in a simulated room
+      url: https://github.com/kalebcoleman/rise-two-arm-research
+    media:
+      kind: image
+      src: images/two-arm-shared-bar.jpg
+      width: 960
+      height: 720
+      alt: Two UR5e arms with RG2 grippers lifting a shared wooden bar on a Vention workstation in a simulated room
+      caption: The shared-bar task in Isaac Sim.
+    gallery:
+      - file: images/two-arm-load-speed-map.png
+        alt: >-
+          Grid of 20 simulated trials showing pass, drift, track, or drop outcomes for bar masses from 0.1
+          to 2 kilograms at speed scales from 1 to 8 times
+        caption: Outcomes of 20 simulated load and speed trials.
+
+  - slug: isaac-mcp
+    name: Isaac MCP
+    repo_name: isaac-mcp · open source
+    repo_url: https://github.com/kalebcoleman/isaac-mcp
+    badge: Runs in simulation
+    tagline: >-
+      An MCP server that lets AI agents build Isaac Sim scenes, load and drive robots, read cameras and
+      LiDAR, and run Isaac Lab training and evaluation jobs.
+    summary: >-
+      An MCP server that lets AI agents drive NVIDIA Isaac Sim and Isaac Lab: build scenes, import robots,
+      read cameras and LiDAR, and run Isaac Lab train, evaluate, and play jobs. It is the tooling I use to
+      stand up and inspect simulated systems quickly.
+    stack: [Python, MCP, Isaac Sim, Isaac Lab, ROS 2]
+    highlights:
+      - >-
+        Lists 129 tools by default, or 138 with optional groups, covering scene and asset authoring, joints
+        and physics, cameras and LiDAR, ROS 2 TF, Isaac Lab jobs, and screenshots and recordings.
+      - >-
+        The README examples are captures from live runs with a record of how each was made: a warehouse
+        built in one call, robots imported from public repositories, and a Unitree G1 walking policy trained
+        through the Isaac Lab tools. They illustrate the tools and are not benchmarks.
+      - >-
+        The fuller G1 walking evaluation, 237 of 256 robots through a pushed test, is its own project:
+        Unitree G1 Humanoid Locomotion.
+    links:
+      - label: Example prompts
+        url: https://github.com/kalebcoleman/isaac-mcp#things-you-can-ask
+      - label: Compatibility matrix
+        url: https://github.com/kalebcoleman/isaac-mcp/blob/main/docs/COMPATIBILITY.md
+    status:
+      simulated: >-
+        Documented builds are Isaac Sim 6.2.0.0 with Isaac Lab 3.0.0 and Isaac Sim 5.1.0.0 with Isaac Lab
+        2.3.2. Every demo is simulation only.
+      developing: Pre-release hardening and wider compatibility testing (Linux x86_64).
+      planned: Further robotics and learning workflows tracked on the project checklist.
+    limits: Pre-release and simulation only; no hardware deployment.
+    credits: >-
+      Built on Aldrin Inbaraj's omni-kit-mcp and isaac-sim-mcp. The example robots and tasks belong to
+      their owners, including NVIDIA's Isaac Lab and public Carter model.
+    image:
+      file: images/isaac-mcp-warehouse.jpg
+      alt: Overhead view of a simulated warehouse with shelving racks, yellow aisle lines, and a small wheeled robot
+      url: https://github.com/kalebcoleman/isaac-mcp
+    media:
+      kind: image
+      src: images/isaac-mcp-warehouse.jpg
+      width: 949
+      height: 534
+      alt: >-
+        Overhead view of a simulated warehouse with rows of shelving racks holding boxes, yellow aisle
+        lines, and a small wheeled robot at the start of an aisle
+      caption: A warehouse and wheeled robot built by one Isaac MCP quick-start call (from the README).
+    gallery:
+      - file: images/isaac-mcp-ur5e-target.jpg
+        alt: Isaac Sim window showing a UR5e arm and RG2 gripper at a target pose commanded through Isaac MCP
+        caption: A UR5e driven to a target and back through Isaac MCP (Isaac Sim 6.2, from the README).
+
+  - slug: quadrotor-control
+    name: Prescribed-Time Quadrotor Control
+    repo_name: Team research · private repository
+    badge: Ongoing collaboration
+    tagline: >-
+      Simulation research with John Lok on prescribed-time quadrotor control. John led the controller
+      development; I reproduced an archived MuJoCo baseline and am working on timing and validation.
+    summary: >-
+      Collaborative simulation research on prescribed-time quadrotor control using a MuJoCo test bench.
+      John Lok did most of the controller development. My part: team organization and presentations,
+      reproducing an archived MuJoCo baseline on a lab PC, and a timing and validation study that is still
+      in progress.
+    stack: [MuJoCo, Control, System identification, Simulation]
+    highlights:
+      - Reproduced the archived MuJoCo baseline results on a lab PC, with matching telemetry and tracking tables.
+      - "Timing and validation study: setup and an initial baseline are done; results are not yet available."
+    status:
+      simulated: Controller comparisons run in MuJoCo; everything here is simulation.
+      developing: Timing and validation study; a paper draft.
+      planned: Physical calibration and any flight testing.
+    limits: No hardware tests, no completed timing target, and no new controller are claimed.
+    credits: Joint work with John Lok, who led the controller development.
+    placeholder: Quadrotor · MuJoCo
+
+  - slug: jenga-direction
+    name: Jenga-Playing Robot (Research Direction)
+    repo_name: With Dr. Wenlong Zhang · RISE Lab
+    badge: Research direction
+    tagline: >-
+      Where the contact-assembly work is heading: a robot that plays Jenga, possibly using model predictive
+      control or reinforcement learning. Not built yet.
+    summary: >-
+      A direction Dr. Wenlong Zhang and I are exploring: a Jenga-playing robot using approaches such as
+      model predictive control or reinforcement learning, with the UR5e contact-assembly testbed as a
+      starting point.
+    stack: [Manipulation, MPC, Reinforcement learning, Simulation]
+    highlights:
+      - "Related interests: drones, LiDAR, robotic perception, simulation, and robot learning."
+    status:
+      planned: Exploring approaches. There is no Jenga robot and no proven controller yet.
+    credits: Direction shared with Dr. Wenlong Zhang.
+
+  - slug: turtlebot3-ros2-lidar
+    name: TurtleBot3 ROS 2 Sensing in Isaac Sim
+    repo_name: ASU RAS 545 · Lab 3
+    badge: Lab coursework
+    tagline: >-
+      A simulated TurtleBot3 publishing LiDAR, camera, odometry, and TF over ROS 2 to RViz, set up with
+      Isaac MCP.
+    summary: >-
+      Course lab work in Isaac Sim: Action Graphs for ROS 2 clock, drive commands, 2D LiDAR, camera, and
+      odometry/TF on a TurtleBot3 Burger, checked in RViz.
+    stack: [ROS 2 Humble, Isaac Sim, 2D LiDAR, RViz, TF]
+    highlights:
+      - RViz shows the simulated /scan, /camera/image_raw, /odom, and TF alongside the Isaac Sim stage.
+    status:
+      simulated: Sensor topics visualized in RViz from the simulated robot.
+    limits: >-
+      Not shown: a physical TurtleBot, closed-loop Nav2 navigation, or a verified mapping or localization
+      result. The public Nav2 goal examples in Isaac MCP use a Create 3, not this TurtleBot.
+    credits: The TurtleBot3 scene came from the course handout; the graphs and checks are my lab work.
+    image:
+      file: images/turtlebot3-isaac-ros2-rviz.jpg
+      alt: >-
+        Isaac Sim viewport with a TurtleBot3 Burger beside RViz showing its red LiDAR scan lines, camera
+        image, and TF frames
+      endpoint: projects
+      anchor: turtlebot3-ros2-lidar
+
+  - slug: datafest-2026
+    name: "DataFest 2026: Early Signals of High Healthcare Utilization"
+    repo_name: datafest-2026
+    repo_url: https://github.com/kalebcoleman/datafest-2026
+    badge: Team award
+    tagline: >-
+      Team project that won Best Visualization at NAU's ASA DataFest 2026: patient-journey modeling and
+      utilization concentration analysis.
+    summary: >-
+      My team's DataFest 2026 work on patient-journey modeling, utilization concentration, and
+      geography-based segmentation, awarded Best Visualization at NAU's ASA DataFest 2026 (including a
+      one-year American Statistical Association membership).
+    stack: [Python, scikit-learn, Random forest, Clustering]
+    highlights:
+      - >-
+        I built a reusable analysis package, data-prep and QA utilities, an enrichment pipeline, and a
+        random-forest workflow predicting future high utilizers from early encounters.
+      - The challenge data and partner identity are not included in the repository.
+    credits: Team project; the award is the team's.
+    image:
+      file: images/datafest-result.png
+      alt: DataFest presentation slide visualizing concentrated healthcare encounters and early-risk model results
+      url: https://github.com/kalebcoleman/datafest-2026
+
+  - slug: nba-win-modeling
+    name: Leakage-Aware NBA Win Modeling
+    repo_name: nba-modeling
+    repo_url: https://github.com/kalebcoleman/nba-modeling
+    badge: Data science
+    tagline: >-
+      Predicts NBA home wins using only pre-tip-off information. The best model beat always picking the home
+      team; its gain over Elo ratings alone is not statistically established.
+    summary: >-
+      Predicts NBA home wins using only information available before tip-off, with time-ordered validation
+      and a companion R package, nba-data, that collects and validates ESPN game data. A scheduled job logs
+      predictions for the current season before each game and scores them afterward.
+    stack: [R, targets, renv, xgboost, SQLite, GitHub Actions]
+    highlights:
+      - >-
+        Tests check the features directly: changing one game's result changes no feature for that game or
+        any earlier game.
+      - >-
+        On the held-out 2025-26 season the best model picked 68.6% of games correctly, against 55.4% for
+        always picking the home team. Elo ratings alone reach 67.9%, and the interval for the gain from
+        adding rolling features includes zero.
+      - >-
+        Corrected evaluation problems in an earlier course version, including cross-validation that mixed
+        seasons and a threshold tuned on the test season, and documented each change.
+      - >-
+        Live 2026-27 predictions are scored on the project site; with only a few games played, early
+        accuracy is not yet a conclusion.
+    links:
+      - label: Project site
+        url: https://kalebcoleman.github.io/nba-modeling/
+      - label: Paper (PDF)
+        url: https://kalebcoleman.github.io/nba-modeling/paper/paper.pdf
+      - label: Data package
+        url: https://github.com/kalebcoleman/nba-data
+
+  - slug: nba-shot-package
+    name: NBA Shot Data Engineering Package
+    repo_name: spatialSportsR
+    repo_url: https://github.com/kalebcoleman/spatialSportsR
+    summary: >-
+      End-to-end NBA shot analytics package combining R data infrastructure with Python modeling workflows.
+      The project supports multi-source ingestion, rerunnable SQLite updates, shot-quality modeling, and
+      player-level archetype analysis.
+    stack: [R, Python, SQLite, scikit-learn, PyGAM, Streamlit]
+    highlights:
+      - >-
+        Built a five-season training pipeline with roughly 1.1M historical shots and ~136K out-of-sample
+        evaluation shots.
+      - Documented ~63% unseen-data xFG accuracy and delivered residual, SDI, and player archetype analysis outputs.
+      - Structured the repo as both an R package and analytics application with dashboard support.
+    image:
+      file: images/nba_plots/nba-sdi-vs-actual-2014-2024.jpg
+      alt: NBA shot difficulty and scoring analysis
+      endpoint: projects
+
+  - slug: nau-course-scraper
+    name: NAU Course Catalog Scraper
+    repo_name: nau-course-scraping
+    repo_url: https://github.com/kalebcoleman/nau-course-scraping
+    summary: >-
+      Automated course-catalog pipeline built in collaboration with NAU's Institute of Advanced Applications
+      of Artificial Intelligence. It extracts course prefixes from PDF source data, scrapes catalog records
+      with Selenium, and supports downstream AI and ethics analysis.
+    stack: [Python, Selenium, pdfplumber, pandas, R Markdown]
+    highlights:
+      - Scrapes term-level course records and exports structured CSV outputs for later analysis.
+      - Supports focused AI-course detection, broader recall analysis, and ethics-oriented reporting flows.
+      - Designed as a reproducible data collection and reporting workflow rather than a one-off scraper.
+
+  - slug: halma-ai
+    name: Halma Game AI
+    repo_name: halma-ai
+    repo_url: https://github.com/kalebcoleman/halma-ai
+    summary: >-
+      Turn-based game AI project that combines search, heuristics, and a local interface for interactive
+      play and benchmarking. It is a clean example of autonomous decision-making logic implemented in a
+      fully runnable system.
+    stack: [Python, Minimax, Alpha-beta pruning, Tkinter, Search heuristics]
+    highlights:
+      - Implements minimax with optional alpha-beta pruning, move ordering, and iterative deepening.
+      - Provides both a GUI surface and a headless arena for AI-vs-AI benchmarking.
+      - Supports multiple board sizes and configurable per-move search budgets.
+
+  - slug: ai-multitool-assistant
+    name: AI Multitool Assistant
+    repo_name: ai-multitool-assistant
+    repo_url: https://github.com/kalebcoleman/ai-multitool-assistant
+    summary: >-
+      Full-stack AI application that combines chat, PDF question answering, notes, and real-time tool
+      integrations in one authenticated workflow. It extends the portfolio beyond modeling into practical
+      AI product engineering.
+    stack: [Django REST, React, JWT, Gemini, LlamaIndex, RAG]
+    highlights:
+      - Connects a React frontend and Django backend around authenticated AI workflows and user-scoped data.
+      - Supports PDF indexing and question answering alongside real-time tools such as weather, stocks, and news.
+      - Shows end-to-end application design in addition to modeling-oriented repository work.
+
+  - slug: image-reconstruction
+    name: Diffusion and Autoencoder Image Models
+    repo_name: ImageReconstruction · CS 472 coursework
+    repo_url: https://github.com/kalebcoleman/ImageReconstruction
+    badge: Older coursework
+    summary: >-
+      An older CS 472 course project, unrelated to my robotics work: DDPM diffusion models trained on MNIST
+      and CIFAR-10, alongside autoencoder, denoising autoencoder, and variational autoencoder baselines on
+      MNIST.
+    stack: [Python, PyTorch, Diffusion, Slurm]
+    highlights:
+      - Trains each model family from one CLI, with saved run configuration and Slurm jobs for GPU runs.
+    links:
+      - label: Project page
+        url: https://kalebcoleman.github.io/ImageReconstruction/
+
+  - slug: nau-capstone
+    layout: feature
+    eyebrow: NAU undergraduate capstone · UGRADS
+    name: Shot difficulty and scoring across the NBA and NHL
+    repo_name: nau-capstone
+    repo_url: https://github.com/kalebcoleman/nau-capstone
+    summary: >-
+      How much of a player's shooting efficiency reflects the difficulty of the shots they take? This
+      capstone uses matched 2014–2024 NBA and NHL shot data to study expected scoring, shot difficulty, and
+      player performance.
+    contribution: >-
+      Developed data preparation and validation workflows, shot-quality models, a Shot Difficulty Index, and
+      visual comparisons of player performance. The team presented the capstone at NAU UGRADS.
+    stack: [Python, PyGAM, scikit-learn, Streamlit]
+    figures:
+      - file: images/nba_plots/nba-sdi-vs-actual-2014-2024.jpg
+        alt: Scatterplot comparing NBA players' average shot difficulty with actual field-goal percentage from 2014 to 2024
+        caption: >-
+          NBA shot difficulty versus actual field-goal percentage. Point size represents shot volume; color
+          shows actual minus expected scoring rate.
+        url: https://raw.githubusercontent.com/kalebcoleman/nau-capstone/main/analysis/nba/figures/nba_sdi_vs_actual_2014_2024.png
+        link_label: Open full-resolution graph to zoom
+        aria_label: Open the full-resolution NBA player graph
+      - file: images/nau-capstone-poster-preview.jpg
+        alt: >-
+          Research poster titled Cross-Sport Shot Analysis, with generalized additive model curves and shot
+          difficulty scatterplots for the NBA and NHL
+        caption: >-
+          Research poster from the Department of Mathematics and Statistics at NAU, by Kanaan Law, Kaleb
+          Coleman, and Drianna Walker.
+        link_file: nau-capstone-poster.pdf
+        aria_label: Open the capstone research poster as a PDF
+    links:
+      - label: Open the research poster (PDF)
+        file: nau-capstone-poster.pdf
+      - label: Explore the capstone repository
+        url: https://github.com/kalebcoleman/nau-capstone
+      - label: View poster research and figures
+        url: https://github.com/kalebcoleman/nau-capstone/blob/main/docs/final-poster-guide.md

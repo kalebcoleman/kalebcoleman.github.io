@@ -61,4 +61,14 @@ This file captures implementation decisions for the Flask portfolio app in this 
 
 ## October 2026 migration
 
-The user requested GitHub Pages hosting. `.github/workflows/pages.yml` is the primary deployment workflow; Azure is manual-only for rollback. Build static output with `python build_static.py --base-path /portfolio`. Retain the existing page style and factual content rules. Current routes follow the README; the numbered legacy routes redirect.
+The user requested GitHub Pages hosting. `.github/workflows/pages.yml` is the primary deployment workflow; Azure is manual-only for rollback. Build static output with `python build_static.py` (see the November 2026 note for the base path). Retain the existing page style and factual content rules. Current routes follow the README; the numbered legacy routes redirect.
+
+## November 2026: apex hosting, data files, digital-twin positioning
+
+- The repository is `kalebcoleman/kalebcoleman.github.io` and the site is served from `https://kalebcoleman.github.io/` (base path `/`). `build_static.py` also writes `/portfolio/...` redirect pages and a `404.html` so old `/portfolio/` links keep working.
+- Content lives in `data/projects.yaml` (projects and home-page layout) and `data/site.yaml` (profile, skills, experience, education). Add or edit projects there, not in `app.py` or the templates.
+- Positioning: digital twins across systems (Unitree G1, contact-rich assembly, two-arm UR5e, Isaac MCP, quadrotor). Keep every claim scoped to simulation unless hardware results exist, and keep the upstream credits.
+- Do not use LEGO or brick-stacking framing. The `contact-assembly-lab` project is described as a contact-rich robotic assembly testbed; BrickSim is named only as a credit.
+- Never link private repositories. The image reconstruction project is an older coursework entry and stays last, off the home page.
+- The older sections above that describe `/1` to `/5` page content and the NBA gallery predate the current site; the numbered routes only redirect now.
+

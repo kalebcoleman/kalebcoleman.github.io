@@ -213,3 +213,6 @@ figcaption { color: var(--muted); font-size: .78rem; margin-top: .6rem; }
 .limits { font-style: italic; }
 .project-card-detailed .media-figure { margin: 1rem 0 .6rem; }
 @media (max-width: 900px) { .lead-demo { grid-template-columns: 1fr; gap: 1.5rem; } .secondary-grid, .compact-grid { grid-template-columns: 1fr; } }
+.media-placeholder { display: flex; align-items: center; justify-content: center; aspect-ratio: 16 / 9; margin-bottom: 1.1rem; background: var(--surface-alt); border: 1px solid var(--border); border-radius: 12px; color: var(--muted); font-size: .75rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; text-align: center; padding: 1rem; }
+.feature-figure { margin: 1.5rem 0; max-width: 960px; }
+.feature-figure img { display: block; width: 100%; height: auto; border-radius: 12px; }
