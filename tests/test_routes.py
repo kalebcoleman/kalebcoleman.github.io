@@ -194,8 +194,11 @@ class PortfolioRouteTests(unittest.TestCase):
         self.assertIn("Everything here runs in simulation", text)
         self.assertIn("not a finished robot or a proven controller", text)
         self.assertIn("use a Create 3, not this TurtleBot", text)
-        self.assertIn("One Nav2 goal reached in simulation", text)
-        self.assertIn("one goal in one run", text)
+        self.assertIn("Nav2 navigates the simulated robot to a goal", text)
+        self.assertIn("measured accuracy or repeated", text)
+        # The TurtleBot3 card no longer says navigation or localization is not shown.
+        self.assertNotIn("closed-loop Nav2 navigation", text)
+        self.assertNotIn("SUCCEEDED", text)
         self.assertNotIn("PCA", text)
         self.assertNotIn("20 ms", text)
 
