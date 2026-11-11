@@ -29,6 +29,7 @@ resume_reference.md
 
 .claude/
 .sisyphus/
+.omx/
 
 # Generated GitHub Pages output
 dist/
