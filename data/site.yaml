@@ -46,7 +46,6 @@ skills:
       - USD and URDF assets
       - Contact-rich assembly
       - Inverse kinematics
-      - Bimanual manipulation
       - PPO policy training and evaluation
       - Model predictive control
       - System identification
@@ -150,10 +149,6 @@ research_items:
     summary: >-
       Runs in simulation: a UR5e assembly testbed in Isaac Sim 6.2 where a joint-strength model decides
       whether each connection holds. 21 of 29 catalogued structures complete. No real-robot trials yet.
-  - title: Two-arm UR5e manipulation
-    summary: >-
-      Runs in simulation: coordinated shared-bar motion in Isaac Sim, with lab-supplied assets. Not validated
-      on physical hardware.
   - title: Isaac MCP
     summary: >-
       Pre-release open-source MCP server for Isaac Sim and Isaac Lab, built on Aldrin Inbaraj's omni-kit-mcp

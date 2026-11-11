@@ -128,8 +128,8 @@ class PortfolioRouteTests(unittest.TestCase):
     def test_home_leads_with_digital_twins_across_systems_and_keeps_older_work_below(self) -> None:
         home = self.client.get("/home").get_data(as_text=True)
         order = (
-            "Unitree G1 Humanoid Locomotion", "Contact-Rich Robotic Assembly Testbed", "Two-Arm UR5e Shared-Bar",
-            "Isaac MCP</h3>", "Prescribed-Time Quadrotor Control", "DataFest", "NBA Win Modeling",
+            "Unitree G1 Humanoid Locomotion", "Contact-Rich Robotic Assembly Testbed", "Isaac MCP</h3>",
+            "Prescribed-Time Quadrotor Control", "TurtleBot3 ROS 2 Sensing", "DataFest", "NBA Win Modeling",
         )
         for marker in order:
             self.assertIn(marker, home)
@@ -218,7 +218,7 @@ class PortfolioRouteTests(unittest.TestCase):
         for label in STATUS_LABELS.values():
             self.assertIn(label, html)
         for project in PROJECTS:
-            if project["slug"] in ("g1-locomotion-lab", "contact-assembly-lab", "isaac-mcp", "two-arm-manipulation", "quadrotor-control"):
+            if project["slug"] in ("g1-locomotion-lab", "contact-assembly-lab", "isaac-mcp", "quadrotor-control"):
                 self.assertEqual(set(project["status"]), {"simulated", "developing", "planned"})
 
     def test_seo_description_reflects_current_work(self) -> None:
@@ -232,7 +232,7 @@ class PortfolioRouteTests(unittest.TestCase):
         private = (
             "ur5e-digital-twin", "rise-ur5e-twin", "bricksim-learning", "jenga-rl", "jenga-ur5e-twin", "urdf-reaching",
             "semiconductor-amr-demo", "g1-recovery", "drone-controller-validation", "PrescribedTimeDroneController",
-            "BrickSim", "unsupervised-machine-learning", "malware-analysis", "deep-learning-projects", "neovim-config",
+            "BrickSim", "rise-two-arm-research", "unsupervised-machine-learning", "malware-analysis", "deep-learning-projects", "neovim-config",
             "nba-outcome-predictor", "free-builder", "free-builder-site", "portfolio",
         )
         for route in ("/home", "/projects", "/skills", "/experience", "/contact"):
@@ -242,6 +242,10 @@ class PortfolioRouteTests(unittest.TestCase):
                     self.assertNotIn(f"github.com/kalebcoleman/{name}", html)
             with self.subTest(route=route, link="old /portfolio/ path"):
                 self.assertNotIn("kalebcoleman.github.io/portfolio", html)
+            with self.subTest(route=route, removed="two-arm test"):
+                self.assertNotIn("rise-two-arm-research", html)
+                self.assertNotIn("two-arm", html.lower())
+                self.assertNotIn("shared-bar", html.lower())
 
     def test_x_profile_is_linked(self) -> None:
         for route in ("/home", "/contact"):

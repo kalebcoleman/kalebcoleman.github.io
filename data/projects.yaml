@@ -23,11 +23,10 @@ home_layout:
   lead: g1-locomotion-lab
   secondary:
     - contact-assembly-lab
-    - two-arm-manipulation
     - isaac-mcp
     - quadrotor-control
-  more_robotics:
     - turtlebot3-ros2-lidar
+  more_robotics:
     - jenga-direction
   data_science:
     - datafest-2026
@@ -164,61 +163,6 @@ projects:
         alt: Dashboard grid listing all 29 catalogued structures with their simulation run results
         caption: The run dashboard listing all 29 catalogued structures and their simulation results.
 
-  - slug: two-arm-manipulation
-    name: Two-Arm UR5e Shared-Bar Manipulation
-    repo_name: rise-two-arm-research
-    repo_url: https://github.com/kalebcoleman/rise-two-arm-research
-    badge: Runs in simulation
-    tagline: >-
-      Two UR5e arms with RG2 grippers lift and move a shared bar in Isaac Sim, with no unexpected collisions
-      and 0.135 mm maximum slip over a 26-second sequence.
-    summary: >-
-      Simulation work in the RISE Lab coordinating two opposing UR5e arms and RG2 grippers around a shared
-      0.1 kg bar, with collision validation, joint-frame corrections, object-space goals, and per-arm inverse
-      kinematics. It uses lab-supplied robot assets and BrickSim's Isaac Sim tooling.
-    stack: [Python, Isaac Sim 5.1, Inverse kinematics, USD]
-    highlights:
-      - >-
-        The 26.07-second accepted sequence translates, yaws, pitches, returns, and moves the bar to a final
-        pose. Four-finger contact held at every measured sample; the bar's maximum translation and rotation
-        slip were 0.135 mm and 0.036 degrees; maximum tracking error was 2.02 mm.
-      - >-
-        Load and speed tests found limits in this model only: at baseline speed a 1.25 kg bar passed and
-        1.5 kg exceeded the drift bound, and a 0.1 kg bar passed at 5x speed but exceeded the tracking bound
-        at 6x. These are not payload ratings.
-    links:
-      - label: Project page
-        url: https://kalebcoleman.github.io/rise-two-arm-research/
-      - label: Validation results
-        url: https://github.com/kalebcoleman/rise-two-arm-research/blob/main/docs/VALIDATION.md
-    status:
-      simulated: Coordinated shared-bar motion passes its checks in Isaac Sim 5.1.
-      developing: A repeatable baseline for changing one controller or task variable at a time.
-      planned: Real-hardware operation. Contact and actuator parameters are uncalibrated.
-    limits: >-
-      A simulation result with uncalibrated contact and actuator parameters; it is not yet a calibrated
-      physical twin.
-    credits: >-
-      Builds on lab-supplied UR5e, RG2, and Vention assets, Aldrin Inbaraj's isaac-sim-mcp, and BrickSim
-      (Intelligent Control Lab). My additions are listed in the repository's provenance notes.
-    image:
-      file: images/two-arm-shared-bar.jpg
-      alt: Two UR5e arms with RG2 grippers lifting a shared wooden bar on a Vention workstation in a simulated room
-      url: https://github.com/kalebcoleman/rise-two-arm-research
-    media:
-      kind: image
-      src: images/two-arm-shared-bar.jpg
-      width: 960
-      height: 720
-      alt: Two UR5e arms with RG2 grippers lifting a shared wooden bar on a Vention workstation in a simulated room
-      caption: The shared-bar task in Isaac Sim.
-    gallery:
-      - file: images/two-arm-load-speed-map.png
-        alt: >-
-          Grid of 20 simulated trials showing pass, drift, track, or drop outcomes for bar masses from 0.1
-          to 2 kilograms at speed scales from 1 to 8 times
-        caption: Outcomes of 20 simulated load and speed trials.
-
   - slug: isaac-mcp
     name: Isaac MCP
     repo_name: isaac-mcp · open source
@@ -344,6 +288,15 @@ projects:
         image, and TF frames
       endpoint: projects
       anchor: turtlebot3-ros2-lidar
+    media:
+      kind: image
+      src: images/turtlebot3-isaac-ros2-rviz.jpg
+      width: 1600
+      height: 644
+      alt: >-
+        Isaac Sim viewport with a TurtleBot3 Burger beside RViz showing its red LiDAR scan lines, camera
+        image, and TF frames
+      caption: The simulated TurtleBot3 in Isaac Sim (left) and its sensor topics in RViz (right).
 
   - slug: datafest-2026
     name: "DataFest 2026: Early Signals of High Healthcare Utilization"
