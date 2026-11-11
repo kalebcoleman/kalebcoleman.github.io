@@ -290,6 +290,8 @@ class PortfolioRouteTests(unittest.TestCase):
             self.assertIn('url=/projects/"', (out / "portfolio" / "projects" / "index.html").read_text(encoding="utf-8"))
             self.assertIn("/portfolio", (out / "404.html").read_text(encoding="utf-8"))
             self.assertTrue((out / "static" / "resume.pdf").is_file())
+            for name in build_static.LEGACY_FILES:
+                self.assertTrue((out / "portfolio" / "static" / name).is_file())
 
     def test_resume_file_is_unchanged(self) -> None:
         import hashlib

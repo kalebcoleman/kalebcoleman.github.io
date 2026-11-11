@@ -10,6 +10,9 @@ PAGES = ('home', 'projects', 'skills', 'experience', 'contact')
 # The site used to be served from /portfolio/. Old links keep working through
 # redirect pages under this prefix plus a 404 page that strips it.
 LEGACY_PREFIX = 'portfolio'
+# Files that were linked directly at their old /portfolio/static/ address (from READMEs
+# and the résumé); copies keep those links working without JavaScript.
+LEGACY_FILES = ('resume.pdf', 'nau-capstone-poster.pdf')
 
 
 def redirect_page(url: str) -> str:
@@ -73,7 +76,11 @@ def build(output: Path, base: str):
             target = legacy / path / 'index.html'
             target.parent.mkdir(parents=True, exist_ok=True)
             target.write_text(redirect_page(url), encoding='utf-8')
-        # Anything else under /portfolio/ (static files, for example) falls through to
+        for name in LEGACY_FILES:
+            target = legacy / 'static' / name
+            target.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copyfile(ROOT / 'static' / name, target)
+        # Anything else under /portfolio/ (other static files, for example) falls through to
         # 404.html, which forwards the browser to the same path without the prefix.
         (output / '404.html').write_text(not_found_page(base), encoding='utf-8')
     (output / '.nojekyll').touch()
