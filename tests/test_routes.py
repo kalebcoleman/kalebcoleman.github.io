@@ -302,11 +302,28 @@ class PortfolioRouteTests(unittest.TestCase):
             for name in build_static.LEGACY_FILES:
                 self.assertTrue((out / "portfolio" / "static" / name).is_file())
 
-    def test_resume_file_is_unchanged(self) -> None:
+    def test_resume_file_is_the_approved_version(self) -> None:
+        # Pinned so the résumé only changes on purpose: update this hash when a new PDF is approved.
         import hashlib
-        digest = hashlib.sha256((PROJECT_ROOT / "static" / "resume.pdf").read_bytes()).hexdigest()
-        self.assertEqual(digest, "0cb5a951adeb4ee3e7454c302b774aba3868c489623e01e6e5e0f6527a993702")
+        data = (PROJECT_ROOT / "static" / "resume.pdf").read_bytes()
+        self.assertTrue(data.startswith(b"%PDF"))
+        self.assertEqual(hashlib.sha256(data).hexdigest(), "3d1074e073a00f9dbe755f73d2a60d80efb5d2d66db7fa41b9664e17c9e20ddd")
 
+    def test_resume_links_resolve_to_the_pdf(self) -> None:
+        for route in ("/home", "/projects", "/skills", "/experience", "/contact"):
+            with self.subTest(route=route):
+                self.assertIn('href="/resume"', self.client.get(route).get_data(as_text=True))
+        import re
+        pdf = (PROJECT_ROOT / "static" / "resume.pdf").read_bytes()
+        links = {m.decode("latin-1") for m in re.findall(rb"/URI\s*\(([^)]*)\)", pdf)}
+        slugs = {project["slug"] for project in PROJECTS}
+        for link in links:
+            with self.subTest(link=link):
+                self.assertNotIn("/portfolio", link)
+                self.assertNotIn("rise-two-arm-research", link)
+                self.assertNotIn("BrickSim", link)
+                if "/projects/#" in link:
+                    self.assertIn(link.split("#", 1)[1], slugs)
 
 if __name__ == "__main__":
     unittest.main()
