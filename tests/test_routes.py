@@ -8,7 +8,7 @@ if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
 import app as portfolio  # noqa: E402
-from app import HOME_LAYOUT, PROFILE, PROJECTS, SKILLS, STATUS_LABELS, app, home_sections  # noqa: E402
+from app import HOME_LAYOUT, PAGE_DESCRIPTIONS, PROFILE, PROJECTS, SKILLS, STATUS_LABELS, app, home_sections  # noqa: E402
 
 
 class PortfolioRouteTests(unittest.TestCase):
@@ -137,7 +137,7 @@ class PortfolioRouteTests(unittest.TestCase):
         self.assertEqual(positions, sorted(positions))
         self.assertEqual(HOME_LAYOUT["lead"], "g1-locomotion-lab")
         self.assertIn("237 of 256", home)
-        for older in ("Halma Game AI", "AI Multitool", "NAU Course Catalog Scraper", "NBA Shot Data Engineering Package", "Diffusion and Autoencoder Image Models"):
+        for older in ("AI Multitool", "NAU Course Catalog Scraper", "NBA Shot Data Engineering Package", "Diffusion and Autoencoder Image Models"):
             self.assertNotIn(older, home)
             self.assertIn(older, self.client.get("/projects").get_data(as_text=True))
 
@@ -299,8 +299,61 @@ class PortfolioRouteTests(unittest.TestCase):
             self.assertIn('url=/projects/"', (out / "portfolio" / "projects" / "index.html").read_text(encoding="utf-8"))
             self.assertIn("/portfolio", (out / "404.html").read_text(encoding="utf-8"))
             self.assertTrue((out / "static" / "resume.pdf").is_file())
+            self.assertEqual((out / "favicon.ico").read_bytes(), (PROJECT_ROOT / "static" / "favicon.ico").read_bytes())
             for name in build_static.LEGACY_FILES:
                 self.assertTrue((out / "portfolio" / "static" / name).is_file())
+
+    ROUTES = ("/home", "/projects", "/skills", "/experience", "/contact")
+
+    def test_phone_number_is_not_published(self) -> None:
+        self.assertNotIn("phone", PROFILE)
+        for route in self.ROUTES:
+            html = self.client.get(route).get_data(as_text=True)
+            with self.subTest(route=route):
+                for needle in ("480-359", "4803598122", "tel:", "Phone"):
+                    self.assertNotIn(needle, html)
+
+    def test_recruiter_audit_trims(self) -> None:
+        pages = {route: self.client.get(route).get_data(as_text=True) for route in self.ROUTES}
+        everything = " ".join(pages.values())
+        for gone in ("Halma", "GRAMMY", "Career Accelerator", "TypeScript", "JavaScript", "/ 2026", "System identification",
+                     "Model predictive control</span>", ">MPC<", "extends the portfolio", "interlocking bricks"):
+            with self.subTest(gone=gone):
+                self.assertNotIn(gone, everything)
+        self.assertNotIn("halma-ai", [project["slug"] for project in PROJECTS])
+        self.assertIn("Energy-Aware Prescribed-Time Quadrotor Control", pages["/projects"])
+        self.assertIn("NMPC baseline reproduction", pages["/projects"])
+        self.assertIn("A course lab done with classmates", pages["/projects"])
+        # Brick wording survives only in the BrickSim credit.
+        for route, html in pages.items():
+            with self.subTest(route=route):
+                self.assertNotIn("brick", html.lower().replace("bricksim", ""))
+                self.assertNotIn("lego", html.lower())
+
+    def test_social_preview_and_favicon(self) -> None:
+        self.assertEqual(set(PAGE_DESCRIPTIONS), {"home", "projects", "skills", "experience", "contact"})
+        self.assertEqual(len(set(PAGE_DESCRIPTIONS.values())), 5)
+        for route in self.ROUTES:
+            html = self.client.get(route).get_data(as_text=True)
+            description = PAGE_DESCRIPTIONS[route.strip("/")]
+            with self.subTest(route=route):
+                self.assertLessEqual(len(description), 170)
+                self.assertIn(f'<meta name="description" content="{description}">', html)
+                self.assertIn(f'<meta property="og:description" content="{description}">', html)
+                self.assertIn('<meta property="og:image" content="https://kalebcoleman.github.io/static/images/og-card.jpg">', html)
+                self.assertIn('<meta name="twitter:card" content="summary_large_image">', html)
+                self.assertIn('<meta property="og:title" content="Kaleb Coleman | ', html)
+                self.assertIn('rel="icon"', html)
+
+    def test_favicon_files_exist(self) -> None:
+        for name in ("favicon.ico", "favicon.svg", "apple-touch-icon.png", "images/og-card.jpg"):
+            with self.subTest(file=name):
+                self.assertTrue((PROJECT_ROOT / "static" / name).is_file())
+        self.assertLess((PROJECT_ROOT / "static" / "images" / "og-card.jpg").stat().st_size, 300_000)
+        response = self.client.get("/favicon.ico")
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data[:4], b"\x00\x00\x01\x00")
+        response.close()
 
     def test_resume_file_is_the_approved_version(self) -> None:
         # Pinned so the résumé only changes on purpose: update this hash when a new PDF is approved.

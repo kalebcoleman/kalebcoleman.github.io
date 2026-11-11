@@ -104,7 +104,7 @@ projects:
       catalogued structures complete, and every failure is traced to a cause.
     summary: >-
       A contact-rich assembly testbed in Isaac Sim 6.2. A UR5e builds catalogued structures from
-      interlocking bricks, and a joint-strength physics model breaks any connection that is overloaded. The
+      interlocking parts, and a joint-strength physics model breaks any connection that is overloaded. The
       project asks what a robot can assemble reliably and why builds fail, and it is the contact-physics
       testbed for my Jenga research.
     stack: [Isaac Sim 6.2, PhysX 5.9, UR5e / RG2, Python]
@@ -221,25 +221,26 @@ projects:
         caption: A UR5e driven to a target and back through Isaac MCP (Isaac Sim 6.2, from the README).
 
   - slug: quadrotor-control
-    name: Prescribed-Time Quadrotor Control
+    name: Energy-Aware Prescribed-Time Quadrotor Control
     repo_name: Team research · private repository
     badge: Ongoing collaboration
     tagline: >-
-      Simulation research with John Lok on prescribed-time quadrotor control. John led the controller
-      development; I reproduced an archived MuJoCo baseline and am working on timing and validation.
+      Simulation research with John Lok on energy-aware prescribed-time quadrotor control. John led the
+      controller development; I reproduced an archived MuJoCo NMPC baseline and am working on timing and
+      validation.
     summary: >-
-      Collaborative simulation research on prescribed-time quadrotor control using a MuJoCo test bench.
-      John Lok did most of the controller development. My part: team organization and presentations,
-      reproducing an archived MuJoCo baseline on a lab PC, and a timing and validation study that is still
-      in progress.
-    stack: [MuJoCo, Control, System identification, Simulation]
+      Collaborative simulation research on energy-aware prescribed-time quadrotor control using a MuJoCo
+      test bench. John Lok led the controller development. My part: team organization and presentations,
+      reproducing an archived MuJoCo NMPC baseline on a lab PC, and a timing and validation study of
+      solver timing, solver failures, and modeled energy that is still in progress.
+    stack: [MuJoCo, NMPC baseline reproduction, Timing and validation, Simulation]
     highlights:
-      - Reproduced the archived MuJoCo baseline results on a lab PC, with matching telemetry and tracking tables.
+      - Reproduced the archived MuJoCo NMPC baseline results on a lab PC, with matching telemetry and tracking tables.
       - "Timing and validation study: setup and an initial baseline are done; results are not yet available."
     status:
       simulated: Controller comparisons run in MuJoCo; everything here is simulation.
       developing: Timing and validation study; a paper draft.
-      planned: Physical calibration and any flight testing.
+      planned: Hardware validation at the ASU Drone Studio. Nothing has flown yet.
     limits: No hardware tests, no completed timing target, and no new controller are claimed.
     credits: Joint work with John Lok, who led the controller development.
     placeholder: Quadrotor · MuJoCo
@@ -255,7 +256,7 @@ projects:
       A direction Dr. Wenlong Zhang and I are exploring: a Jenga-playing robot using approaches such as
       model predictive control or reinforcement learning, with the UR5e contact-assembly testbed as a
       starting point.
-    stack: [Manipulation, MPC, Reinforcement learning, Simulation]
+    stack: [Manipulation, Contact-rich assembly, Simulation]
     highlights:
       - "Related interests: drones, LiDAR, robotic perception, simulation, and robot learning."
     status:
@@ -270,9 +271,9 @@ projects:
       A simulated TurtleBot3 in Isaac Sim publishing LiDAR, camera, odometry, and TF over ROS 2, localizing
       with AMCL, and navigating to a goal with Nav2 around the legs of a table.
     summary: >-
-      Course lab work in Isaac Sim: Action Graphs for ROS 2 clock, drive commands, 2D LiDAR, camera, and
-      odometry/TF on a TurtleBot3 Burger, checked in RViz, then AMCL localization and Nav2 navigation to a
-      goal with the simulated robot.
+      A collaborative course lab in Isaac Sim: Action Graphs for ROS 2 clock, drive commands, 2D LiDAR,
+      camera, and odometry/TF on a TurtleBot3 Burger, checked in RViz, then AMCL localization and Nav2
+      navigation to a goal with the simulated robot.
     stack: [ROS 2 Humble, Isaac Sim, Nav2, AMCL, 2D LiDAR, RViz, TF]
     highlights:
       - RViz shows the simulated /scan, /camera/image_raw, /odom, and TF alongside the Isaac Sim stage.
@@ -285,7 +286,9 @@ projects:
       Simulation only, from a course lab. Not shown: a physical TurtleBot, measured accuracy or repeated
       trials, or a mapping (SLAM) result. The public Nav2 goal examples in Isaac MCP use a Create 3, not
       this TurtleBot.
-    credits: The TurtleBot3 scene came from the course handout; the graphs, Nav2 setup, and checks are my lab work.
+    credits: >-
+      A course lab done with classmates. My part covered the Nav2 and AMCL setup, the Action Graphs, and
+      the checks. The TurtleBot3 scene came from the course handout.
     image:
       file: images/turtlebot3-isaac-nav2.jpg
       alt: >-
@@ -404,33 +407,17 @@ projects:
       - Supports focused AI-course detection, broader recall analysis, and ethics-oriented reporting flows.
       - Designed as a reproducible data collection and reporting workflow rather than a one-off scraper.
 
-  - slug: halma-ai
-    name: Halma Game AI
-    repo_name: halma-ai
-    repo_url: https://github.com/kalebcoleman/halma-ai
-    summary: >-
-      Turn-based game AI project that combines search, heuristics, and a local interface for interactive
-      play and benchmarking. It is a clean example of autonomous decision-making logic implemented in a
-      fully runnable system.
-    stack: [Python, Minimax, Alpha-beta pruning, Tkinter, Search heuristics]
-    highlights:
-      - Implements minimax with optional alpha-beta pruning, move ordering, and iterative deepening.
-      - Provides both a GUI surface and a headless arena for AI-vs-AI benchmarking.
-      - Supports multiple board sizes and configurable per-move search budgets.
-
   - slug: ai-multitool-assistant
     name: AI Multitool Assistant
     repo_name: ai-multitool-assistant
     repo_url: https://github.com/kalebcoleman/ai-multitool-assistant
     summary: >-
       Full-stack AI application that combines chat, PDF question answering, notes, and real-time tool
-      integrations in one authenticated workflow. It extends the portfolio beyond modeling into practical
-      AI product engineering.
+      integrations in one authenticated workflow.
     stack: [Django REST, React, JWT, Gemini, LlamaIndex, RAG]
     highlights:
       - Connects a React frontend and Django backend around authenticated AI workflows and user-scoped data.
       - Supports PDF indexing and question answering alongside real-time tools such as weather, stocks, and news.
-      - Shows end-to-end application design in addition to modeling-oriented repository work.
 
   - slug: image-reconstruction
     name: Diffusion and Autoencoder Image Models

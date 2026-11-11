@@ -4,7 +4,25 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="{{ page_description }}">
-    <link rel="canonical" href="{{ profile.site_url }}{{ '' if active_page == 'home' else active_page ~ '/' }}">
+    <link rel="canonical" href="{{ page_url }}">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="{{ profile.name }}">
+    <meta property="og:title" content="{{ profile.name }} | {{ page_title }}">
+    <meta property="og:description" content="{{ page_description }}">
+    <meta property="og:url" content="{{ page_url }}">
+    <meta property="og:image" content="{{ og_image_url }}">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="{{ profile.og_image_alt }}">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:creator" content="{{ profile.x_handle }}">
+    <meta name="twitter:title" content="{{ profile.name }} | {{ page_title }}">
+    <meta name="twitter:description" content="{{ page_description }}">
+    <meta name="twitter:image" content="{{ og_image_url }}">
+    <meta name="twitter:image:alt" content="{{ profile.og_image_alt }}">
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" sizes="32x32">
+    <link rel="icon" href="{{ url_for('static', filename='favicon.svg') }}" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="{{ url_for('static', filename='apple-touch-icon.png') }}">
     <title>{{ profile.name }} | {{ page_title }}</title>
     <script>
     (function () {

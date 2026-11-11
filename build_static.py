@@ -43,6 +43,8 @@ def build(output: Path, base: str):
     base = '/' + base.strip('/') if base.strip('/') else ''
     output.mkdir(parents=True, exist_ok=True)
     shutil.copytree(ROOT / 'static', output / 'static', dirs_exist_ok=True)
+    # Browsers and crawlers ask for /favicon.ico at the site root.
+    shutil.copyfile(ROOT / 'static' / 'favicon.ico', output / 'favicon.ico')
     def static_url(endpoint, **values):
         if endpoint == 'static':
             return f"{base}/static/{values['filename']}" + (f"?v={values['v']}" if 'v' in values else '')

@@ -4,7 +4,6 @@
 profile:
   name: Kaleb Coleman
   email: kaleb.a.coleman@gmail.com
-  phone: 480-359-8122
   headline: Digital twins of robotic systems, from arms and humanoids to quadrotors
   intro: >-
     I am an M.S. AI Engineering (Robotics) student at ASU and a researcher in the RISE Lab. I build
@@ -31,6 +30,29 @@ profile:
   site_description: >-
     Kaleb Coleman: ASU robotics student building digital twins of UR5e arms, a Unitree G1 humanoid, and
     quadrotors in Isaac Sim, Isaac Lab, and MuJoCo.
+  # Social preview card (1200x630) and the text shown when a page is shared.
+  og_image: images/og-card.jpg
+  og_image_alt: >-
+    Simulated Unitree G1 humanoids before and after training, above the text Kaleb Coleman, digital twins
+    of robotic systems
+
+# One description per page, used for the meta description and link previews.
+page_descriptions:
+  home: >-
+    Kaleb Coleman: ASU robotics student building digital twins of UR5e arms, a Unitree G1 humanoid, and
+    quadrotors in Isaac Sim, Isaac Lab, and MuJoCo.
+  projects: >-
+    Robotics digital-twin projects by Kaleb Coleman: Unitree G1 locomotion, contact-rich UR5e assembly,
+    Isaac MCP, quadrotor control, and earlier data science work.
+  skills: >-
+    Technical skills of Kaleb Coleman: Isaac Sim, Isaac Lab, MuJoCo, ROS 2 and Nav2, PyTorch and
+    reinforcement learning, Python, R, SQL, and data engineering.
+  experience: >-
+    Kaleb Coleman: M.S. robotics student at ASU, security analyst intern, RISE Lab researcher, and
+    DataFest 2026 Best Visualization award winner.
+  contact: >-
+    Contact Kaleb Coleman about robotics research, internships, and collaborations: email, LinkedIn,
+    GitHub, and X.
 
 # Each group may carry an `evidence` link: either `url` (external) or `endpoint` (+ optional `anchor`).
 skills:
@@ -47,10 +69,8 @@ skills:
       - Contact-rich assembly
       - Inverse kinematics
       - PPO policy training and evaluation
-      - Model predictive control
-      - System identification
       - Simulation validation
-      - ROS 2 TF
+      - ROS 2, Nav2, and AMCL
       - MCP tool servers
     evidence:
       label: Explore robotics projects
@@ -58,7 +78,7 @@ skills:
       anchor: research
   - name: Languages
     summary: Core programming languages used across modeling, data pipelines, and application work.
-    items: [Python, R, SQL, TypeScript, JavaScript, C, HTML/CSS]
+    items: [Python, R, SQL, C, HTML/CSS]
   - name: ML / AI
     summary: Modeling and experimentation tools for predictive analytics, deep learning, and generative work.
     items:
@@ -103,7 +123,6 @@ skills:
       - GitHub Actions
       - Linux/CLI
       - Selenium
-      - Tkinter
       - Slurm/HPC workflows
       - Testing and automation
   - name: Cybersecurity
@@ -126,12 +145,6 @@ experience:
       Support endpoint and mobile security, network threat monitoring, SaaS security, phishing defense, and
       secure remote troubleshooting. Work involves highly confidential information in a tribal government
       environment supporting government agency operations.
-  - title: Website Audience Analysis Project
-    organization: The Career Accelerator — The GRAMMYs Project
-    period: Training project, 2023
-    summary: >-
-      Worked on web audience analysis, exploratory data analysis, segmentation, and testing-oriented insights
-      to support digital content decisions.
   - title: Project Collaboration
     organization: NAU Institute of Advanced Applications of Artificial Intelligence
     period: Academic collaboration
@@ -153,10 +166,10 @@ research_items:
     summary: >-
       Pre-release open-source MCP server for Isaac Sim and Isaac Lab, built on Aldrin Inbaraj's omni-kit-mcp
       and isaac-sim-mcp, so AI agents can build scenes, drive robots, and run training jobs.
-  - title: Prescribed-time quadrotor control
+  - title: Energy-aware prescribed-time quadrotor control
     summary: >-
       Collaborating with John Lok, who led the controller development, on simulation research in MuJoCo.
-      I reproduced an archived baseline and am working on timing and validation.
+      I reproduced an archived NMPC baseline and am working on a timing and validation study.
   - title: Jenga-playing robot (direction)
     summary: >-
       A research direction with Dr. Wenlong Zhang, possibly using model predictive control or reinforcement

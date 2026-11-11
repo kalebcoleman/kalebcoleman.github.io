@@ -4,7 +4,7 @@ from pathlib import Path
 from typing import Any
 
 import yaml
-from flask import Flask, redirect, render_template, url_for
+from flask import Flask, redirect, render_template, send_from_directory, url_for
 
 app = Flask(__name__)
 
@@ -28,6 +28,7 @@ EXPERIENCE: list[dict[str, str]] = _SITE["experience"]
 RESEARCH_ITEMS: list[dict[str, str]] = _SITE["research_items"]
 AWARDS: list[dict[str, str]] = _SITE["awards"]
 EDUCATION: dict[str, str] = _SITE["education"]
+PAGE_DESCRIPTIONS: dict[str, str] = _SITE["page_descriptions"]
 
 PROJECTS: list[dict[str, Any]] = _PROJECT_DATA["projects"]
 
@@ -56,7 +57,6 @@ NAV_ITEMS: list[dict[str, Any]] = [
 
 CONTACT_METHODS: list[dict[str, str]] = [
     {"label": "Email", "value": PROFILE["email"], "href": "mailto:" + PROFILE["email"], "note": "Research, engineering, and project conversations."},
-    {"label": "Phone", "value": PROFILE["phone"], "href": "tel:+1" + PROFILE["phone"].replace("-", ""), "note": "Professional inquiries."},
     {"label": "LinkedIn", "value": "kalebacoleman", "href": PROFILE["linkedin_url"], "note": "Professional background and current updates."},
     {"label": "GitHub", "value": "kalebcoleman", "href": PROFILE["github_url"], "note": "Code, project repositories, and technical work."},
     {"label": "X", "value": PROFILE["x_handle"], "href": PROFILE["x_url"], "note": "Robotics and simulation updates."},
@@ -85,7 +85,9 @@ def build_context(*, page_title: str, active_page: str, **extra: Any) -> dict[st
         "status_labels": STATUS_LABELS,
         "nav_items": NAV_ITEMS,
         "page_title": page_title,
-        "page_description": PROFILE["site_description"],
+        "page_description": PAGE_DESCRIPTIONS.get(active_page, PROFILE["site_description"]),
+        "page_url": PROFILE["site_url"] + ("" if active_page == "home" else active_page + "/"),
+        "og_image_url": PROFILE["site_url"] + "static/" + PROFILE["og_image"],
         "active_page": active_page,
     }
     context.update(extra)
@@ -160,6 +162,11 @@ def contact() -> str:
             contact_methods=CONTACT_METHODS,
         ),
     )
+
+
+@app.get("/favicon.ico")
+def favicon() -> Any:
+    return send_from_directory(app.static_folder, "favicon.ico", mimetype="image/x-icon")
 
 
 @app.get("/resume")
