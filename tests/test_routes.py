@@ -128,7 +128,7 @@ class PortfolioRouteTests(unittest.TestCase):
     def test_home_leads_with_digital_twins_across_systems_and_keeps_older_work_below(self) -> None:
         home = self.client.get("/home").get_data(as_text=True)
         order = (
-            "Unitree G1 Humanoid Locomotion", "Contact-Rich Robotic Assembly Testbed", "Isaac MCP</h3>",
+            "Unitree G1 Humanoid Locomotion", "Contact-Rich Robotic Assembly Testbed", "twinsmith</h3>",
             "Prescribed-Time Quadrotor Control", "TurtleBot3 ROS 2 Sensing and Nav2", "DataFest", "NBA Win Modeling",
         )
         for marker in order:
@@ -180,7 +180,7 @@ class PortfolioRouteTests(unittest.TestCase):
             "one policy from one training seed", "not a new algorithm of mine",
         ):
             self.assertIn(marker, html)
-        # The older 16-episode Isaac MCP walking figures are gone.
+        # The older 16-episode twinsmith walking figures are gone.
         self.assertNotIn("16 episodes", html)
         self.assertNotIn("39% of episodes", html)
 
@@ -216,15 +216,26 @@ class PortfolioRouteTests(unittest.TestCase):
         self.assertNotIn("ClearCastLLC", text)
         self.assertNotIn("PrescribedTimeDroneController", text)
 
-    def test_isaac_mcp_project_and_status_labels(self) -> None:
+    def test_twinsmith_project_and_status_labels(self) -> None:
         html = self.client.get("/projects").get_data(as_text=True)
-        self.assertIn("https://github.com/kalebcoleman/isaac-mcp", html)
-        self.assertIn("129 tools", html)
+        self.assertIn("https://github.com/kalebcoleman/twinsmith", html)
+        self.assertIn("31 listed tools", html)
+        self.assertIn("15,178", html)
+        self.assertIn("28,450", html)
+        self.assertNotIn("129 tools", html)
+        self.assertNotIn("Isaac MCP", html)
+        self.assertNotIn("isaac-mcp", html)
         for label in STATUS_LABELS.values():
             self.assertIn(label, html)
         for project in PROJECTS:
-            if project["slug"] in ("g1-locomotion-lab", "contact-assembly-lab", "isaac-mcp", "quadrotor-control"):
+            if project["slug"] in ("g1-locomotion-lab", "contact-assembly-lab", "twinsmith", "quadrotor-control"):
                 self.assertEqual(set(project["status"]), {"simulated", "developing", "planned"})
+        for route in ("/home", "/projects", "/skills", "/experience", "/contact"):
+            page = self.client.get(route).get_data(as_text=True)
+            with self.subTest(route=route):
+                self.assertNotIn("Isaac MCP", page)
+                self.assertNotIn("isaac-mcp", page)
+                self.assertNotIn("129 tools", page)
 
     def test_seo_description_reflects_current_work(self) -> None:
         html = self.client.get("/home").get_data(as_text=True)

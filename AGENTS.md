@@ -67,7 +67,7 @@ The user requested GitHub Pages hosting. `.github/workflows/pages.yml` is the pr
 
 - The repository is `kalebcoleman/kalebcoleman.github.io` and the site is served from `https://kalebcoleman.github.io/` (base path `/`). `build_static.py` also writes `/portfolio/...` redirect pages and a `404.html` so old `/portfolio/` links keep working.
 - Content lives in `data/projects.yaml` (projects and home-page layout) and `data/site.yaml` (profile, skills, experience, education). Add or edit projects there, not in `app.py` or the templates.
-- Positioning: digital twins across systems (Unitree G1, contact-rich assembly, Isaac MCP, quadrotor). Keep every claim scoped to simulation unless hardware results exist, and keep the upstream credits.
+- Positioning: digital twins across systems (Unitree G1, contact-rich assembly, twinsmith, quadrotor). Keep every claim scoped to simulation unless hardware results exist, and keep the upstream credits.
 - Do not use LEGO or brick-stacking framing. The `contact-assembly-lab` project is described as a contact-rich robotic assembly testbed; BrickSim is named only as a credit.
 - Never link private repositories. The two-arm UR5e test (`rise-two-arm-research`) was removed from the site and made private in November 2026; do not re-add it. The image reconstruction project is an older coursework entry and stays last, off the home page.
 - The older sections above that describe `/1` to `/5` page content and the NBA gallery predate the current site; the numbered routes only redirect now.
