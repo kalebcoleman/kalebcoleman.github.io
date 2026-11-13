@@ -23,7 +23,7 @@ home_layout:
   lead: g1-locomotion-lab
   secondary:
     - contact-assembly-lab
-    - isaac-mcp
+    - twinsmith
     - quadrotor-control
     - turtlebot3-ros2-lidar
   more_robotics:
@@ -163,62 +163,79 @@ projects:
         alt: Dashboard grid listing all 29 catalogued structures with their simulation run results
         caption: The run dashboard listing all 29 catalogued structures and their simulation results.
 
-  - slug: isaac-mcp
-    name: Isaac MCP
-    repo_name: isaac-mcp · open source
-    repo_url: https://github.com/kalebcoleman/isaac-mcp
+  - slug: twinsmith
+    name: twinsmith
+    repo_name: twinsmith · open source
+    repo_url: https://github.com/kalebcoleman/twinsmith
     badge: Runs in simulation
     tagline: >-
-      An MCP server that lets AI agents build Isaac Sim scenes, load and drive robots, read cameras and
-      LiDAR, and run Isaac Lab training and evaluation jobs.
+      An MCP server for building and driving robot simulations and digital twins from an AI agent, on
+      Isaac Sim and Isaac Lab. Newton (MuJoCo-Warp) is the default engine for the scenes these tools
+      build, and the default tool list is 31 listed tools (15,178 estimated tokens).
     summary: >-
-      An MCP server that lets AI agents drive NVIDIA Isaac Sim and Isaac Lab: build scenes, import robots,
-      read cameras and LiDAR, and run Isaac Lab train, evaluate, and play jobs. It is the tooling I use to
-      stand up and inspect simulated systems quickly.
-    stack: [Python, MCP, Isaac Sim, Isaac Lab, ROS 2]
+      An MCP server that lets AI agents build and drive robot simulations and digital twins in NVIDIA
+      Isaac Sim and Isaac Lab: scenes, robots, cameras and LiDAR, and Isaac Lab train, evaluate, and play
+      jobs. Newton (MuJoCo-Warp) is the default engine for the scenes these tools build; PhysX is opt-in,
+      and the UR5e work cell stays PhysX-only. It is the tooling I use to stand up and inspect simulated
+      systems quickly.
+    stack: [Python, MCP, Isaac Sim, Isaac Lab, Newton / MuJoCo-Warp, ROS 2]
     highlights:
       - >-
-        Lists 129 tools by default, or 138 with optional groups, covering scene and asset authoring, joints
-        and physics, cameras and LiDAR, ROS 2 TF, Isaac Lab jobs, and screenshots and recordings.
+        Switchable toolsets, plus a status tool that reports which are on. The default list is 31 listed
+        tools (15,178 estimated tokens), down from 48 tools and about 28,450 estimated tokens before
+        toolsets. Isaac Lab, ROS 2, the UR5e work cell, and RoboSimStudio stay off until enabled.
       - >-
-        The README examples are captures from live runs with a record of how each was made: a warehouse
-        built in one call, robots imported from public repositories, and a Unitree G1 walking policy trained
-        through the Isaac Lab tools. They illustrate the tools and are not benchmarks.
+        External versioned asset packs: the repository ships no assets, and a version never changes. The
+        lab UR5e Jenga work cell is a candidate and is not yet runtime-qualified. A RoboSimStudio bridge
+        runs real-to-sim image comparisons in its own environment, with no Isaac Sim, and does not fit
+        mass or friction.
       - >-
-        The fuller G1 walking evaluation, 237 of 256 robots through a pushed test, is its own project:
-        Unitree G1 Humanoid Locomotion.
+        The examples are captures from live runs with a record of how each was made: a warehouse built in
+        one call, robots imported from public repositories, and a Unitree G1 walking policy trained
+        through the Isaac Lab tools. They illustrate the tools and are not benchmarks. The fuller G1
+        walking evaluation, 237 of 256 robots through a pushed test, is its own project: Unitree G1
+        Humanoid Locomotion.
     links:
       - label: Example prompts
-        url: https://github.com/kalebcoleman/isaac-mcp#things-you-can-ask
+        url: https://github.com/kalebcoleman/twinsmith/blob/main/docs/EXAMPLES.md#things-you-can-ask
+      - label: Toolsets
+        url: https://github.com/kalebcoleman/twinsmith/blob/main/docs/TOOLSETS.md
       - label: Compatibility matrix
-        url: https://github.com/kalebcoleman/isaac-mcp/blob/main/docs/COMPATIBILITY.md
+        url: https://github.com/kalebcoleman/twinsmith/blob/main/docs/COMPATIBILITY.md
     status:
       simulated: >-
         Documented builds are Isaac Sim 6.2.0.0 with Isaac Lab 3.0.0 and Isaac Sim 5.1.0.0 with Isaac Lab
-        2.3.2. Every demo is simulation only.
-      developing: Pre-release hardening and wider compatibility testing (Linux x86_64).
-      planned: Further robotics and learning workflows tracked on the project checklist.
-    limits: Pre-release and simulation only; no hardware deployment.
+        2.3.2. Newton is the default engine for scenes these tools build; Isaac Sim 5.1 is PhysX only.
+        Every demo is simulation only.
+      developing: >-
+        Source version 0.3.0. The UR5e Jenga work cell is a candidate and is not yet runtime-qualified
+        (Linux x86_64).
+      planned: Further robotics and learning workflows tracked in the repository open items.
+    limits: >-
+      Simulation only; no hardware deployment. The work cell is not a high-fidelity-qualified model.
+      RoboSimStudio compares images and does not fit mass or friction.
     credits: >-
-      Built on Aldrin Inbaraj's omni-kit-mcp and isaac-sim-mcp. The example robots and tasks belong to
-      their owners, including NVIDIA's Isaac Lab and public Carter model.
+      Grew out of work by Aldrin Inbaraj: the UR5e work cell began as a fork of his MIT-licensed
+      isaac-sim-mcp, and the bridge and client were first built on his omni-kit-mcp before being rewritten
+      here. The example robots and tasks belong to their owners, including NVIDIA's Isaac Lab and the
+      public Carter model. RoboSimStudio is a separate project.
     image:
-      file: images/isaac-mcp-warehouse.jpg
+      file: images/twinsmith-warehouse.jpg
       alt: Overhead view of a simulated warehouse with shelving racks, yellow aisle lines, and a small wheeled robot
-      url: https://github.com/kalebcoleman/isaac-mcp
+      url: https://github.com/kalebcoleman/twinsmith
     media:
       kind: image
-      src: images/isaac-mcp-warehouse.jpg
+      src: images/twinsmith-warehouse.jpg
       width: 949
       height: 534
       alt: >-
         Overhead view of a simulated warehouse with rows of shelving racks holding boxes, yellow aisle
         lines, and a small wheeled robot at the start of an aisle
-      caption: A warehouse and wheeled robot built by one Isaac MCP quick-start call (from the README).
+      caption: A warehouse and wheeled robot built by one twinsmith quick-start call (from the examples).
     gallery:
-      - file: images/isaac-mcp-ur5e-target.jpg
-        alt: Isaac Sim window showing a UR5e arm and RG2 gripper at a target pose commanded through Isaac MCP
-        caption: A UR5e driven to a target and back through Isaac MCP (Isaac Sim 6.2, from the README).
+      - file: images/twinsmith-ur5e-target.jpg
+        alt: Isaac Sim window showing a UR5e arm and RG2 gripper at a target pose commanded through twinsmith
+        caption: A UR5e driven to a target and back through twinsmith (Isaac Sim 6.2, windowed PhysX, from the examples).
 
   - slug: quadrotor-control
     name: Energy-Aware Prescribed-Time Quadrotor Control
@@ -284,7 +301,7 @@ projects:
       simulated: Sensor topics in RViz, AMCL localization, and Nav2 navigation to a goal, all with the simulated robot.
     limits: >-
       Simulation only, from a course lab. Not shown: a physical TurtleBot, measured accuracy or repeated
-      trials, or a mapping (SLAM) result. The public Nav2 goal examples in Isaac MCP use a Create 3, not
+      trials, or a mapping (SLAM) result. The public Nav2 goal examples in twinsmith use a Create 3, not
       this TurtleBot.
     credits: >-
       A course lab done with classmates. My part covered the Nav2 and AMCL setup, the Action Graphs, and

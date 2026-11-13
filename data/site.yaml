@@ -43,7 +43,7 @@ page_descriptions:
     quadrotors in Isaac Sim, Isaac Lab, and MuJoCo.
   projects: >-
     Robotics digital-twin projects by Kaleb Coleman: Unitree G1 locomotion, contact-rich UR5e assembly,
-    Isaac MCP, quadrotor control, and earlier data science work.
+    twinsmith, quadrotor control, and earlier data science work.
   skills: >-
     Technical skills of Kaleb Coleman: Isaac Sim, Isaac Lab, MuJoCo, ROS 2 and Nav2, PyTorch and
     reinforcement learning, Python, R, SQL, and data engineering.
@@ -162,10 +162,12 @@ research_items:
     summary: >-
       Runs in simulation: a UR5e assembly testbed in Isaac Sim 6.2 where a joint-strength model decides
       whether each connection holds. 21 of 29 catalogued structures complete. No real-robot trials yet.
-  - title: Isaac MCP
+  - title: twinsmith
     summary: >-
-      Pre-release open-source MCP server for Isaac Sim and Isaac Lab, built on Aldrin Inbaraj's omni-kit-mcp
-      and isaac-sim-mcp, so AI agents can build scenes, drive robots, and run training jobs.
+      Runs in simulation: an open-source MCP server (source version 0.3.0) for building and driving robot
+      simulations and digital twins in Isaac Sim and Isaac Lab. Newton (MuJoCo-Warp) is the default engine
+      for the scenes these tools build. The default tool list is 31 listed tools (15,178 estimated tokens),
+      down from 48 tools and about 28,450 estimated tokens before toolsets.
   - title: Energy-aware prescribed-time quadrotor control
     summary: >-
       Collaborating with John Lok, who led the controller development, on simulation research in MuJoCo.
