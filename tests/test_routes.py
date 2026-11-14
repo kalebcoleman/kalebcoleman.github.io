@@ -1,3 +1,4 @@
+import re
 import sys
 from html import escape
 import unittest
@@ -9,6 +10,9 @@ if str(PROJECT_ROOT) not in sys.path:
 
 import app as portfolio  # noqa: E402
 from app import HOME_LAYOUT, PAGE_DESCRIPTIONS, PROFILE, PROJECTS, SKILLS, STATUS_LABELS, app, home_sections  # noqa: E402
+
+# twinsmith's former name, in any case and with a hyphen, underscore or space; spelled as a pattern so the repository never contains it.
+OLD_PROJECT_NAME = re.compile(r"isaac[- _]mcp", re.IGNORECASE)
 
 
 class PortfolioRouteTests(unittest.TestCase):
@@ -224,8 +228,7 @@ class PortfolioRouteTests(unittest.TestCase):
         self.assertIn("15,178", html)
         self.assertIn("28,450", html)
         self.assertNotIn("129 tools", html)
-        self.assertNotIn("Isaac MCP", html)
-        self.assertNotIn("isaac-mcp", html)
+        self.assertIsNone(OLD_PROJECT_NAME.search(html))
         for label in STATUS_LABELS.values():
             self.assertIn(label, html)
         for project in PROJECTS:
@@ -234,8 +237,7 @@ class PortfolioRouteTests(unittest.TestCase):
         for route in ("/home", "/projects", "/skills", "/experience", "/contact"):
             page = self.client.get(route).get_data(as_text=True)
             with self.subTest(route=route):
-                self.assertNotIn("Isaac MCP", page)
-                self.assertNotIn("isaac-mcp", page)
+                self.assertIsNone(OLD_PROJECT_NAME.search(page))
                 self.assertNotIn("129 tools", page)
 
     def test_seo_description_reflects_current_work(self) -> None:
