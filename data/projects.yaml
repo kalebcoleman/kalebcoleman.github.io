@@ -171,19 +171,20 @@ projects:
     tagline: >-
       An MCP server for building and driving robot simulations and digital twins from an AI agent, on
       Isaac Sim and Isaac Lab. Newton (MuJoCo-Warp) is the default engine for the scenes these tools
-      build, and the default tool list is 31 listed tools (15,178 estimated tokens).
+      build, and only the 6 core tools are listed until you switch more toolsets on.
     summary: >-
       An MCP server that lets AI agents build and drive robot simulations and digital twins in NVIDIA
       Isaac Sim and Isaac Lab: scenes, robots, cameras and LiDAR, and Isaac Lab train, evaluate, and play
-      jobs. Newton (MuJoCo-Warp) is the default engine for the scenes these tools build; PhysX is opt-in,
-      and the UR5e work cell stays PhysX-only. It is the tooling I use to stand up and inspect simulated
+      jobs. Newton (MuJoCo-Warp) is the default engine for the scenes these tools build; PhysX is opt-in.
+      The UR5e work cell builds on either engine. It is the tooling I use to stand up and inspect simulated
       systems quickly.
     stack: [Python, MCP, Isaac Sim, Isaac Lab, Newton / MuJoCo-Warp, ROS 2]
     highlights:
       - >-
-        Switchable toolsets, plus a status tool that reports which are on. The default list is 31 listed
-        tools (15,178 estimated tokens), down from 48 tools and about 28,450 estimated tokens before
-        toolsets. Isaac Lab, ROS 2, the UR5e work cell, and RoboSimStudio stay off until enabled.
+        Switchable toolsets, plus a status tool that reports which are on. By default a client sees 6 listed
+        tools (about 1,586 estimated tokens); adding the simulator toolset brings it to 25 (about 12,213).
+        Isaac Lab, ROS 2, the UR5e work cell, RoboSimStudio, Graph-as-Policy skill graphs, the VABAR
+        benchmark, and desktop capture stay off until enabled.
       - >-
         External versioned asset packs: the repository ships no assets, and a version never changes. The
         lab UR5e Jenga work cell is a candidate and is not yet runtime-qualified. A RoboSimStudio bridge
@@ -208,8 +209,9 @@ projects:
         2.3.2. Newton is the default engine for scenes these tools build; Isaac Sim 5.1 is PhysX only.
         Every demo is simulation only.
       developing: >-
-        Source version 0.3.0. The UR5e Jenga work cell is a candidate and is not yet runtime-qualified
-        (Linux x86_64).
+        Source version 0.3.0, installed from source (the twinsmith 0.0.1 releases on PyPI and npm only
+        reserve the name). The UR5e Jenga work cell is a candidate and is not yet runtime-qualified; on
+        Newton its cameras and real-robot mirroring are not qualified yet (Linux x86_64).
       planned: Further robotics and learning workflows tracked in the repository open items.
     limits: >-
       Simulation only; no hardware deployment. The work cell is not a high-fidelity-qualified model.
@@ -263,18 +265,22 @@ projects:
     placeholder: Quadrotor · MuJoCo
 
   - slug: jenga-direction
-    name: Jenga-Playing Robot (Research Direction)
+    name: Jenga-Playing Robot (Thesis Direction)
     repo_name: With Dr. Wenlong Zhang · RISE Lab
     badge: Research direction
     tagline: >-
-      Where the contact-assembly work is heading: a robot that plays Jenga, possibly using model predictive
-      control or reinforcement learning. Not built yet.
+      My M.S. thesis direction: a real-to-sim-to-real UR5e that plays Jenga with a person, possibly using
+      model predictive control or reinforcement learning. Not built yet.
     summary: >-
-      A direction Dr. Wenlong Zhang and I are exploring: a Jenga-playing robot using approaches such as
-      model predictive control or reinforcement learning, with the UR5e contact-assembly testbed as a
-      starting point.
+      My M.S. thesis direction with Dr. Wenlong Zhang: a UR5e that plays Jenga with a person, moving from
+      the real cell to simulation and back (real-to-sim-to-real), using approaches such as model predictive
+      control or reinforcement learning. The contact-assembly testbed and twinsmith's UR5e Jenga work cell
+      are the simulation starting points.
     stack: [Manipulation, Contact-rich assembly, Simulation]
     highlights:
+      - >-
+        twinsmith includes a candidate UR5e Jenga work cell (Isaac Sim, Newton or PhysX); it is not yet
+        runtime-qualified.
       - "Related interests: drones, LiDAR, robotic perception, simulation, and robot learning."
     status:
       planned: Exploring approaches. There is no Jenga robot and no proven controller yet.
