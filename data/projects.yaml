@@ -301,8 +301,8 @@ projects:
       simulated: Sensor topics in RViz, AMCL localization, and Nav2 navigation to a goal, all with the simulated robot.
     limits: >-
       Simulation only, from a course lab. Not shown: a physical TurtleBot, measured accuracy or repeated
-      trials, or a mapping (SLAM) result. The public Nav2 goal examples in twinsmith use a Create 3, not
-      this TurtleBot.
+      trials, or a mapping (SLAM) result. twinsmith's public Nav2 examples separately record a simulated
+      TurtleBot3 Burger reaching a goal, with the final heading check relaxed.
     credits: >-
       A course lab done with classmates. My part covered the Nav2 and AMCL setup, the Action Graphs, and
       the checks. The TurtleBot3 scene came from the course handout.
