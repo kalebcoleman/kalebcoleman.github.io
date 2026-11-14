@@ -224,9 +224,9 @@ class PortfolioRouteTests(unittest.TestCase):
     def test_twinsmith_project_and_status_labels(self) -> None:
         html = self.client.get("/projects").get_data(as_text=True)
         self.assertIn("https://github.com/kalebcoleman/twinsmith", html)
-        self.assertIn("31 listed tools", html)
-        self.assertIn("15,178", html)
-        self.assertIn("28,450", html)
+        self.assertIn("1,586", html)
+        self.assertNotIn("15,178", html)
+        self.assertNotIn("PhysX-only", html)
         self.assertNotIn("129 tools", html)
         self.assertIsNone(OLD_PROJECT_NAME.search(html))
         for label in STATUS_LABELS.values():
@@ -374,7 +374,7 @@ class PortfolioRouteTests(unittest.TestCase):
         import hashlib
         data = (PROJECT_ROOT / "static" / "resume.pdf").read_bytes()
         self.assertTrue(data.startswith(b"%PDF"))
-        self.assertEqual(hashlib.sha256(data).hexdigest(), "3d1074e073a00f9dbe755f73d2a60d80efb5d2d66db7fa41b9664e17c9e20ddd")
+        self.assertEqual(hashlib.sha256(data).hexdigest(), "e00d4b5ece8d4ebcda0c847c15377a9c4c5743f035bce6f4fb4df7c4ebbeae77")
 
     def test_resume_links_resolve_to_the_pdf(self) -> None:
         for route in ("/home", "/projects", "/skills", "/experience", "/contact"):

@@ -63,6 +63,8 @@ Every project is one entry in [`data/projects.yaml`](data/projects.yaml). No Pyt
 
 Profile text, skills, experience, and education are in [`data/site.yaml`](data/site.yaml).
 
+The résumé source is [`resume/resume.html`](resume/resume.html). `resume/build.sh` prints it to `static/resume.pdf` with headless Chrome (Carlito font); then update the pinned hash in `tests/test_routes.py`.
+
 ## Deployment
 
 GitHub Settings → Pages → Source: **GitHub Actions**. Pushes to `master` run `.github/workflows/pages.yml`, which tests the Flask routes, exports static HTML and assets, and deploys the Pages artifact. Because the repository is named `kalebcoleman.github.io`, Pages serves it from the root of that domain. No Azure subscription, Flask server, or secrets are needed for Pages. The old Azure workflow is manual-only for rollback.

@@ -166,16 +166,17 @@ research_items:
     summary: >-
       Runs in simulation: an open-source MCP server (source version 0.3.0) for building and driving robot
       simulations and digital twins in Isaac Sim and Isaac Lab. Newton (MuJoCo-Warp) is the default engine
-      for the scenes these tools build. The default tool list is 31 listed tools (15,178 estimated tokens),
-      down from 48 tools and about 28,450 estimated tokens before toolsets.
+      for the scenes these tools build. Switchable toolsets keep the default list to 6 tools (about 1,586
+      estimated tokens), and the UR5e work cell builds on Newton or PhysX.
   - title: Energy-aware prescribed-time quadrotor control
     summary: >-
       Collaborating with John Lok, who led the controller development, on simulation research in MuJoCo.
       I reproduced an archived NMPC baseline and am working on a timing and validation study.
-  - title: Jenga-playing robot (direction)
+  - title: Jenga-playing robot (thesis direction)
     summary: >-
-      A research direction with Dr. Wenlong Zhang, possibly using model predictive control or reinforcement
-      learning. It is not built, and no controller has been shown.
+      My M.S. thesis direction with Dr. Wenlong Zhang: a real-to-sim-to-real UR5e that plays Jenga with a
+      person, possibly using model predictive control or reinforcement learning. It is not built, and no
+      controller has been shown.
 
 awards:
   - title: Best Visualization — NAU ASA DataFest 2026

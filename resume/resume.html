@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>resume.html</title>
+<style>
+  @page { size: letter; margin: 0.36in 0.5in 0.4in; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body { font-family: Carlito, Calibri, sans-serif; font-size: 10pt; line-height: 1.17; color: #111; }
+  a { color: inherit; text-decoration: none; }
+  header { text-align: center; margin-bottom: 0; }
+  h1 { font-size: 20pt; margin: 0; line-height: 1.15; color: #111; }
+  .contact a { color: #1a4f8b; }
+  h2 { font-size: 11pt; font-weight: 700; letter-spacing: 0.3pt; margin: 4pt 0 1.5pt; padding-bottom: 0.5pt; border-bottom: 0.8pt solid #333; }
+  p { margin: 0; }
+  .row { display: flex; justify-content: space-between; gap: 12pt; }
+  .row > span:last-child { white-space: nowrap; }
+  .entry { margin-top: 2pt; }
+  .entry:first-of-type { margin-top: 0; }
+  ul { margin: 0; padding-left: 12pt; }
+  li { margin: 0; }
+  .code { font-size: 9.4pt; }
+  em { font-style: italic; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Kaleb Coleman</h1>
+  <div class="contact"><a href="mailto:kaleb.a.coleman@gmail.com">kaleb.a.coleman@gmail.com</a></div>
+  <div class="contact"><a href="https://www.linkedin.com/in/kalebacoleman/">linkedin.com/in/kalebacoleman</a> | <a href="https://github.com/kalebcoleman">github.com/kalebcoleman</a> | <a href="https://kalebcoleman.github.io/">kalebcoleman.github.io</a></div>
+</header>
+
+<h2>SUMMARY</h2>
+<p>M.S. AI Engineering (Robotics) student at Arizona State University and RISE Lab researcher building digital twins of robotic systems (manipulators, humanoids, quadrotors, and mobile robots) in NVIDIA Isaac Sim, Isaac Lab, and MuJoCo, working toward sim-to-real. Background in data science and machine learning; current robotics results are simulation-based.</p>
+
+<h2>EDUCATION</h2>
+<div class="row"><span><b>M.S., Artificial Intelligence Engineering (Robotics)</b> | Arizona State University | RISE Lab</span><span>May 2028 (expected)</span></div>
+<div class="row"><span><b>B.S., Data Science; Cybersecurity Minor</b> | Northern Arizona University</span><span>May 2026</span></div>
+
+<h2>TECHNICAL SKILLS</h2>
+<p><b>Robotics and Simulation:</b> NVIDIA Isaac Sim, Isaac Lab, MuJoCo, Newton/MuJoCo-Warp, PhysX, USD, ROS 2 Humble, Nav2, AMCL, RMPflow, digital twins</p>
+<p><b>Learning and Control:</b> PyTorch, reinforcement learning (PPO, rsl_rl), NMPC evaluation, scikit-learn, PyGAM</p>
+<p><b>Programming, Data, and Tools:</b> Python, SQL, R, C, pandas, NumPy, PostgreSQL, SQLite, API ingestion, Model Context Protocol (MCP), Linux, Git, Docker</p>
+
+<h2>PROFESSIONAL EXPERIENCE</h2>
+<div class="row"><span><b>Information Systems Security Analyst Intern</b></span><span>Jun 2026 – Present</span></div>
+<p><em>Gila River Indian Community | Information Technology Department | Sacaton, AZ</em></p>
+<ul>
+  <li>Support tribal government cybersecurity across thousands of devices and IP addresses; configure endpoint, mobile security, and next-generation antivirus tools.</li>
+  <li>Monitor network and SaaS threats, investigate anomalies, and support phishing defense and secure remote troubleshooting.</li>
+  <li>Deliver security training for tribal government staff; contribute to an ongoing initiative to bring secure AI tools to the tribe.</li>
+</ul>
+
+<h2>RESEARCH AND PROJECTS</h2>
+<div class="entry">
+  <div class="row"><span><a href="https://github.com/kalebcoleman/contact-assembly-lab"><b>Contact Assembly Lab</b>: Contact-Rich Robotic Assembly Digital Twin (Isaac Sim 6.2)</a> <a class="code" href="https://github.com/kalebcoleman/contact-assembly-lab">[code]</a></span><span>Nov 2026 – Present</span></div>
+  <ul>
+    <li>Digital-twin testbed: a UR5e arm with an RG2 gripper assembles structures from interlocking parts while a joint-strength model decides at every physics step whether each connection holds, to study what a robot can assemble reliably and why builds fail.</li>
+    <li>Ported the upstream joint-strength simulator (BrickSim, CMU Intelligent Control Lab) to Isaac Sim 6.2 / Python 3.12 and added a weld-torque correction for PhysX 5.9’s CPU TGS solver, which misreported the loads the breakage model reads.</li>
+    <li>Built the assembly controller, a 29-structure catalog, deterministic and reproducible sweeps, failure analysis that separates physics, numerical, and controller failures, and a run dashboard. Simulation only; next steps are real-UR5e comparison and Jenga MPC/RL experiments.</li>
+  </ul>
+</div>
+<div class="entry">
+  <div class="row"><span><a href="https://github.com/kalebcoleman/g1-locomotion-lab"><b>G1 Locomotion Lab</b>: Unitree G1 Humanoid Training and Evaluation (Isaac Lab 3.0)</a> <a class="code" href="https://github.com/kalebcoleman/g1-locomotion-lab">[code]</a></span><span>Nov 2026 – Present</span></div>
+  <ul>
+    <li>Trained Isaac Lab’s G1 velocity task with PPO (rsl_rl) on Newton/MuJoCo-Warp physics: 1,024 environments, 1,500 iterations (36.9 million environment steps), one seed.</li>
+    <li>Built a scripted stand, walk, turn, and stop evaluation with random pushes across nine checkpoints; 237 of 256 simulated robots stayed up through the 24 s test (reruns: 231 and 233), plus push, friction, and terrain sweeps.</li>
+    <li>In progress: fall recovery and hand-over to walking, gated by joint, torque, self-penetration, and stance validity checks.</li>
+  </ul>
+</div>
+<div class="entry">
+  <div class="row"><span><a href="https://github.com/kalebcoleman/twinsmith"><b>twinsmith</b>: MCP Server for Robot Digital Twins (Isaac Sim, Isaac Lab, Newton)</a> <a class="code" href="https://github.com/kalebcoleman/twinsmith">[code]</a></span><span>Oct 2026 – Present</span></div>
+  <ul>
+    <li>Open-source MCP server for building and driving robot digital twins from AI agents (Claude Code, Codex, or any MCP client): build scenes, import robots and assets (USD, URDF, MJCF, SDF, meshes), run physics, read cameras and LiDAR, and train and evaluate Isaac Lab RL policies, with Newton (MuJoCo-Warp) as the default engine and PhysX opt-in.</li>
+    <li>Switchable toolsets (6 core tools listed by default), external versioned asset packs, a RoboSimStudio real-to-sim bridge, ROS 2 tools, and a candidate UR5e Jenga work cell. Source version 0.3.0, in active development.</li>
+  </ul>
+</div>
+<div class="entry">
+  <div class="row"><span><a href="https://kalebcoleman.github.io/projects/#quadrotor-control"><b>Energy-Aware Prescribed-Time Quadrotor Control</b></a> | Team project with John Lok</span><span>2026 – Present</span></div>
+  <ul>
+    <li>MuJoCo simulation research; John Lok led controller development. My part: team organization and presentations, reproducing an archived MuJoCo NMPC baseline on a lab PC, and an in-progress timing and validation study (20 ms budget, solver failures, modeled energy under compute contention). Hardware validation at the ASU Drone Studio is a planned next step.</li>
+  </ul>
+</div>
+<p class="entry"><a href="https://kalebcoleman.github.io/projects/#turtlebot3-ros2-lidar"><b>TurtleBot3 Navigation</b></a> (RAS 545, Nov 2026): Collaborated on a ROS 2 simulation lab integrating LiDAR, camera, odometry, and TF; configured AMCL localization and Nav2 with logged diagnostics.</p>
+<p class="entry"><a href="https://github.com/kalebcoleman/nau-capstone"><b>Cross-Sport Shot Analysis, NAU Capstone</b></a> (2025–2026): Built Python/SQL pipelines for approximately 3 million matched 2014–2024 NBA/NHL shot records, generalized additive models, and a Shot Difficulty Index; presented at NAU UGRADS.</p>
+<p class="entry"><a href="https://github.com/kalebcoleman/datafest-2026"><b>ASA DataFest 2026</b></a>: Best Visualization Award (team), NAU; early-signal analysis of high healthcare utilization with encounter pipelines, geographic clustering, and random-forest risk modeling.</p>
+</body>
+</html>
