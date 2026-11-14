@@ -193,7 +193,8 @@ class PortfolioRouteTests(unittest.TestCase):
         self.assertIn("not yet calibrated against hardware", text)
         self.assertIn("Everything here runs in simulation", text)
         self.assertIn("not a finished robot or a proven controller", text)
-        self.assertIn("use a Create 3, not this TurtleBot", text)
+        self.assertIn("separately record a simulated", text)
+        self.assertNotIn("use a Create 3, not this TurtleBot", text)
         self.assertIn("Nav2 navigates the simulated robot to a goal", text)
         self.assertIn("measured accuracy or repeated", text)
         # The TurtleBot3 card no longer says navigation or localization is not shown.
