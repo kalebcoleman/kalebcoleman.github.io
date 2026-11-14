@@ -374,7 +374,7 @@ class PortfolioRouteTests(unittest.TestCase):
         import hashlib
         data = (PROJECT_ROOT / "static" / "resume.pdf").read_bytes()
         self.assertTrue(data.startswith(b"%PDF"))
-        self.assertEqual(hashlib.sha256(data).hexdigest(), "3d1074e073a00f9dbe755f73d2a60d80efb5d2d66db7fa41b9664e17c9e20ddd")
+        self.assertEqual(hashlib.sha256(data).hexdigest(), "e00d4b5ece8d4ebcda0c847c15377a9c4c5743f035bce6f4fb4df7c4ebbeae77")
 
     def test_resume_links_resolve_to_the_pdf(self) -> None:
         for route in ("/home", "/projects", "/skills", "/experience", "/contact"):
