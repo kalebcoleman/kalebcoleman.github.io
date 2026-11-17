@@ -4,18 +4,17 @@
 profile:
   name: Kaleb Coleman
   email: kaleb.a.coleman@gmail.com
-  headline: Digital twins of robotic systems, from arms and humanoids to quadrotors
+  headline: Perception, simulation, and control for robot digital twins
   intro: >-
-    I am an M.S. AI Engineering (Robotics) student at ASU and a researcher in the RISE Lab. I build
-    simulation digital twins of robotic systems, including UR5e arms, a Unitree G1 humanoid, quadrotors,
-    and contact-rich assembly, in NVIDIA Isaac Sim, Isaac Lab, and MuJoCo. I came to robotics through
-    data science and machine learning.
+    I am an M.S. AI Engineering (Robotics) student at ASU and a researcher in the RISE Lab. I use real
+    UR5e wrist-camera recordings to reconstruct scenes in NVIDIA Isaac Sim, and I study quadrotor control
+    and Unitree G1 locomotion in simulation. I came to robotics through data science and machine learning.
   direction: >-
-    The twins here are the simulation side: physics models of real robots, with measured results and
-    written limits, not yet calibrated against hardware. The goal is sim-to-real, where data from the real
-    robot improves the model and the control. With Dr. Wenlong Zhang, I am exploring a Jenga-playing robot
-    that could use approaches such as model predictive control or reinforcement learning. That is a
-    research direction, not a finished robot or a proven controller.
+    What works today is the perception step: recorded wrist-camera views can be matched to part poses and
+    rebuilt in simulation. Taking a plan from that twin back to the physical robot is the longer-term goal
+    and is not yet shown. The twins are not yet calibrated against hardware. With Dr. Wenlong Zhang, I am
+    exploring a Jenga-playing robot that could use approaches such as model predictive control or
+    reinforcement learning. That is a research direction, not a finished robot or a proven controller.
   summary: >-
     Digital twins, simulation, and control research, grounded in data science, machine learning, and
     enterprise security experience.
@@ -28,8 +27,7 @@ profile:
   x_handle: "@kalebcoIeman"
   site_url: https://kalebcoleman.github.io/
   site_description: >-
-    Kaleb Coleman: ASU robotics student building digital twins of UR5e arms, a Unitree G1 humanoid, and
-    quadrotors in Isaac Sim, Isaac Lab, and MuJoCo.
+    Kaleb Coleman builds UR5e digital twins from wrist-camera data in Isaac Sim, with quadrotor control and Unitree G1 locomotion.
   # Social preview card (1200x630) and the text shown when a page is shared.
   og_image: images/og-card.jpg
   og_image_alt: >-
@@ -39,11 +37,9 @@ profile:
 # One description per page, used for the meta description and link previews.
 page_descriptions:
   home: >-
-    Kaleb Coleman: ASU robotics student building digital twins of UR5e arms, a Unitree G1 humanoid, and
-    quadrotors in Isaac Sim, Isaac Lab, and MuJoCo.
+    Kaleb Coleman builds UR5e digital twins from wrist-camera data in Isaac Sim, with quadrotor control and Unitree G1 locomotion.
   projects: >-
-    Robotics digital-twin projects by Kaleb Coleman: Unitree G1 locomotion, contact-rich UR5e assembly,
-    twinsmith, quadrotor control, and earlier data science work.
+    Projects by Kaleb Coleman: a UR5e digital twin in Isaac Sim, quadrotor trajectory control, Unitree G1 locomotion, and earlier data science work.
   skills: >-
     Technical skills of Kaleb Coleman: Isaac Sim, Isaac Lab, MuJoCo, ROS 2 and Nav2, PyTorch and
     reinforcement learning, Python, R, SQL, and data engineering.
@@ -57,7 +53,7 @@ page_descriptions:
 # Each group may carry an `evidence` link: either `url` (external) or `endpoint` (+ optional `anchor`).
 skills:
   - name: Robotics / Simulation
-    summary: Tools used to build and test digital twins of arms, a humanoid, and quadrotors.
+    summary: Tools used for wrist-camera perception, simulation in Isaac Sim, and control studies.
     items:
       - NVIDIA Isaac Sim
       - Isaac Lab
@@ -153,25 +149,26 @@ experience:
       coverage through reproducible data collection and reporting.
 
 research_items:
+  - title: twinsmith UR5e digital twin
+    summary: >-
+      Real UR5e wrist-camera clips are matched to part poses and rebuilt in Isaac Sim. The project cut mean
+      read-and-match time from 11.64 s to 5.63 s on 29 clips, with unchanged pose estimates. Sending a plan
+      back to the physical robot is not yet shown.
+  - title: Energy-aware prescribed-time quadrotor trajectory following
+    summary: >-
+      Team project with John Lok, who led controller development. My part is organization, presentations,
+      an NMPC baseline reproduction, and a timing study. The team's Nov 16, 2026 simulation update reports
+      205, 224, and 248 successes out of 300 for fixed inertia, torque term only, and full adaptation.
+      Nothing has flown.
   - title: Unitree G1 humanoid locomotion
     summary: >-
-      Runs in simulation: a G1 walking policy trained in Isaac Lab on Newton/MuJoCo-Warp. In the published
-      evaluation, 237 of 256 simulated robots stayed up through a 24-second pushed test. One policy, one
-      training seed; fall recovery is still in progress.
+      Simulation only. Fall-to-walk success was 51.6% (387 of 750) with the recovery checkpoint and
+      upper-body blend, against 28.7% (215 of 749) for the matched baseline. Walking: 237 of 256 stayed up
+      through a pushed test. One policy, one training seed.
   - title: Contact-rich robotic assembly
     summary: >-
       Runs in simulation: a UR5e assembly testbed in Isaac Sim 6.2 where a joint-strength model decides
       whether each connection holds. 21 of 29 catalogued structures complete. No real-robot trials yet.
-  - title: twinsmith
-    summary: >-
-      Runs in simulation: an open-source MCP server (source version 0.3.0) for building and driving robot
-      simulations and digital twins in Isaac Sim and Isaac Lab. Newton (MuJoCo-Warp) is the default engine
-      for the scenes these tools build. Switchable toolsets keep the default list to 6 tools (about 1,586
-      estimated tokens), and the UR5e work cell builds on Newton or PhysX.
-  - title: Energy-aware prescribed-time quadrotor control
-    summary: >-
-      Collaborating with John Lok, who led the controller development, on simulation research in MuJoCo.
-      I reproduced an archived NMPC baseline and am working on a timing and validation study.
   - title: Jenga-playing robot (thesis direction)
     summary: >-
       My M.S. thesis direction with Dr. Wenlong Zhang: a real-to-sim-to-real UR5e that plays Jenga with a

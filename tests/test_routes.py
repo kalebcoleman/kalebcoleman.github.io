@@ -132,14 +132,17 @@ class PortfolioRouteTests(unittest.TestCase):
     def test_home_leads_with_digital_twins_across_systems_and_keeps_older_work_below(self) -> None:
         home = self.client.get("/home").get_data(as_text=True)
         order = (
-            "Unitree G1 Humanoid Locomotion", "Contact-Rich Robotic Assembly Testbed", "twinsmith</h3>",
-            "Prescribed-Time Quadrotor Control", "TurtleBot3 ROS 2 Sensing and Nav2", "DataFest", "NBA Win Modeling",
+            "twinsmith</h3>", "Prescribed-Time Quadrotor Trajectory Following", "Unitree G1 Humanoid Locomotion",
+            "Contact-Rich Robotic Assembly Testbed", "TurtleBot3 ROS 2 Sensing and Nav2", "DataFest", "NBA Win Modeling",
         )
         for marker in order:
             self.assertIn(marker, home)
         positions = [home.index(marker) for marker in order]
         self.assertEqual(positions, sorted(positions))
-        self.assertEqual(HOME_LAYOUT["lead"], "g1-locomotion-lab")
+        self.assertEqual(HOME_LAYOUT["lead"], "twinsmith")
+        self.assertEqual([p["slug"] for p in PROJECTS if p.get("layout") != "feature"][:4], [
+            "twinsmith", "quadrotor-control", "g1-locomotion-lab", "contact-assembly-lab",
+        ])
         self.assertIn("237 of 256", home)
         for older in ("AI Multitool", "NAU Course Catalog Scraper", "NBA Shot Data Engineering Package", "Diffusion and Autoencoder Image Models"):
             self.assertNotIn(older, home)
@@ -181,6 +184,7 @@ class PortfolioRouteTests(unittest.TestCase):
         html = self.client.get("/projects").get_data(as_text=True)
         for marker in (
             "https://github.com/kalebcoleman/g1-locomotion-lab", "237 of 256", "231 and 233",
+            "51.6%", "387 of 750", "28.7%", "215 of 749", "docs/RESULTS.md",
             "one policy from one training seed", "not a new algorithm of mine",
         ):
             self.assertIn(marker, html)
@@ -205,7 +209,10 @@ class PortfolioRouteTests(unittest.TestCase):
         self.assertNotIn("closed-loop Nav2 navigation", text)
         self.assertNotIn("SUCCEEDED", text)
         self.assertNotIn("PCA", text)
-        self.assertNotIn("20 ms", text)
+        self.assertIn("50.6 ms", text)
+        self.assertIn("20 ms budget", text)
+        self.assertNotIn("within the 20 ms", text.lower())
+        self.assertNotIn("met the 20 ms", text.lower())
 
     def test_brick_framing_is_de_emphasized(self) -> None:
         for route in ("/home", "/projects", "/skills", "/experience", "/contact"):
@@ -335,7 +342,9 @@ class PortfolioRouteTests(unittest.TestCase):
             with self.subTest(gone=gone):
                 self.assertNotIn(gone, everything)
         self.assertNotIn("halma-ai", [project["slug"] for project in PROJECTS])
-        self.assertIn("Energy-Aware Prescribed-Time Quadrotor Control", pages["/projects"])
+        self.assertIn("Energy-Aware Prescribed-Time Quadrotor Trajectory Following", pages["/projects"])
+        self.assertIn("Nov 16, 2026", pages["/projects"])
+        self.assertIn("not a final report", pages["/projects"])
         self.assertIn("NMPC baseline reproduction", pages["/projects"])
         self.assertIn("A course lab done with classmates", pages["/projects"])
         # Brick wording survives only in the BrickSim credit.
@@ -374,7 +383,7 @@ class PortfolioRouteTests(unittest.TestCase):
         import hashlib
         data = (PROJECT_ROOT / "static" / "resume.pdf").read_bytes()
         self.assertTrue(data.startswith(b"%PDF"))
-        self.assertEqual(hashlib.sha256(data).hexdigest(), "e00d4b5ece8d4ebcda0c847c15377a9c4c5743f035bce6f4fb4df7c4ebbeae77")
+        self.assertEqual(hashlib.sha256(data).hexdigest(), "3f3428b19dfbfcf24103a449ebba6b705b64a6fd52d08caacc71845e9a2eccbe")
 
     def test_resume_links_resolve_to_the_pdf(self) -> None:
         for route in ("/home", "/projects", "/skills", "/experience", "/contact"):
