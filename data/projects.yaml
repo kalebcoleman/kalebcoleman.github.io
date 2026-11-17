@@ -20,11 +20,11 @@
 # Order here is the order on the Projects page. The home page is driven by home_layout.
 
 home_layout:
-  lead: g1-locomotion-lab
+  lead: twinsmith
   secondary:
-    - contact-assembly-lab
-    - twinsmith
     - quadrotor-control
+    - g1-locomotion-lab
+    - contact-assembly-lab
     - turtlebot3-ros2-lidar
   more_robotics:
     - jenga-direction
@@ -33,19 +33,133 @@ home_layout:
     - nba-win-modeling
 
 projects:
+  - slug: twinsmith
+    name: twinsmith
+    repo_name: twinsmith · open source
+    repo_url: https://github.com/kalebcoleman/twinsmith
+    badge: Runs in simulation
+    tagline: >-
+      Real UR5e wrist-camera recordings are matched to part poses and rebuilt in Isaac Sim. The project cut
+      mean read-and-match time from 11.64 s to 5.63 s on 29 clips, with the same pose estimates. Sending a
+      plan back to the physical robot is not yet shown.
+    summary: >-
+      A UR5e digital twin in NVIDIA Isaac Sim. Recorded wrist-camera views are matched to part poses and
+      rebuilt in simulation; the longer-term goal is to take a prediction or plan from that twin back to
+      the physical arm. That return trip is not validated. The same repository is the MCP server I use to
+      build and drive Isaac Sim and Isaac Lab scenes, with Newton (MuJoCo-Warp) as the default engine.
+    stack: [Python, MCP, Isaac Sim, Isaac Lab, Newton / MuJoCo-Warp, ROS 2]
+    highlights:
+      - >-
+        What works today: real wrist-camera clips are turned into pose estimates and rebuilt in Isaac Sim
+        on Newton. On one still clip of five loose parts, all five matched and the rebuilt scene settled by
+        at most 0.1 mm. That clip has no independent ground truth, and the colors were measured on the
+        same clip. Stacked and leaning arrangements are only partly solved.
+      - >-
+        The project cut mean single-process read-and-match time from 11.64 s to 5.63 s across 29 recorded
+        clips, with unchanged pose estimates on that set. This is a component benchmark, not a full
+        robot-cycle speedup. The merged change is pull request 152.
+      - >-
+        What is not shown: sending a plan from the twin back to the physical UR5e. The simulated assembly
+        that uses these estimates talks only to a simulator on the same machine. The MCP server (source
+        version 0.3.0) still lists 6 core tools by default (about 1,586 estimated tokens) until more
+        toolsets are switched on.
+    links:
+      - label: Scan-to-scene write-up
+        url: https://github.com/kalebcoleman/twinsmith/blob/main/exts/workcell/workcell/README.md#scan-to-scene
+      - label: Read-and-match benchmark
+        url: https://github.com/kalebcoleman/twinsmith/pull/152
+      - label: Toolsets
+        url: https://github.com/kalebcoleman/twinsmith/blob/main/docs/TOOLSETS.md
+    status:
+      simulated: >-
+        Pose estimates from recorded wrist-camera clips, rebuilt in Isaac Sim on Newton, and simulated
+        assembly that cannot command the physical arm. Documented builds include Isaac Sim 6.2.0.0 with
+        Isaac Lab 3.0.0.
+      developing: >-
+        Stacked, leaning, and occluded layouts, and any check of those poses against an independent
+        measurement. Source version 0.3.0, installed from source.
+      planned: >-
+        Taking a prediction or plan from the twin back to the physical UR5e. That real-to-sim-to-real loop
+        is not validated.
+    limits: >-
+      The full loop back to the robot is not shown. The 11.64 s to 5.63 s figure is read-and-match time
+      on 29 clips, not a whole cycle. The five-part real clip has no ground-truth poses. RoboSimStudio
+      compares images and does not fit mass or friction.
+    credits: >-
+      Grew out of work by Aldrin Inbaraj: the UR5e work cell began as a fork of his MIT-licensed
+      isaac-sim-mcp, and the bridge and client were first built on his omni-kit-mcp before being rewritten
+      here. The example robots and tasks belong to their owners, including NVIDIA's Isaac Lab and the
+      public Carter model. RoboSimStudio is a separate project.
+    image:
+      file: images/twinsmith-ur5e-target.jpg
+      alt: Isaac Sim window showing a UR5e arm and RG2 gripper at a target pose commanded through twinsmith
+      url: https://github.com/kalebcoleman/twinsmith
+    media:
+      kind: image
+      src: images/twinsmith-ur5e-target.jpg
+      width: 960
+      height: 600
+      alt: Isaac Sim window showing a UR5e arm and RG2 gripper at a target pose commanded through twinsmith
+      caption: >-
+        A simulated UR5e driven to a target through twinsmith. This frame is a commanded pose, not a
+        reconstruction from a real wrist-camera image.
+    gallery:
+      - file: images/twinsmith-warehouse.jpg
+        alt: Overhead view of a simulated warehouse with shelving racks, yellow aisle lines, and a small wheeled robot
+        caption: A warehouse and wheeled robot built by one twinsmith quick-start call (from the examples).
+
+  - slug: quadrotor-control
+    name: Energy-Aware Prescribed-Time Quadrotor Trajectory Following
+    repo_name: Team research · private repository
+    badge: Ongoing collaboration
+    tagline: >-
+      Team project with John Lok. The Nov 16, 2026 simulation update reports 205 of 300 fixed-inertia, 224
+      of 300 torque-term-only, and 248 of 300 full-adaptation successes on paired S500 flights. Hardware
+      tests are planned.
+    summary: >-
+      Team project with John Lok on energy-aware prescribed-time quadrotor trajectory following in MuJoCo.
+      John Lok led controller development. My part: team organization and presentations, reproducing an
+      archived MuJoCo NMPC baseline on a lab PC, and a timing and validation study. The flight counts below
+      are from the team's Nov 16, 2026 project update. They are simulation results, not a final report.
+      Hardware hover and tracking tests at the ASU Drone Studio are planned. Nothing has flown.
+    stack: [MuJoCo, NMPC baseline reproduction, S500 simulation, Prescribed-time control]
+    highlights:
+      - >-
+        Team Nov 16, 2026 project update, 300 paired randomized S500 simulations: 205 (68.3%) fixed inertia,
+        224 (74.7%) torque term only, and 248 (82.7%) full adaptation. A success does not crash, meets the
+        deadline test at the controller-certified deadline, and stays within 20 cm of the path afterward.
+        Six cases where that deadline fell after the flight ended count as failures.
+      - >-
+        Submitted Colab p95 control step was 50.6 ms, over a 20 ms budget. Separate desktop workstation
+        runs were 12.0–13.2 ms p95. A later Colab rerun was 39.2–42.0 ms. None of these is a real-time
+        guarantee.
+      - Reproduced the archived MuJoCo NMPC baseline on a lab PC, with matching telemetry and tracking tables.
+    status:
+      simulated: The Nov 16 S500 comparison and the NMPC baseline reproduction. Everything here is simulation.
+      developing: The Nov 16 project update with John Lok. There is no final report yet.
+      planned: Hardware hover and tracking tests at the ASU Drone Studio. Nothing has flown yet.
+    limits: >-
+      No flight tests and no measured battery savings. The 205, 224, and 248 counts are from the team's
+      Nov 16 simulation update, not a final or published report. The submitted Colab step missed a 20 ms budget.
+    credits: >-
+      Joint work with John Lok, who led controller development. Controller design and these results are the
+      team's. My part is organization, presentations, an NMPC baseline reproduction, and the timing study.
+    placeholder: Quadrotor · MuJoCo
+
   - slug: g1-locomotion-lab
     name: Unitree G1 Humanoid Locomotion
     repo_name: g1-locomotion-lab
     repo_url: https://github.com/kalebcoleman/g1-locomotion-lab
     badge: Runs in simulation
     tagline: >-
-      A simulated Unitree G1 humanoid trained to walk in Isaac Lab on Newton/MuJoCo-Warp physics. In the
-      published evaluation, 237 of 256 robots stayed up through a 24-second stand, walk, turn, and stop test
-      with random pushes.
+      In simulation, a recovery checkpoint and upper-body blend reached a 51.6% fall-to-walk success rate
+      across 750 trials, against 28.7% for the matched baseline with the same gate and blend. An earlier
+      walking test kept 237 of 256 robots up.
     summary: >-
-      Training and evaluating Unitree G1 locomotion in Isaac Lab with the Newton/MuJoCo-Warp physics backend.
-      The task, rewards, and PPO setup are Isaac Lab's; my work is the training run on Newton, a scripted
-      evaluation with pushes, a sweep across saved checkpoints, and a study of when and where robots fall.
+      Simulation study of a Unitree G1 in Isaac Lab on Newton/MuJoCo-Warp. A walking policy kept 237 of 256
+      robots up through a pushed test. A later fall-to-walk evaluation reached 51.6% with the recovery
+      checkpoint and upper-body blend, against 28.7% for the matched baseline. The task, rewards, and PPO
+      are Isaac Lab's.
     stack: [Isaac Lab 3.0, Newton / MuJoCo-Warp, PPO (rsl_rl), Unitree G1, Python]
     highlights:
       - >-
@@ -59,20 +173,29 @@ projects:
         push speed, and the flat-ground policy keeps at least 80% survival on a 19 degree downhill and a
         9 degree uphill.
       - >-
-        Getting back up after a fall is work in progress: the current baseline passes strict validity checks
-        on 68.2% of 256 held-out lying poses, and handing over from getting up to walking is the weak link.
+        Fall-to-walk, simulation only: 51.6% success (387 of 750 trials) with the recovery checkpoint and
+        upper-body blend, against 28.7% (215 of 749) for the matched baseline with the same gate and blend.
+        A fresh-seed repeat of the recovery run was 49.4%. The task, rewards, and PPO are upstream Isaac Lab
+        components.
     links:
+      - label: Results
+        url: https://github.com/kalebcoleman/g1-locomotion-lab/blob/main/docs/RESULTS.md
       - label: Walking write-up
         url: https://github.com/kalebcoleman/g1-locomotion-lab/blob/main/docs/WALKING.md
       - label: Evaluation protocol
         url: https://github.com/kalebcoleman/g1-locomotion-lab/blob/main/EVAL_PROTOCOL.md
     status:
-      simulated: A walking policy and its scripted 256-robot evaluation, on flat ground in Isaac Lab.
-      developing: Fall recovery and the hand-over from getting up to walking.
+      simulated: >-
+        A walking policy (237 of 256 through the pushed test) and a fall-to-walk evaluation (387 of 750)
+        on flat ground in Isaac Lab.
+      developing: >-
+        The fresh-seed fall-to-walk repeat was 49.4%. Counts are samples from one training lineage, not a
+        reliability claim.
       planned: Any hardware run. Nothing here has been tried on a physical G1.
     limits: >-
-      Simulation only, one policy from one training seed, with no repeats or confidence intervals. The
-      task, rewards, and PPO are upstream Isaac Lab components, not a new algorithm of mine.
+      Simulation only. Walking is one policy from one training seed. Fall-to-walk is 387 of 750 trials
+      against 215 of 749 for the matched baseline, not a hardware result. The task, rewards, and PPO are
+      upstream Isaac Lab components, not a new algorithm of mine.
     credits: >-
       Built on Isaac Lab (NVIDIA and contributors), the Unitree G1 model by Unitree Robotics, rsl_rl,
       Newton, and MuJoCo-Warp.
@@ -162,107 +285,6 @@ projects:
       - file: images/contact-assembly-dashboard.jpg
         alt: Dashboard grid listing all 29 catalogued structures with their simulation run results
         caption: The run dashboard listing all 29 catalogued structures and their simulation results.
-
-  - slug: twinsmith
-    name: twinsmith
-    repo_name: twinsmith · open source
-    repo_url: https://github.com/kalebcoleman/twinsmith
-    badge: Runs in simulation
-    tagline: >-
-      An MCP server for building and driving robot simulations and digital twins from an AI agent, on
-      Isaac Sim and Isaac Lab. Newton (MuJoCo-Warp) is the default engine for the scenes these tools
-      build, and only the 6 core tools are listed until you switch more toolsets on.
-    summary: >-
-      An MCP server that lets AI agents build and drive robot simulations and digital twins in NVIDIA
-      Isaac Sim and Isaac Lab: scenes, robots, cameras and LiDAR, and Isaac Lab train, evaluate, and play
-      jobs. Newton (MuJoCo-Warp) is the default engine for the scenes these tools build; PhysX is opt-in.
-      The UR5e work cell builds on either engine. It is the tooling I use to stand up and inspect simulated
-      systems quickly.
-    stack: [Python, MCP, Isaac Sim, Isaac Lab, Newton / MuJoCo-Warp, ROS 2]
-    highlights:
-      - >-
-        Switchable toolsets, plus a status tool that reports which are on. By default a client sees 6 listed
-        tools (about 1,586 estimated tokens); adding the simulator toolset brings it to 25 (about 12,213).
-        Isaac Lab, ROS 2, the UR5e work cell, RoboSimStudio, Graph-as-Policy skill graphs, the VABAR
-        benchmark, and desktop capture stay off until enabled.
-      - >-
-        External versioned asset packs: the repository ships no assets, and a version never changes. The
-        lab UR5e Jenga work cell is a candidate and is not yet runtime-qualified. A RoboSimStudio bridge
-        runs real-to-sim image comparisons in its own environment, with no Isaac Sim, and does not fit
-        mass or friction.
-      - >-
-        The examples are captures from live runs with a record of how each was made: a warehouse built in
-        one call, robots imported from public repositories, and a Unitree G1 walking policy trained
-        through the Isaac Lab tools. They illustrate the tools and are not benchmarks. The fuller G1
-        walking evaluation, 237 of 256 robots through a pushed test, is its own project: Unitree G1
-        Humanoid Locomotion.
-    links:
-      - label: Example prompts
-        url: https://github.com/kalebcoleman/twinsmith/blob/main/docs/EXAMPLES.md#things-you-can-ask
-      - label: Toolsets
-        url: https://github.com/kalebcoleman/twinsmith/blob/main/docs/TOOLSETS.md
-      - label: Compatibility matrix
-        url: https://github.com/kalebcoleman/twinsmith/blob/main/docs/COMPATIBILITY.md
-    status:
-      simulated: >-
-        Documented builds are Isaac Sim 6.2.0.0 with Isaac Lab 3.0.0 and Isaac Sim 5.1.0.0 with Isaac Lab
-        2.3.2. Newton is the default engine for scenes these tools build; Isaac Sim 5.1 is PhysX only.
-        Every demo is simulation only.
-      developing: >-
-        Source version 0.3.0, installed from source (the twinsmith 0.0.1 releases on PyPI and npm only
-        reserve the name). The UR5e Jenga work cell is a candidate and is not yet runtime-qualified; on
-        Newton its cameras and real-robot mirroring are not qualified yet (Linux x86_64).
-      planned: Further robotics and learning workflows tracked in the repository open items.
-    limits: >-
-      Simulation only; no hardware deployment. The work cell is not a high-fidelity-qualified model.
-      RoboSimStudio compares images and does not fit mass or friction.
-    credits: >-
-      Grew out of work by Aldrin Inbaraj: the UR5e work cell began as a fork of his MIT-licensed
-      isaac-sim-mcp, and the bridge and client were first built on his omni-kit-mcp before being rewritten
-      here. The example robots and tasks belong to their owners, including NVIDIA's Isaac Lab and the
-      public Carter model. RoboSimStudio is a separate project.
-    image:
-      file: images/twinsmith-warehouse.jpg
-      alt: Overhead view of a simulated warehouse with shelving racks, yellow aisle lines, and a small wheeled robot
-      url: https://github.com/kalebcoleman/twinsmith
-    media:
-      kind: image
-      src: images/twinsmith-warehouse.jpg
-      width: 949
-      height: 534
-      alt: >-
-        Overhead view of a simulated warehouse with rows of shelving racks holding boxes, yellow aisle
-        lines, and a small wheeled robot at the start of an aisle
-      caption: A warehouse and wheeled robot built by one twinsmith quick-start call (from the examples).
-    gallery:
-      - file: images/twinsmith-ur5e-target.jpg
-        alt: Isaac Sim window showing a UR5e arm and RG2 gripper at a target pose commanded through twinsmith
-        caption: A UR5e driven to a target and back through twinsmith (Isaac Sim 6.2, windowed PhysX, from the examples).
-
-  - slug: quadrotor-control
-    name: Energy-Aware Prescribed-Time Quadrotor Control
-    repo_name: Team research · private repository
-    badge: Ongoing collaboration
-    tagline: >-
-      Simulation research with John Lok on energy-aware prescribed-time quadrotor control. John led the
-      controller development; I reproduced an archived MuJoCo NMPC baseline and am working on timing and
-      validation.
-    summary: >-
-      Collaborative simulation research on energy-aware prescribed-time quadrotor control using a MuJoCo
-      test bench. John Lok led the controller development. My part: team organization and presentations,
-      reproducing an archived MuJoCo NMPC baseline on a lab PC, and a timing and validation study of
-      solver timing, solver failures, and modeled energy that is still in progress.
-    stack: [MuJoCo, NMPC baseline reproduction, Timing and validation, Simulation]
-    highlights:
-      - Reproduced the archived MuJoCo NMPC baseline results on a lab PC, with matching telemetry and tracking tables.
-      - "Timing and validation study: setup and an initial baseline are done; results are not yet available."
-    status:
-      simulated: Controller comparisons run in MuJoCo; everything here is simulation.
-      developing: Timing and validation study; a paper draft.
-      planned: Hardware validation at the ASU Drone Studio. Nothing has flown yet.
-    limits: No hardware tests, no completed timing target, and no new controller are claimed.
-    credits: Joint work with John Lok, who led the controller development.
-    placeholder: Quadrotor · MuJoCo
 
   - slug: jenga-direction
     name: Jenga-Playing Robot (Thesis Direction)

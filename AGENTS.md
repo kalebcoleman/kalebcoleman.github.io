@@ -72,3 +72,7 @@ The user requested GitHub Pages hosting. `.github/workflows/pages.yml` is the pr
 - Never link private repositories. The two-arm UR5e test (`rise-two-arm-research`) was removed from the site and made private in November 2026; do not re-add it. The image reconstruction project is an older coursework entry and stays last, off the home page.
 - The older sections above that describe `/1` to `/5` page content and the NBA gallery predate the current site; the numbered routes only redirect now.
 
+## November 2026: NVIDIA AV and robotics materials
+
+Project order on the résumé, home page, and projects page is twinsmith (UR5e wrist-camera reconstruction), the quadrotor study, Unitree G1, then contact assembly and the older work. The G1 fall-to-walk figures are the simulation counts in `g1-locomotion-lab` `docs/RESULTS.md` (51.6% of 750, baseline 28.7% of 749). Quadrotor success counts are the team's Nov 16, 2026 simulation update, not a final report: 205, 224, and 248 of 300. John Lok led controller development. Kaleb's stated part is organization, presentations, the NMPC baseline reproduction, and the timing study. Do not link private repositories or Drive files, and do not add a quadrotor comparison chart.
+

@@ -1,6 +1,6 @@
 # Kaleb Coleman Portfolio
 
-Portfolio site for my robotics work: simulation digital twins of robotic systems (Unitree G1 humanoid, UR5e contact-rich assembly, quadrotor control), twinsmith for building and driving those simulations in Isaac Sim and Isaac Lab, and earlier data science projects. Flask and Jinja render the pages for local development and for a static GitHub Pages export.
+Portfolio site for my robotics work: a UR5e digital twin in twinsmith (real wrist-camera recordings reconstructed in Isaac Sim; the return to the physical robot is not yet shown), energy-aware quadrotor trajectory following, Unitree G1 locomotion, contact-rich assembly, and earlier data science projects. Flask and Jinja render the pages for local development and for a static GitHub Pages export.
 
 ## Public website
 
