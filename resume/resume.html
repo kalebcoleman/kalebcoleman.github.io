@@ -4,21 +4,21 @@
 <meta charset="utf-8">
 <title>resume.html</title>
 <style>
-  @page { size: letter; margin: 0.36in 0.5in 0.4in; }
+  @page { size: letter; margin: 0.38in 0.5in 0.36in; }
   * { box-sizing: border-box; }
   html, body { margin: 0; padding: 0; }
-  body { font-family: Carlito, Calibri, sans-serif; font-size: 10pt; line-height: 1.17; color: #111; }
+  body { font-family: Carlito, Calibri, sans-serif; font-size: 10pt; line-height: 1.16; color: #111; }
   a { color: inherit; text-decoration: none; }
   header { text-align: center; margin-bottom: 0; }
   h1 { font-size: 20pt; margin: 0; line-height: 1.15; color: #111; }
   .contact a { color: #1a4f8b; }
-  h2 { font-size: 11pt; font-weight: 700; letter-spacing: 0.3pt; margin: 4pt 0 1.5pt; padding-bottom: 0.5pt; border-bottom: 0.8pt solid #333; }
+  h2 { font-size: 11pt; font-weight: 700; letter-spacing: 0.3pt; margin: 5pt 0 1.5pt; padding-bottom: 0.5pt; border-bottom: 0.8pt solid #333; }
   p { margin: 0; }
   .row { display: flex; justify-content: space-between; gap: 12pt; }
   .row > span:last-child { white-space: nowrap; }
-  .entry { margin-top: 2pt; }
+  .entry { margin-top: 2.5pt; }
   .entry:first-of-type { margin-top: 0; }
-  ul { margin: 0; padding-left: 12pt; }
+  ul { margin: 0; padding-left: 13pt; }
   li { margin: 0; }
   .code { font-size: 9.4pt; }
   em { font-style: italic; }
@@ -32,58 +32,57 @@
 </header>
 
 <h2>SUMMARY</h2>
-<p>M.S. AI Engineering (Robotics) student at Arizona State University and RISE Lab researcher working on perception, simulation, and control for robotic systems in NVIDIA Isaac Sim, Isaac Lab, and MuJoCo, toward sim-to-real. Background in data science and machine learning. Results below are simulation-based unless a real camera recording is named as the input.</p>
+<p>AI engineering M.S. student at Arizona State University combining data science, Python, and robotics simulation in NVIDIA Isaac Sim, Isaac Lab, and MuJoCo. My M.S. thesis is on digital twins that close real-to-sim and sim-to-real gaps in contact-rich manipulation, using Jenga as a testbed, possibly with a person.</p>
 
 <h2>EDUCATION</h2>
 <div class="row"><span><b>M.S., Artificial Intelligence Engineering (Robotics)</b> | Arizona State University | RISE Lab</span><span>May 2028 (expected)</span></div>
 <div class="row"><span><b>B.S., Data Science; Cybersecurity Minor</b> | Northern Arizona University</span><span>May 2026</span></div>
-
-<h2>TECHNICAL SKILLS</h2>
-<p><b>Robotics and Simulation:</b> NVIDIA Isaac Sim, Isaac Lab, MuJoCo, Newton/MuJoCo-Warp, PhysX, USD, RGB-D perception, ROS 2 Humble, Nav2, AMCL, RMPflow, digital twins</p>
-<p><b>Learning and Control:</b> PyTorch, reinforcement learning (PPO, rsl_rl), NMPC evaluation, scikit-learn, PyGAM</p>
-<p><b>Programming, Data, and Tools:</b> Python, SQL, R, C, pandas, NumPy, PostgreSQL, SQLite, API ingestion, Model Context Protocol (MCP), Linux, Git, Docker</p>
 
 <h2>PROFESSIONAL EXPERIENCE</h2>
 <div class="row"><span><b>Information Systems Security Analyst Intern</b></span><span>Jun 2026 – Present</span></div>
 <p><em>Gila River Indian Community | Information Technology Department | Sacaton, AZ</em></p>
 <ul>
   <li>Support tribal government cybersecurity across thousands of devices and IP addresses; configure endpoint, mobile security, and next-generation antivirus tools.</li>
-  <li>Monitor network and SaaS threats, investigate anomalies, and support phishing defense and secure remote troubleshooting.</li>
-  <li>Deliver security training for tribal government staff; contribute to an ongoing initiative to bring secure AI tools to the tribe.</li>
+  <li>Monitor network/SaaS threats, investigate anomalies, and support phishing defense and secure remote troubleshooting.</li>
+  <li>Deliver security training presentations for tribal government staff.</li>
+  <li>Contribute to an ongoing initiative to make secure AI tools available across the tribe.</li>
 </ul>
+
+<h2>TECHNICAL SKILLS</h2>
+<p><b>Robotics and Modeling:</b> NVIDIA Isaac Sim, Isaac Lab, MuJoCo, Newton/MuJoCo-Warp, ROS 2 Humble, Nav2, AMCL, USD, RMPflow, NMPC evaluation</p>
+<p><b>Programming and Data:</b> Python, SQL, R, C, JavaScript, pandas, NumPy, PostgreSQL, SQLite, API ingestion</p>
+<p><b>ML and Tools:</b> PyTorch, scikit-learn, PyGAM, PPO workflows, Model Context Protocol (MCP), Linux, Git, Docker</p>
 
 <h2>RESEARCH AND PROJECTS</h2>
 <div class="entry">
-  <div class="row"><span><a href="https://github.com/kalebcoleman/twinsmith"><b>twinsmith</b>: UR5e Digital Twin from Wrist-Camera Data (Isaac Sim)</a> <a class="code" href="https://github.com/kalebcoleman/twinsmith">[code]</a> <a class="code" href="https://github.com/kalebcoleman/twinsmith/pull/152">[benchmark]</a></span><span>Oct 2026 – Present</span></div>
+  <div class="row"><span><a href="https://github.com/kalebcoleman/twinsmith"><b>UR5e Digital Twin and Jenga Manipulation</b></a> <a class="code" href="https://github.com/kalebcoleman/twinsmith">[code]</a> <a class="code" href="https://github.com/kalebcoleman/twinsmith/pull/152">[benchmark]</a></span><span>Oct 2026 – Present</span></div>
   <ul>
-    <li>Match real UR5e wrist-camera recordings to part poses and rebuild the scene in Isaac Sim (Newton). On one still five-part clip, all five parts matched and the rebuild settled by at most 0.1 mm; stacked and leaning layouts are only partly solved, and that clip has no independent ground truth.</li>
-    <li>The project cut mean single-process read-and-match time from 11.64 s to 5.63 s across 29 recorded clips, with unchanged pose estimates on that set. That is a component benchmark, not a full robot-cycle speedup.</li>
-    <li>Simulated assembly that uses those estimates cannot command the physical arm. Taking a plan from the twin back to the robot is the goal and is not yet shown. The same repo is an MCP server (source 0.3.0) for Isaac Sim and Isaac Lab.</li>
+    <li>Reconstructed table scenes in Isaac Sim from real UR5e wrist-camera recordings and applied them to contact-rich Jenga manipulation in simulation.</li>
+    <li>Extended the scan matcher so mean read-and-match time fell from 11.64 s to 5.63 s across 29 recorded clips, with unchanged pose estimates (a component benchmark). Planned next step: carry a plan from the twin back to the physical UR5e.</li>
   </ul>
 </div>
 <div class="entry">
-  <div class="row"><span><a href="https://kalebcoleman.github.io/projects/#quadrotor-control"><b>Energy-Aware Prescribed-Time Quadrotor Trajectory Following</b></a> | Team project with John Lok</span><span>2026 – Present</span></div>
+  <div class="row"><span><a href="https://kalebcoleman.github.io/projects/#quadrotor-control"><b>Energy-Aware Prescribed-Time Quadrotor Trajectory Following</b></a> | with John Lok</span><span>2026 – Present</span></div>
   <ul>
-    <li>John Lok led controller development. My part: team organization and presentations, reproducing an archived MuJoCo NMPC baseline on a lab PC, and a timing and validation study. Hardware hover and tracking tests at the ASU Drone Studio are planned; nothing has flown.</li>
-    <li>Team Nov 16, 2026 project update (simulation, not a final report), 300 paired S500 flights: 205 fixed-inertia, 224 torque-term-only, and 248 full-adaptation successes. A success does not crash, meets the deadline test, and stays on the path afterward.</li>
-    <li>Submitted Colab p95 control step was 50.6 ms, over a 20 ms budget. Separate workstation runs were 12.0–13.2 ms p95, and a later Colab rerun was 39.2–42.0 ms. Not a real-time guarantee.</li>
+    <li>We evaluated an energy-aware prescribed-time controller on 300 paired S500 simulations: 205 fixed, 224 torque-term, and 248 full-adaptation successes (68.3% to 82.7%). Hardware tests at the ASU Drone Studio are planned.</li>
+    <li>A submitted Colab run had a 50.6 ms p95 control step against a 20 ms budget.</li>
   </ul>
 </div>
 <div class="entry">
-  <div class="row"><span><a href="https://github.com/kalebcoleman/g1-locomotion-lab"><b>G1 Locomotion Lab</b>: Unitree G1 in Isaac Lab</a> <a class="code" href="https://github.com/kalebcoleman/g1-locomotion-lab/blob/main/docs/RESULTS.md">[results]</a></span><span>Nov 2026 – Present</span></div>
+  <div class="row"><span><a href="https://github.com/kalebcoleman/contact-assembly-lab"><b>Contact Assembly Lab</b></a> <a class="code" href="https://github.com/kalebcoleman/contact-assembly-lab">[code]</a></span><span>Nov 2026 – Present</span></div>
   <ul>
-    <li>Fall-to-walk in simulation: 51.6% success (387 of 750 trials) with the recovery checkpoint and upper-body blend, against 28.7% (215 of 749) for the matched baseline with the same gate and blend.</li>
-    <li>Walking policy: 237 of 256 simulated robots stayed up through a 24 s pushed test (reruns 231 and 233), one training seed. No physical G1 runs.</li>
+    <li>Built a UR5e/RG2 contact-rich assembly testbed in Isaac Sim 6.2 on BrickSim (CMU); 21 of 29 catalogued structures complete in simulation. Planned next step: move the testbed into ROS 2.</li>
   </ul>
 </div>
 <div class="entry">
-  <div class="row"><span><a href="https://github.com/kalebcoleman/contact-assembly-lab"><b>Contact Assembly Lab</b>: Contact-Rich Assembly in Isaac Sim 6.2</a> <a class="code" href="https://github.com/kalebcoleman/contact-assembly-lab">[code]</a></span><span>Nov 2026 – Present</span></div>
+  <div class="row"><span><a href="https://github.com/kalebcoleman/g1-locomotion-lab/blob/main/docs/RESULTS.md"><b>Unitree G1 Locomotion</b></a> <a class="code" href="https://github.com/kalebcoleman/g1-locomotion-lab/blob/main/docs/RESULTS.md">[results]</a></span><span>Nov 2026 – Present</span></div>
   <ul>
-    <li>UR5e and RG2 testbed where a joint-strength model decides whether each connection holds. 21 of 29 catalogued structures complete in simulation. Ported the upstream simulator (BrickSim, CMU Intelligent Control Lab) to Isaac Sim 6.2 and corrected a PhysX 5.9 weld-torque misreport. No real-robot trials yet.</li>
+    <li>Evaluated fall-to-walk recovery in simulation: 51.6% success over 750 trials with the recovery checkpoint and upper-body blend, against a 28.7% matched baseline.</li>
   </ul>
 </div>
+<p class="entry"><a href="https://github.com/kalebcoleman/twinsmith"><b>Isaac Sim MCP</b></a>: Extended twinsmith (isaac-mcp), an MCP server for reusable Isaac Sim and Isaac Lab scenes, robot imports, cameras, and training workflows (2026–present).</p>
 <p class="entry"><a href="https://kalebcoleman.github.io/projects/#turtlebot3-ros2-lidar"><b>TurtleBot3 Navigation</b></a> (RAS 545, Nov 2026): Collaborated on a ROS 2 simulation lab integrating LiDAR, camera, odometry, and TF; configured AMCL localization and Nav2 with logged diagnostics.</p>
-<p class="entry"><a href="https://github.com/kalebcoleman/nau-capstone"><b>Cross-Sport Shot Analysis, NAU Capstone</b></a> (2025–2026): Built Python/SQL pipelines for approximately 3 million matched 2014–2024 NBA/NHL shot records, generalized additive models, and a Shot Difficulty Index; presented at NAU UGRADS.</p>
-<p class="entry"><a href="https://github.com/kalebcoleman/datafest-2026"><b>ASA DataFest 2026</b></a>: Best Visualization Award (team), NAU; early-signal analysis of high healthcare utilization with encounter pipelines, geographic clustering, and random-forest risk modeling.</p>
+<p class="entry"><a href="https://github.com/kalebcoleman/nau-capstone"><b>NAU Capstone</b></a> (2025–2026): Built Python/SQL pipelines for approximately 3 million NBA/NHL shot records, generalized additive models, and a Shot Difficulty Index; presented at UGRADS.</p>
+<p class="entry"><a href="https://github.com/kalebcoleman/datafest-2026"><b>Award:</b> NAU ASA DataFest 2026, Best Visualization Award (team).</a></p>
 </body>
 </html>
